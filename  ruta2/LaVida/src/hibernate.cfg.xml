@@ -1,0 +1,56 @@
+<!DOCTYPE hibernate-configuration PUBLIC
+    "-//Hibernate/Hibernate Configuration DTD 3.0//EN"
+    "http://www.hibernate.org/dtd/hibernate-configuration-3.0.dtd">
+
+<hibernate-configuration>
+
+    <session-factory> 
+    <property name="dialect">org.hibernate.dialect.PostgreSQLDialect</property>
+		<property name="connection.driver_class">org.postgresql.Driver</property>
+		<property name="hibernate.default_schema">public</property>
+		<property name="connection.url">jdbc:postgresql://localhost:5432/BDRuta2</property>
+		<property name="connection.username">postgres</property>
+		<property name="connection.password">postgres</property>		
+		<property name="cache.provider_class">org.hibernate.cache.HashtableCacheProvider</property>		
+		<property name="transaction.factory_class">org.hibernate.transaction.JDBCTransactionFactory</property>
+		<property name="connection.autocommit">true</property>
+		<property name="current_session_context_class">thread</property>
+		<property name="hibernate.show_sql">false</property>
+		<property name="hibernate.format_sql">false</property>
+		<property name="hibernate.hbm2ddl.auto">update</property>
+		
+		    
+	  <mapping class="Modelos.Alquiler"/>
+	  <mapping class="Modelos.Arrendatario"/>
+      <mapping class="Modelos.Avance"/>
+       <mapping class="Modelos.AvanceArrendatario"/>
+      <mapping class="Modelos.Beneficiario"/>
+      <mapping class="Modelos.Caja"/>
+      <mapping class="Modelos.CuentaAhorro"/>
+      <mapping class="Modelos.CuentaGeneral"/>
+      <mapping class="Modelos.CuentaAlquiler"/>
+      <mapping class="Modelos.CuentaFondoChoque"/> 
+      <mapping class="Modelos.CuentaIngresos"/>
+      <mapping class="Modelos.CuentaPrestamos"/>
+      <mapping class="Modelos.DetalleFactura"/>
+      <mapping class="Modelos.Deuda"/>
+      <mapping class="Modelos.Egresos"/> 
+      <mapping class="Modelos.Factura"/> 
+      <mapping class="Modelos.FondoChoque"/>
+      <mapping class="Modelos.FormaPago"/>
+      <mapping class="Modelos.Historial"/>
+      <mapping class="Modelos.Ingresos"/>
+      <mapping class="Modelos.Inquilino"/>
+      <mapping class="Modelos.Local"/>
+      <mapping class="Modelos.Prestamos"/>
+      <mapping class="Modelos.Ruta"/>
+      <mapping class="Modelos.Socio"/>
+      <mapping class="Modelos.Subsidio"/>
+      <mapping class="Modelos.VehiculoArrendatario"/>
+      <mapping class="Modelos.Vehiculo"/>
+      <mapping class="Modelos.Marca"/>
+ 
+           
+    </session-factory>
+
+</hibernate-configuration>
