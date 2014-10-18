@@ -63,7 +63,7 @@ public class ControladorArrendatario implements ActionListener {
 			   if(vArrendatario.Seleccion()==1)
 				   avance =  new ControladorAvance(vArrendatario);
 			   else if(vArrendatario.Seleccion()==2){}
-				 //  vehiculo= new ControladorVehiculo(vArrendatario);
+				   vehiculo= new ControladorVehiculo(vArrendatario);
 			}
 		}
 	}
@@ -98,7 +98,7 @@ public class ControladorArrendatario implements ActionListener {
 		} 
 		else {
 			
-			Integer codi = Integer.parseInt(vArrendatario.getTxtCedulaRif()); 
+			String codi = vArrendatario.getTxtCedulaRif(); 
 			System.out.println(arrenDao.encontrar(codi));
 			if (arrenDao.encontrar(codi)) { 
 				arren = arrenDao.buscarPorCedulaArrendatario(codi);
@@ -134,7 +134,7 @@ public class ControladorArrendatario implements ActionListener {
 		if (vArrendatario.CamposLlenos() == true) {
 			
 			Integer nro = Integer.parseInt(vArrendatario.getTxtCedulaRif());
-			arrenDao.encontrar(nro);
+			arrenDao.encontrar(nro.toString());
 			
 			arren.setCedula(vArrendatario.getTxtCedulaRif());
 			arren.setApellido(vArrendatario.getTxtApellido());

@@ -537,7 +537,13 @@ private static VistaVehiculo vVehic=null;
 			// si falta el año
 			JOptionPane.showMessageDialog(null, "Debe ingresar el número de puestos del vehículo",
 					"Error", 0);
-			this.txtAnno.requestFocus();
+			this.txtNroPuestos.requestFocus();
+			CamposLLenos = false;
+		} else if (this.cmbConductor.getSelectedItem().toString().equals("Seleccionar opción")) {
+			// si falta la marca
+			JOptionPane.showMessageDialog(null, "Debe ingresar el conductor del vehiculo",
+					"Error", 0);
+			this.cmbConductor.requestFocus();
 			CamposLLenos = false;
 			}
 			else {

@@ -18,6 +18,7 @@ import Modelos.Hibernate.Daos.AvanceDao;
 import Modelos.Hibernate.Daos.MarcaDao;
 import Modelos.Hibernate.Daos.SocioDao;
 import Modelos.Hibernate.Daos.VehiculoDao;
+import Vistas.VistaArrendatario;
 import Vistas.VistaAvance;
 import Vistas.VistaSocio;
 import Vistas.VistaVehiculo;
@@ -92,6 +93,28 @@ public class ControladorVehiculo implements ActionListener {
 		}
 			
 	}
+
+	public ControladorVehiculo(VistaArrendatario vArrendatario) {
+		// TODO Auto-generated constructor stub
+		vVehiculo = new VistaVehiculo();
+		vVehiculo = vVehiculo.obtenerInstancia();
+		vVehiculo.setLocationRelativeTo(null);
+		vVehiculo.setVisible(true);
+		vVehiculo.agregarListener(this);
+		vVehiculo.setTxtNroSocio(vArrendatario.llenarCodigo()); 
+		vVehiculo.setTxtNomSocio(vArrendatario.llenarNombre());
+
+	/*	try {
+			this.obtenerAvanceArren();
+			this.asignarCodArrend();
+			arrendatarioPrueba= va.GuardarArrendatario();
+		} catch (Exception e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}*/
+	
+	}
+
 
 	@Override
 	public void actionPerformed(ActionEvent a) {

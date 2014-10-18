@@ -118,15 +118,15 @@ private HibernateUtil sesionPostgres;
 	}
 	
 
-	public AvanceArrendatario buscarPorCodAvance(String codAvance) throws Exception {
-		for (AvanceArrendatario avance : obtenerTodos())
-			if (avance.getCodAvance().equals(codAvance))
-				return avance;
+	public AvanceArrendatario buscarPorCodAvanceArren(String codAvance) throws Exception {
+		for (AvanceArrendatario avanceA : obtenerTodos())
+			if (avanceA.getCodAvance().equals(codAvance))
+				return avanceA;
 		return null;
 	}
 
 	public boolean encontrar(String codAvance) throws Exception {
-		if (buscarPorCodAvance(codAvance) == null)
+		if (buscarPorCodAvanceArren(codAvance) == null)
 			return false;
 		return true;
 	}
