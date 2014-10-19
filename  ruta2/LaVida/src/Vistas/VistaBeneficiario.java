@@ -627,23 +627,6 @@ public void editar(){
 	}
 	
 	
-	public int filaSeleccionada(){
-			return tblListadoBenef.getSelectedColumn();
-	}
-	
-	public int filaSelec(){
-		 DefaultTableModel miTableModel = (DefaultTableModel) tblListadoBenef.getModel();
-	     int indFil = tblListadoBenef.getSelectedRow();
-	     return indFil;
-	}
-	
-	public void removerFila(){
-		 DefaultTableModel miTableModel = (DefaultTableModel) tblListadoBenef.getModel();
-	     int indFil = tblListadoBenef.getSelectedRow();
-	     if (indFil >= 0)
-	          miTableModel.removeRow(indFil);
-	}
-	
 	
 	
 	
@@ -664,7 +647,24 @@ public void editar(){
 		dtm.addRow(beneficiario);
 	}
 	
+	public void removerFila(){
+		 DefaultTableModel miTableModel = (DefaultTableModel) tblListadoBenef.getModel();
+	     int indFil = tblListadoBenef.getSelectedRow();
+	     if (indFil >= 0)
+	          miTableModel.removeRow(indFil);
+	}
 	
+	
+	public int filaSeleccionada(){
+		return tblListadoBenef.getSelectedRow()+1;
+	}
+	
+	public String cedula(){
+		String cedula;
+		DefaultTableModel miTableModel = (DefaultTableModel) tblListadoBenef.getModel();
+			cedula = (String) tblListadoBenef.getValueAt( this.filaSeleccionada(),0);
+		return cedula;
+	}
 	 public List<Beneficiario> LlenarListaBene()
 	 {
 		int fila= tblListadoBenef.getRowCount();
@@ -755,6 +755,7 @@ public void editar(){
 	public void agregarKey(KeyListener a) {
 		txtNroSocio.addKeyListener(a);
 		txtTelefono.addKeyListener(a);
+		txtCedulaRif.addKeyListener(a);
 	}
 	
 	private JPanel getJpImagen() {

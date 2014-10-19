@@ -35,6 +35,8 @@ public class Arrendatario implements Serializable{
 	private String status;
 	@Column(name="monto",nullable=false)
 	private Float monto;
+	@Column(name="TieneAvance", nullable=false)
+	private boolean tiene;
 	
 	@OneToOne(cascade= CascadeType.ALL)
 	@JoinColumn(name="codruta")
@@ -157,6 +159,14 @@ public class Arrendatario implements Serializable{
 
 	public void setAvances(List<AvanceArrendatario> avances) {
 		this.avances = avances;
+	}
+
+	public boolean isTiene() {
+		return tiene;
+	}
+
+	public void setTiene(boolean tiene) {
+		this.tiene = tiene;
 	}
 	
 	
