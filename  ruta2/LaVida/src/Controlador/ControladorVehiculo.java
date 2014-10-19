@@ -156,6 +156,7 @@ public class ControladorVehiculo implements ActionListener {
 		}
 		else if (a.getActionCommand().equalsIgnoreCase("Atras")) {
 			//	this.vVehiculo.setVisible(false);
+				vVehiculo.limpiarCampos();
 				vVehiculo.dispose();
 			
 		}
