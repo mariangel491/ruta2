@@ -787,5 +787,19 @@ private static VistaVehiculo vVehic=null;
 			 }
 			 return lblImagen;
 		 }
+		 
+		 
+		 public void CambiarNombrePanel(){
+				jpVehiculoxSocio.setBorder(BorderFactory.createTitledBorder("Listado de Vehiculo por Arrendatario"));
+				jpDatosSocio.setBorder(BorderFactory.createTitledBorder("Datos del Arrendatario"));
+				btnGuardar.setActionCommand("GuardarArrendatario");
+				btnBusSocio.setActionCommand("BuscarArrendatario");
+				btnAgregar.setActionCommand("AgregarVehiculoArrend");
+				lblNroSocio.setText("Código");
+				btnRS.setText("Registrar Arrendatario");
+				//btnRS.setActionCommand("RS");
+				
+				
+			}
 
 }

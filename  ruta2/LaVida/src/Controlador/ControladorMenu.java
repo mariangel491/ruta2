@@ -95,6 +95,13 @@ public class ControladorMenu implements ActionListener{
 			avance = new ControladorAvance(resp);
 	      
 		}
+		else if (ae.getActionCommand().equalsIgnoreCase("Vehiculo Arrendatario"))
+	    {
+	        //VistaArrendatario vArrendatario = new VistaArrendatario();
+			String resp= ae.getActionCommand();
+			vehiculo = new ControladorVehiculo(resp);
+	      
+		}
 		else if (ae.getActionCommand().equalsIgnoreCase("Factura"))
 	    {
 	        factura = new ControladorFactura();
@@ -114,7 +121,8 @@ public class ControladorMenu implements ActionListener{
 		}
 		else if (ae.getActionCommand().equalsIgnoreCase("Vehiculo"))
 	    {
-	        vehiculo = new ControladorVehiculo(socio);
+			String resp= ae.getActionCommand();
+	        vehiculo = new ControladorVehiculo(resp);
 		}
 		else if (ae.getActionCommand().equalsIgnoreCase("Prestamo"))
 	    {

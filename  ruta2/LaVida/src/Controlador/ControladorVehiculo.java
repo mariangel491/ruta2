@@ -61,7 +61,7 @@ public class ControladorVehiculo implements ActionListener {
 	ControladorAvance Cavance;
 	ControladorSocio Csocio;
 	
-	public ControladorVehiculo(ControladorSocio Csocio) {
+	public ControladorVehiculo(String resp) {
 		this.Csocio = Csocio;
 		vVehiculo = new VistaVehiculo();
 		vVehiculo = vVehiculo.obtenerInstancia();
@@ -75,6 +75,12 @@ public class ControladorVehiculo implements ActionListener {
 			e.printStackTrace();
 		}
 		vVehiculo.agregarListener(this);
+		
+			if(resp.equals("Vehiculo Arrendatario")){
+				vVehiculo.CambiarNombrePanel();
+				//this.asignarCodArrend();
+				
+			}
 	}
 	
 	
