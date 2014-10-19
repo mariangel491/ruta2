@@ -64,17 +64,7 @@ public class ControladorAvance implements ActionListener {
 		}
 	}
 	
-	/*public ControladorAvance(ControladorSocio Csocio) {
-		this.Csocio = Csocio;
-		vAvance = new VistaAvance();
-		vAvance = vAvance.obtenerInstancia();
-		vAvance.setLocationRelativeTo(null);
-		vAvance.setVisible(true);
-		vAvance.agregarListener(this);
-		vAvance.limpiarTablaAvances();
-		this.asignarCod();
-	}*/
-	
+
 	public ControladorAvance(VistaArrendatario va){
 		vAvance = new VistaAvance();
 		vAvance = vAvance.obtenerInstancia();
@@ -82,7 +72,7 @@ public class ControladorAvance implements ActionListener {
 		vAvance.setVisible(true);
 		vAvance.agregarListener(this);
 		vAvance.CambiarNombrePanel();
-		System.out.println(va.llenarNombre());
+		System.out.println(va.llenarNombre()+"que hay");
 		vAvance.setTxtNroSocio(va.llenarCodigo());
 		vAvance.setTxtNomSocio(va.llenarNombre());
 		

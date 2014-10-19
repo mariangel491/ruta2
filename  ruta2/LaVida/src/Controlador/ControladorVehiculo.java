@@ -10,13 +10,19 @@ import java.util.Vector;
 
 import javax.swing.JOptionPane;
 
+import Modelos.Arrendatario;
 import Modelos.Avance;
+import Modelos.AvanceArrendatario;
 import Modelos.Marca;
 import Modelos.Socio;
 import Modelos.Vehiculo;
+import Modelos.VehiculoArrendatario;
+import Modelos.Hibernate.Daos.ArrendatarioDao;
+import Modelos.Hibernate.Daos.AvanceArrendatarioDao;
 import Modelos.Hibernate.Daos.AvanceDao;
 import Modelos.Hibernate.Daos.MarcaDao;
 import Modelos.Hibernate.Daos.SocioDao;
+import Modelos.Hibernate.Daos.VehiculoArrendatarioDao;
 import Modelos.Hibernate.Daos.VehiculoDao;
 import Vistas.VistaArrendatario;
 import Vistas.VistaAvance;
@@ -33,17 +39,22 @@ public class ControladorVehiculo implements ActionListener {
 	
 	private VistaVehiculo vVehiculo;
 	protected VistaSocio vSocio;
-	//private VistaAvance vAcance;
 	
 	VehiculoDao vehiculoDao = new VehiculoDao();
 	Vehiculo vehiculo = new Vehiculo();
+	Arrendatario arrendatario= new Arrendatario();
 	private Socio socio = new Socio();
 	private Avance avan = new Avance();
+	Arrendatario arrendatarioPrueba= new Arrendatario();
 	
+	VehiculoArrendatario vehiArren= new VehiculoArrendatario();
 	private SocioDao socioDao = new SocioDao();
 	private MarcaDao marcaDao= new MarcaDao();
 	VehiculoDao vehDao= new VehiculoDao();
 	private AvanceDao avanceDao = new AvanceDao();
+	ArrendatarioDao arrenDao = new ArrendatarioDao();
+	AvanceArrendatarioDao avanceArrenDao = new AvanceArrendatarioDao();
+	VehiculoArrendatarioDao vehArrenDao = new VehiculoArrendatarioDao();
 	
 	private List<Avance> listaAvancesSocio=new ArrayList<>();
 
@@ -94,24 +105,35 @@ public class ControladorVehiculo implements ActionListener {
 			
 	}
 
-	public ControladorVehiculo(VistaArrendatario vArrendatario) {
+	public ControladorVehiculo(VistaArrendatario vA) {
 		// TODO Auto-generated constructor stub
 		vVehiculo = new VistaVehiculo();
 		vVehiculo = vVehiculo.obtenerInstancia();
 		vVehiculo.setLocationRelativeTo(null);
 		vVehiculo.setVisible(true);
 		vVehiculo.agregarListener(this);
-		vVehiculo.setTxtNroSocio(vArrendatario.llenarCodigo()); 
-		vVehiculo.setTxtNomSocio(vArrendatario.llenarNombre());
-
-	/*	try {
-			this.obtenerAvanceArren();
-			this.asignarCodArrend();
-			arrendatarioPrueba= va.GuardarArrendatario();
+		vVehiculo.limpiarCampos();
+		try {
+			vVehiculo.LlenarComboMarca();
+		} catch (Exception e1) {
+			// TODO Auto-generated catch block
+			e1.printStackTrace();
+		}
+		if (vA.Selec()==2){
+			vVehiculo.setTxtNroSocio(vA.llenarCodigo2()); 
+			vVehiculo.setTxtNomSocio(vA.llenarNombre2());
+			
+			vVehiculo.setCmbConductor(vA.llenarNombre2());
+		}
+			
+		try {
+			//this.obtenerAvanceArren();
+		//	this.asignarCodArrend();
+			arrendatarioPrueba= vA.GuardarArrendatario();
 		} catch (Exception e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
-		}*/
+		}
 	
 	}
 
@@ -133,7 +155,8 @@ public class ControladorVehiculo implements ActionListener {
 			vVehiculo.limpiarCampos();
 		}
 		else if (a.getActionCommand().equalsIgnoreCase("Atras")) {
-				this.vVehiculo.setVisible(false);
+			//	this.vVehiculo.setVisible(false);
+				vVehiculo.dispose();
 			
 		}
 		else if (a.getActionCommand().equalsIgnoreCase("Siguente")) {
@@ -524,7 +547,249 @@ public class ControladorVehiculo implements ActionListener {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
+	}
 		
+		///**************************** METODOS ARRENDATARIO-VEHICULO*************************************////
+		
+		
+		
+	public ArrayList<VehiculoArrendatario> obtenerVehiculoArren() throws Exception{
+			ArrayList<VehiculoArrendatario> listado = new ArrayList<VehiculoArrendatario>();
+			for(int i = 0; i < vehArrenDao.obtenerTodos().size(); i++)
+				if(vehArrenDao.obtenerTodos().get(i).getArrendatario().getCedula().equals(vVehiculo.getTxtNroSocio()))
+					listado.add(vehArrenDao.obtenerTodos().get(i));
+			
+			arrendatario.setVehiculos(listado);
+			this.cargarListadoDeVehiculosArren();
+			
+			return listado;
 	}
 	
+	public String traerNombreyApe1(List<VehiculoArrendatario> vehi, int posi) throws Exception {
+		
+		String avan="";
+		String codi = vehi.get(posi).getAvance();
+		
+		if(avanceArrenDao.encontrar(codi)){
+			AvanceArrendatario sera = avanceArrenDao.buscarPorCodAvanceArren(codi);
+			avan = sera.getNombre()+" "+sera.getApellido();
+		}
+		return avan;
+	}
+		
+		protected void cargarListadoDeVehiculosArren() throws Exception {
+			
+			
+			if(arrendatario.getVehiculos().size()>0)
+			{
+				List<VehiculoArrendatario> vehiculos = arrendatario.getVehiculos();
+				vVehiculo.limpiarTablaVehiculos();
+				for(int i=0; i<vehiculos.size(); i++)
+				{
+					String placa = vehiculos.get(i).getPlaca();
+					String serial = vehiculos.get(i).getSerialCarroceria();
+					String marca = vehiculos.get(i).getCodMarca().getDescripcion().toString();
+					Integer año = vehiculos.get(i).getAnno();
+					Integer nropstos= vehiculos.get(i).getNropuestos();
+					//String avance = vehiculos.get(i).getAvance();
+					
+				
+					String avance= this.traerNombreyApe1(vehiculos, i);
+						
+					//	String avance = vehiculos.get(i).getNombre()+" "+vehiculos.get(i).getAvance().getApellido();
+					
+					vVehiculo.agregarFila(placa, serial, marca, año.toString(),nropstos.toString(), avance);
+				}
+			}		
+		}
+		
+		
+		private void BuscarArrendatario() throws Exception {
+
+			// TODO Auto-generated method stub
+			if (vVehiculo.getTxtNroSocio().equals(null)) {
+
+				JOptionPane.showMessageDialog(null, "Debe llenar el campo codigo arrendatario", "Atención!", JOptionPane.ERROR_MESSAGE);
+			} 
+			else {
+				
+				String codi = vVehiculo.getTxtNroSocio(); 
+				if (arrenDao.encontrar(codi)) { 
+					arrendatario = arrenDao.buscarPorCedulaArrendatario(codi);
+
+					String codigo;
+					String nombre;
+
+					codigo = arrendatario.getCedula();
+					vVehiculo.setTxtNroSocio(codigo);
+
+					nombre = arrendatario.getNombre();
+					vVehiculo.setTxtNomSocio(nombre+" "+arrendatario.getApellido());
+					
+		
+				//	this.cargarListadoDeAvances();  // RECORDAR TRAERSE LA LISTA DE TODOOS LOS AVANCES DE ESE SOCIO.!!!!
+					this.obtenerVehiculoArren();
+				} else
+					JOptionPane.showMessageDialog(null, "El  arrendatario no existe", "Atención!", JOptionPane.ERROR_MESSAGE);
+			}
+		}
+		
+		
+		private void BuscarVehiculoArren() throws Exception {
+
+			// TODO Auto-generated method stub
+			if (vVehiculo.getTxtPlaca().equalsIgnoreCase("")) {
+
+				JOptionPane.showMessageDialog(null, "Debe llenar el campo placa del Vehiculo", "Atención!", JOptionPane.ERROR_MESSAGE);
+			} 
+			else {
+				
+				
+				if (vehArrenDao.encontrar(this.vVehiculo.getTxtPlaca())) { 
+				 vehiArren = vehArrenDao.buscarPorPlaca(vVehiculo.getTxtPlaca());
+
+					String codigo;
+					String nombre;
+					
+					String placa;
+					String serial;
+					Marca marca;
+					Integer año;
+					String avance;
+					
+
+					codigo = socio.getNroSocio();
+					vVehiculo.setTxtNroSocio(codigo);
+					nombre = socio.getNombre();
+					vVehiculo.setTxtNomSocio(nombre);
+					
+					placa = vehiculo.getPlaca();
+					vVehiculo.setTxtPlaca(placa);
+					serial = vehiculo.getSerialCarroceria();
+					vVehiculo.setTxtSerial(serial);
+					marca = vehiculo.getCodMarca();
+					vVehiculo.setCmbMarca(Integer.parseInt(marca.getCodMarca()));
+					año = vehiculo.getAnno();
+					vVehiculo.setTxtAnno(año.toString());
+					//avance = vehiculo.getAvance();
+					
+					this.BuscarAvances();
+				//	vVehiculo.eliminarConductores();
+					
+					//vVehiculo.setCmbConductor(Integer.parseInt(avance.getNombre()+avance.getApellido()));
+
+				} else
+					JOptionPane.showMessageDialog(null, "El vehiculo no existe", "Atención!", JOptionPane.ERROR_MESSAGE);
+			}
+		}
+		
+		public void BuscarAvancesArrendatario() throws Exception {
+			
+			AvanceArrendatario avan = new AvanceArrendatario();
+			
+			if (avanceDao.encontrarCod(vVehiculo.getTxtNroSocio())) {
+				avan = avanceArrenDao.buscarPorCodArrendatario(vVehiculo.getTxtNroSocio());
+				
+				vVehiculo.setCmbConductor(Integer.parseInt(avan.getNombre()+avan.getApellido()));
+				
+			}
+		}
+		
+		
+		private void agregarVehiculoArren() {
+			try {
+				
+				String placa = vVehiculo.getTxtPlaca();
+				String serial = vVehiculo.getTxtSerial();
+				int marca = vVehiculo.getCmbMarca();
+				Integer año = Integer.parseInt(vVehiculo.getTxtAnno());
+			//	int avance = vVehiculo.getCmbConductorInt();
+				Integer cant_puestos= Integer.parseInt(vVehiculo.getNroPuestos());
+				String avanceprueba= vVehiculo.getCmbConductor();
+				
+				VehiculoArrendatario vehiculo = new VehiculoArrendatario();
+				vehiculo.setPlaca(placa);
+				vehiculo.setSerialCarroceria(serial);
+				vehiculo.setCodMarca(marcaDao.obtenerTodos().get(marca));
+				vehiculo.setAnno(año);
+				vehiculo.setNropuestos(cant_puestos);
+					
+				for(int l=0; l<avanceArrenDao.obtenerTodos().size();l++){	
+					//veh.setAvance(this.guardarAvance(avan));
+						if(avanceprueba.equals(avanceArrenDao.obtenerTodos().get(l).getNombre()+" "+avanceArrenDao.obtenerTodos().get(l).getApellido()))
+						vehiculo.setAvance(avanceDao.obtenerTodos().get(l).getCodAvance());
+					}
+				arrendatario.getVehiculos().add(vehiculo); 
+				this.cargarListadoDeVehiculos();
+				
+				vVehiculo.eliminarConductorCombo();
+				vVehiculo.limpiarCamposVehiculo();
+			
+			} catch (Exception e) {
+				// Mensaje de Dialogo en caso de que ocurra cualquier otra excepcion
+				JOptionPane.showMessageDialog(null,e.toString());
+			}
+
+		}
+		
+		
+		private void registrarVehiculoArren() throws Exception {
+			System.out.println("registrando");
+			if (this.vVehiculo.CamposllenosSocio() == true) {
+
+				Arrendatario arren = new Arrendatario();		
+			//BUSCAR EL Arrendatario
+				String codi = vVehiculo.getTxtNroSocio();
+				
+					if(!arrenDao.encontrar(codi))
+					{
+						arrenDao.agregarArrendatario(arren);
+					}
+					arren = arrenDao.buscarPorCedulaArrendatario(codi);
+					
+				for(VehiculoArrendatario vehi : this.arrendatario.getVehiculos())
+				{
+					vehi.setArrendatario(arrendatario);
+					if(!vehArrenDao.encontrar(vehi.getPlaca()))
+						{
+							vehArrenDao.agregarVehiculoArren(vehi);
+						}
+				}			
+			} else
+				JOptionPane.showMessageDialog(null, "Debe llenar todos los campos", "Atención!", JOptionPane.ERROR_MESSAGE);
+		} 
+		
+		private void modificarVehiculoArren() throws Exception {
+			if (vVehiculo.CamposllenosSocio() == true) {
+				arrendatario.setNombre(vVehiculo.getTxtNomSocio());
+				String nro = vVehiculo.getTxtNroSocio();
+				arrenDao.encontrar(nro);
+				arrenDao.actualizarArrendatario(Integer.parseInt(nro), arrendatario);
+				for (VehiculoArrendatario a : arrendatario.getVehiculos()) {
+					a.setArrendatario(arrendatario);
+					if (!vehArrenDao.encontrar(a.getPlaca()))
+						vehArrenDao.agregarVehiculoArren(a);
+				}
+				JOptionPane.showMessageDialog(null, "Vehiculo Modificado con éxito");
+				vehiArren = new VehiculoArrendatario();
+				vVehiculo.limpiarCampos();
+				this.limpiarTodo();
+				//vgrupocola.enabledCampos(false);
+			} else
+				JOptionPane.showMessageDialog(null, "Debe llenar todos los campos");
+		}
+		
+		
+		private void limpiarTodo() {
+			vVehiculo.limpiarTablaVehiculos();
+			vehiculo = new Vehiculo();
+			vVehiculo.limpiarCampos();
+		}
+		
+	public void removerElementoArren(){
+			
+			if(vVehiculo.filaSeleccionada()>=0)
+				arrendatario.getVehiculos().remove(vVehiculo.filaSeleccionada());
+		}
 }
+	

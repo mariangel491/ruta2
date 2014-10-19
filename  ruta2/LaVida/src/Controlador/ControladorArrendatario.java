@@ -62,7 +62,7 @@ public class ControladorArrendatario implements ActionListener {
 			if(vArrendatario.CamposLlenos()==true) {
 			   if(vArrendatario.Seleccion()==1)
 				   avance =  new ControladorAvance(vArrendatario);
-			   else if(vArrendatario.Seleccion()==2){}
+			   else if(vArrendatario.Seleccion()==2)
 				   vehiculo= new ControladorVehiculo(vArrendatario);
 			}
 		}

@@ -376,9 +376,32 @@ public class VistaArrendatario extends javax.swing.JFrame {
 		
 		public String llenarNombre() {
 			VistaAvance vavance =new VistaAvance();
-		vavance.setTxtNomSocio(this.getTxtNombre());
+		vavance.setTxtNomSocio(this.getTxtNombre()+" "+this.getTxtApellido());
 		System.out.println(getTxtNombre());
 		return vavance.getTxtNombre();
+		}
+		
+		
+		public int Selec(){
+			if (this.Seleccion()==1){
+				return 1;
+			}else
+					return 2;
+				
+		}
+		
+		
+		public String llenarCodigo2() {
+			VistaVehiculo vvehiculo =new VistaVehiculo();
+		vvehiculo.setTxtNroSocio(this.getTxtCedulaRif());
+		return vvehiculo.getTxtNroSocio();
+		}
+		
+		public String llenarNombre2() {
+			VistaVehiculo vvehiculo =new VistaVehiculo();
+		vvehiculo.setTxtNomSocio(this.getTxtNombre()+" "+this.getTxtApellido());
+		System.out.println(getTxtNombre());
+		return vvehiculo.getTxtNomSocio();
 		}
 		
 		private JLabel getLblPregunta() {

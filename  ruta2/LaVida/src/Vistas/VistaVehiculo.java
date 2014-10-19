@@ -28,6 +28,7 @@ import javax.swing.SwingUtilities;
 import Modelos.Avance;
 import Modelos.Marca;
 import Modelos.Vehiculo;
+import Modelos.VehiculoArrendatario;
 import Modelos.Hibernate.Daos.AvanceDao;
 import Modelos.Hibernate.Daos.MarcaDao;
 import Modelos.Hibernate.Daos.VehiculoDao;
@@ -714,6 +715,58 @@ private static VistaVehiculo vVehic=null;
 		
 		return a;
 	}
+		 
+		 
+		 public List<VehiculoArrendatario> LlenarListaVehiculosArren()
+		 {
+			int fila= tblListadoVehiculo.getRowCount();
+			List<VehiculoArrendatario> v = new ArrayList<VehiculoArrendatario>();
+			String placa,serial,marca,anno,puestos,avance;
+			MarcaDao md= new MarcaDao();
+			VistaAvance va= new VistaAvance();
+			
+			for(int i=0; i<fila;i++)
+			{		
+					VehiculoArrendatario veh= new VehiculoArrendatario();
+					
+					placa=(String) tblListadoVehiculo.getValueAt(i, 0);
+					serial=(String) tblListadoVehiculo.getValueAt(i, 1);
+					marca=(String) tblListadoVehiculo.getValueAt(i, 2);
+					anno=(String) tblListadoVehiculo.getValueAt(i, 3);
+					puestos=(String) tblListadoVehiculo.getValueAt(i, 4);
+					avance=(String) tblListadoVehiculo.getValueAt(i, 5);
+								
+					veh.setPlaca(placa);
+					veh.setSerialCarroceria(serial);
+					//Setear la marca
+					try {
+						for(int j=0; j<md.obtenerTodos().size();j++)
+						{
+							if(veh.getCodMarca().getDescripcion().equals(marca))
+								veh.setCodMarca(md.obtenerTodos().get(i));
+						}
+					} catch (Exception e) {
+						// TODO Auto-generated catch block
+						e.printStackTrace();
+					}
+					veh.setAnno(Integer.parseInt(anno));
+					veh.setNropuestos(Integer.parseInt(puestos));
+					
+					for(int j=0; j< va.LlenarListaAvancesArren().size();j++)
+					{
+						if((va.LlenarListaAvancesArren().get(i).getNombre()+" "+
+								va.LlenarListaAvancesArren().get(i).getApellido()).equals(avance));
+						veh.setAvance(va.LlenarListaAvancesArren().get(i).getNombre()+" "+
+								va.LlenarListaAvancesArren().get(i).getApellido());
+					}
+					
+					
+					v.add(veh);		
+			}
+		
+		return v;
+	}
+		 
 		 
 		 private JPanel getJpImagen() {
 			 if(jpImagen == null) {
