@@ -51,7 +51,7 @@ public class Socio implements Serializable{
 	List<Prestamos> prestamos;
 	
 	@OneToMany(cascade= CascadeType.ALL)
-	@JoinColumn(name="codigosocio")
+	@JoinColumn(name="codsocio")
 	List<Beneficiario> beneficiarios;
 	
 	@OneToMany(cascade= CascadeType.ALL)

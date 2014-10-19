@@ -14,6 +14,8 @@ import javax.swing.JOptionPane;
 
 
 
+
+
 import Modelos.Beneficiario;
 import Modelos.Socio;
 import Modelos.Hibernate.Daos.BeneficiarioDao;
@@ -37,6 +39,7 @@ public class ControladorBeneficiario implements ActionListener, KeyListener {
 		Vbenef.agregarListener(this);
 		Vbenef.OcultarBotones();
 		Vbenef.Ocultar();
+		Vbenef.agregarKey(this);
 	}
 
 
@@ -55,7 +58,6 @@ public class ControladorBeneficiario implements ActionListener, KeyListener {
 		}else if(ae.getActionCommand().equalsIgnoreCase("Buscar")){
 			try {
 				this.BuscarBenef();
-				
 			} catch (Exception e) {
 				// TODO Auto-generated catch block
 				e.printStackTrace();
@@ -72,16 +74,11 @@ public class ControladorBeneficiario implements ActionListener, KeyListener {
 			
 
 		}else if(ae.getActionCommand().equalsIgnoreCase("EliminarBenef")){
-			System.out.println("si hace");
-			//if(Vbenef.filaSeleccionada()>0) {
-				
-				System.out.println("no hace");
-				try {
-					System.out.println("entro");
+							try {
+					this.ElimLogicoLista(Vbenef.cedula());		
 					Vbenef.removerFila();
-					System.out.println("eseseses");
-					this.removerElementoBeneficiario();
-					System.out.println("veamos");
+					this.removerElementoB();
+					
 				} catch (Exception e) {
 					// TODO Auto-generated catch block
 					e.printStackTrace();
@@ -222,20 +219,39 @@ public class ControladorBeneficiario implements ActionListener, KeyListener {
 		for (int i=0; i<benefDao.obtenerTodos().size(); i++){
 	      
 	        if (benefDao.obtenerTodos().get(i).getCedBeneficiario().equals(Vbenef.getTxtCedulaRif()))
-		   
 	        	  return i;
 		}
 		return -1;
 	 }
 	
+/*	public void EliminarBene(String ced) throws Exception
+	{	
+		boolean enc=false;
+		for (int i=0; i<benefDao.obtenerTodos().size(); i++){
+	        if (benefDao.obtenerTodos().get(i).getCedBeneficiario().equals(Vbenef.cedula()))
+	        {
+	        	enc=true;
+	        	System.out.println("beneficiario:  "+ benefDao.obtenerTodos().get(i).getCedBeneficiario());
+	        	benefDao.eliminarBeneficiario(benefDao.obtenerTodos().get(i));
+	        } 
+		}
+	
+	 }
+*/	
+	
+	private void ElimLogicoLista(String ced) throws Exception{{
+			 int posi= this.buscarBene(ced);		
+			 	benef=benefDao.buscarPorCedula(ced);
+				 benef.setStatus("Inactivo");
+				 benefDao.actualizarBeneficiario(posi, benef);
+	}}
+	
+	
 	public int buscarBene2 (String ced) throws Exception
 	{	
 		for (int i=0; i<benefDao.obtenerTodos().size(); i++){
-	      System.out.println("d la bd. "+benefDao.obtenerTodos().get(i).getCedBeneficiario());
-	    //  System.out.println("filaaa seleciionada:  "+Vbenef.filaSelec());
-	      System.out.println("de la tabla: "+socio.getBeneficiarios().get(Vbenef.filaSeleccionada()).getCedBeneficiario());
-	        if (benefDao.obtenerTodos().get(i).getCedBeneficiario().equals(socio.getBeneficiarios().get(Vbenef.filaSeleccionada()).getCedBeneficiario()))
-	      System.out.println("cedula bd:"+	benefDao.obtenerTodos().get(i).getCedBeneficiario());
+	        if (benefDao.obtenerTodos().get(i).getCedBeneficiario().equals(socio.getBeneficiarios().
+	        		get(Vbenef.filaSeleccionada()).getCedBeneficiario()))
 	        	  return i;
 		}
 		return -1;
@@ -274,6 +290,7 @@ public ArrayList<Beneficiario> obtenerBeneficiarios() throws Exception{
 	
 	for(int i = 0; i < benefDao.obtenerTodos().size(); i++)
 		if(benefDao.obtenerTodos().get(i).getSocio().getNroSocio().equals(Vbenef.getTxtNroSocio()))
+			if(benefDao.obtenerTodos().get(i).getStatus().equals("Activo"))
 				listado.add(benefDao.obtenerTodos().get(i));
 	
 	socio.setBeneficiarios(listado);
@@ -292,47 +309,31 @@ protected void cargarListadoDeBeneficiarios() throws Exception {
 		List<Beneficiario> benefi = socio.getBeneficiarios();
 		Vbenef.limpiarTablaBeneficiarios();
 		for(int i=0; i<benefi.size(); i++)
-		{
+		{	
 			String cedula = benefi.get(i).getCedBeneficiario();
 			String nombre = benefi.get(i).getNombre()+" "+benefi.get(i).getApellido();
 			Integer edad = benefi.get(i).getEdad();
 			String parentesco = benefi.get(i).getParentesco();
 			String direc = benefi.get(i).getDireccion();
-			Integer telefono = benefi.get(i).getTelefono();
-						
+			Integer telefono = benefi.get(i).getTelefono();			
 			
 			Vbenef.agregarFila(cedula, nombre, edad.toString(), parentesco, direc, telefono.toString());
-		}
-	}		
-}	
+		}		
+
+	}
+}
 	
 
+//OJOOOOOO
 public void removerElementoB(){
 	
 	if(Vbenef.filaSeleccionada()>=0)
 		socio.getBeneficiarios().remove(Vbenef.filaSeleccionada());
 }
 
-public void removerElementoBeneficiario() throws Exception{
-	
-	 String ced = socio.getBeneficiarios().get(Vbenef.filaSeleccionada()).getCedBeneficiario();
-	 int posi= this.buscarBene2(ced);	
-	 System.out.println(posi);
-	
-	if(Vbenef.filaSeleccionada()>=0){
-		System.out.println("fila :"+Vbenef.filaSeleccionada());
-		System.out.println(socio.getBeneficiarios().remove(Vbenef.filaSeleccionada()).getCedBeneficiario());
-		benefDao.encontrar(ced);
-		benefDao.buscarPorCedula(ced);
-		System.out.println(ced+"dedula");
-		System.out.println(benefDao.buscarPorCedula(ced).getCedBeneficiario());
-		System.out.println(ced.equals(benefDao.buscarPorCedula(ced).getCedBeneficiario()));
-		if(ced.equals(benefDao.buscarPorCedula(ced).getCedBeneficiario())){
-			System.out.println("no paso");
-			System.out.println("socio: "+ benefDao.buscarPorCedula(ced).getSocio().getNroSocio());
-			benefDao.eliminarBeneficiario(posi, benefDao.buscarPorCedula(ced));
-		}
-	}
+public void removerElementoBeneficiario(String ced) throws Exception{	
+	 	benef=benefDao.buscarPorCedula(ced);
+		benefDao.eliminarBeneficiario(benef);
 }
 
 	
@@ -438,13 +439,10 @@ public void removerElementoBeneficiario() throws Exception{
 		
 	}
 
-
 	@Override
 	public void keyReleased(KeyEvent e) {
 		// TODO Auto-generated method stub
-		
 	}
-
 
 	@Override
 	public void keyTyped(KeyEvent e) {

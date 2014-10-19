@@ -650,6 +650,7 @@ public void editar(){
 	public void removerFila(){
 		 DefaultTableModel miTableModel = (DefaultTableModel) tblListadoBenef.getModel();
 	     int indFil = tblListadoBenef.getSelectedRow();
+	     System.out.println((String) miTableModel.getValueAt(indFil, 0));
 	     if (indFil >= 0)
 	          miTableModel.removeRow(indFil);
 	}
@@ -660,10 +661,14 @@ public void editar(){
 	}
 	
 	public String cedula(){
-		String cedula;
-		DefaultTableModel miTableModel = (DefaultTableModel) tblListadoBenef.getModel();
-			cedula = (String) tblListadoBenef.getValueAt( this.filaSeleccionada(),0);
-		return cedula;
+		String a="null";
+		 DefaultTableModel miTableModel = (DefaultTableModel) tblListadoBenef.getModel();
+	     int indFil = tblListadoBenef.getSelectedRow();
+		 if(indFil>=0)   
+			a= (String) miTableModel.getValueAt(indFil, 0);
+		
+		 return a;
+	     
 	}
 	 public List<Beneficiario> LlenarListaBene()
 	 {
@@ -800,11 +805,6 @@ public void editar(){
 
 	public Integer calcularEdad(Date fecha){
 		   Date fechaA=new Date();
-		       
-		        //Se asigna la fecha recibida a la fecha de nacimiento.
-		        //Se restan la fecha actual y la fecha de nacimiento
-		      
-		        //Se ajusta el año dependiendo el mes y el día
 		    		int año=fechaA.getYear()-FechaNaci.getDate().getYear();
 		        	int mes= fechaA.getMonth()- this.FechaNaci.getDate().getMonth();
 		        	int dia= fechaA.getDay()- this.FechaNaci.getDate().getDay();

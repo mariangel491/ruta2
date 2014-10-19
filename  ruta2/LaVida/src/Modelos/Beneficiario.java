@@ -40,7 +40,7 @@ public class Beneficiario implements Serializable {
 	
 	
 	@OneToOne(cascade= CascadeType.ALL)
-	@JoinColumn(name="codigosocio")
+	@JoinColumn(name="codsocio")
 	private Socio socio;
 
 	

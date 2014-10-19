@@ -51,13 +51,13 @@ private HibernateUtil sesionPostgres;
 	}
 
 
-	public void eliminarBeneficiario(int posi, Beneficiario dato) throws Exception{		 
+	public void eliminarBeneficiario(Beneficiario dato) throws Exception{		 
 		@SuppressWarnings("static-access")
-		Session sesion = sesionPostgres.openSession();  
+		Session em = sesionPostgres.openSession();  
 		Transaction tx = null;  
 		try {  
-			tx = sesion.beginTransaction();  
-			sesion.delete(dato);  
+			tx = em.beginTransaction();  
+			em.delete(dato);  
 			tx.commit();  
        
 		} catch (Exception e) {  
@@ -65,7 +65,7 @@ private HibernateUtil sesionPostgres;
        
 			throw new Exception(e.getMessage(), e.getCause());
 		} finally {  
-			sesion.close();  
+			em.close();  
 		}  
 	}
 
@@ -116,7 +116,7 @@ private HibernateUtil sesionPostgres;
 		return true;
 	}
 	
-	public Beneficiario buscarPorSocio(String nroSocio) throws Exception {
+	/*public Beneficiario buscarPorSocio(String nroSocio) throws Exception {
 		for (Beneficiario beneficiario : obtenerTodos())
 			if (beneficiario.getSocio().equals(nroSocio))
 				return beneficiario;
@@ -127,6 +127,6 @@ private HibernateUtil sesionPostgres;
 		if (buscarPorCedula(nroSocio) == null)
 			return false;
 		return true;
-	}
+	}*/
 
 }
