@@ -31,6 +31,7 @@ public class ControladorMenu implements ActionListener{
 	ControladorFactura factura;
 	ControladorSubsidio controladorSubsidio;
 	
+	
 	//PARA LOS REPORTES
 	ControladorReporte controReporSocio;
 	
@@ -134,6 +135,11 @@ public class ControladorMenu implements ActionListener{
 		else if(ae.getActionCommand().equalsIgnoreCase("ReporteSocio"))
 		{
 			controReporSocio= new ControladorReporte();
+		}
+		else if(ae.getActionCommand().equalsIgnoreCase("CargarMontoSubsidio"))
+		{
+			System.out.println("boton subsidio");
+			controladorSubsidio = new ControladorSubsidio();
 		}
 	}
    

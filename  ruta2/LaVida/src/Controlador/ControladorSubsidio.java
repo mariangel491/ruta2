@@ -8,6 +8,7 @@ import Modelos.Socio;
 import Modelos.Subsidio;
 import Modelos.Hibernate.Daos.SocioDao;
 import Modelos.Hibernate.Daos.SubsidioDao;
+import Vistas.VistaAlquiler;
 import Vistas.VistaCargarIngresos;
 import Vistas.VistaCargarSubsidio;
 
@@ -20,8 +21,18 @@ public class ControladorSubsidio implements ActionListener {
 	private SubsidioDao subDao= new SubsidioDao();
 	Date fecha= new Date();
 	
+	/*
+	 * 	vAlquiler = new VistaAlquiler();
+		vAlquiler = VistaAlquiler.obtenerInstancia();
+		vAlquiler.setLocationRelativeTo(null);
+		vAlquiler.setVisible(true);
+		vAlquiler.agregarListener(this);
+		vAlquiler.agregarKey(this);
+		vAlquiler.agregarMouse(this);
+	 * */
 	public ControladorSubsidio() {
 		vcSub= new VistaCargarSubsidio();
+		vcSub= VistaCargarSubsidio;
 	}
 
 	@Override

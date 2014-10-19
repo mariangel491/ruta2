@@ -38,6 +38,7 @@ public class mnuPrincipal extends javax.swing.JFrame {
 	private JMenuItem itmVehiculo;
 	private JMenuItem itmSocio;
 	private JMenuItem itmPrestamo;
+	private JMenuItem mnuItmCargarSubsidio;
 	private JMenuItem itmAvanceArren;
 	private JMenuItem itemSub;
 	private JMenu mnuSubsidio;
@@ -210,6 +211,12 @@ public class mnuPrincipal extends javax.swing.JFrame {
 						Registrar.add(itmAvanceArren);
 						itmAvanceArren.setText("Avance Arrendatario");
 					}
+					{
+						mnuItmCargarSubsidio = new JMenuItem();
+						Registrar.add(mnuItmCargarSubsidio);
+						mnuItmCargarSubsidio.setText("Cargar Subsidio");
+						mnuItmCargarSubsidio.setActionCommand("CargarMontoSubsidio");
+					}
 				}
 				{
 					mnuConsulta = new JMenu();
@@ -264,6 +271,7 @@ public class mnuPrincipal extends javax.swing.JFrame {
 		 this.itmArrendatario.addActionListener(evento);
 		 this.itmAvanceArren.addActionListener(evento);
 		 this.itmReporteSocio.addActionListener(evento);
+		 this.mnuItmCargarSubsidio.addActionListener(evento);
 	}
 
 }
