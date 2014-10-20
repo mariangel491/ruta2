@@ -416,6 +416,17 @@ public void editar(){
 	
 }
 
+
+public void regresar(){
+	
+	this.btnModificar.setVisible(false);
+	this.cmbEstado.setVisible(false);
+	this.btnAgregar.setVisible(true);
+	this.lblEstado.setVisible(false);
+	
+}
+
+
 	
 	
 	

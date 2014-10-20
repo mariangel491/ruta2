@@ -119,6 +119,7 @@ public class ControladorVehiculo implements ActionListener {
 		vVehiculo.setVisible(true);
 		vVehiculo.agregarListener(this);
 		vVehiculo.limpiarCampos();
+		vVehiculo.CambiarNombrePanel();
 		try {
 			vVehiculo.LlenarComboMarca();
 		} catch (Exception e1) {
@@ -133,8 +134,7 @@ public class ControladorVehiculo implements ActionListener {
 		}
 			
 		try {
-			//this.obtenerAvanceArren();
-		//	this.asignarCodArrend();
+			this.obtenerVehiculoArren();
 			arrendatarioPrueba= vA.GuardarArrendatario();
 		} catch (Exception e) {
 			// TODO Auto-generated catch block
@@ -157,6 +157,31 @@ public class ControladorVehiculo implements ActionListener {
 				e.printStackTrace();
 			}
 		}
+	else if (a.getActionCommand().equalsIgnoreCase("BuscarArrendatario")) {
+		try {
+			this.BuscarArrendatario();
+		} catch (Exception e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+	}
+	else if (a.getActionCommand().equalsIgnoreCase("GuardarArrendatario")) {
+		try {
+			this.registrarVehiculoArren();
+		} catch (Exception e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		this.limpiarTodo();
+	
+	}else if (a.getActionCommand().equalsIgnoreCase("AgregarVehiculoArrend")) {
+		if (vVehiculo.CamposllenosSocio() && vVehiculo.CamposllenosVehiculo()) {
+			this.agregarVehiculoArren();
+			
+		} else
+			JOptionPane.showMessageDialog(null, "Debe llenar todos los campos del avance", "Atención!", JOptionPane.ERROR_MESSAGE);
+		
+	}
 		else if (a.getActionCommand().equalsIgnoreCase("Limpiar")) {
 			vVehiculo.limpiarCampos();
 		}
@@ -576,7 +601,10 @@ public class ControladorVehiculo implements ActionListener {
 		
 		String avan="";
 		String codi = vehi.get(posi).getAvance();
-		
+		VistaArrendatario vA = new VistaArrendatario();
+		if(vA.Selec()==2)
+			avan = vVehiculo.getCmbConductor();
+		else
 		if(avanceArrenDao.encontrar(codi)){
 			AvanceArrendatario sera = avanceArrenDao.buscarPorCodAvanceArren(codi);
 			avan = sera.getNombre()+" "+sera.getApellido();
@@ -721,13 +749,17 @@ public class ControladorVehiculo implements ActionListener {
 				vehiculo.setAnno(año);
 				vehiculo.setNropuestos(cant_puestos);
 					
+				if (avanceArrenDao.obtenerTodos().size()==0)
+					vehiculo.setAvance(avanceprueba);
+				else{
 				for(int l=0; l<avanceArrenDao.obtenerTodos().size();l++){	
 					//veh.setAvance(this.guardarAvance(avan));
 						if(avanceprueba.equals(avanceArrenDao.obtenerTodos().get(l).getNombre()+" "+avanceArrenDao.obtenerTodos().get(l).getApellido()))
 						vehiculo.setAvance(avanceDao.obtenerTodos().get(l).getCodAvance());
 					}
+				}
 				arrendatario.getVehiculos().add(vehiculo); 
-				this.cargarListadoDeVehiculos();
+				this.cargarListadoDeVehiculosArren();
 				
 				vVehiculo.eliminarConductorCombo();
 				vVehiculo.limpiarCamposVehiculo();

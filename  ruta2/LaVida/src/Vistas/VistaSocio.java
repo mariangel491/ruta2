@@ -161,7 +161,7 @@ private static VistaSocio vSocio=null;
 		if(btnRV == null) {
 			btnRV = new JButton();
 			btnRV.setText("Registrar Vehículo");
-			btnRV.setBounds(201, 84, 208, 29);
+			btnRV.setBounds(409, 84, 208, 29);
 			btnRV.setFont(new java.awt.Font("Century Gothic",0,12));
 		}
 		return btnRV;
@@ -171,7 +171,7 @@ private static VistaSocio vSocio=null;
 		if(btnRS == null) {
 			btnRS = new JButton();
 			btnRS.setText("Registrar Socio");
-			btnRS.setBounds(1, 84, 201, 29);
+			btnRS.setBounds(0, 84, 201, 29);
 			btnRS.setFont(new java.awt.Font("Century Gothic",0,12));
 		}
 		return btnRS;
@@ -181,7 +181,7 @@ private static VistaSocio vSocio=null;
 		if(btnRA == null) {
 			btnRA = new JButton();
 			btnRA.setText("Registrar Avance");
-			btnRA.setBounds(405, 84, 208, 29);
+			btnRA.setBounds(201, 84, 208, 29);
 			btnRA.setFont(new java.awt.Font("Century Gothic",0,12));
 		}
 		return btnRA;

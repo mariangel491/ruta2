@@ -92,6 +92,7 @@ public class ControladorBeneficiario implements ActionListener, KeyListener {
 		}else if(ae.getActionCommand().equalsIgnoreCase("Limpiar")){
 			Vbenef.limpiarCamposBenef();
 			Vbenef.limpiarCamposSocio();
+			Vbenef.regresar();
 			Vbenef.limpiarTablaBeneficiarios();
 			
 		}else if(ae.getActionCommand().equalsIgnoreCase("Modificar")){

@@ -292,7 +292,7 @@ private static VistaVehiculo vVehic=null;
 				btnLimpiar = new JButton();
 				getContentPane().add(btnLimpiar);
 				btnLimpiar.setText("Limpiar");
-				btnLimpiar.setBounds(237, 448, 115, 29);
+				btnLimpiar.setBounds(369, 448, 115, 29);
 				btnLimpiar.setFont(new java.awt.Font("Century Gothic",0,12));
 				btnLimpiar.setIcon(new ImageIcon(getClass().getClassLoader().getResource("Imagenes/Limpiarcodigo_1.png")));
 				btnLimpiar.setActionCommand("Limpiar");
@@ -300,17 +300,17 @@ private static VistaVehiculo vVehic=null;
 			{
 				btnSiguiente = new JButton();
 				getContentPane().add(btnSiguiente);
-				btnSiguiente.setText("Siguiente");
-				btnSiguiente.setBounds(502, 448, 115, 29);
+				btnSiguiente.setText("Cancelar");
+				btnSiguiente.setBounds(238, 448, 115, 29);
 				btnSiguiente.setFont(new java.awt.Font("Century Gothic",0,12));
-				btnSiguiente.setIcon(new ImageIcon(getClass().getClassLoader().getResource("Imagenes/sig.png")));
+				btnSiguiente.setIcon(new ImageIcon(getClass().getClassLoader().getResource("Imagenes/button_cancel_16x16.png")));
 				btnSiguiente.setActionCommand("Siguiente");
 			}
 			{
 				btnGuardar = new JButton();
 				getContentPane().add(btnGuardar);
 				btnGuardar.setText("Guardar");
-				btnGuardar.setBounds(370, 448, 115, 29);
+				btnGuardar.setBounds(503, 448, 115, 29);
 				btnGuardar.setFont(new java.awt.Font("Century Gothic",0,12));
 				btnGuardar.setIcon(new ImageIcon(getClass().getClassLoader().getResource("Imagenes/save.png")));
 				btnGuardar.setActionCommand("Guardar");
@@ -337,7 +337,7 @@ private static VistaVehiculo vVehic=null;
 				getContentPane().add(btnRA);
 				btnRA.setText("Registrar Avance");
 				btnRA.setFont(new java.awt.Font("Century Gothic",0,12));
-				btnRA.setBounds(483, 58, 241, 29);
+				btnRA.setBounds(241, 58, 243, 29);
 				btnRA.setActionCommand("RegistrarAvance");
 			}
 			{
@@ -346,7 +346,7 @@ private static VistaVehiculo vVehic=null;
 				getContentPane().add(getJpImagen());
 				btnRV.setText("Registrar Vehículo");
 				btnRV.setFont(new java.awt.Font("Century Gothic",0,12));
-				btnRV.setBounds(234, 58, 251, 29);
+				btnRV.setBounds(484, 58, 241, 29);
 				btnRV.setActionCommand("RegistrarVehiculo");
 			}
 			pack();
@@ -716,6 +716,15 @@ private static VistaVehiculo vVehic=null;
 		return a;
 	}
 		 
+		public String Nombre() {
+			String avan="";
+			 VistaArrendatario vA = new VistaArrendatario();
+				if(vA.Selec()==2)
+					avan = this.getCmbConductor();
+				return avan;
+		}
+		
+		 
 		 
 		 public List<VehiculoArrendatario> LlenarListaVehiculosArren()
 		 {
@@ -752,15 +761,23 @@ private static VistaVehiculo vVehic=null;
 					veh.setAnno(Integer.parseInt(anno));
 					veh.setNropuestos(Integer.parseInt(puestos));
 					
-					for(int j=0; j< va.LlenarListaAvancesArren().size();j++)
-					{
-						if((va.LlenarListaAvancesArren().get(i).getNombre()+" "+
-								va.LlenarListaAvancesArren().get(i).getApellido()).equals(avance));
-						veh.setAvance(va.LlenarListaAvancesArren().get(i).getNombre()+" "+
-								va.LlenarListaAvancesArren().get(i).getApellido());
-					}
 					
+					 VistaArrendatario vA = new VistaArrendatario();
+					 //	String avan="";
+						if(vA.Selec()==2) 
+							veh.setAvance(getCmbConductor());
+						
+						else {
+				
+							for(int j=0; j< va.LlenarListaAvancesArren().size();j++)
+							{
+								if((va.LlenarListaAvancesArren().get(i).getNombre()+" "+
+										va.LlenarListaAvancesArren().get(i).getApellido()).equals(avance));
+								veh.setAvance(va.LlenarListaAvancesArren().get(i).getNombre()+" "+
+										va.LlenarListaAvancesArren().get(i).getApellido());
+							}
 					
+				}
 					v.add(veh);		
 			}
 		

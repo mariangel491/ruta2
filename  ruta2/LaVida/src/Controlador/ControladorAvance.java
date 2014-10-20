@@ -41,7 +41,6 @@ public class ControladorAvance implements ActionListener {
 	AvanceArrendatario avanceArrend= new AvanceArrendatario();
 	Socio socioprueba= new Socio();
 	Arrendatario arrendatarioPrueba= new Arrendatario();
-	//private ControladorSocio Csocio; 
 	ControladorVehiculo vehiculo;
 	
 	public ControladorAvance(String resp) {
@@ -73,9 +72,10 @@ public class ControladorAvance implements ActionListener {
 		vAvance.agregarListener(this);
 		vAvance.CambiarNombrePanel();
 		System.out.println(va.llenarNombre()+"que hay");
+		if (va.Selec()==1){
 		vAvance.setTxtNroSocio(va.llenarCodigo());
 		vAvance.setTxtNomSocio(va.llenarNombre());
-		
+		}
 		try {
 			this.obtenerAvanceArren();
 			this.asignarCodArrend();
@@ -112,17 +112,16 @@ public class ControladorAvance implements ActionListener {
 	}
 
 	//PARA GENERAR EL CODIGO AUTOMÁTICAMENTE
-	public void asignarCod(){
-		Integer nro_avances;
+	public String asignarCod(){
+		Integer nro_avances=0;
 	
 		try {
 			nro_avances= avanceDao.obtenerTodos().size()+1;
-			vAvance.setTxtCodAvance("A"+nro_avances.toString());
 		} catch (Exception e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
-					
+				return "A"+nro_avances.toString();	
 	}
 	
 	
@@ -158,7 +157,8 @@ public class ControladorAvance implements ActionListener {
 			this.limpiarTodo();
 		}
 		else if (a.getActionCommand().equalsIgnoreCase("Cancelar")) {
-			//vAvance.cerrarVentana();
+			vAvance.cerrarVentana();
+			vSocio.cerrarVentana();
 			try {
 				this.registrarAvanceSocio();
 			} catch (Exception e) {
@@ -174,22 +174,17 @@ public class ControladorAvance implements ActionListener {
 				e.printStackTrace();
 			}
 		}
-		else if (a.getActionCommand().equalsIgnoreCase("Guardar")) {
+		else if (a.getActionCommand().equalsIgnoreCase("Siguiente")) {
 			//vAvance.LlenarListaAvancesPrueba();
 			if(vAvance.CamposllenosSocio() ==true){
 				vehiculo =  new ControladorVehiculo(vAvance);
 			}
-			/*try {
-				this.registrarSocio();
-			} catch (Exception e) {
-				// TODO Auto-generated catch block
-				e.printStackTrace();
-			}*/
+			
 		}
 		else if (a.getActionCommand().equalsIgnoreCase("Agregar Avance")) {
 			if (this.vAvance.CamposllenosAvance()) {
 				this.agregarAvanceSocio();
-				this.asignarCod();
+				//this.asignarCod();
 				
 			} else
 				JOptionPane.showMessageDialog(null, "Debe llenar todos los campos del avance", "Atención!", JOptionPane.ERROR_MESSAGE);
@@ -197,7 +192,7 @@ public class ControladorAvance implements ActionListener {
 		}else if (a.getActionCommand().equalsIgnoreCase("AgregarAvanceArrend")) {
 			if (this.vAvance.CamposllenosAvance()) {
 				this.agregarAvanceArren();
-				this.asignarCodArrend();
+			//	this.asignarCodArrend();
 				
 			} else
 				JOptionPane.showMessageDialog(null, "Debe llenar todos los campos del avance", "Atención!", JOptionPane.ERROR_MESSAGE);
@@ -215,32 +210,6 @@ public class ControladorAvance implements ActionListener {
 	}
 
 	
-	/*protected void cargarListadoDeAvances() throws Exception {
-		if (avanceDao.obtenerTodos().size() > 0) {
-			List<Avance> avances = avanceDao.obtenerTodosxSocio(this.mostrar());
-			vAvance.setListado(new vTablaAvance(avances)); // cargar la tabla
-		}
-	}*/
-	
-	/*protected void cargarListadoDeAvances() throws Exception {
-		if (avanceDao.obtenerTodos().size() > 0) {
-			if (vAvance.getTxtNroSocio() == avance.getSocio().getNroSocio() ){
-				
-			List<Avance> avances = avanceDao.obtenerTodosxSocio(this.mostrar());
-			vAvance.setListado(new vTablaAvance(avances)); // cargar la tabla
-			}
-		}
-	}*/
-	
-	/*private void cargarListado() throws Exception {
-		List<Avance> aux = this.obtenerAvance();
-		if (aux.size() > 0) {
-			List<Avance> actores = 
-			vAvance.setListado(new vTablaAvance(actores)); // cargar la tabla
-																// en como en
-																// los reportes
-		}
-	}*/
 	
 	protected void cargarListadoDeAvances() throws Exception {		
 		String cod, apellido, nombre,ced, direccion, fecha="";
@@ -280,12 +249,6 @@ public class ControladorAvance implements ActionListener {
 	}
 	
 
-	/*public boolean mostrar()
-	{
-		if (vAvance.getTxtNroSocio() == avance.getSocio().getNroSocio() )
-			return true;
-		else return false;
-	}*/
 	
 	private void BuscarSocio() throws Exception {
 
@@ -322,13 +285,13 @@ public class ControladorAvance implements ActionListener {
 	private void BuscarAvanceSocio() throws Exception {
 
 		// TODO Auto-generated method stub
-		if (vAvance.getTxtCodAvance().equalsIgnoreCase("")) {
+		if (vAvance.getTxtCedula().equalsIgnoreCase("")) {
 
-			JOptionPane.showMessageDialog(null, "Debe llenar el campo Código de Avance", "Atención!", JOptionPane.ERROR_MESSAGE);
+			JOptionPane.showMessageDialog(null, "Debe llenar el campo Cedula de Avance", "Atención!", JOptionPane.ERROR_MESSAGE);
 		} 
 		else {
 			
-			String cod = vAvance.getTxtCodAvance();
+			String cod = vAvance.getTxtCedula();
 			if (avanceDao.encontrar(cod)) { 
 				avance = avanceDao.buscarPorCodAvance(cod);
 
@@ -353,14 +316,13 @@ public class ControladorAvance implements ActionListener {
 				vAvance.setTxtNombre(nom);
 				ape = avance.getApellido();
 				vAvance.setTxtApellido(ape);
-				ced = avance.getCedula();
-				vAvance.setTxtCedula(ced);
+				/*ced = avance.getCedula();
+				vAvance.setTxtCedula(ced);*/
 				dire = avance.getDireccion();
 				vAvance.setTxtDireccion(dire);
 				telef = avance.getTelefono();
 				vAvance.setTxtTelefono(telef.toString());
 				
-			//	this.cargarListadoDeAvances();
 			} else
 				JOptionPane.showMessageDialog(null, "El avance no existe", "Atención!", JOptionPane.ERROR_MESSAGE);
 		}
@@ -375,7 +337,7 @@ public class ControladorAvance implements ActionListener {
 			String apellido = vAvance.getTxtApellido();
 			Integer telefono = Integer.parseInt(vAvance.getTxtTelefono());
 			String direccion = vAvance.getTxtDireccion();
-			String codAvance = vAvance.getTxtCodAvance();
+		//	String codAvance = vAvance.getTxtCodAvance();
 			Date fecha= new Date();
 			
 			Avance avance = new Avance();
@@ -384,7 +346,7 @@ public class ControladorAvance implements ActionListener {
 			avance.setApellido(apellido);
 			avance.setDireccion(direccion);
 			avance.setTelefono(telefono);
-			avance.setCodAvance(codAvance); //debe generarse auto..??
+			avance.setCodAvance(this.asignarCod()); //debe generarse auto..??
 			avance.setFechaIngreso(fecha);
 			
 			socio.getAvances().add(avance);
@@ -449,6 +411,7 @@ public class ControladorAvance implements ActionListener {
 			for(Avance avan : this.socio.getAvances())
 			{
 				avan.setSocio(socio);
+				avan.setCodAvance(this.asignarCod());
 				if(!avanceDao.encontrar(avan.getCodAvance()))
 					{
 						avanceDao.agregarAvance(avan);
@@ -461,15 +424,15 @@ public class ControladorAvance implements ActionListener {
 	
 	/////***********************METODOS ARRENDATARIO-AVANCE**************************///
 	
-	public void asignarCodArrend(){
-		Integer nro_avances;
+	public String asignarCodArrend(){
+		Integer nro_avances=0;
 		try {
 			nro_avances = avanceArrenDao.obtenerTodos().size()+1;
-			vAvance.setTxtCodAvance("C"+nro_avances.toString());
 		} catch (Exception e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
+		return "C"+nro_avances.toString();
 		
 	}
 	
@@ -518,7 +481,6 @@ public class ControladorAvance implements ActionListener {
 			String apellido = vAvance.getTxtApellido();
 			Integer telefono = Integer.parseInt(vAvance.getTxtTelefono());
 			String direccion = vAvance.getTxtDireccion();
-			String codAvance = vAvance.getTxtCodAvance();
 			Date fecha= new Date();
 			
 			AvanceArrendatario avance = new AvanceArrendatario();
@@ -527,7 +489,7 @@ public class ControladorAvance implements ActionListener {
 			avance.setApellido(apellido);
 			avance.setDireccion(direccion);
 			avance.setTelefono(telefono);
-			avance.setCodAvance(codAvance); //debe generarse auto..??
+			avance.setCodAvance(this.asignarCodArrend()); //debe generarse auto..??
 			avance.setFechaIngreso(fecha);
 			
 			arrendatario.getAvances().add(avance);
@@ -577,13 +539,13 @@ public class ControladorAvance implements ActionListener {
 	private void BuscarAvanceArren() throws Exception {
 
 		// TODO Auto-generated method stub
-		if (vAvance.getTxtCodAvance().equalsIgnoreCase("")) {
+		if (vAvance.getTxtCedula().equalsIgnoreCase("")) {
 
 			JOptionPane.showMessageDialog(null, "Debe llenar el campo Código de Avance", "Atención!", JOptionPane.ERROR_MESSAGE);
 		} 
 		else {
 			
-			String cod = vAvance.getTxtCodAvance();
+			String cod = vAvance.getTxtCedula();
 			if (avanceArrenDao.encontrar(cod)) { 
 				avanceArrend = avanceArrenDao.buscarPorCodAvanceArren(cod);
 
@@ -602,10 +564,7 @@ public class ControladorAvance implements ActionListener {
 				vAvance.setTxtNomSocio(nombre+" "+ avanceArrend.getArrendatario().getApellido());
 				
 				
-				codi = avanceArrend.getCodAvance();
-				vAvance.setTxtCodAvance(codi);
-				/*fecha = avanceArrend.getFechaIngreso();
-				vAvance.*/
+				//codi = avanceArrend.getCodAvance();
 				nom = avanceArrend.getNombre();
 				vAvance.setTxtNombre(nom);
 				ape = avanceArrend.getApellido();

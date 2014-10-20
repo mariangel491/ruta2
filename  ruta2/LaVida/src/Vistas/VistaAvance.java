@@ -54,7 +54,7 @@ public class VistaAvance extends javax.swing.JFrame {
 	private JButton btnAgregar;
 	private JButton btnEliminarAvance;
 	private JButton btnCancelar;
-	private JButton btnModificar;
+	private JButton btnSiguiente;
 	private JButton btnGuardar;
 	private JButton btnBuscarSocio;
 	private JButton btnLimpiar;
@@ -70,13 +70,11 @@ public class VistaAvance extends javax.swing.JFrame {
 	private JTextField txtTelefono;
 	private JLabel lblApellido;
 	private JLabel lblNombre;
-	private JTextField txtCodAvance;
 	private JLabel lblImagen;
 	private JPanel jpImagen;
 	private JButton btnRV;
 	private JButton btnRA;
 	private JButton btnRS;
-	private JLabel lblCodAvance;
 	private JLabel lblAvance;
 
 	/**
@@ -126,82 +124,70 @@ private static VistaAvance vAvance=null;
 				jpAvance.setBounds(12, 181, 295, 248);
 				jpAvance.setBorder(BorderFactory.createTitledBorder("Datos del Avance"));
 				{
-					lblCodAvance = new JLabel();
-					jpAvance.add(lblCodAvance);
-					lblCodAvance.setText("Código de Avance: ");
-					lblCodAvance.setBounds(17, 18, 126, 16);
-					lblCodAvance.setFont(new java.awt.Font("Verdana",0,12));
-				}
-				{
-					txtCodAvance = new JTextField();
-					jpAvance.add(txtCodAvance);
-					txtCodAvance.setBounds(149, 15, 91, 23);
-				}
-				{
 					lblNombre = new JLabel();
 					jpAvance.add(lblNombre);
 					lblNombre.setText("Nombre:");
-					lblNombre.setBounds(17, 46, 62, 16);
+					lblNombre.setBounds(17, 59, 62, 16);
 					lblNombre.setFont(new java.awt.Font("Verdana",0,12));
 				}
 				{
 					txtNombre = new JTextField();
 					jpAvance.add(txtNombre);
-					txtNombre.setBounds(91, 43, 187, 23);
+					txtNombre.setBounds(91, 56, 187, 23);
 				}
 				{
 					lblApellido = new JLabel();
 					jpAvance.add(lblApellido);
 					lblApellido.setText("Apellido:");
-					lblApellido.setBounds(17, 74, 62, 16);
+					lblApellido.setBounds(17, 90, 62, 16);
 					lblApellido.setFont(new java.awt.Font("Verdana",0,12));
 				}
 				{
 					txtApellido = new JTextField();
 					jpAvance.add(txtApellido);
-					txtApellido.setBounds(91, 71, 187, 23);
+					txtApellido.setBounds(91, 87, 187, 23);
 				}
 				{
 					lblCedula = new JLabel();
 					jpAvance.add(lblCedula);
 					lblCedula.setText("Cédula:");
-					lblCedula.setBounds(17, 104, 62, 16);
+					lblCedula.setBounds(17, 30, 62, 16);
 					lblCedula.setFont(new java.awt.Font("Verdana",0,12));
 				}
 				{
 					txtCedula = new JTextField();
 					jpAvance.add(txtCedula);
-					txtCedula.setBounds(91, 99, 187, 23);
+					txtCedula.setBounds(89, 26, 134, 23);
 				}
 				{
 					lblDireccion = new JLabel();
 					jpAvance.add(lblDireccion);
 					lblDireccion.setText("Dirección:");
-					lblDireccion.setBounds(17, 144, 69, 15);
+					lblDireccion.setBounds(17, 134, 69, 15);
 					lblDireccion.setFont(new java.awt.Font("Verdana",0,12));
 				}
 				{
 					txtDireccion = new JTextField();
 					jpAvance.add(txtDireccion);
-					txtDireccion.setBounds(91, 127, 187, 50);
+					txtDireccion.setBounds(91, 117, 187, 50);
 				}
 				{
 					lblTelefono = new JLabel();
 					jpAvance.add(lblTelefono);
 					lblTelefono.setText("Teléfono:");
-					lblTelefono.setBounds(17, 185, 62, 16);
+					lblTelefono.setBounds(17, 178, 62, 16);
 					lblTelefono.setFont(new java.awt.Font("Verdana",0,12));
 				}
 				{
 					txtTelefono = new JTextField();
 					jpAvance.add(txtTelefono);
-					txtTelefono.setBounds(91, 182, 187, 23);
+					txtTelefono.setBounds(91, 175, 187, 23);
 				}
 				{
 					btnAgregar = new JButton();
 					jpAvance.add(btnAgregar);
 					btnAgregar.setText("Agregar Avance");
-					btnAgregar.setBounds(62, 217, 161, 23);
+					btnAgregar.setBounds(62, 212, 161, 23);
 					btnAgregar.setFont(new java.awt.Font("Century Gothic",0,12));
 					btnAgregar.setIcon(new ImageIcon(getClass().getClassLoader().getResource("Imagenes/add.png")));
 					
@@ -209,7 +195,7 @@ private static VistaAvance vAvance=null;
 				{
 					btnBuscarAvance = new JButton();
 					jpAvance.add(btnBuscarAvance);
-					btnBuscarAvance.setBounds(248, 11, 31, 30);
+					btnBuscarAvance.setBounds(230, 21, 31, 30);
 					btnBuscarAvance.setIcon(new ImageIcon(getClass().getClassLoader().getResource("Imagenes/search.png")));
 					btnBuscarAvance.setActionCommand("BuscarAvance");
 				}
@@ -275,7 +261,7 @@ private static VistaAvance vAvance=null;
 						TableModel tblListadoAvanceModel = 
 								new DefaultTableModel(
 										new String[][] { {}, {} },
-										new String[] { "Código", "Nombre", "Apellido", "Cédula", "Dirección", "Teléfono" });
+										new String[] { "Nombre", "Apellido", "Cédula", "Dirección", "Teléfono" });
 						tblListadoAvance = new JTable();
 						spListadoAvance.setViewportView(tblListadoAvance);
 						tblListadoAvance.setModel(tblListadoAvanceModel);
@@ -296,34 +282,34 @@ private static VistaAvance vAvance=null;
 				btnLimpiar = new JButton();
 				getContentPane().add(btnLimpiar);
 				btnLimpiar.setText("Limpiar");
-				btnLimpiar.setBounds(200, 445, 125, 29);
+				btnLimpiar.setBounds(343, 445, 125, 29);
 				btnLimpiar.setFont(new java.awt.Font("Century Gothic",0,12));
 				btnLimpiar.setIcon(new ImageIcon(getClass().getClassLoader().getResource("Imagenes/Limpiarcodigo_1.png")));
 			}
 			{
 				btnGuardar = new JButton();
 				getContentPane().add(btnGuardar);
-				btnGuardar.setText("Guardar");
-				btnGuardar.setBounds(343, 445, 125, 29);
+				btnGuardar.setText("Cancelar");
+				btnGuardar.setBounds(201, 445, 125, 29);
 				btnGuardar.setFont(new java.awt.Font("Century Gothic",0,12));
-				btnGuardar.setIcon(new ImageIcon(getClass().getClassLoader().getResource("Imagenes/save.png")));
+				btnGuardar.setIcon(new ImageIcon(getClass().getClassLoader().getResource("Imagenes/button_cancel_16x16.png")));
 			}
 			{
-				btnModificar = new JButton();
-				getContentPane().add(btnModificar);
-				btnModificar.setText("Modificar");
-				btnModificar.setBounds(483, 445, 125, 29);
-				btnModificar.setFont(new java.awt.Font("Century Gothic",0,12));
-				btnModificar.setIcon(new ImageIcon(getClass().getClassLoader().getResource("Imagenes/kwrite_22x22.png")));
+				btnSiguiente = new JButton();
+				getContentPane().add(btnSiguiente);
+				btnSiguiente.setText("Siguiente");
+				btnSiguiente.setBounds(483, 445, 125, 29);
+				btnSiguiente.setFont(new java.awt.Font("Century Gothic",0,12));
+				btnSiguiente.setIcon(new ImageIcon(getClass().getClassLoader().getResource("Imagenes/sig.png")));
 				
 			}
 			{
 				btnCancelar = new JButton();
 				getContentPane().add(btnCancelar);
-				btnCancelar.setText("Cancelar");
+				btnCancelar.setText("Atras");
 				btnCancelar.setBounds(60, 445, 125, 29);
 				btnCancelar.setFont(new java.awt.Font("Century Gothic",0,12));
-				btnCancelar.setIcon(new ImageIcon(getClass().getClassLoader().getResource("Imagenes/button_cancel_16x16.png")));
+				btnCancelar.setIcon(new ImageIcon(getClass().getClassLoader().getResource("Imagenes/atras_.png")));
 				
 			}
 			{
@@ -331,7 +317,7 @@ private static VistaAvance vAvance=null;
 				getContentPane().add(btnRS);
 				btnRS.setText("Registrar Socio");
 				btnRS.setFont(new java.awt.Font("Century Gothic",0,12));
-				btnRS.setBounds(0, 58, 240, 29);
+				btnRS.setBounds(0, 58, 243, 29);
 				btnRS.setActionCommand("RegistrarSocio");
 			}
 			{
@@ -339,7 +325,7 @@ private static VistaAvance vAvance=null;
 				getContentPane().add(btnRA);
 				btnRA.setText("Registrar Avance");
 				btnRA.setFont(new java.awt.Font("Century Gothic",0,12));
-				btnRA.setBounds(476, 58, 250, 29);
+				btnRA.setBounds(243, 58, 239, 29);
 				btnRA.setActionCommand("RegistrarAvance");
 			}
 			{
@@ -348,7 +334,7 @@ private static VistaAvance vAvance=null;
 				getContentPane().add(getJpImagen());
 				btnRV.setText("Registrar Vehículo");
 				btnRV.setFont(new java.awt.Font("Century Gothic",0,12));
-				btnRV.setBounds(234, 58, 246, 29);
+				btnRV.setBounds(482, 58, 243, 29);
 				btnRV.setActionCommand("RegistrarVehiculo");
 			}
 			pack();
@@ -416,14 +402,6 @@ public String getTxtNombre() {
 		txtTelefono.setText(Telefono);
 	}
 
-	public String getTxtCodAvance() {
-		return txtCodAvance.getText();
-	}
-
-	public void setTxtCodAvance(String CodAvance) {
-		txtCodAvance.setText(CodAvance);
-	}
-
 	
 	public JPanel getJpAvancexSocio() {
 		return jpAvancexSocio;
@@ -467,21 +445,21 @@ public String getTxtNombre() {
 		int column= tblListadoAvance.getColumnCount();
 		int fila= tblListadoAvance.getRowCount();
 		List<Avance> a = new ArrayList<Avance>();
-		String ced,codAvance, nombre, apellido,direc,telefono;
+		String ced,/*codAvance,*/ nombre, apellido,direc,telefono;
 		
 		
 		
 		for(int i=0; i<fila;i++)
 		{		
 				Avance avance= new Avance();
-				codAvance=(String) tblListadoAvance.getValueAt(i, 0);
+		//		codAvance=(String) tblListadoAvance.getValueAt(i, 0);
 				nombre=(String) tblListadoAvance.getValueAt(i, 1);
 				apellido=(String) tblListadoAvance.getValueAt(i, 2);
 				ced=(String) tblListadoAvance.getValueAt(i, 3);
 				direc=(String) tblListadoAvance.getValueAt(i, 4);
 				telefono=(String) tblListadoAvance.getValueAt(i, 5);
 										
-				avance.setCodAvance(codAvance);
+		//		avance.setCodAvance(codAvance);
 				avance.setCedula(ced);
 				avance.setNombre(nombre);
 				avance.setApellido(apellido);
@@ -574,7 +552,7 @@ public void setTblListadoAvance(JTable tblListadoAvance) {
 public void agregarListener(ActionListener accion) {
 	this.btnGuardar.addActionListener(accion);
 	this.btnCancelar.addActionListener(accion);
-	this.btnModificar.addActionListener(accion);
+	this.btnSiguiente.addActionListener(accion);
 	this.btnBuscarSocio.addActionListener(accion);
 	this.btnAgregar.addActionListener(accion);
 	this.btnBuscarAvance.addActionListener(accion);
@@ -589,7 +567,6 @@ public void agregarListener(ActionListener accion) {
 public void limpiarCampos() {
 	txtApellido.setText("");
 	txtCedula.setText("");
-	txtCodAvance.setText("");
 	txtDireccion.setText("");
 	txtNombre.setText("");
 	txtTelefono.setText("");	
@@ -631,13 +608,7 @@ public boolean CamposllenosAvance() {
 				"Error", 0);
 		this.txtCedula.requestFocus();
 		CamposLLenos = false;
-	} else if (this.txtCodAvance.getText().equals("")) {
-		// si falta el codigo
-		JOptionPane.showMessageDialog(null,
-				"Debe ingresar un codigo", "Error", 0);
-		this.txtCodAvance.requestFocus();
-		CamposLLenos = false;
-	} else if (this.txtNombre.getText().equals("")) {
+	}else if (this.txtNombre.getText().equals("")) {
 		// si falta el nombre
 		JOptionPane.showMessageDialog(null, "Debe ingresar el nombre",
 				"Error", 0);
@@ -673,7 +644,7 @@ public boolean CamposllenosAvance() {
 public void limpiarTablaAvances() {
 TableModel tblListadoModel = 
 new DefaultTableModel(
-		new String[] { "Código", "Nombre", "Apellido", "Cédula", "Dirección", "Teléfono" },0);
+		new String[] { "Nombre", "Apellido", "Cédula", "Dirección", "Teléfono" },0);
 tblListadoAvance.setModel(tblListadoModel);
 
 }	
