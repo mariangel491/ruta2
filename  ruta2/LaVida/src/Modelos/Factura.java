@@ -58,16 +58,14 @@ public class Factura implements Serializable{
 	@PrimaryKeyJoinColumn
 	private DetalleFactura detalle;
 	
-	@OneToMany(cascade= CascadeType.ALL)
-	@JoinColumn(name="nrofactura")
+	@OneToMany(cascade= CascadeType.ALL, mappedBy="factura")
 	List<CuentaPrestamos> ctaPrestamos;
 	
 	@OneToMany(cascade= CascadeType.ALL)
 	@JoinColumn(name="nrofactura")
 	List<CuentaIngresos> ctaIngresos;
 	
-	@OneToMany(cascade= CascadeType.ALL)
-	@JoinColumn(name="nrofactura")
+	@OneToMany(cascade= CascadeType.ALL, mappedBy="factura")
 	List<CuentaFondoChoque> ctaFondoChoque;
 	
 	@OneToMany(cascade= CascadeType.ALL)

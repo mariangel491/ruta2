@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!-- Created with Jaspersoft Studio version 5.6.2.final using JasperReports Library version 5.6.1  -->
-<!-- 2014-10-16T11:47:35 -->
+<!-- 2014-10-19T23:05:06 -->
 <jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="ReporteSocios" pageWidth="595" pageHeight="842" columnWidth="535" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" >
 	<property name="com.jaspersoft.studio.data.defaultdataadapter" value="New Data Adapter (2)"/>
 	<style name="Title" forecolor="#FFFFFF" fontName="Times New Roman" fontSize="50" isBold="false" pdfFontName="Times-Bold"/>
@@ -79,16 +79,13 @@
 			</band>
 		</groupHeader>
 		<groupFooter>
-			<band>
-				<property name="local_mesure_unitheight" value="px"/>
-				<property name="com.jaspersoft.studio.unit.height" value="px"/>
-			</band>
+			<band/>
 		</groupFooter>
 	</group>
 	<title>
 		<band height="196" splitType="Stretch">
 			<staticText>
-				<reportElement x="0" y="90" width="84" height="25">
+				<reportElement x="0" y="90" width="84" height="25" >
 					<property name="local_mesure_unitheight" value="pixel"/>
 					<property name="com.jaspersoft.studio.unit.height" value="px"/>
 				</reportElement>
@@ -128,7 +125,7 @@
 				<text><![CDATA[Ship name]]></text>
 			</staticText>
 			<staticText>
-				<reportElement x="410" y="90" width="84" height="25" >
+				<reportElement x="410" y="90" width="84" height="25">
 					<property name="local_mesure_unitheight" value="pixel"/>
 					<property name="com.jaspersoft.studio.unit.height" value="px"/>
 				</reportElement>
@@ -142,7 +139,7 @@
 				<text><![CDATA[Ship state 2]]></text>
 			</staticText>
 			<staticText>
-				<reportElement x="410" y="130" width="120" height="15"/>
+				<reportElement x="410" y="130" width="120" height="15" />
 				<text><![CDATA[Ship Address]]></text>
 			</staticText>
 			<staticText>
@@ -244,7 +241,8 @@
 				<textFieldExpression><![CDATA[$F{nombre}]]></textFieldExpression>
 			</textField>
 			<textField isStretchWithOverflow="true" isBlankWhenNull="true">
-				<reportElement style="Detail" positionType="Float" x="276" y="0" width="138" height="20" />				<textElement>
+				<reportElement style="Detail" positionType="Float" x="276" y="0" width="138" height="20" />
+				<textElement>
 					<font fontName="Arial" size="12" isBold="false" pdfFontName="Helvetica"/>
 				</textElement>
 				<textFieldExpression><![CDATA[$F{apellido}]]></textFieldExpression>
