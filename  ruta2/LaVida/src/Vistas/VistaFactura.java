@@ -149,7 +149,7 @@ public class VistaFactura extends javax.swing.JFrame {
 	private InquilinoDao inquilinoDao = new InquilinoDao();
 	LinkedListModel<String> listaModeloIngresoEgreso=new LinkedListModel<>();
 	private DefaultTableModel defaultTableModelIngresoXfactura = new DefaultTableModel();
-	private ControladorFactura controladorFactura = new ControladorFactura();
+	private ControladorFactura controladorFactura= new ControladorFactura();
 	LinkedListModel<String> listaModeloAux=new LinkedListModel<>();
 
 	
@@ -442,6 +442,7 @@ private static VistaFactura vFactura=null;
 										}
 										else if(cmbTipoFactu.getSelectedItem().toString().equalsIgnoreCase(VistaFactura.TIPO_DE_FACTURA_EGRESOS)){
 											desactivarFormaDePago();
+											listaModeloAux.clear();
 											llenarEgresos(cmbTipoFacturado.getSelectedItem().toString());
 											jListIngresos.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
 //											txtMontoIngresoEgreso.setEnabled(true);

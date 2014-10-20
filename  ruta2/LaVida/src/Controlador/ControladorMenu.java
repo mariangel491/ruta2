@@ -28,8 +28,9 @@ public class ControladorMenu implements ActionListener{
 	ControladorEgresos egresos;
 	ControladorBeneficiario beneficiario;
 	ControladorCargarMontoIng cargarMontosIngresos;
-	ControladorFactura factura;
+	//ControladorFactura factura;
 	ControladorSubsidio controladorSubsidio;
+	VistaFactura vFactura;
 	
 	
 	//PARA LOS REPORTES
@@ -104,7 +105,8 @@ public class ControladorMenu implements ActionListener{
 		}
 		else if (ae.getActionCommand().equalsIgnoreCase("Factura"))
 	    {
-	        factura = new ControladorFactura();
+	       // factura = new ControladorFactura();
+		//	vFactura= new VistaFactura();
 	      
 		}
 		else if (ae.getActionCommand().equalsIgnoreCase("Alquiler"))

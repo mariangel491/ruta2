@@ -90,29 +90,32 @@ public class mnuPrincipal extends javax.swing.JFrame {
 				btnRuta = new JButton();
 				getContentPane().add(btnRuta);
 				btnRuta.setText("Ruta");
-				btnRuta.setBounds(86, 334, 162, 34);
+				btnRuta.setBounds(10, 334, 250, 62);
 				btnRuta.setBorder(BorderFactory.createEtchedBorder(BevelBorder.LOWERED));
 				btnRuta.setBackground(new java.awt.Color(206,221,225));
-				btnRuta.setFont(new java.awt.Font("Segoe UI",2,16));
+				btnRuta.setFont(new java.awt.Font("Segoe UI",2,20));
+				btnRuta.setIcon(new ImageIcon(getClass().getClassLoader().getResource("Imagenes/bus.png")));
 			}
 			{
 				jButton1 = new JButton();
 				getContentPane().add(jButton1);
 				jButton1.setText("Alquiler");
-				jButton1.setBounds(310, 334, 162, 34);
+				jButton1.setBounds(270, 334, 250, 62);
 				jButton1.setBorder(BorderFactory.createEtchedBorder(BevelBorder.LOWERED));
 				jButton1.setActionCommand("Alquiler");
 				jButton1.setBackground(new java.awt.Color(206,221,225));
-				jButton1.setFont(new java.awt.Font("Segoe UI",2,16));
+				jButton1.setFont(new java.awt.Font("Segoe UI",2,20));
+				jButton1.setIcon(new ImageIcon(getClass().getClassLoader().getResource("Imagenes/homeFolder.png")));
 			}
 			{
 				jButton2 = new JButton();
 				getContentPane().add(jButton2);
 				jButton2.setText("Fondo de Choque");
-				jButton2.setBounds(518, 334, 162, 34);
+				jButton2.setBounds(535, 334, 250, 62);
 				jButton2.setBorder(BorderFactory.createEtchedBorder(BevelBorder.LOWERED));
 				jButton2.setBackground(new java.awt.Color(206,221,225));
-				jButton2.setFont(new java.awt.Font("Segoe UI",2,16));
+				jButton2.setFont(new java.awt.Font("Segoe UI",2,20));
+				jButton2.setIcon(new ImageIcon(getClass().getClassLoader().getResource("Imagenes/tyres.png")));
 			}
 			{
 				lblImagen = new JLabel();

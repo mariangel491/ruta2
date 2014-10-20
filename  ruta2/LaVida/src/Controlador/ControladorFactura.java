@@ -67,7 +67,7 @@ public class ControladorFactura implements ActionListener, KeyListener{
 
 	
 	public ControladorFactura(){
-	/*	vfactura = new VistaFactura();
+		/*vfactura = new VistaFactura();
 		vfactura= VistaFactura.obtenerInstancia();
 		vfactura.setLocationRelativeTo(null);
 		vfactura.setVisible(true);
