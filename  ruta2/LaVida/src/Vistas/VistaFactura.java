@@ -240,7 +240,7 @@ private static VistaFactura vFactura=null;
 						{
 							lblNroSocio = new JLabel();
 							jPanelDatosPersonales.add(lblNroSocio);
-							lblNroSocio.setText("NÃºmero de Socio:");
+							lblNroSocio.setText("Número de Socio:");
 							lblNroSocio.setBounds(12, 21, 122, 16);
 						}
 						{
@@ -341,7 +341,6 @@ private static VistaFactura vFactura=null;
 								jListIngresos.setBorder(BorderFactory.createEtchedBorder(BevelBorder.LOWERED));
 								jListIngresos.addMouseListener(new MouseAdapter() {
 									public void mouseClicked(MouseEvent evt) {
-										System.out.println("jListIngresos.mouseClicked, event="+evt);
 										//TODO add your code for jListIngresos.mouseClicked
 //										if(jListIngresos.getSelectedValue().toString().equalsIgnoreCase(Ingresos.TIPO_INGRESO_PRESTAMO_FONDO_DE_CHOQUE)
 //										   || jListIngresos.getSelectedValue().toString().equalsIgnoreCase(Ingresos.TIPO_INGRESO_OTROS_PRESTAMO)){
@@ -374,7 +373,7 @@ private static VistaFactura vFactura=null;
 							btnanadir.setBounds(311, 239, 100, 23);
 							btnanadir.setIcon(new ImageIcon(getClass().getClassLoader().getResource("Imagenes/add.png")));
 							btnanadir.setFont(new java.awt.Font("Verdana",0,11));
-							btnanadir.setActionCommand("AÃ±adir");
+							btnanadir.setActionCommand("Añadir");
 							btnanadir.addActionListener(new ActionListener() {
 								
 								@Override
@@ -470,7 +469,7 @@ private static VistaFactura vFactura=null;
 								TableModel jTableIngresosXFacturaModel = 
 										new DefaultTableModel(
 												new String[][] {},
-												new String[] { "Codigo","Nombre", "Monto","Clasif","" });
+												new String[] { "Codigo","Nombre", "Monto","Clasif","Cantidad" });
 								jTableIngresosXFactura = new JTable();
 								jScrollPaneFactura.setViewportView(jTableIngresosXFactura);
 								jTableIngresosXFactura.setModel(jTableIngresosXFacturaModel);
@@ -1178,5 +1177,11 @@ private static VistaFactura vFactura=null;
 			e.printStackTrace();
 		}
 	}*/
+	
+	
+	
+	
+	
+	//NUEVAS MODIFICACIONES FACTURA..
 	
 }
