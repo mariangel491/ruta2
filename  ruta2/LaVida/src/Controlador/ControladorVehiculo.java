@@ -485,7 +485,7 @@ public class ControladorVehiculo implements ActionListener {
 					if(!vehDao.encontrar(veh.getPlaca()))
 					{
 					//	System.out.println("veh: "+veh.getSocio().getNombre());
-						veh.setSocio(socioDao.buscarPorNroSocio("null"));
+						veh.setSocio(socioDao.buscarPorNroSocio("null")); ////*****AQUI NO SE ESTA TRAYENDO EL COD DEL SOCIO***/////
 						vehDao.agregarVehiculo(veh);
 					}
 			}

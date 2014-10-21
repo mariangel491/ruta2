@@ -412,12 +412,12 @@ public String getTxtNombre() {
 		this.jpAvancexSocio = jpAvancexSocio;
 	}
 
-	public void agregarFila(String cod, String apellido, String nombre, String ced,
+	public void agregarFila(/*String cod, */String apellido, String nombre, String ced,
 			String telefono, String direccion, String fecha)
 	{
 		Vector<String> avance = new Vector<String>();
 
-		avance.add(cod);
+	//	avance.add(cod);
 		avance.add(nombre);
 		avance.add(apellido);
 		avance.add(ced);
@@ -453,11 +453,11 @@ public String getTxtNombre() {
 		{		
 				Avance avance= new Avance();
 		//		codAvance=(String) tblListadoAvance.getValueAt(i, 0);
-				nombre=(String) tblListadoAvance.getValueAt(i, 1);
-				apellido=(String) tblListadoAvance.getValueAt(i, 2);
-				ced=(String) tblListadoAvance.getValueAt(i, 3);
-				direc=(String) tblListadoAvance.getValueAt(i, 4);
-				telefono=(String) tblListadoAvance.getValueAt(i, 5);
+				nombre=(String) tblListadoAvance.getValueAt(i, 0);
+				apellido=(String) tblListadoAvance.getValueAt(i, 1);
+				ced=(String) tblListadoAvance.getValueAt(i, 2);
+				direc=(String) tblListadoAvance.getValueAt(i, 3);
+				telefono=(String) tblListadoAvance.getValueAt(i, 4);
 										
 		//		avance.setCodAvance(codAvance);
 				avance.setCedula(ced);
@@ -485,14 +485,14 @@ public List<AvanceArrendatario> LlenarListaAvancesArren(){
 		for(int i=0; i<fila;i++)
 		{		
 				AvanceArrendatario avance= new AvanceArrendatario();
-				codAvance=(String) tblListadoAvance.getValueAt(i, 0);
-				nombre=(String) tblListadoAvance.getValueAt(i, 1);
-				apellido=(String) tblListadoAvance.getValueAt(i, 2);
-				ced=(String) tblListadoAvance.getValueAt(i, 3);
-				direc=(String) tblListadoAvance.getValueAt(i, 4);
-				telefono=(String) tblListadoAvance.getValueAt(i, 5);
+			//	codAvance=(String) tblListadoAvance.getValueAt(i, 0);
+				nombre=(String) tblListadoAvance.getValueAt(i, 0);
+				apellido=(String) tblListadoAvance.getValueAt(i, 1);
+				ced=(String) tblListadoAvance.getValueAt(i, 2);
+				direc=(String) tblListadoAvance.getValueAt(i, 3);
+				telefono=(String) tblListadoAvance.getValueAt(i, 4);
 										
-				avance.setCodAvance(codAvance);
+			//	avance.setCodAvance(codAvance);
 				avance.setCedula(ced);
 				avance.setNombre(nombre);
 				avance.setApellido(apellido);
@@ -684,6 +684,7 @@ public void CambiarNombrePanel(){
 	jpDatosSocio.setBorder(BorderFactory.createTitledBorder("Datos del Arrendatario"));
 	btnGuardar.setActionCommand("GuardarArrendatario");
 	btnBuscarSocio.setActionCommand("BuscarArrendatario");
+	this.btnBuscarAvance.setActionCommand("BuscarAvanceArrendatario");
 	btnAgregar.setActionCommand("AgregarAvanceArrend");
 	lblNroSocio.setText("Código");
 	btnRS.setText("Registrar Arrendatario");

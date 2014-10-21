@@ -166,6 +166,14 @@ public class ControladorAvance implements ActionListener {
 				e.printStackTrace();
 			}
 		}
+		else if (a.getActionCommand().equalsIgnoreCase("BuscarAvanceArrendatario")) {
+			try {
+				this.BuscarAvanceArren();
+			} catch (Exception e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+		}
 		else if (a.getActionCommand().equalsIgnoreCase("BuscarAvance")) {
 			try {
 				this.BuscarAvanceArren();
@@ -199,8 +207,7 @@ public class ControladorAvance implements ActionListener {
 			
 		}
 		else if (a.getActionCommand().equalsIgnoreCase("Eliminar Avance")) {
-			//if () {
-				//.agregarAvance();
+		
 				vAvance.removerFila();
 				this.removerElementoSocio();
 			} else
@@ -221,7 +228,7 @@ public class ControladorAvance implements ActionListener {
 			vAvance.limpiarTablaAvances();
 			for(int i=0;i<avances.size();i++)
 			{
-				cod=avances.get(i).getCodAvance();
+				//cod=avances.get(i).getCodAvance();
 				apellido=avances.get(i).getApellido();
 				nombre=avances.get(i).getNombre();
 				telefono=avances.get(i).getTelefono().toString();
@@ -229,7 +236,7 @@ public class ControladorAvance implements ActionListener {
 				ced= avances.get(i).getCedula();
 				Date f= new Date();
 				fecha= f.toString();
-				vAvance.agregarFila(cod, apellido, nombre, ced, telefono, direccion, fecha);
+				vAvance.agregarFila(/*cod, */apellido, nombre, ced, telefono, direccion, fecha);
 				
 			}	
 		}	
@@ -467,7 +474,7 @@ public class ControladorAvance implements ActionListener {
 				ced= avances.get(i).getCedula();
 				Date f= new Date();
 				fecha= f.toString();
-				vAvance.agregarFila(cod, apellido, nombre, ced, telefono, direccion, fecha);
+				vAvance.agregarFila(/*cod, */apellido, nombre, ced, telefono, direccion, fecha);
 				
 			}	
 		}	
