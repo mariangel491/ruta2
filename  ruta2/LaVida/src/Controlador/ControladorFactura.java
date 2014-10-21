@@ -150,7 +150,7 @@ public DefaultTableModel agregarIngresoEgresoATabla(Object[] objetosSeleccionado
 					// TODO Auto-generated catch block
 					e.printStackTrace();
 				}
-				Object[] datosDeLaFila = {ingreso.getCodIngreso(),ingreso.getDescripcion(),montoEgreso.toString(), ingreso.getClasifIngreso(),(String)objetoPrestamoPendiente};
+				Object[] datosDeLaFila = {ingreso.getCodIngreso(),ingreso.getDescripcion(),ingreso.getMonto()/*montoEgreso.toString()*/, ingreso.getClasifIngreso(),(String)objetoPrestamoPendiente};
 				 modeloDeLaTabla.addRow(datosDeLaFila);
 			}
 			else if(tipoFactura.getSelectedItem().toString().equalsIgnoreCase(VistaFactura.TIPO_DE_FACTURA_EGRESOS)){
