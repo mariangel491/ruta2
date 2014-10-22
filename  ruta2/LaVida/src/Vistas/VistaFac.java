@@ -937,11 +937,5 @@ private static VistaFac vFactura=null;
 		return lblCantidad;
 	}
 	
-	private ButtonGroup getButtonGroupFP() {
-		if(buttonGroupFP == null) {
-			buttonGroupFP = new ButtonGroup();
-		}
-		return buttonGroupFP;
-	}
 
 }
