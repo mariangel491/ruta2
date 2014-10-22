@@ -78,6 +78,14 @@ public class ControladorSocio implements ActionListener {
 				e.printStackTrace();
 			}
 		} else
+			if (a.getActionCommand().equalsIgnoreCase("BuscarCedula")) {
+				try {
+					this.BuscarSocioCed();
+				} catch (Exception e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				}
+			} else
 			if (a.getActionCommand().equalsIgnoreCase("Cancelar")) {
 			vSocio.cerrarVentana();
 		} else 
