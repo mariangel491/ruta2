@@ -286,7 +286,7 @@ public class mnuPrincipal extends javax.swing.JFrame {
 	}
 	public void agregarListener(ActionListener evento){
 		
-		 this.itmFactura.addActionListener(evento);
+	
 		 this.itemEgresos.addActionListener(evento);
 		 this.itmAvance.addActionListener(evento);
 		 this.itmCargarIngresos.addActionListener(evento);
