@@ -28,7 +28,7 @@ import Modelos.Prestamos;
 import Modelos.Socio;
 import Modelos.Hibernate.Config.HibernateUtil;
 import Utilidades.Utilidades;
-import Vistas.VistaFactura;
+import Vistas.VistaFac;
 
 public class FacturaDao  {
 	

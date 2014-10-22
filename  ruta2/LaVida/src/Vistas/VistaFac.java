@@ -150,7 +150,7 @@ public class VistaFac extends javax.swing.JFrame {
 	public static void main(String[] args) {
 		SwingUtilities.invokeLater(new Runnable() {
 			public void run() {
-				VistaFactura inst = new VistaFactura();
+				VistaFac inst = new VistaFac();
 				inst.setLocationRelativeTo(null);
 			inst.setVisible(true);
 			}
@@ -412,7 +412,7 @@ private static VistaFac vFactura=null;
 						{
 							ComboBoxModel cmbTipoFactuModel = 
 									new DefaultComboBoxModel(
-											new String[] { OPCION_COMBO_SELECCIONE,VistaFactura.TIPO_DE_FACTURA_INGRESOS, VistaFactura.TIPO_DE_FACTURA_EGRESOS});
+											new String[] { OPCION_COMBO_SELECCIONE,this.TIPO_DE_FACTURA_INGRESOS, this.TIPO_DE_FACTURA_EGRESOS});
 							cmbTipoFactu = new JComboBox();
 							jPanelIngresos.add(cmbTipoFactu);
 							jPanelIngresos.add(getJSpinnerCantidad());
@@ -430,7 +430,7 @@ private static VistaFac vFactura=null;
 									JOptionPane.showMessageDialog(null, "Debe seleccionar un tipo. Ej: Socio, Inquilino, Arrendatario");
 								}
 								else{
-									if(cmbTipoFactu.getSelectedItem().toString().equalsIgnoreCase(VistaFactura.TIPO_DE_FACTURA_INGRESOS)){
+									if(cmbTipoFactu.getSelectedItem().toString().equalsIgnoreCase(vFactura.TIPO_DE_FACTURA_INGRESOS)){
 										llenarIngresos(cmbTipoFacturado.getSelectedItem().toString());
 										jListIngresos.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
 									//	activarFormaDePago();
@@ -438,7 +438,7 @@ private static VistaFac vFactura=null;
 //										txtMontoIngresoEgreso.setEditable(false);
 //										txtMontoIngresoEgreso.setText("");
 									}
-									else if(cmbTipoFactu.getSelectedItem().toString().equalsIgnoreCase(VistaFactura.TIPO_DE_FACTURA_EGRESOS)){
+									else if(cmbTipoFactu.getSelectedItem().toString().equalsIgnoreCase(vFactura.TIPO_DE_FACTURA_EGRESOS)){
 									//	desactivarFormaDePago();
 										listaModeloAux.clear();
 										llenarEgresos(cmbTipoFacturado.getSelectedItem().toString());

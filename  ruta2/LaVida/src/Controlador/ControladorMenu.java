@@ -31,7 +31,7 @@ public class ControladorMenu implements ActionListener{
 	ControladorFac factura;
 	ControladorSubsidio controladorSubsidio;
 	ControladorDepositosCaja depositosCaja;
-	VistaFactura vFactura;
+	VistaFac vFactura;
 	
 	
 	//PARA LOS REPORTES
