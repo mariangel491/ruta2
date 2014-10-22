@@ -12,6 +12,7 @@ import java.util.Iterator;
 import java.util.List;
 
 import javax.swing.BorderFactory;
+import javax.swing.ButtonGroup;
 import javax.swing.ComboBoxModel;
 import javax.swing.DefaultComboBoxModel;
 import javax.swing.ImageIcon;
@@ -29,6 +30,8 @@ import javax.swing.JTextField;
 import javax.swing.JToggleButton;
 import javax.swing.ListModel;
 import javax.swing.ListSelectionModel;
+import javax.swing.SpinnerListModel;
+import javax.swing.SpinnerNumberModel;
 import javax.swing.WindowConstants;
 import javax.swing.border.BevelBorder;
 import javax.swing.border.LineBorder;
@@ -37,6 +40,7 @@ import javax.swing.table.DefaultTableModel;
 import javax.swing.table.TableModel;
 import javax.swing.text.MaskFormatter;
 import javax.swing.SwingUtilities;
+
 
 
 
@@ -78,30 +82,26 @@ public class VistaFac extends javax.swing.JFrame {
 	private JPanel jPanelTitulo;
 	private JPanel jPanelContenido;
 	private JScrollPane jScrollPaneFactura;
-	private JRadioButton jRadioButtonEfectivo;
 	private JLabel lblNroFactura;
 	private JTextField txtApellido;
 	private JLabel lblApellido;
 	private JButton btnBuscarCedSoc;
 	private JTextField txtCedulaSocio;
 	private JLabel lblCedSocio;
+	private JLabel lblCantidad;
+	private JSpinner jSpinnerCantidad;
 	private JComboBox cmbTipoFacturado;
 	private JLabel lblTipoFacturado;
 	private JLabel lblLogo;
 	private JComboBox cmbTipoFactu;
 	private JLabel lblTipoFact;
-	private JLabel lblMontoSubsidio;
 	private JTextField txtResponsableFactura;
 	private JLabel lblResponsable;
 	private JTextField txtNroFactura;
-	private JRadioButton jRadioButtonDeposito;
 	private JButton btnQuitar;
 	private JButton btnSalir;
 	private JButton btnCancelar;
 	private JButton btnProcesar;
-	private JRadioButton jRadioButtonSubsidio;
-	private JRadioButton jRadioButtonTransfe;
-	private JRadioButton jRadioButtonCheque;
 	private JPanel jPanelFormaPago;
 	private JTextField txtMontoTotal;
 	private JToggleButton jToggleButton1;
@@ -178,7 +178,7 @@ private static VistaFac vFactura=null;
 			{
 				jPanelVentana = new JPanel();
 				getContentPane().add(jPanelVentana, "Center");
-				jPanelVentana.setBounds(12, 24, 953, 582);
+				jPanelVentana.setBounds(12, 24, 953, 609);
 				jPanelVentana.setLayout(null);
 				jPanelVentana.setFocusable(false);
 				{
@@ -205,7 +205,7 @@ private static VistaFac vFactura=null;
 				{
 					jPanelContenido = new JPanel();
 					jPanelVentana.add(jPanelContenido);
-					jPanelContenido.setBounds(24, 82, 901, 485);
+					jPanelContenido.setBounds(24, 82, 901, 527);
 					jPanelContenido.setBorder(BorderFactory.createTitledBorder("Factura"));
 					jPanelContenido.setLayout(null);
 					{
@@ -332,7 +332,7 @@ private static VistaFac vFactura=null;
 					{
 						jPanelIngresos = new JPanel();
 						jPanelContenido.add(jPanelIngresos);
-						jPanelIngresos.setBounds(17, 205, 435, 270);
+						jPanelIngresos.setBounds(17, 205, 435, 305);
 						jPanelIngresos.setBorder(BorderFactory.createTitledBorder("Contenido"));
 						jPanelIngresos.setLayout(null);
 						{
@@ -364,6 +364,7 @@ private static VistaFac vFactura=null;
 										new DefaultComboBoxModel(
 												new String[] {});
 								jListPrestamosPendientes = new JList();
+								jPanelIngresos.add(jListPrestamosPendientes);
 								jListPrestamosPendientes.setModel(jList1Model);
 								jListPrestamosPendientes.setBorder(BorderFactory.createEtchedBorder(BevelBorder.LOWERED));
 								jListPrestamosPendientes.setBounds(103, 169, 296, 65);
@@ -395,7 +396,7 @@ private static VistaFac vFactura=null;
 							btnanadir = new JButton();
 							jPanelIngresos.add(btnanadir);
 							btnanadir.setText("Añadir");
-							btnanadir.setBounds(311, 239, 100, 23);
+							btnanadir.setBounds(174, 274, 100, 23);
 							btnanadir.setIcon(new ImageIcon(getClass().getClassLoader().getResource("Imagenes/add.png")));
 							btnanadir.setFont(new java.awt.Font("Verdana",0,11));
 							btnanadir.setActionCommand("Añadir");
@@ -414,6 +415,8 @@ private static VistaFac vFactura=null;
 											new String[] { OPCION_COMBO_SELECCIONE,VistaFactura.TIPO_DE_FACTURA_INGRESOS, VistaFactura.TIPO_DE_FACTURA_EGRESOS});
 							cmbTipoFactu = new JComboBox();
 							jPanelIngresos.add(cmbTipoFactu);
+							jPanelIngresos.add(getJSpinnerCantidad());
+							jPanelIngresos.add(getLblCantidad());
 							cmbTipoFactu.setModel(cmbTipoFactuModel);
 							cmbTipoFactu.setBounds(118, 21, 230, 23);
 							cmbTipoFactu.setEditable(false);
@@ -504,52 +507,10 @@ private static VistaFac vFactura=null;
 					{
 						jPanelFormaPago = new JPanel();
 						jPanelContenido.add(jPanelFormaPago);
-						jPanelFormaPago.setBounds(482, 324, 407, 150);
+						jPanelFormaPago.setBounds(482, 324, 407, 186);
 						jPanelFormaPago.setBorder(BorderFactory.createTitledBorder("Forma de Pago"));
 						jPanelFormaPago.setLayout(null);
 						jPanelFormaPago.setFocusable(false);
-						{
-							jRadioButtonEfectivo = new JRadioButton();
-							jPanelFormaPago.add(jRadioButtonEfectivo);
-							jRadioButtonEfectivo.setText("Efectivo");
-							jRadioButtonEfectivo.setBounds(12, 35, 78, 20);
-							jRadioButtonEfectivo.setFont(new java.awt.Font("Verdana",0,11));
-						}
-						{
-							jRadioButtonCheque = new JRadioButton();
-							jPanelFormaPago.add(jRadioButtonCheque);
-							jRadioButtonCheque.setText("Cheque");
-							jRadioButtonCheque.setBounds(93, 35, 83, 20);
-							jRadioButtonCheque.setFont(new java.awt.Font("Verdana",0,11));
-						}
-						{
-							jRadioButtonTransfe = new JRadioButton();
-							jPanelFormaPago.add(jRadioButtonTransfe);
-							jRadioButtonTransfe.setText("Transferencia");
-							jRadioButtonTransfe.setBounds(176, 35, 125, 20);
-							jRadioButtonTransfe.setFont(new java.awt.Font("Verdana",0,11));
-						}
-						{
-							jRadioButtonSubsidio = new JRadioButton();
-							jPanelFormaPago.add(jRadioButtonSubsidio);
-							jRadioButtonSubsidio.setText("Subsidio");
-							jRadioButtonSubsidio.setBounds(92, 62, 73, 20);
-							jRadioButtonSubsidio.setFont(new java.awt.Font("Verdana",0,11));
-						}
-						{
-							jRadioButtonDeposito = new JRadioButton();
-							jPanelFormaPago.add(jRadioButtonDeposito);
-							jRadioButtonDeposito.setText("Debito");
-							jRadioButtonDeposito.setBounds(12, 61, 91, 23);
-							jRadioButtonDeposito.setFont(new java.awt.Font("Verdana",0,11));
-						}
-						{
-							lblMontoSubsidio = new JLabel();
-							jPanelFormaPago.add(lblMontoSubsidio);
-							lblMontoSubsidio.setText("Monto Subsidio");
-							lblMontoSubsidio.setBounds(10, 117, 134, 16);
-							lblMontoSubsidio.setFont(new java.awt.Font("Verdana",0,11));
-						}
 					}
 					{
 						lblNroFactura = new JLabel();
@@ -580,7 +541,7 @@ private static VistaFac vFactura=null;
 				btnSalir = new JButton();
 				getContentPane().add(btnSalir);
 				btnSalir.setText("Salir");
-				btnSalir.setBounds(577, 618, 79, 32);
+				btnSalir.setBounds(579, 639, 79, 32);
 				//btnSalir.setIcon(new ImageIcon(getClass().getClassLoader().getResource("Imagenes/exit_16x16 (1).png")));
 				btnSalir.setFont(new java.awt.Font("Verdana",0,11));
 				btnSalir.setActionCommand("Salir");
@@ -590,7 +551,7 @@ private static VistaFac vFactura=null;
 				btnCancelar = new JButton();
 				getContentPane().add(btnCancelar);
 				btnCancelar.setText("Cancelar");
-				btnCancelar.setBounds(407, 618, 94, 32);
+				btnCancelar.setBounds(408, 639, 94, 32);
 				btnCancelar.setFont(new java.awt.Font("Verdana",0,11));
 				btnCancelar.setIcon(new ImageIcon(getClass().getClassLoader().getResource("Imagenes/exit.png")));
 				btnCancelar.setActionCommand("Cancelar");
@@ -599,14 +560,14 @@ private static VistaFac vFactura=null;
 				btnProcesar = new JButton();
 				getContentPane().add(btnProcesar);
 				btnProcesar.setText("Procesar");
-				btnProcesar.setBounds(236, 618, 110, 32);
+				btnProcesar.setBounds(234, 639, 110, 32);
 				btnProcesar.setIcon(new ImageIcon(getClass().getClassLoader().getResource("Imagenes/save.png")));
 				btnProcesar.setFont(new java.awt.Font("Verdana",0,11));
 				btnProcesar.setActionCommand("Procesar");
 				
 			}
 			pack();
-			this.setSize(975, 690);
+			this.setSize(975, 724);
 		} catch (Exception e) {
 		    //add your error handling code here
 			e.printStackTrace();
@@ -955,10 +916,32 @@ private static VistaFac vFactura=null;
 		
 		jTableIngresosXFactura.getModel();
 	}
-
 	
-
+	private JSpinner getJSpinnerCantidad() {
+		if(jSpinnerCantidad == null) {
+			SpinnerNumberModel jSpinnerCantidadModel = 
+					new SpinnerNumberModel(1, 1, 100, 1);
+			jSpinnerCantidad = new JSpinner();
+			jSpinnerCantidad.setModel(jSpinnerCantidadModel);
+			jSpinnerCantidad.setBounds(312, 240, 87, 23);
+		}
+		return jSpinnerCantidad;
+	}
 	
-
+	private JLabel getLblCantidad() {
+		if(lblCantidad == null) {
+			lblCantidad = new JLabel();
+			lblCantidad.setText("Cantidad:");
+			lblCantidad.setBounds(255, 243, 82, 16);
+		}
+		return lblCantidad;
+	}
 	
+	private ButtonGroup getButtonGroupFP() {
+		if(buttonGroupFP == null) {
+			buttonGroupFP = new ButtonGroup();
+		}
+		return buttonGroupFP;
+	}
+
 }

@@ -4,11 +4,13 @@ import java.awt.event.ActionListener;
 import java.util.Date;
 
 import javax.swing.BorderFactory;
+import javax.swing.ButtonGroup;
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JLabel;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
+import javax.swing.JRadioButton;
 import javax.swing.JTextField;
 import javax.swing.WindowConstants;
 import javax.swing.border.LineBorder;
@@ -52,6 +54,10 @@ public class VistaSocio extends javax.swing.JFrame {
 	private JTextField txtDirecSocio;
 	private JButton btnBuscarCed;
 	private JButton btnBuscarSocio;
+	private ButtonGroup buttonGroupTieneAvance;
+	private JRadioButton rbtnNo;
+	private JRadioButton rbtnSI;
+	private JLabel lblPregunta;
 	private JLabel lblImagen;
 	private JButton btnModificar;
 	private JButton btnCancelar;
@@ -204,6 +210,9 @@ private static VistaSocio vSocio=null;
 			jpDatosBasicos.add(getTxtTelefono());
 			jpDatosBasicos.add(getTxtDirecSocio());
 			jpDatosBasicos.add(getLblDirecSocio());
+			jpDatosBasicos.add(getLblPregunta());
+			jpDatosBasicos.add(getRbtnSI());
+			jpDatosBasicos.add(getRbtnNo());
 		}
 		return jpDatosBasicos;
 	}
@@ -555,6 +564,42 @@ private static VistaSocio vSocio=null;
 			lblImagen.setIcon(new ImageIcon(getClass().getClassLoader().getResource("Imagenes/LogoRuta2.jpg")));
 		}
 		return lblImagen;
+	}
+	
+	private JLabel getLblPregunta() {
+		if(lblPregunta == null) {
+			lblPregunta = new JLabel();
+			lblPregunta.setText("¿Tiene Avanve?");
+			lblPregunta.setBounds(328, 101, 122, 16);
+		}
+		return lblPregunta;
+	}
+	
+	private JRadioButton getRbtnSI() {
+		if(rbtnSI == null) {
+			rbtnSI = new JRadioButton();
+			rbtnSI.setText("Si");
+			rbtnSI.setBounds(422, 99, 43, 20);
+			getButtonGroupTieneAvance().add(rbtnSI);
+		}
+		return rbtnSI;
+	}
+	
+	private JRadioButton getRbtnNo() {
+		if(rbtnNo == null) {
+			rbtnNo = new JRadioButton();
+			rbtnNo.setText("No");
+			rbtnNo.setBounds(470, 99, 45, 20);
+			getButtonGroupTieneAvance().add(rbtnNo);
+		}
+		return rbtnNo;
+	}
+	
+	private ButtonGroup getButtonGroupTieneAvance() {
+		if(buttonGroupTieneAvance == null) {
+			buttonGroupTieneAvance = new ButtonGroup();
+		}
+		return buttonGroupTieneAvance;
 	}
 
 }

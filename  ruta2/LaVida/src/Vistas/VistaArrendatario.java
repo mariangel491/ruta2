@@ -53,6 +53,7 @@ public class VistaArrendatario extends javax.swing.JFrame {
 	private JLabel lblDireccion;
 	private JTextField txtDireccion;
 	private JLabel lblNombre;
+	private ButtonGroup buttonGroup1;
 	private JButton btnSiguiente;
 	private JRadioButton jRadioButtonNo;
 	private JRadioButton jRadioButtonSi;
@@ -428,7 +429,6 @@ public class VistaArrendatario extends javax.swing.JFrame {
 				jRadioButtonSi.setText("Si");
 				jRadioButtonSi.setBounds(338, 127, 37, 20);
 				getButtonGroupTieneAvance().add(jRadioButtonSi);
-				getButtonGroupTieneAvance().add(jRadioButtonSi);
 			}
 			return jRadioButtonSi;
 		}
@@ -448,7 +448,7 @@ public class VistaArrendatario extends javax.swing.JFrame {
 				btnSiguiente = new JButton();
 				btnSiguiente.setText("Siguiente");
 				btnSiguiente.setIcon(new ImageIcon(getClass().getClassLoader().getResource("Imagenes/sig.png")));
-				btnSiguiente.setBounds(396, 284, 103, 23);
+				btnSiguiente.setBounds(396, 284, 126, 23);
 				btnSiguiente.setActionCommand("Siguiente");
 				
 			}
@@ -491,5 +491,12 @@ public class VistaArrendatario extends javax.swing.JFrame {
 			}
 			
 			return arren;
+		}
+		
+		private ButtonGroup getButtonGroup1() {
+			if(buttonGroup1 == null) {
+				buttonGroup1 = new ButtonGroup();
+			}
+			return buttonGroup1;
 		}
 }
