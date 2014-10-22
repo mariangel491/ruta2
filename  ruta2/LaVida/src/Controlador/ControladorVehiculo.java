@@ -248,6 +248,34 @@ public class ControladorVehiculo implements ActionListener {
 		else if (a.getActionCommand().equalsIgnoreCase("Eliminar Vehiculo")) {
 		//	vVehiculo.removerFila();
 			this.removerElementoVehiculo();
+		}else if(a.getActionCommand().equalsIgnoreCase("BSocTecla")){
+			try {
+				this.BuscarSocio();
+			} catch (Exception e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+		}else if(a.getActionCommand().equalsIgnoreCase("BPlacVehSocTecla")){
+			try {
+				this.BuscarVehiculo();
+			} catch (Exception e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+		}else if(a.getActionCommand().equalsIgnoreCase("BArrendTecl")){
+			try {
+				this.BuscarArrendatario();
+			} catch (Exception e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+		}else if(a.getActionCommand().equalsIgnoreCase("BVehArrenTecl")){
+			try {
+				this.BuscarVehiculoArren();
+			} catch (Exception e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
 		}
 	  }
 	

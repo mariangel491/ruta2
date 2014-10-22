@@ -166,6 +166,7 @@ private static VistaVehiculo vVehic=null;
 					txtNroSocio = new JTextField();
 					jpDatosSocio.add(txtNroSocio);
 					txtNroSocio.setBounds(136, 23, 80, 23);
+					txtNroSocio.setActionCommand("BSocTecla");
 				}
 				{
 					lblNroSocio = new JLabel();
@@ -212,6 +213,7 @@ private static VistaVehiculo vVehic=null;
 					txtPlaca = new JTextField();
 					jpDatosVehiculo.add(txtPlaca);
 					txtPlaca.setBounds(62, 20, 167, 23);
+					txtPlaca.setActionCommand("BPlacVehSocTecla");
 				}
 				{
 					lblMarca = new JLabel();
@@ -456,7 +458,9 @@ private static VistaVehiculo vVehic=null;
 				this.btnRA.addActionListener(accion);
 				this.btnRS.addActionListener(accion);
 				this.btnRV.addActionListener(accion);
-				
+				this.txtNroSocio.addActionListener(accion);
+				this.txtPlaca.addActionListener(accion);
+	
 			}
 
 		//LimpiarCampos
@@ -814,6 +818,9 @@ private static VistaVehiculo vVehic=null;
 				btnAgregar.setActionCommand("AgregarVehiculoArrend");
 				lblNroSocio.setText("Código");
 				btnRS.setText("Registrar Arrendatario");
+				txtNroSocio.setActionCommand("BArrendTecl");
+				txtPlaca.setActionCommand("BVehArrenTecl");
+
 				//btnRS.setActionCommand("RS");
 				
 				

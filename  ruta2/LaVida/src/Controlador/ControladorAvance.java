@@ -205,6 +205,34 @@ public class ControladorAvance implements ActionListener {
 			} else
 				JOptionPane.showMessageDialog(null, "Debe llenar todos los campos del avance", "Atención!", JOptionPane.ERROR_MESSAGE);
 			
+		}else if(a.getActionCommand().equalsIgnoreCase("BCedAvanSocTecla")){
+			try {
+				this.BuscarAvanceSocio();
+			} catch (Exception e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+		}else if(a.getActionCommand().equalsIgnoreCase("BNroSocTecla")){
+			try {
+				this.BuscarSocio();
+			} catch (Exception e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+		}else if(a.getActionCommand().equalsIgnoreCase("BArrendatTecla")){
+			try {
+				this.BuscarArrendatario();
+			} catch (Exception e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+		}else if(a.getActionCommand().equalsIgnoreCase("BCedAvanArrendTecla")){
+			try {
+				this.BuscarAvanceArren();
+			} catch (Exception e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
 		}
 		else if (a.getActionCommand().equalsIgnoreCase("Eliminar Avance")) {
 		

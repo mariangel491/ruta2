@@ -158,6 +158,7 @@ private static VistaAvance vAvance=null;
 					txtCedula = new JTextField();
 					jpAvance.add(txtCedula);
 					txtCedula.setBounds(89, 26, 134, 23);
+					txtCedula.setActionCommand("BCedAvanSocTecla");
 				}
 				{
 					lblDireccion = new JLabel();
@@ -225,6 +226,8 @@ private static VistaAvance vAvance=null;
 					txtNroSocio = new JTextField();
 					jpDatosSocio.add(txtNroSocio);
 					txtNroSocio.setBounds(134, 21, 94, 23);
+					txtNroSocio.setActionCommand("BNroSocTecla");
+
 				}
 				{
 					btnBuscarSocio = new JButton();
@@ -561,6 +564,9 @@ public void agregarListener(ActionListener accion) {
 	this.btnRS.addActionListener(accion);
 	this.btnRV.addActionListener(accion);
 	this.btnLimpiar.addActionListener(accion);
+	this.txtNroSocio.addActionListener(accion);
+	this.txtCedula.addActionListener(accion);
+
 }
 
 //LimpiarCampos
@@ -688,6 +694,9 @@ public void CambiarNombrePanel(){
 	btnAgregar.setActionCommand("AgregarAvanceArrend");
 	lblNroSocio.setText("Código");
 	btnRS.setText("Registrar Arrendatario");
+	txtNroSocio.setActionCommand("BArrendatTecla");
+	txtCedula.setActionCommand("BCedAvanArrendTecla");
+
 	//btnRS.setActionCommand("RS");
 	
 	
