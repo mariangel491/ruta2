@@ -17,6 +17,9 @@ import javax.swing.border.LineBorder;
 import javax.swing.border.SoftBevelBorder;
 import javax.swing.SwingUtilities;
 
+import net.sf.jasperreports.engine.JREmptyDataSource;
+import net.sf.jasperreports.engine.JRException;
+import net.sf.jasperreports.engine.JasperFillManager;
 import ControladorReportes.ControladorReporte;
 
 
@@ -38,6 +41,8 @@ public class mnuPrincipal extends javax.swing.JFrame {
 	private JMenuItem itmVehiculo;
 	private JMenuItem itmSocio;
 	private JMenuItem itmPrestamo;
+	private JMenuItem jMenuItem1;
+	private JMenuItem itmDepCaja;
 	private JMenuItem mnuItmCargarSubsidio;
 	private JMenuItem itmAvanceArren;
 	private JMenuItem itemSub;
@@ -220,6 +225,17 @@ public class mnuPrincipal extends javax.swing.JFrame {
 						mnuItmCargarSubsidio.setText("Cargar Subsidio");
 						mnuItmCargarSubsidio.setActionCommand("CargarMontoSubsidio");
 					}
+					{
+						itmDepCaja = new JMenuItem();
+						Registrar.add(itmDepCaja);
+						itmDepCaja.setText("Depositar caja");
+						itmDepCaja.setActionCommand("DepositoCaja");
+					}
+					{
+						jMenuItem1 = new JMenuItem();
+						Registrar.add(jMenuItem1);
+						jMenuItem1.setText("Facturación");
+					}
 				}
 				{
 					mnuConsulta = new JMenu();
@@ -240,9 +256,20 @@ public class mnuPrincipal extends javax.swing.JFrame {
 					itmReporteSocio.setText("Reporte Socios");
 					itmReporteSocio.addActionListener(new ActionListener() {
 						public void actionPerformed(ActionEvent arg0) {
-                            String consulta="SELECT * from socio";
-                             ControladorReporte jasper = new ControladorReporte();
+                          String consulta="SELECT * from socio";
+                           ControladorReporte jasper = new ControladorReporte();
                             jasper.runReporte();
+					
+/*
+							String sourceFileName =System.getProperty("user.dir") +"/src/Reportes/ReporteSocios.jrxml";
+
+						      try {
+						         JasperFillManager.fillReportToFile(sourceFileName, null,
+						            new JREmptyDataSource());
+						      } catch (JRException e) {
+						         // TODO Auto-generated catch block
+						         e.printStackTrace();
+						      }*/ 
 						}});
 					itmReporteSocio.setActionCommand("ReporteSocio");
 				}
@@ -275,6 +302,8 @@ public class mnuPrincipal extends javax.swing.JFrame {
 		 this.itmAvanceArren.addActionListener(evento);
 		 this.itmReporteSocio.addActionListener(evento);
 		 this.mnuItmCargarSubsidio.addActionListener(evento);
+		 this.itmDepCaja.addActionListener(evento);
+		 this.itmFactura.addActionListener(evento);
 	}
 
 }

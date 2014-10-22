@@ -30,6 +30,7 @@ public class ControladorMenu implements ActionListener{
 	ControladorCargarMontoIng cargarMontosIngresos;
 	//ControladorFactura factura;
 	ControladorSubsidio controladorSubsidio;
+	ControladorDepositosCaja depositosCaja;
 	VistaFactura vFactura;
 	
 	
@@ -150,6 +151,10 @@ public class ControladorMenu implements ActionListener{
 		{
 			System.out.println("boton subsidio");
 			controladorSubsidio = new ControladorSubsidio();
+		}
+		else if(ae.getActionCommand().equalsIgnoreCase("DepositoCaja"))
+		{
+			depositosCaja= new ControladorDepositosCaja();
 		}
 	}
    
