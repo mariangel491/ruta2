@@ -77,6 +77,13 @@ public class ControladorPrestamo implements ActionListener, KeyListener {
 				// TODO Auto-generated catch block
 				e.printStackTrace();
 			}
+		}else if(a.getActionCommand().equalsIgnoreCase("BSocioTecla")){
+			try {
+				this.BuscarSocio();
+			} catch (Exception e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
 		}
 	}
 

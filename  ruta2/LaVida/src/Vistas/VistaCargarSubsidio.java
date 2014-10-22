@@ -110,6 +110,7 @@ public class VistaCargarSubsidio extends javax.swing.JFrame {
 					txtCodSocio = new JTextField();
 					jPanelDatosSocio.add(txtCodSocio);
 					txtCodSocio.setBounds(66, 27, 66, 23);
+					txtCodSocio.setActionCommand("BSocioTecla");
 				}
 				{
 					btnBuscarSocio = new JButton();
@@ -158,6 +159,7 @@ public class VistaCargarSubsidio extends javax.swing.JFrame {
 					jPanelSubsidio.add(txtCodSubsidio);
 					jPanelSubsidio.add(getLblBs());
 					txtCodSubsidio.setBounds(65, 27, 107, 23);
+					
 				}
 			}
 			{
@@ -247,6 +249,7 @@ public class VistaCargarSubsidio extends javax.swing.JFrame {
 		this.btnGuardar.addActionListener(accion);
 		this.btnBuscarSocio.addActionListener(accion);
 		this.btnCancelar.addActionListener(accion);
+		this.txtCodSocio.addActionListener(accion);
 	}
 	
 	public void LimpiarCampos(){

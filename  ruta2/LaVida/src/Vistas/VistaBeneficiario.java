@@ -150,6 +150,7 @@ private static VistaBeneficiario vBeneficiario=null;
 					txtCedulaRif = new JTextField();
 					jpDatosBeneficiario.add(txtCedulaRif);
 					txtCedulaRif.setBounds(70, 23, 121, 23);
+					txtCedulaRif.setActionCommand("BuscarBenefTecl");
 				}
 				{
 					btnBuscar = new JButton();
@@ -341,6 +342,7 @@ private static VistaBeneficiario vBeneficiario=null;
 					txtNroSocio = new JTextField();
 					jpDatosSocio.add(txtNroSocio);
 					txtNroSocio.setBounds(154, 20, 91, 23);
+					txtNroSocio.setActionCommand("BuscarSocioTeclado");
 				}
 				{
 					lblNombreSocio = new JLabel();
@@ -509,6 +511,8 @@ public void regresar(){
 		this.btnBuscarSocio.addActionListener(accion);
 		this.btnAgregar.addActionListener(accion);
 		this.btnEliminarB.addActionListener(accion);
+		this.txtNroSocio.addActionListener(accion);
+		this.txtCedulaRif.addActionListener(accion);
 	}
 
 	

@@ -65,6 +65,13 @@ public class ControladorArrendatario implements ActionListener {
 			   else if(vArrendatario.Seleccion()==2)
 				   vehiculo= new ControladorVehiculo(vArrendatario);
 			}
+		}else if(ae.getActionCommand().equalsIgnoreCase("BuscarCedTecl")){
+			try {
+				this.BuscarSocio();
+			} catch (Exception e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
 		}
 	}
 	

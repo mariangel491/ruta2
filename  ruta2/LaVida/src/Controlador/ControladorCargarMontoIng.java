@@ -101,6 +101,8 @@ public class ControladorCargarMontoIng implements ActionListener, KeyListener {
 			
 		}else if(ae.getActionCommand().equals("Salir")){
 			
+		}else if(ae.getActionCommand().equalsIgnoreCase("BIngreTecla")){
+			
 		}
 	}
 

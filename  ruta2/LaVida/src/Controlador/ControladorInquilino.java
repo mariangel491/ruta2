@@ -96,14 +96,9 @@ public class ControladorInquilino  implements ActionListener, KeyListener {
 		}
 		}else if (a.getActionCommand().equalsIgnoreCase("Limpiar")) {
 			vInquilino.limpiarCampos();
-		}else
-		
-		if (a.getActionCommand().equalsIgnoreCase("Cancelar")) {
+		}else if (a.getActionCommand().equalsIgnoreCase("Cancelar")) {
 			vInquilino.cerrarVentana();
-		}else
-		
-		
-		if (a.getActionCommand().equalsIgnoreCase("Guardar")) {
+		}else if (a.getActionCommand().equalsIgnoreCase("Guardar")) {
 			
 			int tlfno =0;
 			//Como el tlfno es común para ambos tipos 
@@ -208,7 +203,10 @@ public class ControladorInquilino  implements ActionListener, KeyListener {
 				JOptionPane.showMessageDialog(null,"Inquilino no Registrado","Atencion!",
 						JOptionPane.ERROR_MESSAGE);	
 			}
-			}
+		}else if(a.getActionCommand().equalsIgnoreCase("BInquiTecla"))
+		{
+			
+		}
 	}
 
 

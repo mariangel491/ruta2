@@ -8,8 +8,12 @@ import java.util.List;
 
 
 
+
+
 import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
+
+
 
 
 
@@ -95,9 +99,57 @@ public class ControladorSocio implements ActionListener {
 				// TODO Auto-generated catch block
 				e.printStackTrace();
 			}
+		}else if(a.getActionCommand().equalsIgnoreCase("BuscarNumSocTeclado")){
+			try {
+				this.BuscarSocio();
+			} catch (Exception e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+		}else if(a.getActionCommand().equalsIgnoreCase("BusCedTeclado")){
+			try {
+				this.BuscarSocioCed();
+			} catch (Exception e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
 		}
 	}
 
+	private void BuscarSocioCed() throws Exception {
+
+		// TODO Auto-generated method stub
+		if (vSocio.getTxtCedSocio().equals("")) {
+			vSocio.mostrarMensaje("Debe llenar el campo codigo");
+		} 
+		else {
+			
+			String cedula = vSocio.getTxtCedSocio(); //convertir en integer.. o usar codigo como String
+
+			if (socioDao.encontrarCed(cedula)) { 
+				socio = socioDao.buscarPorCedula(cedula);
+				
+				String codigo, nombre, direc, ced, ape;
+				Integer telef;
+
+				codigo = socio.getNroSocio();
+				vSocio.setTxtNroSocio(codigo);
+				nombre = socio.getNombre();
+				vSocio.setTxtNomSocio(nombre);
+				direc = socio.getDireccion();
+				vSocio.setTxtDirecSocio(direc);
+				ced = socio.getCedula();
+				vSocio.setTxtCedSocio(ced);
+				ape = socio.getApellido();
+				vSocio.setTxtApellidoSoc(ape);
+				telef = socio.getTelefono();
+				vSocio.setTxtTelefono(telef.toString());
+				
+			} else
+				vSocio.mostrarMensaje("El socio no existe");
+		}
+	}
+	
 	
 		private void BuscarSocio() throws Exception {
 
@@ -113,6 +165,7 @@ public class ControladorSocio implements ActionListener {
 
 			if (socioDao.encontrar(codi)) { 
 				socio = socioDao.buscarPorNroSocio(codi);
+				
 
 				String codigo;
 				String nombre;
@@ -186,4 +239,7 @@ public class ControladorSocio implements ActionListener {
 		} else
 			this.vSocio.mostrarMensaje("Debe llenar todos los campos");
 	} 
+
+	
+
 }

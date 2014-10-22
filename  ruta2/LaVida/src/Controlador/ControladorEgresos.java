@@ -85,6 +85,8 @@ public class ControladorEgresos implements ActionListener, KeyListener{
 			
 	
 
+		}else if(ae.getActionCommand().equalsIgnoreCase("BEgreTecla")){
+			
 		}
 	}
 

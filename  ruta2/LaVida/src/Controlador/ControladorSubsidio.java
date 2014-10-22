@@ -40,6 +40,8 @@ public class ControladorSubsidio implements ActionListener {
 			vcSub.LimpiarCampos();
 		}else if(ae.getActionCommand().equalsIgnoreCase("Cancelar")){
 			vcSub.LimpiarCampos();
+		}else if(ae.getActionCommand().equalsIgnoreCase("BSocioTecla")){
+			this.BuscarSocio();
 		}
 	}
 	

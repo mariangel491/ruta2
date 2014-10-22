@@ -16,6 +16,8 @@ import javax.swing.JOptionPane;
 
 
 
+
+
 import Modelos.Beneficiario;
 import Modelos.Socio;
 import Modelos.Hibernate.Daos.BeneficiarioDao;
@@ -107,6 +109,20 @@ public class ControladorBeneficiario implements ActionListener, KeyListener {
 			}
 			
 			
+		}else if(ae.getActionCommand().equalsIgnoreCase("BuscarBenefTecl")){
+			try {
+				this.BuscarBenef();
+			} catch (Exception e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+		}else if(ae.getActionCommand().equalsIgnoreCase("BuscarSocioTeclado")){
+			try {
+				this.BuscarSocio();
+			} catch (Exception e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
 		}else if(ae.getActionCommand().equalsIgnoreCase("Guardar")){
 			
 
@@ -182,7 +198,7 @@ public class ControladorBeneficiario implements ActionListener, KeyListener {
 				}
 			}*/
 				
-		}
+	}
 
 	
 	public void BuscarSocio() throws Exception{

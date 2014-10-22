@@ -125,6 +125,7 @@ private static VistaSocio vSocio=null;
 					txtNroSocio = new JTextField();
 					jpSocio.add(txtNroSocio);
 					txtNroSocio.setBounds(150, 24, 71, 23);
+					txtNroSocio.setActionCommand("BuscarNumSocTeclado");
 				}
 				{
 					txtCedSocio = new JTextField();
@@ -132,6 +133,7 @@ private static VistaSocio vSocio=null;
 					jpSocio.add(getJbtnBuscarSocio());
 					jpSocio.add(getJbtnBuscarCed());
 					txtCedSocio.setBounds(407, 24, 81, 23);
+					txtCedSocio.setActionCommand("BusCedTeclado");
 				}
 				
 			}
@@ -411,6 +413,8 @@ private static VistaSocio vSocio=null;
 			this.btnRA.addActionListener(accion);
 			this.btnRS.addActionListener(accion);
 			this.btnRV.addActionListener(accion);
+			this.txtCedSocio.addActionListener(accion);
+			this.txtNroSocio.addActionListener(accion);
 			
 		}
 		

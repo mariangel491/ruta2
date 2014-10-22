@@ -109,6 +109,7 @@ public class VistaArrendatario extends javax.swing.JFrame {
 					txtCedulaRif = new JTextField();
 					jPanelDatosArrendatario.add(txtCedulaRif);
 					txtCedulaRif.setBounds(89, 18, 121, 23);
+					txtCedulaRif.setActionCommand("BuscarCedTecl");
 				}
 				{
 					btnBuscar = new JButton();
@@ -283,6 +284,7 @@ public class VistaArrendatario extends javax.swing.JFrame {
 			this.btnLimpiar.addActionListener(accion);
 			this.btnBuscar.addActionListener(accion);
 			this.btnCancelar.addActionListener(accion);
+			this.txtCedulaRif.addActionListener(accion);
 		}
 
 		//LimpiarCampos

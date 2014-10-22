@@ -126,6 +126,7 @@ public class VistaEgresos extends javax.swing.JFrame {
 						txtCodEgresO.setBounds(107, 27, 63, 23);
 						txtCodEgresO.setEditable(true);
 						txtCodEgresO.setFont(new java.awt.Font("Verdana",0,11));
+						txtCodEgresO.setActionCommand("BEgreTecla");
 					}
 					{
 						lblDescripEgreso = new JLabel();
@@ -219,6 +220,7 @@ public class VistaEgresos extends javax.swing.JFrame {
 		this.btnModificar.addActionListener(accion);
 		this.btnSalir.addActionListener(accion);
 		this.btnBuscar.addActionListener(accion);
+		this.txtCodEgresO.addActionListener(accion);
 	}
 
 	//LimpiarCampos

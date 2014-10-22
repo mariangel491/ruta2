@@ -127,6 +127,7 @@ private static VistaPrestamo vPrest=null;
 					txtNroSocio = new JTextField();
 					jpDatosSocio.add(txtNroSocio);
 					txtNroSocio.setBounds(126, 23, 88, 23);
+					txtNroSocio.setActionCommand("BSocioTecla");
 				}
 				{
 					lblNomSocio = new JLabel();
@@ -319,6 +320,7 @@ private static VistaPrestamo vPrest=null;
 		this.btnSalir.addActionListener(accion);
 		this.btnBuscarSocio.addActionListener(accion);
 		this.btnAgregar.addActionListener(accion);
+		this.txtNroSocio.addActionListener(accion);
 		
 	}
 

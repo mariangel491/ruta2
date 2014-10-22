@@ -336,6 +336,7 @@ private JLabel lblTipo;
 		if(txtCodigo == null) {
 			txtCodigo = new JTextField();
 			txtCodigo.setBounds(89, 19, 143, 23);
+			txtCodigo.setActionCommand("BInquiTecla");
 		}
 		return txtCodigo;
 	}

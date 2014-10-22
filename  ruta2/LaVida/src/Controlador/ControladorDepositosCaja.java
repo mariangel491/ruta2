@@ -97,7 +97,13 @@ public class ControladorDepositosCaja implements KeyListener, ActionListener {
 	
 	//LLENAR LA LISTA DE CAJA TODOS LOS REGISTROS ND
 	public List<Caja> obtenerDepositos() throws Exception{
-		return listMovCaja= daocaja.obtenerTodos();
+		for(int i=0;i<daocaja.obtenerTodos().size();i++)
+		{
+			if(daocaja.obtenerTodos().get(i).getStatus().equalsIgnoreCase("ND")){
+				listMovCaja.add(daocaja.obtenerTodos().get(i));
+			}
+		}
+		return listMovCaja;
 	}
 	
 	//Cargar el listado de la caja
@@ -114,7 +120,12 @@ public class ControladorDepositosCaja implements KeyListener, ActionListener {
 				vcaja.agregarFilaCaja(descripcion, monto);
 				SumarCaja();
 			}	
-		}	
+		}
+		if(listMovCaja.size()==0)
+		{
+			JOptionPane.showMessageDialog(null,"No existen montos disponible para realizar un deposito","Atencion!",
+					JOptionPane.INFORMATION_MESSAGE);
+		}
 	}
 	
 	//Totalizar los montos de las listas

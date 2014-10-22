@@ -128,6 +128,7 @@ private static VistaCargarIngresos vCIng=null;
 						txtCodIng = new JTextField();
 						jPanelCargarMontos.add(txtCodIng);
 						txtCodIng.setBounds(96, 32, 101, 23);
+						txtCodIng.setActionCommand("BIngreTecla");
 					}
 					{
 						btnBuscar = new JButton();
@@ -232,6 +233,7 @@ private static VistaCargarIngresos vCIng=null;
 		this.btnBuscar.addActionListener(accion);
 		this.btnCancelar.addActionListener(accion);
 		this.btnSalir.addActionListener(accion);
+		this.txtCodIng.addActionListener(accion);
 	}
 
 	//LimpiarCampos
