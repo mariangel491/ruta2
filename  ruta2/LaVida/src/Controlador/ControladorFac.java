@@ -240,72 +240,31 @@ public class ControladorFac implements ActionListener, KeyListener{
 			vFactura.setTxtMontoIngresoEgreso("");
 			vFactura.sumarMontoTablaIngresoXFactura();	/////REVISAR SI LO TRAIGO AL CONTROLADOR/////
 			}
-				/*else 
-				{
-					monto = Double.parseDouble(vFactura.getTxtMontoIngresoEgreso());
-					
-					if(!vFactura.getjListPrestamosPendientes().isSelectionEmpty()){
-						vFactura.getjTableIngresosXFactura().setModel(this.agregarIngresoEgresoATabla(vFactura.getjListIngresos().getSelectedValues(), vFactura.getCmbTipoFactu(), vFactura.getjTableIngresosXFactura(),monto,vFactura.getjListPrestamosPendientes().getSelectedValue()));
-					}
-					else{
-						vFactura.getjTableIngresosXFactura().setModel(agregarIngresoEgresoATabla(vFactura.getjListIngresos().getSelectedValues(), vFactura.getCmbTipoFactu(), vFactura.getjTableIngresosXFactura(),monto,null));
-					}
-					vFactura.getjTableIngresosXFactura().getModel();
-					vFactura.getjListIngresos().clearSelection();
-					vFactura.setTxtMontoIngresoEgreso("");
-					vFactura.sumarMontoTablaIngresoXFactura();	/////REVISAR SI LO TRAIGO AL CONTROLADOR/////
-				}*/
+				
 		}
 		else {
 			if(vFactura.getCmbTipoFactu().equals(vFactura.TIPO_DE_FACTURA_EGRESOS)){
-			if(null == vFactura.getTxtMontoIngresoEgreso() || "".equals(vFactura.getTxtMontoIngresoEgreso()))
+				if(null == vFactura.getTxtMontoIngresoEgreso() || "".equals(vFactura.getTxtMontoIngresoEgreso()))
+					
+					JOptionPane.showMessageDialog(null, "Debe seleccionar un Monto", "Atención!", JOptionPane.ERROR_MESSAGE);
 				
-				JOptionPane.showMessageDialog(null, "Debe seleccionar un Monto", "Atención!", JOptionPane.ERROR_MESSAGE);
-			
-		else{
-						monto = Double.parseDouble(vFactura.getTxtMontoIngresoEgreso());
-						
-			if(!vFactura.getjListPrestamosPendientes().isSelectionEmpty()){
-				vFactura.getjTableIngresosXFactura().setModel(this.agregarIngresoEgresoATabla(vFactura.getjListIngresos().getSelectedValues(), vFactura.getCmbTipoFactu(), vFactura.getjTableIngresosXFactura(), monto,vFactura.getjListPrestamosPendientes().getSelectedValue()));
-			}
-			else{
-				vFactura.getjTableIngresosXFactura().setModel(agregarIngresoEgresoATabla(vFactura.getjListIngresos().getSelectedValues(), vFactura.getCmbTipoFactu(), vFactura.getjTableIngresosXFactura(), monto,null));
-			}
-			vFactura.getjTableIngresosXFactura().getModel();
-			vFactura.getjListIngresos().clearSelection();
-			vFactura.setTxtMontoIngresoEgreso("");
-			vFactura.sumarMontoTablaIngresoXFactura();	/////REVISAR SI LO TRAIGO AL CONTROLADOR/////
+				else{
+								monto = Double.parseDouble(vFactura.getTxtMontoIngresoEgreso());
+								
+					if(!vFactura.getjListPrestamosPendientes().isSelectionEmpty()){
+						vFactura.getjTableIngresosXFactura().setModel(this.agregarIngresoEgresoATabla(vFactura.getjListIngresos().getSelectedValues(), vFactura.getCmbTipoFactu(), vFactura.getjTableIngresosXFactura(), monto,vFactura.getjListPrestamosPendientes().getSelectedValue()));
+						}
+						else{
+							vFactura.getjTableIngresosXFactura().setModel(agregarIngresoEgresoATabla(vFactura.getjListIngresos().getSelectedValues(), vFactura.getCmbTipoFactu(), vFactura.getjTableIngresosXFactura(), monto,null));
+							}
+						vFactura.getjTableIngresosXFactura().getModel();
+						vFactura.getjListIngresos().clearSelection();
+						vFactura.setTxtMontoIngresoEgreso("");
+						vFactura.sumarMontoTablaIngresoXFactura();	/////REVISAR SI LO TRAIGO AL CONTROLADOR/////
+					}
+				  }
 		}
-		}
-		}
-		
-	/*Double monto = 0.0;
-	
-	if(vFactura.getCmbTipoFactu().equals(vFactura.TIPO_DE_FACTURA_INGRESOS)){
-		monto = Double.parseDouble(vFactura.getTxtMontoIngresoEgreso());
-		
-	}else{
-		if(vFactura.getCmbTipoFactu().equals(vFactura.TIPO_DE_FACTURA_EGRESOS)){
-	if(null == vFactura.getTxtMontoIngresoEgreso() || "".equals(vFactura.getTxtMontoIngresoEgreso()) || vFactura.getTxtMontoIngresoEgreso().equals(monto.toString())){
-
-		JOptionPane.showMessageDialog(null, "Debe seleccionar un Monto", "Atención!", JOptionPane.ERROR_MESSAGE);
-		
-	}else{
-		monto = Double.parseDouble(vFactura.getTxtMontoIngresoEgreso());
-	}
-		}
-	}
-	if(!vFactura.getjListPrestamosPendientes().isSelectionEmpty()){
-		vFactura.getjTableIngresosXFactura().setModel(this.agregarIngresoEgresoATabla(vFactura.getjListIngresos().getSelectedValues(), vFactura.getCmbTipoFactu(), vFactura.getjTableIngresosXFactura(),monto,vFactura.getjListPrestamosPendientes().getSelectedValue()));
-	}
-	else{
-		vFactura.getjTableIngresosXFactura().setModel(agregarIngresoEgresoATabla(vFactura.getjListIngresos().getSelectedValues(), vFactura.getCmbTipoFactu(), vFactura.getjTableIngresosXFactura(),monto,null));
-	}
-	vFactura.getjTableIngresosXFactura().getModel();
-	vFactura.getjListIngresos().clearSelection();
-	vFactura.setTxtMontoIngresoEgreso("");
-	vFactura.sumarMontoTablaIngresoXFactura();	/////REVISAR SI LO TRAIGO AL CONTROLADOR/////
-*/	}
+}
 	
 	
 	public DefaultTableModel agregarIngresoEgresoATabla(Object[] objetosSeleccionados, String tipoFactura, JTable jTableIngresosXFactura, Double montoEgreso,Object objetoPrestamoPendiente){
@@ -340,17 +299,14 @@ public class ControladorFac implements ActionListener, KeyListener{
 					modeloDeLaTabla.addRow(datosDeLaFila);
 				}else
 				{
-					
-					//if(ccs==0)
-					//{
+				
 							System.out.println(ccs+"por el else");
 							if(null == vFactura.getTxtMontoIngresoEgreso() || "".equals(vFactura.getTxtMontoIngresoEgreso()))
 								
 								JOptionPane.showMessageDialog(null, "Debe seleccionar un Monto", "Atención!", JOptionPane.ERROR_MESSAGE);
-				//	}
+			
 							else 
 					{
-					//	vFactura.setTxtMontoIngresoEgreso(String.valueOf(ccs));
 						montoEgreso= Double.parseDouble(vFactura.getTxtMontoIngresoEgreso());
 						System.out.println(montoEgreso);
 						Object[] datosDeLaFila = {ingreso.getCodIngreso(),ingreso.getDescripcion(),montoEgreso.toString(), ingreso.getClasifIngreso(),(String)objetoPrestamoPendiente};
@@ -366,8 +322,6 @@ public class ControladorFac implements ActionListener, KeyListener{
 					// TODO Auto-generated catch block
 					e.printStackTrace();
 				}
-				
-				//montoEgreso= Double.parseDouble(vFactura.getTxtMontoIngresoEgreso());
 				
 				Object[] datosDeLaFila = {egreso.getCodEgreso(),egreso.getDescripcion(),montoEgreso.toString(), egreso.getClasificacion(),objetoPrestamoPendiente};
 				 modeloDeLaTabla.addRow(datosDeLaFila);
