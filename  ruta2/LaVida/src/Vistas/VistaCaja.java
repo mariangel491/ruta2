@@ -13,6 +13,7 @@ import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JCheckBox;
 import javax.swing.JLabel;
+import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.JTable;
@@ -422,8 +423,14 @@ public class VistaCaja extends javax.swing.JFrame {
 
 		}
 	
-	public void CampoSeleccionado(MouseEvent me){
-		System.out.println(jTableCaja.getSelectedRow());
+	// cerrar Ventana
+	public void cerrarVentana() {
+		// TODO Auto-generated method stub
+		int ValorDevuelto = JOptionPane.showConfirmDialog(null,
+				"¿Seguro que desea salir?", "Salir", JOptionPane.YES_NO_OPTION);
+		if (ValorDevuelto == 0) {
+			this.dispose();
+		}
 	}
 	
 }
