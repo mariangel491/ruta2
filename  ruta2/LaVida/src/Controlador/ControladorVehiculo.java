@@ -46,6 +46,7 @@ public class ControladorVehiculo implements ActionListener {
 	private Socio socio = new Socio();
 	private Avance avan = new Avance();
 	Arrendatario arrendatarioPrueba= new Arrendatario();
+	Socio socioPrueba = new Socio();
 	
 	VehiculoArrendatario vehiArren= new VehiculoArrendatario();
 	private SocioDao socioDao = new SocioDao();
@@ -110,6 +111,40 @@ public class ControladorVehiculo implements ActionListener {
 		}
 			
 	}
+	
+	
+	public ControladorVehiculo(VistaSocio vs) {
+		// TODO Auto-generated constructor stub
+		vVehiculo = new VistaVehiculo();
+		vVehiculo = vVehiculo.obtenerInstancia();
+		vVehiculo.setLocationRelativeTo(null);
+		vVehiculo.setVisible(true);
+		vVehiculo.agregarListener(this);
+		vVehiculo.limpiarCampos();
+		vVehiculo.CambiarNombrePanel();
+		try {
+			vVehiculo.LlenarComboMarca();
+		} catch (Exception e1) {
+			// TODO Auto-generated catch block
+			e1.printStackTrace();
+		}
+		if (vs.Selec()==2){
+			vVehiculo.setTxtNroSocio(vs.llenarCodigo2()); 
+			vVehiculo.setTxtNomSocio(vs.llenarNombre2());
+			
+			vVehiculo.setCmbConductor(vs.llenarNombre2());
+		}
+			
+		try {
+			this.obtenerVehiculoArren();
+			socioPrueba= vs.GuardarSocio();
+		} catch (Exception e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+	
+	}
+	
 
 	public ControladorVehiculo(VistaArrendatario vA) {
 		// TODO Auto-generated constructor stub
