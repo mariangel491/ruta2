@@ -64,6 +64,7 @@ public class ControladorAlquiler implements ActionListener, KeyListener, MouseLi
 		vAlquiler.agregarListener(this);
 		vAlquiler.agregarKey(this);
 		vAlquiler.agregarMouse(this);
+		vAlquiler.EliminarDatosCombo();
 		vAlquiler.setTxtCedRifInq(vi.llenarCodigo());
 		vAlquiler.setTxtNombre(vi.llenarNombre());
 		vAlquiler.Bloquear();

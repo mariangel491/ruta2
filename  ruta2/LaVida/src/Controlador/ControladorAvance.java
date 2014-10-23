@@ -97,9 +97,10 @@ public class ControladorAvance implements ActionListener {
 		vAvance.setLocationRelativeTo(null);
 		vAvance.setVisible(true);
 		vAvance.agregarListener(this);
+		if(vs.Selec()==1){
 		vAvance.setTxtNroSocio(vs.llenarCodigo());
 		vAvance.setTxtNomSocio(vs.llenarNombre());
-		
+		}
 		try {
 			this.obtenerAvance();
 			this.asignarCod();

@@ -500,6 +500,19 @@ private static VistaSocio vSocio=null;
 		return vavance.getTxtNomSocio();
 		}
 		
+		public String llenarCodigo2() {
+			VistaVehiculo vvehiculo =new VistaVehiculo();
+		vvehiculo.setTxtNroSocio(this.getTxtNroSocio());
+		return vvehiculo.getTxtNroSocio();
+		}
+		
+		public String llenarNombre2() {
+			VistaVehiculo vvehiculo =new VistaVehiculo();
+		vvehiculo.setTxtNomSocio(this.getTxtnomSocio()+" "+this.getTxtapellidoSoc());
+		System.out.println(getTxtnomSocio());
+		return vvehiculo.getTxtNomSocio();
+		}
+		
 	//LimpiarCampos
 	public void limpiarCampos() {
 		
@@ -594,6 +607,24 @@ private static VistaSocio vSocio=null;
 		}
 		return rbtnNo;
 	}
+	
+	public int Seleccion(){
+		if(this.rbtnSI.isSelected()==true)
+			return 1;
+		if(this.rbtnNo.isSelected()==true)
+			return 2;
+		
+		return 0;
+	}
+	
+	public int Selec(){
+		if (this.Seleccion()==1){
+			return 1;
+		}else
+				return 2;
+			
+	}
+	
 	
 	private ButtonGroup getButtonGroupTieneAvance() {
 		if(buttonGroupTieneAvance == null) {

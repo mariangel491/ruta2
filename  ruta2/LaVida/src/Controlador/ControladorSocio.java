@@ -10,8 +10,10 @@ import java.util.List;
 
 
 
+
 import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
+
 
 
 
@@ -45,18 +47,9 @@ public class ControladorSocio implements ActionListener {
 		vSocio = new VistaSocio();
 		vSocio.setLocationRelativeTo(null);
 		vSocio.setVisible(true);
+		vSocio.limpiarCampos();
 		vSocio.agregarListener(this);
 	}
-	
-	/*public ControladorSocio(VistaVehiculo vh) {
-		vSocio = new VistaSocio();
-		vSocio.setLocationRelativeTo(null);
-		vSocio.setVisible(true);
-		vSocio.agregarListener(this);
-		vSocio.setTxtNroSocio(vh.llenarCodigo());
-		vSocio.setTxtNomSocio(vh.llenarNombre());
-	  
-	}*/
 
 	
 	
@@ -94,9 +87,10 @@ public class ControladorSocio implements ActionListener {
 		}else 
 			if (a.getActionCommand().equalsIgnoreCase("Siguiente")) {
 				if(vSocio.CamposllenosSocio()==true){
-					avance =  new ControladorAvance(vSocio);
-					//vSocio.este();
-				 //vehiculo = new ControladorVehiculo(vSocio);  ///Hay que probar que resultado da esto?
+					 if(vSocio.Seleccion()==1)
+						   avance =  new ControladorAvance(vSocio);
+					   else if(vSocio.Seleccion()==2)
+						   vehiculo= new ControladorVehiculo(vSocio);
 				} else
 						JOptionPane.showMessageDialog(null, "Debe llenar todos los campos del Socio", "Atención!", JOptionPane.ERROR_MESSAGE);
 		}
