@@ -543,12 +543,12 @@ public class ControladorVehiculo implements ActionListener {
 			socio = socioDao.buscarPorNroSocio(codi);
 			
 			for(Vehiculo veh : this.socio.getVehiculos()){
-				//veh.setSocio(socio);
+				veh.setSocio(socio);
 				System.out.println(socio.getNombre());
 					if(!vehDao.encontrar(veh.getPlaca()))
 					{
 					//	System.out.println("veh: "+veh.getSocio().getNombre());
-						veh.setSocio(socioDao.buscarPorNroSocio("null")); ////*****AQUI NO SE ESTA TRAYENDO EL COD DEL SOCIO***/////
+					//	veh.setSocio(socioDao.buscarPorNroSocio("null")); ////*****AQUI NO SE ESTA TRAYENDO EL COD DEL SOCIO***/////
 						vehDao.agregarVehiculo(veh);
 					}
 			}
