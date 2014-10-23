@@ -106,6 +106,19 @@ private HibernateUtil sesionPostgres;
 				return formaPago;
 		return null;
 	}
+	
+	public FormaPago buscarPoDescrip(String nombre) throws Exception {
+		for (FormaPago formaPago : obtenerTodos())
+			if (formaPago.getNombre().equalsIgnoreCase(nombre))
+				return formaPago;
+		return null;
+	}
+	
+	public boolean encontrarNombre(String nombre) throws Exception{
+		if(buscarPoDescrip(nombre)==null)
+			return false;
+		return true;
+	}
 
 	public boolean encontrar(String codForma) throws Exception {
 		if (buscarPorCodForma(codForma) == null)

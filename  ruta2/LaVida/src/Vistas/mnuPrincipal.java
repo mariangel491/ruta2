@@ -259,8 +259,7 @@ public class mnuPrincipal extends javax.swing.JFrame {
                           String consulta="SELECT * from socio";
                            ControladorReporte jasper = new ControladorReporte();
                             jasper.runReporte();
-					
-/*
+				
 							String sourceFileName =System.getProperty("user.dir") +"/src/Reportes/ReporteSocios.jrxml";
 
 						      try {
@@ -269,7 +268,7 @@ public class mnuPrincipal extends javax.swing.JFrame {
 						      } catch (JRException e) {
 						         // TODO Auto-generated catch block
 						         e.printStackTrace();
-						      }*/ 
+						      }
 						}});
 					itmReporteSocio.setActionCommand("ReporteSocio");
 				}

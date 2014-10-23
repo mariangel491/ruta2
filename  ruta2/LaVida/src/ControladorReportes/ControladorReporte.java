@@ -9,7 +9,6 @@ import java.util.HashMap;
 import java.util.Map;
 
 import net.sf.jasperreports.engine.JREmptyDataSource;
-import net.sf.jasperreports.engine.JRException;
 import net.sf.jasperreports.engine.JasperCompileManager;
 import net.sf.jasperreports.engine.JasperFillManager;
 import net.sf.jasperreports.engine.JasperPrint;
@@ -22,7 +21,7 @@ import net.sf.jasperreports.view.JasperViewer;
 
 public class ControladorReporte {
 
-	private Connection conn;
+	/*private Connection conn;
      private final String login = "postgres"; //usuario de acceso a MySQL
      private final String password = "postgres"; //contraseña de usuario
      private String url = "jdbc:postgresql://localhost:5432/BDRuta2";
@@ -43,11 +42,11 @@ public class ControladorReporte {
          }
      }
      
-     public void runReporte()
+     public void runReporte(String consulta )
      {
          try
          {  
-             String fileName = System.getProperty("user.dir") +"/src/Reportes/ReporteSocios.jrxml";
+             String fileName = System.getProperty("user.dir") +"/src/Reportes/Prueba.jrxml";
             
              if (fileName == null) 
              {                
@@ -55,12 +54,12 @@ public class ControladorReporte {
                  System.exit(2);
              }             
          File theFile = new File(fileName);
-         /*JRDesignQuery newQuery = new JRDesignQuery();
+         JRDesignQuery newQuery = new JRDesignQuery();
          JasperDesign jasperDesign = JRXmlLoader.load(theFile);
          newQuery.setText("SELECT * FROM socio");
-         jasperDesign.setQuery(newQuery);*/
+         jasperDesign.setQuery(newQuery);
          
-          JasperReport jasperReport = JasperCompileManager.compileReport(fileName);
+          JasperReport jasperReport = JasperCompileManager.compileReport(jasperDesign);
           JasperPrint jasperPrint = JasperFillManager.fillReport(jasperReport, new HashMap(),  new JREmptyDataSource());
           JasperViewer jviewer = new JasperViewer(jasperPrint,false);
           jviewer.setTitle("Sistema de gestión de Cartera");
@@ -84,20 +83,21 @@ public class ControladorReporte {
                      ex.printStackTrace();
                  }
      }
+	*/
 	
 	
-	
-	 /*static Connection conn = null;
+	  static Connection conn = null;
 		 
 		 
 		  public void runReporte() {
-		   // Cargamos el driver JDBC
+		    // Cargamos el driver JDBC
 			  
 			  String ruta= System.getProperty("user.dir") +"/src/Reportes/ReporteSocios.jrxml";
 		    try {
 		      Class.forName("org.postgresql.Driver");
 		    }
 		    catch (ClassNotFoundException e) {
+		      System.out.println("MySQL JDBC Driver not found.");
 		      System.exit(1);
 		    }
 		    //Para iniciar el Logger.
@@ -137,19 +137,10 @@ public class ControladorReporte {
 		      catch (Exception e) {
 		        e.printStackTrace();
 		      }
-		    }*/
-			  
-			/*  String sourceFileName= System.getProperty("user.dir") +"/src/Reportes/ReporteSocios.jasper";
-			  System.out.println("sdfgjklñ");
-		      try {
-		         JasperFillManager.fillReportToFile(sourceFileName, null,
-		            new JREmptyDataSource());
-		      } catch (JRException e) {
-		         // TODO Auto-generated catch block
-		         e.printStackTrace();
-		      }*/
-
+		    }
 		 
 		  }
 	
+}
+
 

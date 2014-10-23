@@ -31,7 +31,16 @@ public class FormaPago implements Serializable{
 		this.codForma = codForma;
 		this.nombre = nombre;
 	}
+	
+	
 		
+	public FormaPago() {
+		super();
+		// TODO Auto-generated constructor stub
+	}
+
+
+
 	public String getCodForma() {
 		return codForma;
 	}

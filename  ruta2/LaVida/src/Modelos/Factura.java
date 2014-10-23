@@ -51,7 +51,8 @@ public class Factura implements Serializable{
 	private Ruta codRuta;
 	
 	@ManyToMany(cascade = {CascadeType.ALL})
-	@JoinTable(name="facturaxformapago", joinColumns={@JoinColumn(name="nrofactura")}, inverseJoinColumns={@JoinColumn(name="codigo")})
+	@JoinTable(name="facturaxformapago", joinColumns={@JoinColumn(name="nrofactura")},
+	inverseJoinColumns={@JoinColumn(name="codigo")})
 	private Set<FormaPago> formas=new HashSet();
 	
 	@OneToOne
@@ -155,6 +156,14 @@ public class Factura implements Serializable{
 
 	public void setArrendatario(Arrendatario arrendatario) {
 		this.arrendatario = arrendatario;
+	}
+
+	public Set<FormaPago> getFormas() {
+		return formas;
+	}
+
+	public void setFormas(Set<FormaPago> formas) {
+		this.formas = formas;
 	}
 	
 	
