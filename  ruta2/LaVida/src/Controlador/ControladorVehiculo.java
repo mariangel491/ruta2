@@ -315,6 +315,15 @@ public class ControladorVehiculo implements ActionListener {
 	  }
 	
 	
+	public void comboAvance() throws Exception{
+		
+		for(int i=0; i<avanceDao.obtenerTodos().size();i++)
+		{
+			if(avanceDao.obtenerTodos().get(i).getSocio().getNroSocio().equals(vVehiculo.getTxtNroSocio()))
+			vVehiculo.setCmbConductor(avanceDao.obtenerTodos().get(i).getNombre()+ " "+
+					avanceDao.obtenerTodos().get(i).getApellido());
+		}
+	}
 	
 	
 	private void BuscarSocio() throws Exception {
@@ -340,6 +349,8 @@ public class ControladorVehiculo implements ActionListener {
 				vVehiculo.setTxtNomSocio(nombre);
 				
 				this.obtenerVehiculos();
+				this.comboAvance();
+				
 			} else
 				JOptionPane.showMessageDialog(null, "El socio no existe", "Atención!", JOptionPane.ERROR_MESSAGE);
 		}
@@ -350,6 +361,29 @@ public class ControladorVehiculo implements ActionListener {
 	public void BuscarAvances() throws Exception {
 		
 		Avance avan = new Avance();
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
 		
 		if (avanceDao.encontrarCod(vVehiculo.getTxtNroSocio())) {
 			avan = avanceDao.buscarPorCodSocio(vVehiculo.getTxtNroSocio());

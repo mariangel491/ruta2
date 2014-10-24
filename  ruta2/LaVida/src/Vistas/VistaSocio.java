@@ -54,6 +54,7 @@ public class VistaSocio extends javax.swing.JFrame {
 	private JTextField txtDirecSocio;
 	private JButton btnBuscarCed;
 	private JButton btnBuscarSocio;
+	private JButton btnLimpiar;
 	private ButtonGroup buttonGroupTieneAvance;
 	private JRadioButton rbtnNo;
 	private JRadioButton rbtnSI;
@@ -110,6 +111,7 @@ private static VistaSocio vSocio=null;
 				getContentPane().add(getJbtnSiguiente());
 				getContentPane().add(getJbtnCancelar());
 				getContentPane().add(getJbtnModificar());
+				getContentPane().add(getBtnLimpiar());
 				jpSocio.setLayout(null);
 				jpSocio.setBounds(12, 118, 582, 68);
 				jpSocio.setBorder(BorderFactory.createTitledBorder("Datos del Socio"));
@@ -293,7 +295,7 @@ private static VistaSocio vSocio=null;
 		if(btnSiguiente == null) {
 			btnSiguiente = new JButton();
 			btnSiguiente.setText("Siguiente");
-			btnSiguiente.setBounds(99, 342, 126, 28);
+			btnSiguiente.setBounds(454, 342, 126, 28);
 			btnSiguiente.setFont(new java.awt.Font("Century Gothic",0,12));
 			btnSiguiente.setIcon(new ImageIcon(getClass().getClassLoader().getResource("Imagenes/sig.png")));
 			btnSiguiente.setActionCommand("Siguiente");
@@ -305,7 +307,7 @@ private static VistaSocio vSocio=null;
 		if(btnCancelar == null) {
 			btnCancelar = new JButton();
 			btnCancelar.setText("Cancelar");
-			btnCancelar.setBounds(399, 342, 126, 28);
+			btnCancelar.setBounds(33, 342, 126, 28);
 			btnCancelar.setFont(new java.awt.Font("Century Gothic",0,12));
 			btnCancelar.setIcon(new ImageIcon(getClass().getClassLoader().getResource("Imagenes/button_cancel_16x16.png")));
 			btnCancelar.setActionCommand("Cancelar");
@@ -317,9 +319,9 @@ private static VistaSocio vSocio=null;
 		if(btnModificar == null) {
 			btnModificar = new JButton();
 			btnModificar.setText("Modificar");
-			btnModificar.setBounds(250, 343, 126, 28);
+			btnModificar.setBounds(313, 342, 126, 28);
 			btnModificar.setFont(new java.awt.Font("Century Gothic",0,12));
-			btnModificar.setIcon(new ImageIcon(getClass().getClassLoader().getResource("Imagenes/Lists.gif")));
+			btnModificar.setIcon(new ImageIcon(getClass().getClassLoader().getResource("Imagenes/kwrite_22x22.png")));
 			btnModificar.setActionCommand("Modificar");
 		}
 		return btnModificar;
@@ -631,6 +633,18 @@ private static VistaSocio vSocio=null;
 			buttonGroupTieneAvance = new ButtonGroup();
 		}
 		return buttonGroupTieneAvance;
+	}
+	
+	private JButton getBtnLimpiar() {
+		if(btnLimpiar == null) {
+			btnLimpiar = new JButton();
+			btnLimpiar.setText("Limpiar");
+			btnLimpiar.setBounds(172, 342, 127, 28);
+			btnLimpiar.setIcon(new ImageIcon(getClass().getClassLoader().getResource("Imagenes/Limpiarcodigo_1.png")));
+			btnLimpiar.setFont(new java.awt.Font("Century Gothic",0,12));
+			btnLimpiar.setActionCommand("Limpiar");
+		}
+		return btnLimpiar;
 	}
 
 }
