@@ -1,6 +1,7 @@
 package Modelos;
 
 import java.io.Serializable;
+import java.util.Date;
 import java.util.List;
 
 import javax.persistence.CascadeType;
@@ -35,6 +36,8 @@ public class Arrendatario implements Serializable{
 	private String status;
 	@Column(name="monto",nullable=false)
 	private Float monto;
+	@Column(name="fechaingreso")
+	private Date FechaIngreso;
 	@Column(name="TieneAvance", nullable=false)
 	private boolean tiene;
 	
@@ -159,6 +162,14 @@ public class Arrendatario implements Serializable{
 
 	public void setAvances(List<AvanceArrendatario> avances) {
 		this.avances = avances;
+	}
+	
+	public Date getFechaIngreso() {
+		return FechaIngreso;
+	}
+
+	public void setFechaIngreso(Date fechaIngreso) {
+		FechaIngreso = fechaIngreso;
 	}
 
 	public boolean isTiene() {

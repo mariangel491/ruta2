@@ -466,23 +466,24 @@ public class VistaArrendatario extends javax.swing.JFrame {
 		
 		public Arrendatario GuardarArrendatario() {
 			Arrendatario arren= new Arrendatario();
-			Ruta ruta= new Ruta();
+		//	Ruta ruta= new Ruta();
 			Date f= new Date();
+						
 			
 			arren.setCedula(getTxtCedulaRif());
 			arren.setApellido(getTxtApellido());
 			arren.setDireccion(getTxtDireccion());
-			if(this.getTxtMonto().equals("")){
-				arren.setMonto((float) 0);
-			}else
+			arren.setFechaIngreso(f);
+			if(this.Seleccion()==1)
+				arren.setTiene(true);
+				else
+					arren.setTiene(false);
+
 				arren.setMonto(Float.parseFloat(getTxtMonto()));
 			
 			arren.setNombre(getTxtNombre());
 			arren.setStatus("Activo");
-			if(this.getTxtTelefono().equals("")){
-				arren.setTelefono(0);
-			}else
-				arren.setTelefono(Integer.parseInt(getTxtTelefono()));
+			arren.setTelefono(Integer.parseInt(getTxtTelefono()));
 			try {
 				arren.setRuta(rutaDao.buscarPorCodRuta("J-306-902686"));
 			} catch (Exception e) {

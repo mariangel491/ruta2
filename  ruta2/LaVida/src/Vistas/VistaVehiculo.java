@@ -26,6 +26,7 @@ import javax.swing.table.TableModel;
 import javax.swing.SwingUtilities;
 
 import Modelos.Avance;
+import Modelos.Beneficiario;
 import Modelos.Marca;
 import Modelos.Vehiculo;
 import Modelos.VehiculoArrendatario;
@@ -61,6 +62,7 @@ public class VistaVehiculo extends javax.swing.JFrame {
 	private JButton btnRA;
 	private JButton btnRS;
 	private JButton btnBusSocio;
+	private JLabel lblTexto;
 	private JTextField txtAnno;
 	private JButton btnAgregar;
 	private JButton btnEliminarVehiculo;
@@ -136,6 +138,13 @@ private static VistaVehiculo vVehic=null;
 						spListado.setViewportView(tblListadoVehiculo);
 						tblListadoVehiculo.setModel(tblListadoVehiculoModel);
 					}
+				}
+				{
+					lblTexto = new JLabel();
+					jpVehiculoxSocio.add(lblTexto);
+					lblTexto.setText("El socio no tiene Vehiculos!!");
+					lblTexto.setBounds(98, 121, 264, 16);
+					lblTexto.setFont(new java.awt.Font("Segoe UI",2,16));
 				}
 				{
 					btnEliminarVehiculo = new JButton();
@@ -809,6 +818,32 @@ private static VistaVehiculo vVehic=null;
 			 return lblImagen;
 		 }
 		 
+		 
+		 public void MostarListado() {
+				
+			 	this.spListado.setVisible(true);
+			 	this.tblListadoVehiculo.setVisible(true);
+				this.btnEliminarVehiculo.setVisible(true);
+				this.lblTexto.setVisible(false);
+			}
+		 
+		 public void OcultarListado(List<Vehiculo> listVehiculo) throws Exception {
+				if(listVehiculo.size() != 0) {
+					
+					this.jpVehiculoxSocio.setVisible(true);
+					this.tblListadoVehiculo.setVisible(true);
+					this.btnAgregar.setVisible(true);
+					this.btnEliminarVehiculo.setVisible(true);
+			
+				}
+				else {
+					this.tblListadoVehiculo.setVisible(false);
+					this.spListado.setVisible(false);
+					this.lblTexto.setVisible(true);
+					this.btnEliminarVehiculo.setVisible(false);
+							
+				}
+			}
 		 
 		 public void CambiarNombrePanel(){
 				jpVehiculoxSocio.setBorder(BorderFactory.createTitledBorder("Listado de Vehiculo por Arrendatario"));

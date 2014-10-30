@@ -105,7 +105,10 @@ public class ControladorAvance implements ActionListener {
 			this.obtenerAvance();
 			this.asignarCod();
 			socioprueba= vs.GuardarSocio();
-			
+			System.out.println(socioprueba.getNombre()+socioprueba.getApellido()+socioprueba.getTelefono());
+			vAvance.GuardarSocio(socioprueba);
+			vAvance.RetornaSocio();
+			System.out.println("de laaaa vistaaaaaaa "+ vAvance.RetornaSocio().getNombre());
 		} catch (Exception e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();

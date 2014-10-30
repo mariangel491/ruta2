@@ -4,6 +4,7 @@ import java.awt.HeadlessException;
 import java.awt.event.ActionListener;
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.Date;
 import java.util.List;
 import java.util.Vector;
 
@@ -23,9 +24,12 @@ import javax.swing.table.DefaultTableModel;
 import javax.swing.table.TableModel;
 import javax.swing.SwingUtilities;
 
+import Modelos.Arrendatario;
 import Modelos.Avance;
 import Modelos.AvanceArrendatario;
+import Modelos.Ruta;
 import Modelos.Socio;
+import Modelos.Hibernate.Daos.RutaDao;
 import Vistas.VistaSocio;
 
 
@@ -77,6 +81,7 @@ public class VistaAvance extends javax.swing.JFrame {
 	private JButton btnRS;
 	private JLabel lblAvance;
 
+	Socio socioprueba= new Socio();
 	/**
 	* Auto-generated main method to display this JFrame
 	*/
@@ -701,4 +706,76 @@ public void CambiarNombrePanel(){
 	
 	
 }
+
+
+public Socio GuardarSocio(Socio soc){
+	Socio socio= new Socio();
+	RutaDao rutaDao= new RutaDao();
+	Date f= new Date();
+	VistaSocio vs = new VistaSocio();
+	
+	socio.setCedula(soc.getCedula());
+	socio.setApellido(soc.getApellido());
+	socio.setDireccion(soc.getDireccion());
+	socio.setFechaIngreso(f);
+	socio.setNombre(soc.getNombre());
+	socio.setTelefono(soc.getTelefono());
+	System.out.println(soc.getTelefono()+" "+"que se trae");
+	socio.setMontoAhorro(0);
+	socio.setNroSocio(soc.getNroSocio());
+	socio.setStatus('A');
+	
+
+	try {
+		socio.setRuta(soc.getRuta());
+		socioprueba=soc;
+	} catch (Exception e) {
+		// TODO Auto-generated catch block
+		e.printStackTrace();
+	}
+	
+	return soc;
+}
+
+public Socio RetornaSocio(){
+	
+	return socioprueba;
+}
+
+public Arrendatario GuardarArrendatario() {
+	Arrendatario arren= new Arrendatario();
+	RutaDao rutaDao= new RutaDao();
+	Date f= new Date();
+	VistaArrendatario va = new VistaArrendatario();
+	
+	arren.setCedula(va.getTxtCedulaRif());
+	arren.setApellido(va.getTxtApellido());
+	arren.setDireccion(va.getTxtDireccion());
+	arren.setFechaIngreso(f);
+	if(va.Seleccion()==1)
+	arren.setTiene(true);
+	else
+		arren.setTiene(false);
+	/*if(this.getTxtMonto().equals("")){
+		arren.setMonto((float) 0);
+	}else*/
+		arren.setMonto(Float.parseFloat(va.getTxtMonto()));
+	
+	arren.setNombre(va.getTxtNombre());
+	arren.setStatus("Activo");
+	/*if(va.getTxtTelefono().equals("")){
+		arren.setTelefono(0);
+	}else*/
+		arren.setTelefono(Integer.parseInt(va.getTxtTelefono()));
+	try {
+		arren.setRuta(rutaDao.buscarPorCodRuta("J-306-902686"));
+	} catch (Exception e) {
+		// TODO Auto-generated catch block
+		e.printStackTrace();
+	}
+	
+	return arren;
+}
+
+
 }

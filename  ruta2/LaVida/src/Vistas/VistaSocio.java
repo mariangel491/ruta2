@@ -498,7 +498,7 @@ private static VistaSocio vSocio=null;
 		
 		public String llenarNombre() {
 			VistaAvance vavance =new VistaAvance();
-		vavance.setTxtNomSocio(this.getTxtnomSocio());
+		vavance.setTxtNomSocio(this.getTxtnomSocio()+" "+this.getTxtapellidoSoc());
 		return vavance.getTxtNomSocio();
 		}
 		

@@ -58,12 +58,12 @@ public class ControladorVehiculo implements ActionListener {
 	VehiculoArrendatarioDao vehArrenDao = new VehiculoArrendatarioDao();
 	
 	private List<Avance> listaAvancesSocio=new ArrayList<>();
+	private List<AvanceArrendatario> listaAvancesArren=new ArrayList<>();
 
 	ControladorAvance Cavance;
 	ControladorSocio Csocio;
 	
 	public ControladorVehiculo(String resp) {
-		this.Csocio = Csocio;
 		vVehiculo = new VistaVehiculo();
 		vVehiculo = vVehiculo.obtenerInstancia();
 		vVehiculo.setLocationRelativeTo(null);
@@ -79,7 +79,6 @@ public class ControladorVehiculo implements ActionListener {
 		
 			if(resp.equals("Vehiculo Arrendatario")){
 				vVehiculo.CambiarNombrePanel();
-				//this.asignarCodArrend();
 				
 			}
 	}
@@ -90,10 +89,19 @@ public class ControladorVehiculo implements ActionListener {
 		vVehiculo = vVehiculo.obtenerInstancia();
 		vVehiculo.setLocationRelativeTo(null);
 		vVehiculo.setVisible(true);
+		vVehiculo.limpiarCampos();
 		vVehiculo.agregarListener(this);
+		
+		////si viene de socio
+		socioPrueba= va.RetornaSocio();
+		System.out.println(socioPrueba.getCedula()+" "+"vehiculo");
+		if (socioPrueba!=null){
+		//socioPrueba = va.GuardarSocio();
+		
 		vVehiculo.setTxtNroSocio(va.llenarCodigo()); 
 		vVehiculo.setTxtNomSocio(va.llenarNombre());
 		listaAvancesSocio= va.LlenarListaAvances();
+		System.out.println(listaAvancesSocio.get(0).getNombre()+" "+"nombre de la lista avance");
 		for(int i=0; i<va.LlenarListaAvances().size();i++)
 		{
 			vVehiculo.setCmbConductor(va.LlenarListaAvances().get(i).getNombre()+ " "+
@@ -102,6 +110,11 @@ public class ControladorVehiculo implements ActionListener {
 		
 		try {
 			vVehiculo.LlenarComboMarca();
+			//if(this.obtenerVehiculos().size()==0){
+				//System.out.println("el socio no tiene vehiculos");
+	//		}else 	
+			
+			vVehiculo.OcultarListado(this.obtenerVehiculos());
 			this.obtenerVehiculos();
 			
 
@@ -109,6 +122,31 @@ public class ControladorVehiculo implements ActionListener {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
+		}
+		else
+			arrendatarioPrueba= va.GuardarArrendatario();
+		System.out.println(arrendatarioPrueba.getCedula());
+			if(arrendatarioPrueba!=null){
+				
+				vVehiculo.setTxtNroSocio(va.llenarCodigo()); 
+				vVehiculo.setTxtNomSocio(va.llenarNombre());
+				listaAvancesArren= va.LlenarListaAvancesArren();
+				for(int i=0; i<va.LlenarListaAvancesArren().size();i++)
+				{
+					vVehiculo.setCmbConductor(va.LlenarListaAvancesArren().get(i).getNombre()+ " "+
+							va.LlenarListaAvancesArren().get(i).getApellido());
+				}
+				
+				try {
+					vVehiculo.LlenarComboMarca();
+					this.obtenerVehiculoArren();
+				} catch (Exception e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				}
+				
+			}
+			
 			
 	}
 	
@@ -240,7 +278,8 @@ public class ControladorVehiculo implements ActionListener {
 		}
 		else if (a.getActionCommand().equalsIgnoreCase("Guardar")) {
 			try {
-				this.registrarSocio();
+				//this.registrarSocio();
+				this.registrarPrueba();
 			} catch (Exception e) {
 				// TODO Auto-generated catch block
 				e.printStackTrace();
@@ -677,6 +716,51 @@ public class ControladorVehiculo implements ActionListener {
 			e.printStackTrace();
 		}
 	}
+	
+	
+	//////////////****************************METODO DE PRUEBA(no esta a prueba de fallos)*****************************////////////////////
+	
+	private void registrarPrueba() throws Exception {
+		System.out.println("registrando");
+		if (vVehiculo.CamposllenosSocio() == true) {
+
+			Socio socio = new Socio();		
+		//BUSCAR EL SOCIO
+			String codi = vVehiculo.getTxtNroSocio();
+			
+				if(!socioDao.encontrar(codi))
+				{
+					socioDao.agregarSocio(socioPrueba);
+				}
+				socio = socioDao.buscarPorNroSocio(codi);
+				
+			for(Avance avan : this.listaAvancesSocio) //////aqui dudas... va el get o va la lista de la vista llenarAvances
+			{
+				avan.setSocio(socio);
+				avan.setCodAvance(Cavance.asignarCod());
+				if(!avanceDao.encontrar(avan.getCodAvance()))
+					{
+						avanceDao.agregarAvance(avan);
+					}
+			}	
+			for(Vehiculo vehi : vVehiculo.LlenarListaVehiculos()) //////aqui dudas... va el get o va la lista de la vista llenarvehiculos
+			{
+				vehi.setSocio(socio);
+				
+				if(!vehiculoDao.encontrar(vehi.getPlaca()))
+					{
+						vehiculoDao.agregarVehiculo(vehi);;
+					}
+			}			
+		} else
+			this.vSocio.mostrarMensaje("Debe llenar todos los campos");
+	} 
+	
+	
+	
+	
+	
+	
 		
 		///**************************** METODOS ARRENDATARIO-VEHICULO*************************************////
 		
