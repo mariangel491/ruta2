@@ -3,6 +3,7 @@ package Vistas;
 
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.awt.event.FocusListener;
 import java.awt.event.KeyListener;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
@@ -44,6 +45,7 @@ import javax.swing.table.DefaultTableModel;
 import javax.swing.table.TableModel;
 import javax.swing.text.MaskFormatter;
 import javax.swing.SwingUtilities;
+
 
 
 
@@ -766,11 +768,21 @@ private static VistaFac vFactura=null;
 		this.checkTransferencia.addActionListener(accion);
 		
 		//TXT
-		this.txtCheque.addActionListener(accion);
-		this.txtDeposito.addActionListener(accion);
-		this.txtEfectivo.addActionListener(accion);
-		this.txtTransferencia.addActionListener(accion);
-		this.txtSubsidio.addActionListener(accion);
+		txtCheque.addActionListener(accion);
+		txtCedulaSocio.addActionListener(accion);
+		txtTransferencia.addActionListener(accion);
+		txtDeposito.addActionListener(accion);
+		txtEfectivo.addActionListener(accion);
+		txtSubsidio.addActionListener(accion);
+	}
+	
+	public void agregarFocusListener(FocusListener fl){
+		this.txtCheque.addFocusListener(fl);
+		this.txtDeposito.addFocusListener(fl);
+		this.txtEfectivo.addFocusListener(fl);
+		this.txtTransferencia.addFocusListener(fl);
+		this.txtSubsidio.addFocusListener(fl);
+		this.txtMontoTotal.addFocusListener(fl);
 	}
 
 /*	//LimpiarCampos
@@ -911,6 +923,11 @@ private static VistaFac vFactura=null;
 	public void agregarKey(KeyListener a) {
 		txtCedulaSocio.addKeyListener(a);
 		txtNroSocio.addKeyListener(a);
+		txtCheque.addKeyListener(a);
+		txtDeposito.addKeyListener(a);
+		txtEfectivo.addKeyListener(a);
+		txtSubsidio.addKeyListener(a);
+		txtTransferencia.addKeyListener(a);
 		
 	}
 	
@@ -1068,15 +1085,20 @@ private static VistaFac vFactura=null;
 		if(txtEfectivo == null) {
 			txtEfectivo = new JTextField();
 			txtEfectivo.setBounds(128, 35, 71, 23);
-			txtEfectivo.setActionCommand("ef");
+			txtEfectivo.setActionCommand("total");
 		}
 		return txtEfectivo;
+	}
+	
+	public String getEfectivo(){
+		return txtEfectivo.toString();
 	}
 	
 	public JTextField getTxtSubsidio() {
 		if(txtSubsidio == null) {
 			txtSubsidio = new JTextField();
 			txtSubsidio.setBounds(128, 66, 71, 23);
+			txtSubsidio.setActionCommand("total");
 		}
 		return txtSubsidio;
 	}
@@ -1085,6 +1107,7 @@ private static VistaFac vFactura=null;
 		if(txtDeposito == null) {
 			txtDeposito = new JTextField();
 			txtDeposito.setBounds(128, 97, 71, 23);
+			txtDeposito.setActionCommand("total");
 		}
 		return txtDeposito;
 	}
@@ -1093,6 +1116,7 @@ private static VistaFac vFactura=null;
 		if(txtTransferencia == null) {
 			txtTransferencia = new JTextField();
 			txtTransferencia.setBounds(128, 124, 71, 23);
+			txtTransferencia.setActionCommand("total");
 		}
 		return txtTransferencia;
 	}
@@ -1101,6 +1125,7 @@ private static VistaFac vFactura=null;
 		if(txtCheque == null) {
 			txtCheque = new JTextField();
 			txtCheque.setBounds(128, 153, 71, 23);
+			txtCheque.setActionCommand("total");
 		}
 		return txtCheque;
 	}
@@ -1158,6 +1183,78 @@ private static VistaFac vFactura=null;
 		return txtMontoDisp;
 	}
 	
+	
+	
+	public JTextField getTxtApellido() {
+		return txtApellido;
+	}
+
+	public JTextField getTxtCedulaSocio() {
+		return txtCedulaSocio;
+	}
+
+	public void setTxtApellido(JTextField txtApellido) {
+		this.txtApellido = txtApellido;
+	}
+
+	public void setTxtCedulaSocio(JTextField txtCedulaSocio) {
+		this.txtCedulaSocio = txtCedulaSocio;
+	}
+
+	public void setTxtEfectivo(JTextField txtEfectivo) {
+		this.txtEfectivo = txtEfectivo;
+	}
+
+	public void setTxtMontoDisp(JTextField txtMontoDisp) {
+		this.txtMontoDisp = txtMontoDisp;
+	}
+
+	public void setTxtTotal(JTextField txtTotal) {
+		this.txtTotal = txtTotal;
+	}
+
+	public void setTxtCheque(JTextField txtCheque) {
+		this.txtCheque = txtCheque;
+	}
+
+	public void setTxtTransferencia(JTextField txtTransferencia) {
+		this.txtTransferencia = txtTransferencia;
+	}
+
+	public void setTxtDeposito(JTextField txtDeposito) {
+		this.txtDeposito = txtDeposito;
+	}
+
+	public void setTxtSubsidio(JTextField txtSubsidio) {
+		this.txtSubsidio = txtSubsidio;
+	}
+
+	public void setTxtResponsableFactura(JTextField txtResponsableFactura) {
+		this.txtResponsableFactura = txtResponsableFactura;
+	}
+
+	public void setTxtNroFactura(JTextField txtNroFactura) {
+		this.txtNroFactura = txtNroFactura;
+	}
+
+	public void setTxtMontoTotal(JTextField txtMontoTotal) {
+		this.txtMontoTotal = txtMontoTotal;
+	}
+
+	public void setTxtNombSocio(JTextField txtNombSocio) {
+		this.txtNombSocio = txtNombSocio;
+	}
+
+	public void setTxtNroSocio(JTextField txtNroSocio) {
+		this.txtNroSocio = txtNroSocio;
+	}
+
+	public void setTxtMontoIngresoEgreso(JTextField txtMontoIngresoEgreso) {
+		this.txtMontoIngresoEgreso = txtMontoIngresoEgreso;
+	}
+	
+	
+
 	public void OcultarCamposFormaPago(){
 		this.txtCheque.setEditable(false);
 		this.txtDeposito.setEditable(false);
@@ -1203,10 +1300,12 @@ private static VistaFac vFactura=null;
 		txtMontoDisp.setEditable(false);
 		txtMontoDisp.setVisible(true);
 		this.Check();
-		if(Float.parseFloat(txtMontoDisp.getText())==0.0)
+		System.out.println(txtMontoDisp.getText());
+		if(Float.parseFloat(txtMontoDisp.getText())==0.0 || "".equals(txtMontoDisp.getText()) || null== txtMontoDisp.getText())
 		{
 			this.txtSubsidio.setEditable(false);
-			checkSubsidio.disable();
+			//checkSubsidio.disable();
+			checkSubsidio.setSelected(false);
 		}
 		else
 			txtSubsidio.setEditable(true);
@@ -1225,6 +1324,7 @@ private static VistaFac vFactura=null;
 	
 	public void CheckDeposito(){
 		txtDeposito.setVisible(true);
+		//txtDeposito.setEditable(true);
 		this.Check();
 		this.checkDeposito.setActionCommand("OcultarCheckDeposito");
 	}
@@ -1237,6 +1337,7 @@ private static VistaFac vFactura=null;
 	}
 	
 	public void CheckTransferencia(){
+		txtTransferencia.setVisible(true);
 		txtTransferencia.setEditable(true);
 		txtTransferencia.setText("");
 		this.Check();
@@ -1244,8 +1345,7 @@ private static VistaFac vFactura=null;
 	}
 
 	public void OcultarCheckTransferencia(){
-		txtTransferencia.setVisible(false);
-		//this.OcultarCheck();
+		txtTransferencia.setEditable(false);
 		txtTransferencia.setText("");
 		checkTransferencia.setActionCommand("CheckTrasnferencia");
 	}
@@ -1259,8 +1359,6 @@ private static VistaFac vFactura=null;
 	public void OcultarCheckCheque(){
 		txtCheque.setEditable(false);
 		txtCheque.setText("");
-		//this.OcultarCheck();
-		txtCheque.setText("");
 		checkCheque.setActionCommand("CheckCheque");
 	}
 	
@@ -1273,6 +1371,11 @@ private static VistaFac vFactura=null;
 			}
 		}
 		this.txtMontoDisp.setText(String.valueOf(montoTotal));
+	
+	}
+	
+	public void QuitarSeleccionSub(){
+		checkSubsidio.setSelected(false);
 	}
 
 	public void limpiarTablaEgresos() {

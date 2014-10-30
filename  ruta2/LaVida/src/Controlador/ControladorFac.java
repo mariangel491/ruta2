@@ -2,6 +2,8 @@ package Controlador;
 
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.awt.event.FocusEvent;
+import java.awt.event.FocusListener;
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
 import java.awt.event.MouseEvent;
@@ -9,15 +11,18 @@ import java.util.ArrayList;
 import java.util.Date;
 import java.util.HashSet;
 import java.util.Iterator;
+import java.util.LinkedHashSet;
 import java.util.List;
 import java.util.Set;
 
-import javax.swing.JComboBox;
 import javax.swing.JOptionPane;
+import javax.swing.JSpinner;
 import javax.swing.JTable;
 import javax.swing.table.DefaultTableModel;
 
 import com.jgoodies.common.collect.LinkedListModel;
+import com.lowagie.text.ListItem;
+import com.sun.xml.internal.bind.v2.runtime.unmarshaller.XsiNilLoader.Array;
 
 import Modelos.Arrendatario;
 import Modelos.CuentaAlquiler;
@@ -27,6 +32,7 @@ import Modelos.CuentaPrestamos;
 import Modelos.DetalleFactura;
 import Modelos.Egresos;
 import Modelos.Factura;
+import Modelos.FormaPago;
 import Modelos.Ingresos;
 import Modelos.Inquilino;
 import Modelos.Prestamos;
@@ -49,7 +55,7 @@ import Vistas.VistaFac;
 
 
 
-public class ControladorFac implements ActionListener, KeyListener{
+public class ControladorFac implements ActionListener, KeyListener, FocusListener{
 	
 	private VistaFac vFactura = new VistaFac();
 	private SocioDao socioDao= new SocioDao();
@@ -71,6 +77,11 @@ public class ControladorFac implements ActionListener, KeyListener{
 	private List<String> listaPrestamosIngresos = new ArrayList<String>();
 	LinkedListModel<String> listaModeloAux=new LinkedListModel<>();
 	
+	private Set<FormaPago> formasPagoSeleccionadas= new LinkedHashSet<>();
+	 List<FormaPago> list= new ArrayList<>();
+	
+	private float totalFP=0, montDep=0, montoEf=0, montoTrasnf=0, montoSub=0, montoCheque=0;
+	
 	
 	public ControladorFac(){
 		vFactura = new VistaFac();
@@ -79,6 +90,8 @@ public class ControladorFac implements ActionListener, KeyListener{
 		vFactura.setVisible(true);
 		vFactura.agregarListener(this);
 		vFactura.agregarKey(this);
+		vFactura.agregarFocusListener(this);
+		vFactura.OcultarCamposFormaPago();
 	}
 	
 
@@ -92,12 +105,10 @@ public class ControladorFac implements ActionListener, KeyListener{
 			
 		}
 		else if(ae.getActionCommand().equalsIgnoreCase("Procesar")){
-			
-			
+			this.guardarFacturaEgreso(vFactura.getCmbTipoFacturado(), vFactura.getTxtNroSocio(), vFactura.getTxtCed(), vFactura.getjTableIngresosXFactura(), vFactura.getTxtMontoTotal());
+			//this.guardarFactEgreso();
 		}else if(ae.getActionCommand().equalsIgnoreCase("Cancelar")){
-			//vFactura.mensajeAlerta(mensaje);
-			
-		
+			this.CalcularTotalFormaPago();
 		}
 		else if(ae.getActionCommand().equalsIgnoreCase("Quitar")){
 			this.Quitar();
@@ -107,8 +118,13 @@ public class ControladorFac implements ActionListener, KeyListener{
 			vFactura.cerrarVentana();
 			
 		}else if(ae.getActionCommand().equalsIgnoreCase("Buscar")){
-			
-				this.BuscarSocioPorNro();
+				try {
+					this.BuscarSocioPorNro();
+					vFactura.BuscarSubsidio(vFactura.getTxtNroSocio());
+				} catch (Exception e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				}
 			
 		}else if(ae.getActionCommand().equalsIgnoreCase("BuscarCedula")){
 			try {
@@ -117,6 +133,34 @@ public class ControladorFac implements ActionListener, KeyListener{
 				// TODO Auto-generated catch block
 				e.printStackTrace();
 			}
+		}else if(ae.getActionCommand().equalsIgnoreCase("total")){
+			System.out.println("totaaaal");
+			this.CalcularTotalFormaPago();
+		}else if(ae.getActionCommand().equalsIgnoreCase("CheckEfectivo")){
+			vFactura.CheckEfectivo();
+		}else if(ae.getActionCommand().equalsIgnoreCase("OcultarCheck")){
+			vFactura.OcultarCheckEfectivo();
+		}else if(ae.getActionCommand().equalsIgnoreCase("CheckSubsidio")){
+			vFactura.CheckSubsidio();
+		}else if(ae.getActionCommand().equalsIgnoreCase("OcultarCheckSubsidio")){
+			vFactura.OcultarCheckSubsidio();
+		}else if(ae.getActionCommand().equalsIgnoreCase("CheckTransferencia")){
+			vFactura.CheckTransferencia();
+		}else if(ae.getActionCommand().equalsIgnoreCase("OcultarCheckTransferencia")){
+			vFactura.OcultarCheckTransferencia();
+		}else if(ae.getActionCommand().equalsIgnoreCase("CheckDeposito")){
+			vFactura.CheckDeposito();
+		}else if(ae.getActionCommand().equalsIgnoreCase("OcultarCheckDeposito")){
+			vFactura.OcultarCheckDeposito();
+		}else if(ae.getActionCommand().equalsIgnoreCase("CheckSubsidio")){
+			vFactura.CheckSubsidio();
+			
+		}else if(ae.getActionCommand().equalsIgnoreCase("OcultarCheckSubsidio")){
+			vFactura.OcultarCheckSubsidio();
+		}else if(ae.getActionCommand().equalsIgnoreCase("CheckCheque")){
+			vFactura.CheckCheque();
+		}else if(ae.getActionCommand().equalsIgnoreCase("OcultarCheckCheque")){
+			vFactura.OcultarCheckCheque();
 		}
 					
 		
@@ -151,8 +195,7 @@ public class ControladorFac implements ActionListener, KeyListener{
 	@Override
 	public void keyPressed(KeyEvent arg0) {
 		// TODO Auto-generated method stub
-		
-	}
+			}
 	@Override
 	public void keyReleased(KeyEvent arg0) {
 		// TODO Auto-generated method stub
@@ -267,7 +310,7 @@ public class ControladorFac implements ActionListener, KeyListener{
 }
 	
 	
-	public DefaultTableModel agregarIngresoEgresoATabla(Object[] objetosSeleccionados, String tipoFactura, JTable jTableIngresosXFactura, Double montoEgreso,Object objetoPrestamoPendiente){
+	public DefaultTableModel agregarIngresoEgresoATabla(Object[] objetosSeleccionados, String tipoFactura, JTable jTableIngresosXFactura, Double montoEgreso,Object objetoPrestamoPendiente/*, Integer cant*/){
 		
 		DefaultTableModel modeloDeLaTabla=(DefaultTableModel)jTableIngresosXFactura.getModel();
 		Ingresos ingreso; 
@@ -278,6 +321,7 @@ public class ControladorFac implements ActionListener, KeyListener{
 			{
 				ingreso  = new Ingresos();
 				float ccs=0;
+		
 				try {
 					ingreso = ingDao.obtenerIngresosPorDescripcion((String)objetosSeleccionados[i]);
 					ccs = ingreso.getMonto();
@@ -331,16 +375,51 @@ public class ControladorFac implements ActionListener, KeyListener{
 			return modeloDeLaTabla;
 
 		}
+	
+	public FormaPago BuscarDescripFP(String descrip) throws Exception{
+		if(formaPagoDao.encontrarNombre(descrip)!=false)
+			return formaPagoDao.buscarPoDescrip(descrip);
+		return null;
+	}
+	
+public void GuardarFormaPagoFactura() throws Exception{
+	formasPagoSeleccionadas=new HashSet<>();
+	if(vFactura.getCheckCheque().isSelected()==true)
+	{
+		formasPagoSeleccionadas.add(this.BuscarDescripFP("Cheque"));
+		montoCheque= Float.parseFloat(vFactura.getTxtCheque().getText());
+	}
+	if(vFactura.getCheckDeposito().isSelected()==true){
+		formasPagoSeleccionadas.add(BuscarDescripFP("Deposito"));
+		montDep= Float.parseFloat(vFactura.getTxtDeposito().getText());
+	}
+	if(vFactura.getCheckEfectivo().isSelected()==true){
+		formasPagoSeleccionadas.add(BuscarDescripFP("Efectivo"));
+		System.out.println("montooo: "+ vFactura.getTxtEfectivo().getText());
+		montoEf = Float.parseFloat(vFactura.getTxtEfectivo().getText());
 		
+	}
+	if(vFactura.getCheckSubsidio().isSelected()==true){
+		formasPagoSeleccionadas.add(BuscarDescripFP("Subsidio"));
+		montoSub=Float.parseFloat(vFactura.getTxtSubsidio().getText());
+	}
+	if(vFactura.getCheckTransferencia().isSelected()==true){
+		formasPagoSeleccionadas.add(BuscarDescripFP("Transferencia"));
+		montoTrasnf=Float.parseFloat(vFactura.getTxtTransferencia().getText());
+	}	
+
+}
 
 public String guardarFacturaEgreso(String tipoFacturado, String campoId, String cedula, JTable lista, String montoTotal){
 	
-	 String valorMensaje="";
+	String valorMensaje="";
 	 Factura factura = new Factura();
 	 String montoString ="";
 	 String clasificacion="";
+	 
+	
 	 try {
-
+		 this.GuardarFormaPagoFactura();
 		 
 		 factura.setMontoTotal(Float.valueOf(montoTotal) * -1);
 		 factura.setFechaEmision(new Date(System.currentTimeMillis()));
@@ -355,11 +434,20 @@ public String guardarFacturaEgreso(String tipoFacturado, String campoId, String 
 		 }
 		 
 		 factura.setCodRuta(rutaDao.buscarPorCodRuta("J-306-902686"));
-		 factura.setNroFactura(facturaDao.buscarUltimoNumeroFactura());		 
+		 factura.setNroFactura(facturaDao.buscarUltimoNumeroFactura());	
+		 
+		 if(formasPagoSeleccionadas.size()>0)
+			 factura.setFormas(formasPagoSeleccionadas);
+		 else
+			 JOptionPane.showMessageDialog(null,"Debe seleccionar al menos una formaPago","Atencion!",
+						JOptionPane.INFORMATION_MESSAGE);
+			 
 		 facturaDao.agregarFactura(factura);
 
-	 
-		 Set<DetalleFactura> listaDetalleFactura = new HashSet<DetalleFactura>();
+		
+		
+		 
+		Set<DetalleFactura> listaDetalleFactura = new HashSet<DetalleFactura>();
 
 		 for(int i=0; i<lista.getRowCount(); i++) //recorro las filas
 		 {
@@ -389,7 +477,12 @@ public String guardarFacturaEgreso(String tipoFacturado, String campoId, String 
 			 }
 
 			 detalleFacturaDao.agregarDetalleFactura(detalleFactura);
-			 
+			
+		//A PARTIR DE ACA ESTA EL ERROR
+			System.out.println("clasif "+ "a "+ clasificacion.equalsIgnoreCase(Egresos.CLASIFICACION_EGRESO_ALQUILER)
+					+ " fc "+ clasificacion.equalsIgnoreCase(Egresos.CLASIFICACION_EGRESO_FONDO_DE_CHOQUE)+ 
+					"eg ruta "+ clasificacion.equalsIgnoreCase(Egresos.CLASIFICACION_EGRESO_RUTA));
+			
 			 if(clasificacion.equalsIgnoreCase(Egresos.CLASIFICACION_EGRESO_ALQUILER)){
 				 CuentaAlquiler cuentaAlquiler = new CuentaAlquiler();
 				 cuentaAlquiler.setFactura(factura);
@@ -400,7 +493,7 @@ public String guardarFacturaEgreso(String tipoFacturado, String campoId, String 
 				 cuentaAlquiler.setNro_cuenta(cuentaAlquilerDao.buscarUltimoNumeroTramsaccionCuentaAlquiler());
 				 cuentaAlquilerDao.agregarTransaccion(cuentaAlquiler);
 			 }
-			 else if(clasificacion.equalsIgnoreCase(Egresos.CLASIFICACION_EGRESO_FONDO_DE_CHOQUE)){
+			  else if(clasificacion.equalsIgnoreCase(Egresos.CLASIFICACION_EGRESO_FONDO_DE_CHOQUE)){
 				 CuentaFondoChoque cuentaFondoChoque = new CuentaFondoChoque();
 				 cuentaFondoChoque.setFactura(factura);
 				 cuentaFondoChoque.setDescripTransac(egreso.getDescripcion());
@@ -410,10 +503,10 @@ public String guardarFacturaEgreso(String tipoFacturado, String campoId, String 
 				 cuentaFondoChoque.setNro_cuenta(cuentaFondoChoqueDao.buscarUltimoNumeroTramsaccionCuentaFondoChoque());
 				 cuentaFondoChoqueDao.agregarTransaccion(cuentaFondoChoque);
 			 }
-			 else if(clasificacion.equalsIgnoreCase(Egresos.CLASIFICACION_EGRESO_RUTA)){
-				
+			   else if(clasificacion.equalsIgnoreCase(Egresos.CLASIFICACION_EGRESO_RUTA)){
 				 CuentaIngresos cuentaIngresos= new CuentaIngresos();
 				 cuentaIngresos.setFactura(factura);
+				 System.out.println(factura.getNroFactura());
 				 cuentaIngresos.setDescripTransac(egreso.getDescripcion());
 				 cuentaIngresos.setFecha(new Date(System.currentTimeMillis()));
 				 cuentaIngresos.setMontoTransaccion(Float.valueOf(montoString) * -1);
@@ -423,8 +516,8 @@ public String guardarFacturaEgreso(String tipoFacturado, String campoId, String 
 				 cuentaIngresosDao.agregarTransaccion(cuentaIngresos);
 				 
 			}
-		 
-		 if(tipoFacturado.equalsIgnoreCase(Socio.TIPO_FACTURADO_SOCIO) && (egreso.getDescripcion().equalsIgnoreCase(Egresos.TIPO_EGRESO_OTROS_PRESTAMO) || egreso.getDescripcion().equalsIgnoreCase(Egresos.TIPO_EGRESO_PRESTAMO_FONDO_DE_CHOQUE))){
+			  
+			 /* if(tipoFacturado.equalsIgnoreCase(Socio.TIPO_FACTURADO_SOCIO) && (egreso.getDescripcion().equalsIgnoreCase(Egresos.TIPO_EGRESO_OTROS_PRESTAMO) || egreso.getDescripcion().equalsIgnoreCase(Egresos.TIPO_EGRESO_PRESTAMO_FONDO_DE_CHOQUE))){
 			 prestamo.setCodPrestamo(prestamosDao.buscarUltimoNumeroPrestamo());
 			 prestamo.setStatus('A');
 			 prestamo.setNroSocio(factura.getNroSocio());
@@ -444,7 +537,7 @@ public String guardarFacturaEgreso(String tipoFacturado, String campoId, String 
 			 cuentaPrestamosDao.agregarTransaccion(cuentaPrestamos);
 
 			 
-		 }
+		 }*/
 
 	 }
 	 } catch (Exception e) {
@@ -454,6 +547,7 @@ public String guardarFacturaEgreso(String tipoFacturado, String campoId, String 
 	 }	
 
 	return factura.getNroFactura();
+	
 	
 }
 
@@ -643,6 +737,98 @@ public List<String> consultarIngresoEnPrestamo(String codSocio, String descripci
 	return lista;
 	
 }
+
+public void mensajeError(){
+	JOptionPane.showMessageDialog(null,"Debe llenar campo monto, para cada forma de pago seleccionada","Atencion!",
+			JOptionPane.INFORMATION_MESSAGE);
+}
+
+	public void CalcularTotalFormaPago(){
+		totalFP=0;
+		if(vFactura.getCheckEfectivo().isSelected()==true)
+		{
+			if("".equals(vFactura.getTxtEfectivo().getText()) || null == vFactura.getTxtEfectivo().getText())
+			{
+				this.mensajeError();
+			}
+			else if(vFactura.getTxtEfectivo().getText()!=null)
+			{
+				totalFP= totalFP+Float.parseFloat(vFactura.getTxtEfectivo().getText());
+				vFactura.setTxtTotal(String.valueOf(totalFP));
+			}
+		}
+		
+		if(vFactura.getCheckCheque().isSelected()==true)
+		{
+			if("".equals(vFactura.getTxtCheque().getText()) || null == vFactura.getTxtCheque().getText())
+			{
+				this.mensajeError();
+			}
+			else if(vFactura.getTxtCheque().getText()!=null)
+			{
+				totalFP= totalFP+Float.parseFloat(vFactura.getTxtCheque().getText());
+				vFactura.setTxtTotal(String.valueOf(totalFP));
+			}
+		}
+		
+		if(vFactura.getCheckDeposito().isSelected()==true)
+		{
+			if("".equals(vFactura.getTxtDeposito().getText()) || null == vFactura.getTxtDeposito().getText())
+			{
+				this.mensajeError();
+			}
+			else if(vFactura.getTxtDeposito().getText()!=null)
+			{
+				totalFP= totalFP+Float.parseFloat(vFactura.getTxtDeposito().getText());
+				vFactura.setTxtTotal(String.valueOf(totalFP));
+			}
+		}
+		
+		if(vFactura.getCheckSubsidio().isSelected()==true)
+		{
+			if("".equals(vFactura.getTxtSubsidio().getText()) || null == vFactura.getTxtSubsidio().getText())
+			{
+				this.mensajeError();
+			}
+			else if(vFactura.getTxtSubsidio().getText()!=null)
+			{
+				totalFP= totalFP+Float.parseFloat(vFactura.getTxtSubsidio().getText());
+				vFactura.setTxtTotal(String.valueOf(totalFP));
+			}
+		}
+		
+		if(vFactura.getCheckTransferencia().isSelected()==true)
+		{
+			if("".equals(vFactura.getTxtTransferencia().getText()) || null == vFactura.getTxtTransferencia().getText())
+			{
+				this.mensajeError();
+			}
+			else if(vFactura.getTxtTransferencia().getText()!=null)
+			{
+				totalFP= totalFP+Float.parseFloat(vFactura.getTxtTransferencia().getText());
+				vFactura.setTxtTotal(String.valueOf(totalFP));
+			}
+		}
+		
+		
+	}
+
+
+
+	@Override
+	public void focusGained(FocusEvent arg0) {
+		// TODO Auto-generated method stub
+		
+	}
+
+
+
+	@Override
+	public void focusLost(FocusEvent arg0) {
+		// TODO Auto-generated method stub
+		this.CalcularTotalFormaPago();
+	}
+
 
 	
 }
