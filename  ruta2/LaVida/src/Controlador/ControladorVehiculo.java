@@ -510,12 +510,25 @@ public class ControladorVehiculo implements ActionListener {
 	}
 	
 	
-	public String traerNombreyApe(List<Vehiculo> vehi, int posi) throws Exception {
+/*	public String traerNombreyApe(List<Vehiculo> vehi, int posi) throws Exception {
 		
 		String avan="";
 		String codi = vehi.get(posi).getAvance();
 		
 		if(avanceDao.encontrar(codi)){
+			Avance sera = avanceDao.buscarPorCodAvance(codi);
+			avan = sera.getNombre()+" "+sera.getApellido();
+		}
+		return avan;
+	}*/
+	
+	public String traerNombreyApe(List<Vehiculo> vehi, int posi) throws Exception {
+		
+		String avan="";
+		String codi = vehi.get(posi).getAvance();
+		for(int i=0; i < listaAvancesSocio.size();i++)
+		{
+			
 			Avance sera = avanceDao.buscarPorCodAvance(codi);
 			avan = sera.getNombre()+" "+sera.getApellido();
 		}
