@@ -454,6 +454,7 @@ public String getTxtNombre() {
 		int fila= tblListadoAvance.getRowCount();
 		List<Avance> a = new ArrayList<Avance>();
 		String ced,/*codAvance,*/ nombre, apellido,direc,telefono;
+		Date f= new Date();
 		
 		
 		
@@ -473,6 +474,7 @@ public String getTxtNombre() {
 				avance.setApellido(apellido);
 				avance.setTelefono(Integer.parseInt(telefono));
 				avance.setDireccion(direc);
+				avance.setFechaIngreso(f);
 				
 				a.add(avance);
 				

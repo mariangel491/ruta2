@@ -288,6 +288,7 @@ public class ControladorVehiculo implements ActionListener {
 		else if (a.getActionCommand().equalsIgnoreCase("AgregarVehiculo")) {
 			System.out.println("agregando vehiculo");
 			if (this.vVehiculo.CamposllenosVehiculo()) {
+				vVehiculo.MostarListado();
 				this.agregarVehiculo();
 				 
 			} else
@@ -402,28 +403,6 @@ public class ControladorVehiculo implements ActionListener {
 		Avance avan = new Avance();
 		
 		
-		
-		
-		
-		
-		
-		
-		
-		
-		
-		
-		
-		
-		
-		
-		
-		
-		
-		
-		
-		
-		
-		
 		if (avanceDao.encontrarCod(vVehiculo.getTxtNroSocio())) {
 			avan = avanceDao.buscarPorCodSocio(vVehiculo.getTxtNroSocio());
 			
@@ -503,11 +482,20 @@ public class ControladorVehiculo implements ActionListener {
 			vehiculo.setAnno(año);
 			vehiculo.setNropuestos(cant_puestos);
 				
-			for(int l=0; l<avanceDao.obtenerTodos().size();l++){	
+			
+			for(int l=0; l<this.listaAvancesSocio.size();l++){	
+				
+					if(avanceprueba.equals(this.listaAvancesSocio.get(l).getNombre()+" "+this.listaAvancesSocio.get(l).getApellido()))
+					vehiculo.setAvance(this.listaAvancesSocio.get(l).getCodAvance());
+				}
+			
+			
+			
+			/*for(int l=0; l<avanceDao.obtenerTodos().size();l++){	
 				//veh.setAvance(this.guardarAvance(avan));
 					if(avanceprueba.equals(avanceDao.obtenerTodos().get(l).getNombre()+" "+avanceDao.obtenerTodos().get(l).getApellido()))
 					vehiculo.setAvance(avanceDao.obtenerTodos().get(l).getCodAvance());
-				}
+				}*/
 			socio.getVehiculos().add(vehiculo); 
 			this.cargarListadoDeVehiculos();
 			
@@ -717,6 +705,19 @@ public class ControladorVehiculo implements ActionListener {
 	
 	//////////////****************************METODO DE PRUEBA(no esta a prueba de fallos)*****************************////////////////////
 	
+	
+	public String asignarCodAvance(){
+		Integer nro_avances=0;
+	
+		try {
+			nro_avances= avanceDao.obtenerTodos().size()+1;
+		} catch (Exception e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+				return "A"+nro_avances.toString();	
+	}
+
 	private void registrarPrueba() throws Exception {
 		System.out.println("registrando");
 		if (vVehiculo.CamposllenosSocio() == true) {
@@ -734,7 +735,7 @@ public class ControladorVehiculo implements ActionListener {
 			for(Avance avan : this.listaAvancesSocio) //////aqui dudas... va el get o va la lista de la vista llenarAvances
 			{
 				avan.setSocio(socio);
-				avan.setCodAvance(Cavance.asignarCod());
+				avan.setCodAvance(this.asignarCodAvance());
 				if(!avanceDao.encontrar(avan.getCodAvance()))
 					{
 						avanceDao.agregarAvance(avan);
