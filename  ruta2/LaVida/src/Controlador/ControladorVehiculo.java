@@ -101,7 +101,7 @@ public class ControladorVehiculo implements ActionListener {
 		vVehiculo.setTxtNroSocio(va.llenarCodigo()); 
 		vVehiculo.setTxtNomSocio(va.llenarNombre());
 		listaAvancesSocio= va.LlenarListaAvances();
-		System.out.println(listaAvancesSocio.get(0).getNombre()+" "+"nombre de la lista avance");
+		System.out.println(listaAvancesSocio.size()+" "+"nombre de la lista avance");
 		for(int i=0; i<va.LlenarListaAvances().size();i++)
 		{
 			vVehiculo.setCmbConductor(va.LlenarListaAvances().get(i).getNombre()+ " "+
@@ -113,9 +113,9 @@ public class ControladorVehiculo implements ActionListener {
 			//if(this.obtenerVehiculos().size()==0){
 				//System.out.println("el socio no tiene vehiculos");
 	//		}else 	
-			
+			System.out.println("obtener vehiculos  "+ this.obtenerVehiculos().size());
 			vVehiculo.OcultarListado(this.obtenerVehiculos());
-			this.obtenerVehiculos();
+			//this.obtenerVehiculos();
 			
 
 		} catch (Exception e) {
@@ -597,9 +597,6 @@ public class ControladorVehiculo implements ActionListener {
 				}*/
 		
 		socio.setVehiculos(listado);
-		System.out.println(listado.get(0).getAvance());
-		System.out.println(listado.get(1).getAvance());
-		System.out.println(listado.get(2).getAvance());
 		this.cargarListadoDeVehiculos();
 		
 		return listado;
