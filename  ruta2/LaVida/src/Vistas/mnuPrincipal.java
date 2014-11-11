@@ -260,15 +260,15 @@ public class mnuPrincipal extends javax.swing.JFrame {
                            ControladorReporte jasper = new ControladorReporte();
                             jasper.runReporte();
 				
-							String sourceFileName =System.getProperty("user.dir") +"/src/Reportes/ReporteSocios.jrxml";
+						/*//	String sourceFileName =System.getProperty("user.dir") +"/src/Reportes/ReporteSocios.jrxml";
 
 						      try {
-						         JasperFillManager.fillReportToFile(sourceFileName, null,
-						            new JREmptyDataSource());
+						       //  JasperFillManager.fillReportToFile(sourceFileName, null,
+						 //           new JREmptyDataSource());
 						      } catch (JRException e) {
 						         // TODO Auto-generated catch block
 						         e.printStackTrace();
-						      }
+						      }*/
 						}});
 					itmReporteSocio.setActionCommand("ReporteSocio");
 				}

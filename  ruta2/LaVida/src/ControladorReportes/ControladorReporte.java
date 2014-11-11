@@ -92,7 +92,7 @@ public class ControladorReporte {
 		  public void runReporte() {
 		    // Cargamos el driver JDBC
 			  
-			  String ruta= System.getProperty("user.dir") +"/src/Reportes/ReporteSocios.jrxml";
+			  String ruta= System.getProperty("user.dir") +"/src/Reportes/Avances.jrxml";
 		    try {
 		      Class.forName("org.postgresql.Driver");
 		    }

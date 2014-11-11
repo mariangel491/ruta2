@@ -51,8 +51,9 @@
 	<classpathentry kind="lib" path="lib/antlr-2.7.7.jar"/>
 	<classpathentry kind="lib" path="lib/hibernate-entitymanager.jar"/>
 	<classpathentry kind="lib" path="lib/postgresql-9.3-1101.jdbc41.jar"/>
+	<classpathentry kind="lib" path="lib/jasperreports-4.0.2.jar"/>
+	<classpathentry kind="lib" path="lib/jdt-compiler-3.1.1.jar"/>
 	<classpathentry kind="con" path="org.eclipse.jdt.launching.JRE_CONTAINER"/>
-	<classpathentry kind="lib" path="lib/jasperreports.jar"/>
 	<classpathentry kind="lib" path="lib/commons-digester-1.7.jar"/>
 	<classpathentry kind="lib" path="lib/commons-beanutils-1.8.0.jar"/>
 	<classpathentry kind="output" path="bin"/>
