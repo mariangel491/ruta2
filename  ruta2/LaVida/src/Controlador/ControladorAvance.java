@@ -188,6 +188,7 @@ public class ControladorAvance implements ActionListener {
 		}
 		else if (a.getActionCommand().equalsIgnoreCase("Siguiente")) {
 			//vAvance.LlenarListaAvancesPrueba();
+			
 			if(vAvance.CamposllenosSocio() ==true){
 				vehiculo =  new ControladorVehiculo(vAvance);
 			}
@@ -390,7 +391,7 @@ public class ControladorAvance implements ActionListener {
 			
 			socio.getAvances().add(avance);
 			this.cargarListadoDeAvances();
-		
+			
 			vAvance.limpiarCampos();
 		
 		} catch (Exception e) {

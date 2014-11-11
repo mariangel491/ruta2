@@ -525,13 +525,16 @@ public class ControladorVehiculo implements ActionListener {
 	public String traerNombreyApe(List<Vehiculo> vehi, int posi) throws Exception {
 		
 		String avan="";
+		Avance sera;
 		String codi = vehi.get(posi).getAvance();
+		System.out.println("nuevo metooodooo. " +codi);
 		for(int i=0; i < listaAvancesSocio.size();i++)
 		{
-			
-			Avance sera = avanceDao.buscarPorCodAvance(codi);
-			avan = sera.getNombre()+" "+sera.getApellido();
-		}
+			if(listaAvancesSocio.get(i).getCedula().equalsIgnoreCase(codi))
+			{
+				sera = listaAvancesSocio.get(i);
+				avan = sera.getNombre()+" "+sera.getApellido();
+		}}
 		return avan;
 	}
 	
@@ -552,7 +555,8 @@ public class ControladorVehiculo implements ActionListener {
 				//String avance = vehiculos.get(i).getAvance();
 				
 			
-				String avance= this.traerNombreyApe(vehiculos, i);
+				String avance= //this.traerNombreyApe(vehiculos, i);
+						vVehiculo.getCmbConductor();
 					
 				//	String avance = vehiculos.get(i).getNombre()+" "+vehiculos.get(i).getAvance().getApellido();
 				
@@ -757,7 +761,13 @@ public class ControladorVehiculo implements ActionListener {
 			for(Vehiculo vehi : vVehiculo.LlenarListaVehiculos()) //////aqui dudas... va el get o va la lista de la vista llenarvehiculos
 			{
 				vehi.setSocio(socio);
-				
+				//Asignar al avance
+				for(Avance avan : avanceDao.obtenerTodos()) //ya del dao porq se guardo
+				{
+					System.out.println("veh get avance: "+ vehi.getAvance());
+					if(((avan.getNombre()+" "+avan.getApellido()).equalsIgnoreCase(vehi.getAvance())))
+						vehi.setAvance(avan.getCodAvance());
+				}	
 				if(!vehiculoDao.encontrar(vehi.getPlaca()))
 					{
 						vehiculoDao.agregarVehiculo(vehi);;

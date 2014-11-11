@@ -700,12 +700,14 @@ private static VistaVehiculo vVehic=null;
 								
 					veh.setPlaca(placa);
 					veh.setSerialCarroceria(serial);
+					
 					//Setear la marca
 					try {
 						for(int j=0; j<md.obtenerTodos().size();j++)
 						{
-							if(veh.getCodMarca().getDescripcion().equals(marca))
-								veh.setCodMarca(md.obtenerTodos().get(i));
+							//if(veh.getCodMarca().getDescripcion().equals(marca))
+							if(md.obtenerTodos().get(j).getDescripcion().equalsIgnoreCase(marca))
+								veh.setCodMarca(md.obtenerTodos().get(j));
 						}
 					} catch (Exception e) {
 						// TODO Auto-generated catch block
@@ -714,12 +716,14 @@ private static VistaVehiculo vVehic=null;
 					veh.setAnno(Integer.parseInt(anno));
 					veh.setNropuestos(Integer.parseInt(puestos));
 					
-					for(int j=0; j< va.LlenarListaAvances().size();j++)
+					//  ************* ESTO LO HAGO EN EL METODO GUARDAR GUARDAR
+					
+						for(int j=0; j< va.LlenarListaAvances().size();j++)
 					{
 						if((va.LlenarListaAvances().get(i).getNombre()+" "+
-								va.LlenarListaAvances().get(i).getApellido()).equals(avance));
+								va.LlenarListaAvances().get(j).getApellido()).equals(avance));
 						veh.setAvance(va.LlenarListaAvances().get(i).getNombre()+" "+
-								va.LlenarListaAvances().get(i).getApellido());
+								va.LlenarListaAvances().get(j).getApellido());
 					}
 					
 					
