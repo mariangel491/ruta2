@@ -50,6 +50,10 @@ public class Factura implements Serializable{
 	@JoinColumn(name="codruta")
 	private Ruta codRuta;
 	
+	@OneToMany(cascade= CascadeType.ALL)
+	@JoinColumn(name="codigofactura")
+	List<FacturaxFormaPago> factuxforma;
+	
 	@ManyToMany(cascade = {CascadeType.ALL})
 	@JoinTable(name="facturaxformapago", joinColumns={@JoinColumn(name="nrofactura")},
 	inverseJoinColumns={@JoinColumn(name="codigo")})

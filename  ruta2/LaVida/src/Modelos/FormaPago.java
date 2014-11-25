@@ -2,13 +2,16 @@ package Modelos;
 
 import java.io.Serializable;
 import java.util.HashSet;
+import java.util.List;
 import java.util.Set;
 
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
 import javax.persistence.ManyToMany;
+import javax.persistence.OneToMany;
 import javax.persistence.PrimaryKeyJoinColumn;
 import javax.persistence.Table;
 
@@ -23,8 +26,13 @@ public class FormaPago implements Serializable{
 	@Column(name="descripcion")
 	private String nombre;
 	
-	@ManyToMany(cascade = {CascadeType.ALL},mappedBy="formas")
-	private Set<Factura> facturas=new HashSet();
+	
+	@OneToMany(cascade= CascadeType.ALL)
+	@JoinColumn(name="codigoformap")
+	List<FacturaxFormaPago> factuxforma;
+	
+	/*@ManyToMany(cascade = {CascadeType.ALL},mappedBy="formas")
+	private Set<Factura> facturas=new HashSet();*/
 	
 	public FormaPago(String codForma, String nombre) {
 		super();

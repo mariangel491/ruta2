@@ -2,9 +2,20 @@ package Controlador;
 
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.io.File;
+import java.sql.Connection;
+import java.sql.DriverManager;
 import java.util.ArrayList;
 import java.util.List;
 
+import javax.swing.JOptionPane;
+
+import net.sf.jasperreports.engine.JRException;
+import net.sf.jasperreports.engine.JasperCompileManager;
+import net.sf.jasperreports.engine.JasperFillManager;
+import net.sf.jasperreports.engine.JasperPrint;
+import net.sf.jasperreports.engine.JasperReport;
+import net.sf.jasperreports.view.JasperViewer;
 import ControladorReportes.ControladorReporte;
 import Modelos.Local;
 import Modelos.Hibernate.Daos.LocalDao;
@@ -32,7 +43,7 @@ public class ControladorMenu implements ActionListener{
 	ControladorSubsidio controladorSubsidio;
 	ControladorDepositosCaja depositosCaja;
 	VistaFac vFactura;
-	
+	private Connection con;
 	
 	//PARA LOS REPORTES
 	ControladorReporte controReporSocio;
@@ -48,7 +59,8 @@ public class ControladorMenu implements ActionListener{
 		menu.setTitle("Menu Principal");
 		
 		try {
-		
+			con = DriverManager.getConnection("jdbc:postgresql://localhost:5432/BDRuta2","postgres","postgres");
+			con.setAutoCommit(false);
 		} catch (Exception e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
@@ -145,7 +157,15 @@ public class ControladorMenu implements ActionListener{
 		}
 		else if(ae.getActionCommand().equalsIgnoreCase("ReporteSocio"))
 		{
-			controReporSocio= new ControladorReporte();
+			//controReporSocio= new ControladorReporte();
+			String ruta=new File("").getAbsolutePath() + "/src/Reportes/Simple_Blue_Table_Based.jrxml";
+			try {
+				JasperReport reporte = JasperCompileManager.compileReport(ruta);
+				JasperPrint print = JasperFillManager.fillReport(reporte, null, con);
+				JasperViewer.viewReport(print, false);
+			} catch (JRException JRException){
+				JOptionPane.showMessageDialog(null, "Error al crear el reporte", "Advertencia!", 0);
+			}
 		}
 		else if(ae.getActionCommand().equalsIgnoreCase("CargarMontoSubsidio"))
 		{
