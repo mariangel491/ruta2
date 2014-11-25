@@ -17,10 +17,7 @@ import javax.swing.border.LineBorder;
 import javax.swing.border.SoftBevelBorder;
 import javax.swing.SwingUtilities;
 
-import net.sf.jasperreports.engine.JREmptyDataSource;
-import net.sf.jasperreports.engine.JRException;
-import net.sf.jasperreports.engine.JasperFillManager;
-import ControladorReportes.ControladorReporte;
+//import ControladorReportes.ControladorReporte;
 
 
 /**
@@ -257,8 +254,8 @@ public class mnuPrincipal extends javax.swing.JFrame {
 					itmReporteSocio.addActionListener(new ActionListener() {
 						public void actionPerformed(ActionEvent arg0) {
                           String consulta="SELECT * from socio";
-                           ControladorReporte jasper = new ControladorReporte();
-                            jasper.runReporte();
+                         //  ControladorReporte jasper = new ControladorReporte();
+                          //  jasper.runReporte();
 				
 						/*//	String sourceFileName =System.getProperty("user.dir") +"/src/Reportes/ReporteSocios.jrxml";
 

@@ -54,10 +54,10 @@ public class Factura implements Serializable{
 	@JoinColumn(name="codigofactura")
 	List<FacturaxFormaPago> factuxforma;
 	
-	@ManyToMany(cascade = {CascadeType.ALL})
+	/*@ManyToMany(cascade = {CascadeType.ALL})
 	@JoinTable(name="facturaxformapago", joinColumns={@JoinColumn(name="nrofactura")},
 	inverseJoinColumns={@JoinColumn(name="codigo")})
-	private Set<FormaPago> formas=new HashSet();
+	private Set<FormaPago> formas=new HashSet();*/
 	
 	@OneToOne
 	@PrimaryKeyJoinColumn
@@ -162,15 +162,6 @@ public class Factura implements Serializable{
 		this.arrendatario = arrendatario;
 	}
 
-	public Set<FormaPago> getFormas() {
-		return formas;
-	}
-
-	public void setFormas(Set<FormaPago> formas) {
-		this.formas = formas;
-	}
-	
-	
 	
 
 }

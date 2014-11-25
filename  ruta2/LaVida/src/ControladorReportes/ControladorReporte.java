@@ -1,4 +1,4 @@
-package ControladorReportes;
+/*package ControladorReportes;
 
 
 import java.io.File;
@@ -8,20 +8,11 @@ import java.sql.SQLException;
 import java.util.HashMap;
 import java.util.Map;
 
-import net.sf.jasperreports.engine.JREmptyDataSource;
-import net.sf.jasperreports.engine.JasperCompileManager;
-import net.sf.jasperreports.engine.JasperFillManager;
-import net.sf.jasperreports.engine.JasperPrint;
-import net.sf.jasperreports.engine.JasperReport;
-import net.sf.jasperreports.engine.design.JRDesignQuery;
-import net.sf.jasperreports.engine.design.JasperDesign;
-import net.sf.jasperreports.engine.xml.JRXmlLoader;
-import net.sf.jasperreports.view.JasperViewer;
 
 
 public class ControladorReporte {
 
-	/*private Connection conn;
+	private Connection conn;
      private final String login = "postgres"; //usuario de acceso a MySQL
      private final String password = "postgres"; //contraseña de usuario
      private String url = "jdbc:postgresql://localhost:5432/BDRuta2";
@@ -83,7 +74,7 @@ public class ControladorReporte {
                      ex.printStackTrace();
                  }
      }
-	*/
+	
 	
 	
 	  static Connection conn = null;
@@ -141,6 +132,6 @@ public class ControladorReporte {
 		 
 		  }
 	
-}
+}*/
 
 

@@ -29,7 +29,7 @@ public class FormaPago implements Serializable{
 	
 	@OneToMany(cascade= CascadeType.ALL)
 	@JoinColumn(name="codigoformap")
-	List<FacturaxFormaPago> factuxforma;
+	List<FacturaxFormaPago> factuxformaspago;
 	
 	/*@ManyToMany(cascade = {CascadeType.ALL},mappedBy="formas")
 	private Set<Factura> facturas=new HashSet();*/

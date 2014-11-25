@@ -41,6 +41,8 @@ public class Socio implements Serializable{
 	private Date FechaIngreso;
 	@Column(name="montoahorrosocio")
 	private float MontoAhorro;
+	@Column(name="TieneAvance")
+	private boolean tiene;
 	
 	@OneToOne
 	@JoinColumn(name="rif")
@@ -198,6 +200,12 @@ public class Socio implements Serializable{
 	}
 	public void setCtaAhorro(CuentaAhorro ctaAhorro) {
 		this.ctaAhorro = ctaAhorro;
+	}
+	public boolean isTiene() {
+		return tiene;
+	}
+	public void setTiene(boolean tiene) {
+		this.tiene = tiene;
 	}
 	
 	

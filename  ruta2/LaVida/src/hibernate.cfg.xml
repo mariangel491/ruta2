@@ -38,6 +38,7 @@
       <mapping class="Modelos.Factura"/> 
       <mapping class="Modelos.FondoChoque"/>
       <mapping class="Modelos.FormaPago"/>
+      <mapping class="Modelos.FacturaxFormaPago"/>
       <mapping class="Modelos.Historial"/>
       <mapping class="Modelos.Ingresos"/>
       <mapping class="Modelos.Inquilino"/>

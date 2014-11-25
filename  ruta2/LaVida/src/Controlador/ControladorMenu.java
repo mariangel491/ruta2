@@ -10,13 +10,19 @@ import java.util.List;
 
 import javax.swing.JOptionPane;
 
+
+
+
+
+
+
+
 import net.sf.jasperreports.engine.JRException;
 import net.sf.jasperreports.engine.JasperCompileManager;
 import net.sf.jasperreports.engine.JasperFillManager;
 import net.sf.jasperreports.engine.JasperPrint;
 import net.sf.jasperreports.engine.JasperReport;
 import net.sf.jasperreports.view.JasperViewer;
-import ControladorReportes.ControladorReporte;
 import Modelos.Local;
 import Modelos.Hibernate.Daos.LocalDao;
 import Vistas.*;
@@ -46,7 +52,7 @@ public class ControladorMenu implements ActionListener{
 	private Connection con;
 	
 	//PARA LOS REPORTES
-	ControladorReporte controReporSocio;
+	//ControladorReporte controReporSocio;
 	
 	public ControladorMenu() {
 		super();
