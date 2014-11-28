@@ -41,7 +41,7 @@ public class Socio implements Serializable{
 	private Date FechaIngreso;
 	@Column(name="montoahorrosocio")
 	private float MontoAhorro;
-	@Column(name="TieneAvance")
+	@Column(name="tieneavance")
 	private boolean tiene;
 	
 	@OneToOne

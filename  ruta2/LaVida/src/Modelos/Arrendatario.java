@@ -38,7 +38,7 @@ public class Arrendatario implements Serializable{
 	private Float monto;
 	@Column(name="fechaingreso")
 	private Date FechaIngreso;
-	@Column(name="TieneAvance", nullable=false)
+	@Column(name="tieneavance", nullable=false)
 	private boolean tiene;
 	
 	@OneToOne(cascade= CascadeType.ALL)
