@@ -12,8 +12,6 @@ import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
 
-import javafx.beans.value.ChangeListener;
-
 import javax.swing.BorderFactory;
 import javax.swing.ButtonGroup;
 import javax.swing.ComboBoxModel;
@@ -46,23 +44,6 @@ import javax.swing.table.TableModel;
 import javax.swing.text.MaskFormatter;
 import javax.swing.SwingUtilities;
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 import Modelos.Arrendatario;
 import Modelos.Egresos;
 import Modelos.Ingresos;
@@ -88,6 +69,7 @@ import com.jgoodies.common.collect.LinkedListModel;
 * THIS MACHINE, SO JIGLOO OR THIS CODE CANNOT BE USED
 * LEGALLY FOR ANY CORPORATE OR COMMERCIAL PURPOSE.
 */
+
 public class VistaFac extends javax.swing.JFrame {
 
 	private JPanel jPanelVentana;
