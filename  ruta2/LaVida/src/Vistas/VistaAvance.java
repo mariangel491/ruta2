@@ -727,6 +727,7 @@ public Socio GuardarSocio(Socio soc){
 	socio.setMontoAhorro(0);
 	socio.setNroSocio(soc.getNroSocio());
 	socio.setStatus('A');
+	socio.setTiene(soc.isTiene());
 	
 
 	try {

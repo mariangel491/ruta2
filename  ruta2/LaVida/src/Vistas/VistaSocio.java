@@ -610,14 +610,23 @@ private static VistaSocio vSocio=null;
 		return rbtnNo;
 	}
 	
+	
+	public void prueba(boolean dato) {
+		if (dato==true)
+		this.rbtnSI.setSelected(true);
+		else
+			this.rbtnNo.setSelected(true);
+	}
+	
 	public int Seleccion(){
 		if(this.rbtnSI.isSelected()==true)
 			return 1;
 		if(this.rbtnNo.isSelected()==true)
 			return 2;
 		
-		return 0;
+		return 0;	
 	}
+	
 	
 	public int Selec(){
 		if (this.Seleccion()==1){
@@ -625,6 +634,16 @@ private static VistaSocio vSocio=null;
 		}else
 				return 2;
 			
+	}
+	
+	public boolean Tiene() {
+		if (this.rbtnSI.isSelected()==true)
+		{
+			return true;	
+			}
+		else {
+			return false;		
+		  }
 	}
 	
 	

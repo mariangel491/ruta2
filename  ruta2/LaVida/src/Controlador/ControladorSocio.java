@@ -11,8 +11,10 @@ import java.util.List;
 
 
 
+
 import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
+
 
 
 
@@ -175,6 +177,7 @@ public class ControladorSocio implements ActionListener {
 				String ced;
 				String ape;
 				Integer telef;
+				Boolean tieneavance;
 
 				codigo = socio.getNroSocio();
 				vSocio.setTxtNroSocio(codigo);
@@ -188,6 +191,8 @@ public class ControladorSocio implements ActionListener {
 				vSocio.setTxtApellidoSoc(ape);
 				telef = socio.getTelefono();
 				vSocio.setTxtTelefono(telef.toString());
+				tieneavance = socio.isTiene();
+				vSocio.prueba(tieneavance);
 				
 			//	this.cargarListadoDeAvances();
 			} else
@@ -218,6 +223,7 @@ public class ControladorSocio implements ActionListener {
 			socio.setFechaIngreso(fechaIngreso);
 			socio.setStatus('A');
 			socio.setRuta(rutaDao.buscarPorCodRuta("J-306-902686"));
+			socio.setTiene(true);
 			//socio.setAvances(avances);
 			//socio.setVehiculos(vehiculos);
 			
