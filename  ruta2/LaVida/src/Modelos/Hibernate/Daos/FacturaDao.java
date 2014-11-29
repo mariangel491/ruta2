@@ -60,7 +60,7 @@ private ArrendatarioDao arrendatarioDao = new ArrendatarioDao();
 		} 
 	}
 
-	public Factura obtenerFactura(int id) throws Exception{		 
+	public Factura obtenerFactura(String id) throws Exception{		 
 		@SuppressWarnings("static-access")
 		Session sesion = sesionPostgres.openSession();  
 	    Factura dato = null;        

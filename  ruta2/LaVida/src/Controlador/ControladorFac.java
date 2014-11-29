@@ -32,6 +32,7 @@ import Modelos.CuentaPrestamos;
 import Modelos.DetalleFactura;
 import Modelos.Egresos;
 import Modelos.Factura;
+import Modelos.FacturaxFormaPago;
 import Modelos.FormaPago;
 import Modelos.Ingresos;
 import Modelos.Inquilino;
@@ -45,6 +46,7 @@ import Modelos.Hibernate.Daos.CuentaPrestamosDao;
 import Modelos.Hibernate.Daos.DetalleFacturaDao;
 import Modelos.Hibernate.Daos.EgresosDao;
 import Modelos.Hibernate.Daos.FacturaDao;
+import Modelos.Hibernate.Daos.FacturaxFormaPagoDao;
 import Modelos.Hibernate.Daos.FormaPagoDao;
 import Modelos.Hibernate.Daos.IngresosDao;
 import Modelos.Hibernate.Daos.InquilinoDao;
@@ -73,6 +75,8 @@ public class ControladorFac implements ActionListener, KeyListener, FocusListene
 	private CuentaPrestamos cuentaPrestamos = new CuentaPrestamos();
 	private CuentaPrestamosDao cuentaPrestamosDao = new CuentaPrestamosDao();
 	private FormaPagoDao formaPagoDao = new FormaPagoDao();
+	private FacturaxFormaPagoDao factFPDao= new FacturaxFormaPagoDao();
+	private FacturaxFormaPago factFP= new FacturaxFormaPago();
 	
 	private List<String> listaPrestamosIngresos = new ArrayList<String>();
 	LinkedListModel<String> listaModeloAux=new LinkedListModel<>();
@@ -382,16 +386,23 @@ public class ControladorFac implements ActionListener, KeyListener, FocusListene
 		return null;
 	}
 	
-public void GuardarFormaPagoFactura() throws Exception{
+	
+	public String GenerarCodigoFacxFP () throws Exception{
+		return "FFP"+factFPDao.obtenerTodos().size();
+	}
+
+	public void GuardarFormaPagoFactura() throws Exception{
 	formasPagoSeleccionadas=new HashSet<>();
 	if(vFactura.getCheckCheque().isSelected()==true)
 	{
 		formasPagoSeleccionadas.add(this.BuscarDescripFP("Cheque"));
 		montoCheque= Float.parseFloat(vFactura.getTxtCheque().getText());
+		System.out.println("montooo: "+ vFactura.getTxtEfectivo().getText());
 	}
 	if(vFactura.getCheckDeposito().isSelected()==true){
 		formasPagoSeleccionadas.add(BuscarDescripFP("Deposito"));
 		montDep= Float.parseFloat(vFactura.getTxtDeposito().getText());
+		System.out.println("montooo: "+ vFactura.getTxtEfectivo().getText());
 	}
 	if(vFactura.getCheckEfectivo().isSelected()==true){
 		formasPagoSeleccionadas.add(BuscarDescripFP("Efectivo"));
@@ -402,10 +413,12 @@ public void GuardarFormaPagoFactura() throws Exception{
 	if(vFactura.getCheckSubsidio().isSelected()==true){
 		formasPagoSeleccionadas.add(BuscarDescripFP("Subsidio"));
 		montoSub=Float.parseFloat(vFactura.getTxtSubsidio().getText());
+		System.out.println("montooo: "+ vFactura.getTxtEfectivo().getText());
 	}
 	if(vFactura.getCheckTransferencia().isSelected()==true){
 		formasPagoSeleccionadas.add(BuscarDescripFP("Transferencia"));
 		montoTrasnf=Float.parseFloat(vFactura.getTxtTransferencia().getText());
+		System.out.println("montooo: "+ vFactura.getTxtEfectivo().getText());
 	}	
 
 }
@@ -436,16 +449,56 @@ public String guardarFacturaEgreso(String tipoFacturado, String campoId, String 
 		 factura.setCodRuta(rutaDao.buscarPorCodRuta("J-306-902686"));
 		 factura.setNroFactura(facturaDao.buscarUltimoNumeroFactura());	
 		 
-		 if(formasPagoSeleccionadas.size()>0)
-			 factura.setFormas(formasPagoSeleccionadas);
-		 else
+		 if(formasPagoSeleccionadas.size()==0)
 			 JOptionPane.showMessageDialog(null,"Debe seleccionar al menos una formaPago","Atencion!",
 						JOptionPane.INFORMATION_MESSAGE);
 			 
 		 facturaDao.agregarFactura(factura);
-
+		 
+		//Para guardar la forma de pago.
+		 System.out.println("# facturaaaa "+ factura.getNroFactura());
 		
+		 String nom="";
+		 Object[] array = formasPagoSeleccionadas.toArray();
+		 System.out.println("tamaño   "+ array.length);
+			
+		 for (int i=0; i< array.length;i++){
+			 	factFP= new FacturaxFormaPago();
+				FormaPago fp=(FormaPago) array[i];
+				factFP.setFormaPago(fp);
+				factFP.setFactura(facturaDao.obtenerFactura(factura.getNroFactura()));
+				factFP.setFecha(new Date());
+				factFP.setId(this.GenerarCodigoFacxFP());
+				
+				nom= formaPagoDao.buscarPorCodForma(fp.getCodForma()).getNombre();
+				
+				System.out.println("fp  "+nom);
+				
+				/*
+				System.out.println("montoooo  "+ montoCheque);
+				System.out.println("monto Dep  "+ montDep);
+				System.out.println("sub: "+ montoSub);
+				System.out.println("efectivo  "+ montoEf);
+				System.out.println("transf "+ montoTrasnf);*/
+				
+				System.out.println(nom.equals("Cheque"));
+				
+			   if(nom.equals("Cheque"))
+					 factFP.setMonto(montoCheque);
+				 if(nom.equals("Deposito"))
+					factFP.setMonto(montDep);
+				 if(nom.equals("Efectivo"))
+					 factFP.setMonto(montoEf);
+				 if(nom.equals("Subsidio"))	
+					factFP.setMonto(montoSub);
+				 if(nom.equals("Transferencia"))
+					 factFP.setMonto(montoTrasnf);
+			
+				 factFPDao.agregarFormaPago(factFP);
+		 }
+			
 		
+		 
 		 
 		Set<DetalleFactura> listaDetalleFactura = new HashSet<DetalleFactura>();
 

@@ -66,6 +66,23 @@ public class FacturaxFormaPago implements Serializable{
 	public void setFecha(Date fecha) {
 		this.fecha = fecha;
 	}
+
+	public Factura getFactura() {
+		return factura;
+	}
+
+	public void setFactura(Factura factura) {
+		this.factura = factura;
+	}
+
+	public FormaPago getFormaPago() {
+		return formaPago;
+	}
+
+	public void setFormaPago(FormaPago formaPago) {
+		this.formaPago = formaPago;
+	}
+	
 	
 	
 
