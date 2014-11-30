@@ -458,7 +458,6 @@ public String getTxtNombre() {
 		Date f= new Date();
 		
 		
-		
 		for(int i=0; i<fila;i++)
 		{		
 				Avance avance= new Avance();
@@ -468,7 +467,7 @@ public String getTxtNombre() {
 				ced=(String) tblListadoAvance.getValueAt(i, 2);
 				direc=(String) tblListadoAvance.getValueAt(i, 3);
 				telefono=(String) tblListadoAvance.getValueAt(i, 4);
-							
+				
 		//		avance.setCodAvance(codAvance);
 				avance.setCedula(ced);
 				avance.setNombre(nombre);
@@ -483,6 +482,8 @@ public String getTxtNombre() {
 		
 		return a;
 	}
+	
+	
 
 public List<AvanceArrendatario> LlenarListaAvancesArren(){
 		
@@ -723,7 +724,6 @@ public Socio GuardarSocio(Socio soc){
 	socio.setFechaIngreso(f);
 	socio.setNombre(soc.getNombre());
 	socio.setTelefono(soc.getTelefono());
-	System.out.println(soc.getTelefono()+" "+"que se trae");
 	socio.setMontoAhorro(0);
 	socio.setNroSocio(soc.getNroSocio());
 	socio.setStatus('A');

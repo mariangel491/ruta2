@@ -601,7 +601,7 @@ private static VistaVehiculo vVehic=null;
 	    }
 	 
 	    public void eliminarConductorCombo(){
-	    	this.setCmbConductor("Seleccione una opción");
+	    	//this.setCmbConductor("Seleccione una opción");
 	    	cmbConductor.removeItemAt(cmbConductor.getSelectedIndex());
 	    }
 		
@@ -685,7 +685,6 @@ private static VistaVehiculo vVehic=null;
 			List<Vehiculo> a = new ArrayList<Vehiculo>();
 			String placa,serial,marca,anno,puestos,avance;
 			MarcaDao md= new MarcaDao();
-			VistaAvance va= new VistaAvance();
 			
 			for(int i=0; i<fila;i++)
 			{		
@@ -714,18 +713,8 @@ private static VistaVehiculo vVehic=null;
 						e.printStackTrace();
 					}
 					veh.setAnno(Integer.parseInt(anno));
-					veh.setNropuestos(Integer.parseInt(puestos));
-					
-					//  ************* ESTO LO HAGO EN EL METODO GUARDAR GUARDAR
-					
-						for(int j=0; j< va.LlenarListaAvances().size();j++)
-					{
-						if((va.LlenarListaAvances().get(i).getNombre()+" "+
-								va.LlenarListaAvances().get(j).getApellido()).equals(avance));
-						veh.setAvance(va.LlenarListaAvances().get(i).getNombre()+" "+
-								va.LlenarListaAvances().get(j).getApellido());
-					}
-					
+					veh.setNropuestos(Integer.parseInt(puestos));				
+					veh.setAvance(avance);
 					
 					a.add(veh);		
 			}

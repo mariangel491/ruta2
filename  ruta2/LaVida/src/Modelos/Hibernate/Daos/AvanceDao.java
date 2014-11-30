@@ -102,23 +102,16 @@ private HibernateUtil sesionPostgres;
 		return datos; 
 	}	
 	
-	public List<Avance> obtenerTodosxSocio(boolean prueba) throws Exception {            
-		  
-		List<Avance> datos = new ArrayList<Avance>();  
-		Session em = sesionPostgres.openSession();  	
-		try {  	
-			datos =  (List<Avance>) em.createCriteria(Avance.class).list();             
-		} catch (Exception e) {             
-   
-			throw new Exception(e.getMessage(),e.getCause());
-		} finally {  
-			em.close();  
-		} 
-   
-		return datos; 
+	public List<Avance> ObtenerPorSocios(String cod) throws Exception{
+		List<Avance> avancexsoc= new ArrayList<Avance>();
+		
+		for(Avance avance: obtenerTodos())
+			if(avance.getSocio().getNroSocio().equals(cod))
+				avancexsoc.add(avance);
+		return avancexsoc;
+		
 	}
 	
-
 	public Avance buscarPorCodAvance(String codAvance) throws Exception {
 		for (Avance avance : obtenerTodos())
 			if (avance.getCodAvance().equals(codAvance))
@@ -126,6 +119,20 @@ private HibernateUtil sesionPostgres;
 		return null;
 	}
 
+
+	public Avance buscarPorCedulaAvance(String cedAvance) throws Exception {
+		for (Avance avance : obtenerTodos())
+			if (avance.getCedula().equals(cedAvance))
+				return avance;
+		return null;
+	}
+	
+	public boolean encontrarPorCedula(String cedAvance) throws Exception {
+		if (buscarPorCedulaAvance(cedAvance) == null)
+			return false;
+		return true;
+	}
+	
 	public boolean encontrar(String codAvance) throws Exception {
 		if (buscarPorCodAvance(codAvance) == null)
 			return false;

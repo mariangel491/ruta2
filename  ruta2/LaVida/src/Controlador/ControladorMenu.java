@@ -163,8 +163,8 @@ public class ControladorMenu implements ActionListener{
 		}
 		else if(ae.getActionCommand().equalsIgnoreCase("ReporteSocio"))
 		{
-			//controReporSocio= new ControladorReporte();
-			String ruta=new File("").getAbsolutePath() + "/src/Reportes/Simple_Blue_Table_Based.jrxml";
+		
+			String ruta=new File("").getAbsolutePath() + "/src/Reportes/ReporteSocios.jrxml";
 			try {
 				JasperReport reporte = JasperCompileManager.compileReport(ruta);
 				JasperPrint print = JasperFillManager.fillReport(reporte, null, con);

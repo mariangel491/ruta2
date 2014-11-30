@@ -71,7 +71,7 @@ public class ControladorAvance implements ActionListener {
 		vAvance.setVisible(true);
 		vAvance.agregarListener(this);
 		vAvance.CambiarNombrePanel();
-		System.out.println(va.llenarNombre()+"que hay");
+		
 		if (va.Selec()==1){
 		vAvance.setTxtNroSocio(va.llenarCodigo());
 		vAvance.setTxtNomSocio(va.llenarNombre());
@@ -105,10 +105,10 @@ public class ControladorAvance implements ActionListener {
 			this.obtenerAvance();
 			this.asignarCod();
 			socioprueba= vs.GuardarSocio();
-			System.out.println(socioprueba.getNombre()+socioprueba.getApellido()+socioprueba.getTelefono());
+			
 			vAvance.GuardarSocio(socioprueba);
 			vAvance.RetornaSocio();
-			System.out.println("de laaaa vistaaaaaaa "+ vAvance.RetornaSocio().getNombre());
+	
 		} catch (Exception e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
@@ -269,6 +269,7 @@ public class ControladorAvance implements ActionListener {
 				ced= avances.get(i).getCedula();
 				Date f= new Date();
 				fecha= f.toString();
+				
 				vAvance.agregarFila(/*cod, */apellido, nombre, ced, telefono, direccion, fecha);
 				
 			}	

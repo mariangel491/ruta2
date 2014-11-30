@@ -94,36 +94,32 @@ public class ControladorVehiculo implements ActionListener {
 		
 		////si viene de socio
 		socioPrueba= va.RetornaSocio();
-		System.out.println(socioPrueba.getCedula()+" "+"vehiculo");
-		if (socioPrueba!=null){
-		//socioPrueba = va.GuardarSocio();
-		
-		vVehiculo.setTxtNroSocio(va.llenarCodigo()); 
-		vVehiculo.setTxtNomSocio(va.llenarNombre());
-		listaAvancesSocio= va.LlenarListaAvances();
-		System.out.println(listaAvancesSocio.size()+" "+"nombre de la lista avance");
-		for(int i=0; i<va.LlenarListaAvances().size();i++)
+	
+		if (socioPrueba!=null)
 		{
-			vVehiculo.setCmbConductor(va.LlenarListaAvances().get(i).getNombre()+ " "+
-					va.LlenarListaAvances().get(i).getApellido());
-		}
-		
-		try {
-			vVehiculo.LlenarComboMarca();
-			//if(this.obtenerVehiculos().size()==0){
-				//System.out.println("el socio no tiene vehiculos");
-	//		}else 	
-			System.out.println("obtener vehiculos  "+ this.obtenerVehiculos().size());
-			vVehiculo.OcultarListado(this.obtenerVehiculos());
-			//this.obtenerVehiculos();
+			//socioPrueba = va.GuardarSocio();
 			
-
-		} catch (Exception e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
+			vVehiculo.setTxtNroSocio(va.llenarCodigo()); 
+			vVehiculo.setTxtNomSocio(va.llenarNombre());
+			listaAvancesSocio= va.LlenarListaAvances();
+			
+			System.out.println("lista socios "+ listaAvancesSocio.size());
+			
+			for(int i=0; i<va.LlenarListaAvances().size();i++)
+			{
+				vVehiculo.setCmbConductor(va.LlenarListaAvances().get(i).getNombre()+ " "+
+						va.LlenarListaAvances().get(i).getApellido());
+			}
+			
+			try {
+				vVehiculo.LlenarComboMarca();
+				vVehiculo.OcultarListado(this.obtenerVehiculos());	
+			} catch (Exception e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
 		}
-		}
-		else
+		else{
 			arrendatarioPrueba= va.GuardarArrendatario();
 		System.out.println(arrendatarioPrueba.getCedula());
 			if(arrendatarioPrueba!=null){
@@ -145,6 +141,7 @@ public class ControladorVehiculo implements ActionListener {
 					e.printStackTrace();
 				}
 				
+			}
 			}
 			
 			
@@ -286,7 +283,6 @@ public class ControladorVehiculo implements ActionListener {
 			}
 		}
 		else if (a.getActionCommand().equalsIgnoreCase("AgregarVehiculo")) {
-			System.out.println("agregando vehiculo");
 			if (this.vVehiculo.CamposllenosVehiculo()) {
 				vVehiculo.MostarListado();
 				this.agregarVehiculo();
@@ -481,25 +477,19 @@ public class ControladorVehiculo implements ActionListener {
 			vehiculo.setCodMarca(marcaDao.obtenerTodos().get(marca));
 			vehiculo.setAnno(año);
 			vehiculo.setNropuestos(cant_puestos);
-				
-			
+						
+			System.out.println("avance  " +avanceprueba);
 			for(int l=0; l<this.listaAvancesSocio.size();l++){	
-				
-					if(avanceprueba.equals(this.listaAvancesSocio.get(l).getNombre()+" "+this.listaAvancesSocio.get(l).getApellido()))
-					vehiculo.setAvance(this.listaAvancesSocio.get(l).getCodAvance());
-				}
+					if(avanceprueba.equals(this.listaAvancesSocio.get(l).getNombre()+" "+
+					    this.listaAvancesSocio.get(l).getApellido()))
+							vehiculo.setAvance(this.listaAvancesSocio.get(l).getCodAvance());
+			}
 			
-			
-			
-			/*for(int l=0; l<avanceDao.obtenerTodos().size();l++){	
-				//veh.setAvance(this.guardarAvance(avan));
-					if(avanceprueba.equals(avanceDao.obtenerTodos().get(l).getNombre()+" "+avanceDao.obtenerTodos().get(l).getApellido()))
-					vehiculo.setAvance(avanceDao.obtenerTodos().get(l).getCodAvance());
-				}*/
 			socio.getVehiculos().add(vehiculo); 
 			this.cargarListadoDeVehiculos();
 			
-			vVehiculo.eliminarConductorCombo();
+			avanceprueba=new String();
+			//vVehiculo.eliminarConductorCombo();
 			vVehiculo.limpiarCamposVehiculo();
 		
 		} catch (Exception e) {
@@ -530,12 +520,22 @@ public class ControladorVehiculo implements ActionListener {
 		System.out.println("nuevo metooodooo. " +codi);
 		for(int i=0; i < listaAvancesSocio.size();i++)
 		{
-			if(listaAvancesSocio.get(i).getCedula().equalsIgnoreCase(codi))
+			System.out.println("avances por socio" +listaAvancesSocio.get(i).getCodAvance());
+			if(listaAvancesSocio.get(i).getCodAvance().equalsIgnoreCase(codi))
 			{
+				System.out.println("entro en el if");
 				sera = listaAvancesSocio.get(i);
 				avan = sera.getNombre()+" "+sera.getApellido();
-		}}
+			}
+		}
 		return avan;
+	}
+	
+	public void avanceNombre(List<Vehiculo> vehi, int pos){
+		Vehiculo veh= new Vehiculo();
+		veh.setAvance(vVehiculo.getCmbConductor());
+		
+		vehi.add(pos, veh);
 	}
 	
 	protected void cargarListadoDeVehiculos() throws Exception {
@@ -547,20 +547,22 @@ public class ControladorVehiculo implements ActionListener {
 			vVehiculo.limpiarTablaVehiculos();
 			for(int i=0; i<vehiculos.size(); i++)
 			{
+				//this.avanceNombre(vehiculos, i);
 				String placa = vehiculos.get(i).getPlaca();
 				String serial = vehiculos.get(i).getSerialCarroceria();
 				String marca = vehiculos.get(i).getCodMarca().getDescripcion().toString();
 				Integer año = vehiculos.get(i).getAnno();
 				Integer nropstos= vehiculos.get(i).getNropuestos();
 				//String avance = vehiculos.get(i).getAvance();
-				
-			
+					
+				//System.out.println(avance);
 				String avance= //this.traerNombreyApe(vehiculos, i);
 						vVehiculo.getCmbConductor();
 					
 				//	String avance = vehiculos.get(i).getNombre()+" "+vehiculos.get(i).getAvance().getApellido();
 				
 				vVehiculo.agregarFila(placa, serial, marca, año.toString(),nropstos.toString(), avance);
+				
 			}
 		}		
 	}
@@ -619,7 +621,6 @@ public class ControladorVehiculo implements ActionListener {
 			
 			for(Vehiculo veh : this.socio.getVehiculos()){
 				veh.setSocio(socio);
-				System.out.println(socio.getNombre());
 					if(!vehDao.encontrar(veh.getPlaca()))
 					{
 					//	System.out.println("veh: "+veh.getSocio().getNombre());
@@ -736,7 +737,7 @@ public class ControladorVehiculo implements ActionListener {
 	}
 
 	private void registrarPrueba() throws Exception {
-		System.out.println("registrando");
+		
 		if (vVehiculo.CamposllenosSocio() == true) {
 
 			Socio socio = new Socio();		
@@ -753,20 +754,24 @@ public class ControladorVehiculo implements ActionListener {
 			{
 				avan.setSocio(socio);
 				avan.setCodAvance(this.asignarCodAvance());
-				if(!avanceDao.encontrar(avan.getCodAvance()))
+				if(!avanceDao.encontrarPorCedula(avan.getCedula()))
 					{
 						avanceDao.agregarAvance(avan);
 					}
-			}	
+			}
+			
 			for(Vehiculo vehi : vVehiculo.LlenarListaVehiculos()) //////aqui dudas... va el get o va la lista de la vista llenarvehiculos
 			{
+				
 				vehi.setSocio(socio);
 				//Asignar al avance
-				for(Avance avan : avanceDao.obtenerTodos()) //ya del dao porq se guardo
-				{
-					System.out.println("veh get avance: "+ vehi.getAvance());
-					if(((avan.getNombre()+" "+avan.getApellido()).equalsIgnoreCase(vehi.getAvance())))
-						vehi.setAvance(avan.getCodAvance());
+				System.out.println("probando daooo "+ avanceDao.ObtenerPorSocios(socio.getNroSocio()).size());
+				for(Avance avance : avanceDao.obtenerTodos()) {
+					if(((avance.getNombre()+" "+avance.getApellido()).equalsIgnoreCase(vehi.getAvance())))
+					{
+						vehi.setAvance(avance.getCodAvance());
+						break;
+					}
 				}	
 				if(!vehiculoDao.encontrar(vehi.getPlaca()))
 					{
