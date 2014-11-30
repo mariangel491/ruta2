@@ -46,6 +46,11 @@ public class Ingresos implements Serializable{
 	@PrimaryKeyJoinColumn
 	private Historial historial;
 	
+	
+	@OneToOne(cascade= CascadeType.ALL)
+	@JoinColumn(name="codingreso")
+	private DetalleFactura detalle;
+	
 	/*@OneToOne
 	@JoinColumn(name="codingreso")
 	private DetalleFactura detalle;*/
@@ -100,30 +105,14 @@ public class Ingresos implements Serializable{
 	public void setRuta(Ruta ruta) {
 		this.ruta = ruta;
 	}
-	/*public Historial getCodHistorial() {
-		return CodHistorial;
-	}
-	public void setCodHistorial(Historial codHistorial) {
-		CodHistorial = codHistorial;
-	}*/
-/*	public DetalleFactura getDetalle() {
-		return detalle;
-	}
-	public void setDetalle(DetalleFactura detalle) {
-		this.detalle = detalle;
-	}*/
+	
 	public float getMonto() {
 		return monto;
 	}
 	public void setMonto(float monto) {
 		this.monto = monto;
 	}
-/*	public List<Historial> getCodHistorial() {
-		return CodHistorial;
-	}
-	public void setCodHistorial(List<Historial> codHistorial) {
-		CodHistorial = codHistorial;
-	}*/
+
 	public Historial getHistorial() {
 		return historial;
 	}

@@ -37,9 +37,10 @@ public class Egresos implements Serializable{
 	@JoinColumn(name="codigoruta")
 	private Ruta ruta; 
 	
-	/*@OneToOne(cascade= CascadeType.ALL)
+	
+	@OneToOne(cascade= CascadeType.ALL)
 	@JoinColumn(name="codegreso")
-	private DetalleFactura detalle;*/
+	private DetalleFactura detalle;
 
 
 	public Egresos() {

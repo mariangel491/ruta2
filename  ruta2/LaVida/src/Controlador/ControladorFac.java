@@ -25,6 +25,7 @@ import com.lowagie.text.ListItem;
 import com.sun.xml.internal.bind.v2.runtime.unmarshaller.XsiNilLoader.Array;
 
 import Modelos.Arrendatario;
+import Modelos.Avance;
 import Modelos.CuentaAlquiler;
 import Modelos.CuentaFondoChoque;
 import Modelos.CuentaIngresos;
@@ -109,8 +110,10 @@ public class ControladorFac implements ActionListener, KeyListener, FocusListene
 			
 		}
 		else if(ae.getActionCommand().equalsIgnoreCase("Procesar")){
-			this.guardarFacturaEgreso(vFactura.getCmbTipoFacturado(), vFactura.getTxtNroSocio(), vFactura.getTxtCed(), vFactura.getjTableIngresosXFactura(), vFactura.getTxtMontoTotal());
-			//this.guardarFactEgreso();
+			
+			this.Procesar();
+			//this.guardarFacturaEgreso(vFactura.getCmbTipoFacturado(), vFactura.getTxtNroSocio(), vFactura.getTxtCed(), vFactura.getjTableIngresosXFactura(), vFactura.getTxtMontoTotal());
+			//this.guardarFacturaIngreso(vFactura.getCmbTipoFacturado(),vFactura.getTxtNroSocio(), vFactura.getTxtCed(),vFactura.getjTableIngresosXFactura(),vFactura.getTxtMontoTotal());
 		}else if(ae.getActionCommand().equalsIgnoreCase("Cancelar")){
 			this.CalcularTotalFormaPago();
 		}
@@ -510,6 +513,9 @@ public String guardarFacturaEgreso(String tipoFacturado, String campoId, String 
 			 detalleFactura.setCodFactura(factura);
 		 
 			 Egresos egreso = new Egresos();
+			 Set<Egresos> Legresos = new HashSet<Egresos>();
+			 Object[] LL = Legresos.toArray();
+			// ArrayList<Egresos> Legresos = new ArrayList<Egresos>();
 			 for(int a=0; a<lista.getColumnCount(); a++) //recorro las columnas
 			 {
 
@@ -526,7 +532,8 @@ public String guardarFacturaEgreso(String tipoFacturado, String campoId, String 
 				else if(a==3){
 					clasificacion = lista.getValueAt(i ,a).toString();
 				}
-				detalleFactura.setEgresos(egreso);
+				Legresos.add(egreso);
+				detalleFactura.setEgresos((List<Egresos>) Legresos);
 			 }
 
 			 detalleFacturaDao.agregarDetalleFactura(detalleFactura);
@@ -605,7 +612,7 @@ public String guardarFacturaEgreso(String tipoFacturado, String campoId, String 
 }
 
 
-public String guardarFacturaIngreso(String tipoFacturado, String campoId, String cedula, JTable lista, String montoTotal,List<String> listaFormaPago){
+public String guardarFacturaIngreso(String tipoFacturado, String campoId, String cedula, JTable lista, String montoTotal){
 	
 	 String valorMensaje="";
 	 Factura factura = new Factura();
@@ -614,6 +621,7 @@ public String guardarFacturaIngreso(String tipoFacturado, String campoId, String
 	 String codigoPrestamo="";
 	 try {
 
+		 this.GuardarFormaPagoFactura();
 		 
 		 factura.setMontoTotal(Float.valueOf(montoTotal));
 		 factura.setFechaEmision(new Date(System.currentTimeMillis()));
@@ -630,18 +638,58 @@ public String guardarFacturaIngreso(String tipoFacturado, String campoId, String
 		 factura.setCodRuta(rutaDao.buscarPorCodRuta("J-306-902686"));
 		 factura.setNroFactura(facturaDao.buscarUltimoNumeroFactura());		 
 		 facturaDao.agregarFactura(factura);
+		 
+		 ////////////////////////////////////////MetodoFormaPago///////////////////////////
+		 String nom="";
+		 Object[] array = formasPagoSeleccionadas.toArray();
+		 System.out.println("tamaño   "+ array.length);
+			
+		 for (int i=0; i< array.length;i++){
+			 	factFP= new FacturaxFormaPago();
+				FormaPago fp=(FormaPago) array[i];
+				factFP.setFormaPago(fp);
+				factFP.setFactura(facturaDao.obtenerFactura(factura.getNroFactura()));
+				factFP.setFecha(new Date());
+				factFP.setId(this.GenerarCodigoFacxFP());
+				
+				nom= formaPagoDao.buscarPorCodForma(fp.getCodForma()).getNombre();
+				
+				System.out.println("fp  "+nom);
+				
+				System.out.println(nom.equals("Cheque"));
+				
+			   if(nom.equals("Cheque"))
+					 factFP.setMonto(montoCheque);
+				 if(nom.equals("Deposito"))
+					factFP.setMonto(montDep);
+				 if(nom.equals("Efectivo"))
+					 factFP.setMonto(montoEf);
+				 if(nom.equals("Subsidio"))	
+					factFP.setMonto(montoSub);
+				 if(nom.equals("Transferencia"))
+					 factFP.setMonto(montoTrasnf);
+			
+				 factFPDao.agregarFormaPago(factFP);
+		 }
 
 	 
 		 Set<DetalleFactura> listaDetalleFactura = new HashSet<DetalleFactura>();
 
 		 for(int i=0; i<lista.getRowCount(); i++) //recorro las filas
 		 {
-
+			 System.out.println(i);
 			 DetalleFactura detalleFactura = new DetalleFactura();
 			 detalleFactura.setCoddetalle(detalleFacturaDao.buscarUltimoNumeroDetalleFactura());
 			 detalleFactura.setCodFactura(factura);
+			 
+			/* 
+			 ArrayList<Avance> listado = new ArrayList<Avance>();
+				for(int i = 0; i < avanceDao.obtenerTodos().size(); i++)
+					if(avanceDao.obtenerTodos().get(i).getSocio().getNroSocio().equals(vAvance.getTxtNroSocio()))
+						listado.add(avanceDao.obtenerTodos().get(i));*/
 		 
 			 Ingresos ingreso = new Ingresos();
+			 ArrayList<Ingresos> Lingresos = new ArrayList<Ingresos>();
 			 for(int a=0; a<lista.getColumnCount(); a++) //recorro las columnas
 			 {
 
@@ -652,8 +700,9 @@ public String guardarFacturaIngreso(String tipoFacturado, String campoId, String
 					ingreso.setDescripcion(lista.getValueAt(i ,a).toString());
 				}
 				else if(a==2){
-					montoString = new String();
-					montoString = (String)lista.getValueAt(i ,a);						
+					//montoString = new String();
+					//montoString = (String)lista.getValueAt(i ,a);		
+					ingreso.setMonto(Float.parseFloat(lista.getValueAt(i, a).toString()));
 				}
 				else if(a==3){
 					clasificacion = lista.getValueAt(i ,a).toString();
@@ -664,12 +713,11 @@ public String guardarFacturaIngreso(String tipoFacturado, String campoId, String
 					}
 					
 				}
-				detalleFactura.setIngreso(ingreso);
-				
+				Lingresos.add(ingreso);
+				detalleFactura.setIngresos(Lingresos);		
 			 }
-
 			 detalleFacturaDao.agregarDetalleFactura(detalleFactura);
-			 
+		// }
 //			 for (Iterator iterator = listaFormaPago.iterator(); iterator.hasNext();) {
 //				String formaPagoDesc = (String) iterator.next();
 //				FormaPago formaPago = new FormaPago();
@@ -704,7 +752,8 @@ public String guardarFacturaIngreso(String tipoFacturado, String campoId, String
 				 cuentaIngresos.setFactura(factura);
 				 cuentaIngresos.setDescripTransac(ingreso.getDescripcion());
 				 cuentaIngresos.setFecha(new Date(System.currentTimeMillis()));
-				 cuentaIngresos.setMontoTransaccion(Float.valueOf(montoString));
+				 cuentaIngresos.setMontoTransaccion(ingreso.getMonto());
+				// cuentaIngresos.setMontoTransaccion(Float.valueOf(montoString));
 				 cuentaIngresos.setStatus("A");	
 				 cuentaIngresos.setNro_cuenta(cuentaIngresosDao.buscarUltimoNumeroTramsaccionCuentaIngresos());
 				 cuentaIngresos.setTipo("GASTO");
@@ -745,6 +794,27 @@ public String guardarFacturaIngreso(String tipoFacturado, String campoId, String
 	
 }
 
+
+public void Procesar() {
+	
+	if(vFactura.getCmbTipoFactu().equalsIgnoreCase(vFactura.TIPO_DE_FACTURA_INGRESOS)){
+		
+		//this.guardarFacturaEgreso(vFactura.getCmbTipoFacturado(), vFactura.getTxtNroSocio(), vFactura.getTxtCed(), vFactura.getjTableIngresosXFactura(), vFactura.getTxtMontoTotal());
+		this.guardarFacturaIngreso(vFactura.getCmbTipoFacturado(),vFactura.getTxtNroSocio(), 
+		vFactura.getTxtCed(),vFactura.getjTableIngresosXFactura(),vFactura.getTxtMontoTotal());
+		
+	}
+	else
+		if(vFactura.getCmbTipoFactu().equalsIgnoreCase(vFactura.TIPO_DE_FACTURA_EGRESOS)){
+			
+			this.guardarFacturaEgreso(vFactura.getCmbTipoFacturado(), vFactura.getTxtNroSocio(), 
+			vFactura.getTxtCed(), vFactura.getjTableIngresosXFactura(), vFactura.getTxtMontoTotal());
+			//this.guardarFacturaIngreso(vFactura.getCmbTipoFacturado(),vFactura.getTxtNroSocio(), vFactura.getTxtCed(),vFactura.getjTableIngresosXFactura(),vFactura.getTxtMontoTotal());
+		}
+		
+	vFactura.limpiarTodo();
+}
+
 public void ProcesarFac() {
 	// TODO Auto-generated method stub
 	if(vFactura.getCmbTipoFactu().equalsIgnoreCase(vFactura.TIPO_DE_FACTURA_INGRESOS)){
@@ -767,9 +837,9 @@ public void ProcesarFac() {
 			listaFormaPago.add(jRadioButtonSubsidio.getText());
 		}*/
 
-		String mensaje = guardarFacturaIngreso(vFactura.getCmbTipoFacturado(),vFactura.getTxtNroSocio(), vFactura.getTxtCed(), vFactura.getjTableIngresosXFactura(), vFactura.getTxtMontoTotal(),listaFormaPago);
+		//String mensaje = guardarFacturaIngreso(vFactura.getCmbTipoFacturado(),vFactura.getTxtNroSocio(), vFactura.getTxtCed(), vFactura.getjTableIngresosXFactura(), vFactura.getTxtMontoTotal(),listaFormaPago);
 	//	txtNroFactura.setText(mensaje);
-		JOptionPane.showMessageDialog(null,"Se ha generado su Factura con exito. Numero de Factura: "+mensaje);
+	//	JOptionPane.showMessageDialog(null,"Se ha generado su Factura con exito. Numero de Factura: "+mensaje);
 		
 	}
 	else if(vFactura.getCmbTipoFactu().equalsIgnoreCase(vFactura.TIPO_DE_FACTURA_EGRESOS)){
