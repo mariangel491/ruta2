@@ -26,35 +26,14 @@ public class DetalleFactura {
 	@Column(name="coddetalle")
 	private String coddetalle;
 	
-	/*@OneToOne
-	@JoinColumn(name="codegreso")
-	private Egresos egreso;*/
-	
-	@OneToMany(cascade= CascadeType.ALL)
-	@JoinColumn(name="codegreso")
-	List<Egresos> egresos;
-	
-	/*@OneToOne
-	@JoinColumn(name="codingreso")
-	private Ingresos ingreso;*/
-	
-	@OneToMany(cascade= CascadeType.ALL)
-	@JoinColumn(name="codingreso")
-	List<Ingresos> ingresos;
-	
 	@OneToOne
 	@JoinColumn(name="codfactura")
 	private Factura codFactura = new Factura();
+	
+	@OneToMany(cascade= CascadeType.ALL)
+	@JoinColumn(name="coddetfact")
+	List<IEDetalleFactura> det;
 
-
-
-/*	public List<Ingresos> getIngresos() {
-		return Ingresos;
-	}
-
-	public void setIngresos(List<Ingresos> ingresos) {
-		Ingresos = ingresos;
-	}*/
 
 
 	public String getCoddetalle() {
@@ -68,23 +47,7 @@ public class DetalleFactura {
 	public Factura getCodFactura() {
 		return codFactura;
 	}
-
-	public List<Egresos> getEgresos() {
-		return egresos;
-	}
-
-	public void setEgresos(List<Egresos> egresos) {
-		this.egresos = egresos;
-	}
-
-	public List<Ingresos> getIngresos() {
-		return ingresos;
-	}
-
-	public void setIngresos(List<Ingresos> ingresos) {
-		this.ingresos = ingresos;
-	}
-
+	
 	public void setCodFactura(Factura codFactura) {
 		this.codFactura = codFactura;
 	}

@@ -35,6 +35,7 @@ import Modelos.Egresos;
 import Modelos.Factura;
 import Modelos.FacturaxFormaPago;
 import Modelos.FormaPago;
+import Modelos.IEDetalleFactura;
 import Modelos.Ingresos;
 import Modelos.Inquilino;
 import Modelos.Prestamos;
@@ -49,6 +50,7 @@ import Modelos.Hibernate.Daos.EgresosDao;
 import Modelos.Hibernate.Daos.FacturaDao;
 import Modelos.Hibernate.Daos.FacturaxFormaPagoDao;
 import Modelos.Hibernate.Daos.FormaPagoDao;
+import Modelos.Hibernate.Daos.IngEgrDetalleFactDao;
 import Modelos.Hibernate.Daos.IngresosDao;
 import Modelos.Hibernate.Daos.InquilinoDao;
 import Modelos.Hibernate.Daos.PrestamosDao;
@@ -61,6 +63,8 @@ import Vistas.VistaFac;
 public class ControladorFac implements ActionListener, KeyListener, FocusListener{
 	
 	private VistaFac vFactura = new VistaFac();
+	
+	//DAOS
 	private SocioDao socioDao= new SocioDao();
 	private IngresosDao ingDao = new IngresosDao();
 	private EgresosDao egDao = new EgresosDao();
@@ -73,16 +77,25 @@ public class ControladorFac implements ActionListener, KeyListener, FocusListene
 	private CuentaAlquilerDao cuentaAlquilerDao = new CuentaAlquilerDao();
 	private CuentaFondoChoqueDao cuentaFondoChoqueDao = new CuentaFondoChoqueDao();
 	private CuentaIngresosDao cuentaIngresosDao = new CuentaIngresosDao();
-	private CuentaPrestamos cuentaPrestamos = new CuentaPrestamos();
 	private CuentaPrestamosDao cuentaPrestamosDao = new CuentaPrestamosDao();
 	private FormaPagoDao formaPagoDao = new FormaPagoDao();
 	private FacturaxFormaPagoDao factFPDao= new FacturaxFormaPagoDao();
-	private FacturaxFormaPago factFP= new FacturaxFormaPago();
+	private IngEgrDetalleFactDao IEFDao= new IngEgrDetalleFactDao();
 	
+	//MODELOS
+	private CuentaPrestamos cuentaPrestamos = new CuentaPrestamos();
+	private FacturaxFormaPago factFP= new FacturaxFormaPago();
+	private IEDetalleFactura ieDetFac= new IEDetalleFactura();
+	
+	
+	//LISTAS
 	private List<String> listaPrestamosIngresos = new ArrayList<String>();
 	LinkedListModel<String> listaModeloAux=new LinkedListModel<>();
-	
 	private Set<FormaPago> formasPagoSeleccionadas= new LinkedHashSet<>();
+	private Set<Ingresos> ingresosFactura= new LinkedHashSet<Ingresos>();
+	private Set<Egresos> egresosFactura= new LinkedHashSet<Egresos>();
+	
+	
 	 List<FormaPago> list= new ArrayList<>();
 	
 	private float totalFP=0, montDep=0, montoEf=0, montoTrasnf=0, montoSub=0, montoCheque=0;
@@ -400,38 +413,35 @@ public class ControladorFac implements ActionListener, KeyListener, FocusListene
 	{
 		formasPagoSeleccionadas.add(this.BuscarDescripFP("Cheque"));
 		montoCheque= Float.parseFloat(vFactura.getTxtCheque().getText());
-		System.out.println("montooo: "+ vFactura.getTxtEfectivo().getText());
 	}
 	if(vFactura.getCheckDeposito().isSelected()==true){
 		formasPagoSeleccionadas.add(BuscarDescripFP("Deposito"));
 		montDep= Float.parseFloat(vFactura.getTxtDeposito().getText());
-		System.out.println("montooo: "+ vFactura.getTxtEfectivo().getText());
 	}
 	if(vFactura.getCheckEfectivo().isSelected()==true){
 		formasPagoSeleccionadas.add(BuscarDescripFP("Efectivo"));
-		System.out.println("montooo: "+ vFactura.getTxtEfectivo().getText());
 		montoEf = Float.parseFloat(vFactura.getTxtEfectivo().getText());
 		
 	}
 	if(vFactura.getCheckSubsidio().isSelected()==true){
 		formasPagoSeleccionadas.add(BuscarDescripFP("Subsidio"));
 		montoSub=Float.parseFloat(vFactura.getTxtSubsidio().getText());
-		System.out.println("montooo: "+ vFactura.getTxtEfectivo().getText());
 	}
 	if(vFactura.getCheckTransferencia().isSelected()==true){
 		formasPagoSeleccionadas.add(BuscarDescripFP("Transferencia"));
 		montoTrasnf=Float.parseFloat(vFactura.getTxtTransferencia().getText());
-		System.out.println("montooo: "+ vFactura.getTxtEfectivo().getText());
 	}	
 
 }
 
+	
 public String guardarFacturaEgreso(String tipoFacturado, String campoId, String cedula, JTable lista, String montoTotal){
 	
 	String valorMensaje="";
 	 Factura factura = new Factura();
 	 String montoString ="";
 	 String clasificacion="";
+	 Float montoDouble = (float) 0;
 	 
 	
 	 try {
@@ -459,12 +469,10 @@ public String guardarFacturaEgreso(String tipoFacturado, String campoId, String 
 		 facturaDao.agregarFactura(factura);
 		 
 		//Para guardar la forma de pago.
-		 System.out.println("# facturaaaa "+ factura.getNroFactura());
-		
+		 		
 		 String nom="";
 		 Object[] array = formasPagoSeleccionadas.toArray();
-		 System.out.println("tamaño   "+ array.length);
-			
+					
 		 for (int i=0; i< array.length;i++){
 			 	factFP= new FacturaxFormaPago();
 				FormaPago fp=(FormaPago) array[i];
@@ -474,18 +482,7 @@ public String guardarFacturaEgreso(String tipoFacturado, String campoId, String 
 				factFP.setId(this.GenerarCodigoFacxFP());
 				
 				nom= formaPagoDao.buscarPorCodForma(fp.getCodForma()).getNombre();
-				
-				System.out.println("fp  "+nom);
-				
-				/*
-				System.out.println("montoooo  "+ montoCheque);
-				System.out.println("monto Dep  "+ montDep);
-				System.out.println("sub: "+ montoSub);
-				System.out.println("efectivo  "+ montoEf);
-				System.out.println("transf "+ montoTrasnf);*/
-				
-				System.out.println(nom.equals("Cheque"));
-				
+								
 			   if(nom.equals("Cheque"))
 					 factFP.setMonto(montoCheque);
 				 if(nom.equals("Deposito"))
@@ -501,43 +498,87 @@ public String guardarFacturaEgreso(String tipoFacturado, String campoId, String 
 		 }
 			
 		
-		 
+		List<Float> monto= new ArrayList<>(); 
 		 
 		Set<DetalleFactura> listaDetalleFactura = new HashSet<DetalleFactura>();
-
+		 Egresos egreso = new Egresos();
+		 
+		 System.out.println("lista filasss " + lista.getRowCount()+ "columnas "+ lista.getColumnCount());
 		 for(int i=0; i<lista.getRowCount(); i++) //recorro las filas
 		 {
-			 Prestamos prestamo = new Prestamos();
-			 DetalleFactura detalleFactura = new DetalleFactura();
-			 detalleFactura.setCoddetalle(detalleFacturaDao.buscarUltimoNumeroDetalleFactura());
-			 detalleFactura.setCodFactura(factura);
-		 
-			 Egresos egreso = new Egresos();
-			 Set<Egresos> Legresos = new HashSet<Egresos>();
-			 Object[] LL = Legresos.toArray();
+		
+			 /*Set<Egresos> Legresos = new HashSet<Egresos>();
+			 Object[] LL = Legresos.toArray();*/
 			// ArrayList<Egresos> Legresos = new ArrayList<Egresos>();
+			
+			 egresosFactura= new LinkedHashSet<Egresos>();
+			 
+			 /*
+			  * yo creo que se puede añadir el egreso completo a la lista buscandolo por
+			  * codigo en la bd por q al fin y la cabo eso es lo que se debiera hacer, el detalle esta
+			  * en lo sig... si yo busco el cod en esa lista temporal lo añade, pero la descripcion para ese cod 
+			  * esta vacia ps entonces no se esta sospechochooooo
+			  * 
+			  * */
+			 monto= new ArrayList<Float>();
 			 for(int a=0; a<lista.getColumnCount(); a++) //recorro las columnas
 			 {
-
+				 Egresos eg=new Egresos();
+				 System.out.println("eg factura ini "+ egresosFactura.size());
 				if (a==0){
-					egreso.setCodEgreso(lista.getValueAt(i ,a).toString());
+					eg.setCodEgreso(lista.getValueAt(i ,a).toString());
+					//System.out.println("0 " +lista.getValueAt(i ,a).toString());
 				}
 				else if(a==1){
-					egreso.setDescripcion(lista.getValueAt(i ,a).toString());
+					eg.setDescripcion(lista.getValueAt(i ,a).toString());
+					//System.out.println(" 1 "+lista.getValueAt(i ,a).toString());
 				}
 				else if(a==2){
-					montoString = new String();
-					montoString = (String)lista.getValueAt(i ,a);						
+					montoDouble = (float) 0;
+					montoDouble = Float.valueOf((String) lista.getValueAt(i ,a));	
+					//System.out.println("2 monto "+ montoDouble);
 				}
 				else if(a==3){
 					clasificacion = lista.getValueAt(i ,a).toString();
+					System.out.println("3  "+ lista.getValueAt(i ,a).toString());
 				}
-				Legresos.add(egreso);
-				detalleFactura.setEgresos((List<Egresos>) Legresos);
-			 }
-
-			 detalleFacturaDao.agregarDetalleFactura(detalleFactura);
-			
+				egresosFactura.add(eg);
+				System.out.println("eg factura fin "+ egresosFactura.size());
+				monto.add(i, montoDouble);
+				//detalleFactura.setEgresos((List<Egresos>) Legresos);
+			 } 
+			 
+			 System.out.println("dentro del ciclo "+ i);
+			 System.out.println("tam monto" +monto.size());
+		 }	 
+		 
+		 Prestamos prestamo = new Prestamos();
+		 DetalleFactura detalleFactura = new DetalleFactura();
+		 detalleFactura.setCoddetalle(detalleFacturaDao.buscarUltimoNumeroDetalleFactura());
+		 detalleFactura.setCodFactura(factura);
+		 detalleFacturaDao.agregarDetalleFactura(detalleFactura);
+		 
+		 Object[] arrayEgresos= egresosFactura.toArray();
+		 System.out.println("array egresosss" + egresosFactura.size());
+		 
+		 
+		 for (int i=0; i< arrayEgresos.length;i++){
+			 ieDetFac= new IEDetalleFactura();
+			 Egresos eg = (Egresos) arrayEgresos[i];
+			 
+			 System.out.println("la facturaaa : "+detalleFactura.getCoddetalle());
+			 System.out.println("cualq cosa "+detalleFactura.getCodFactura());
+			 System.out.println("eggg " + eg.getDescripcion() + "cod "+ eg.getCodEgreso());
+			   ieDetFac.setIddetalle(IEFDao.buscarUltimoNumeroDetalleFactura());
+			   ieDetFac.setDf(detalleFactura);
+			   ieDetFac.setCantidad(0);
+			   ieDetFac.setEg(eg);
+			   ieDetFac.setMonto(monto.get(i));
+			 
+			 IEFDao.agregarDetalle(ieDetFac);
+			 
+		 }
+			 
 		//A PARTIR DE ACA ESTA EL ERROR
 			System.out.println("clasif "+ "a "+ clasificacion.equalsIgnoreCase(Egresos.CLASIFICACION_EGRESO_ALQUILER)
 					+ " fc "+ clasificacion.equalsIgnoreCase(Egresos.CLASIFICACION_EGRESO_FONDO_DE_CHOQUE)+ 
@@ -599,7 +640,7 @@ public String guardarFacturaEgreso(String tipoFacturado, String campoId, String 
 			 
 		 }*/
 
-	 }
+	 
 	 } catch (Exception e) {
 		 // TODO Auto-generated catch block
 		 e.printStackTrace();
@@ -714,7 +755,7 @@ public String guardarFacturaIngreso(String tipoFacturado, String campoId, String
 					
 				}
 				Lingresos.add(ingreso);
-				detalleFactura.setIngresos(Lingresos);		
+				//detalleFactura.setIngresos(Lingresos);		
 			 }
 			 detalleFacturaDao.agregarDetalleFactura(detalleFactura);
 		// }

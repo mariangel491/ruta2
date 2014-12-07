@@ -46,14 +46,10 @@ public class Ingresos implements Serializable{
 	@PrimaryKeyJoinColumn
 	private Historial historial;
 	
-	
-	@OneToOne(cascade= CascadeType.ALL)
+	@OneToMany(cascade= CascadeType.ALL)
 	@JoinColumn(name="codingreso")
-	private DetalleFactura detalle;
-	
-	/*@OneToOne
-	@JoinColumn(name="codingreso")
-	private DetalleFactura detalle;*/
+	List<IEDetalleFactura> det;
+
 	
 	public Ingresos() {
 		super();
