@@ -32,7 +32,7 @@ public class DetalleFactura {
 	
 	@OneToMany(cascade= CascadeType.ALL)
 	@JoinColumn(name="coddetfact")
-	List<IEDetalleFactura> det;
+	private List<IEDetalleFactura> det;
 
 
 

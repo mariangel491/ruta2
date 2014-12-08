@@ -94,6 +94,7 @@ public class ControladorFac implements ActionListener, KeyListener, FocusListene
 	private Set<FormaPago> formasPagoSeleccionadas= new LinkedHashSet<>();
 	private Set<Ingresos> ingresosFactura= new LinkedHashSet<Ingresos>();
 	private Set<Egresos> egresosFactura= new LinkedHashSet<Egresos>();
+
 	
 	
 	 List<FormaPago> list= new ArrayList<>();
@@ -330,7 +331,9 @@ public class ControladorFac implements ActionListener, KeyListener, FocusListene
 }
 	
 	
-	public DefaultTableModel agregarIngresoEgresoATabla(Object[] objetosSeleccionados, String tipoFactura, JTable jTableIngresosXFactura, Double montoEgreso,Object objetoPrestamoPendiente/*, Integer cant*/){
+	public DefaultTableModel agregarIngresoEgresoATabla(Object[] objetosSeleccionados, String tipoFactura, JTable jTableIngresosXFactura,
+														Double montoEgreso,Object objetoPrestamoPendiente/*, Integer cant*/)
+	{
 		
 		DefaultTableModel modeloDeLaTabla=(DefaultTableModel)jTableIngresosXFactura.getModel();
 		Ingresos ingreso; 
@@ -339,44 +342,36 @@ public class ControladorFac implements ActionListener, KeyListener, FocusListene
 
 			if(tipoFactura.equalsIgnoreCase(vFactura.TIPO_DE_FACTURA_INGRESOS))
 			{
-				ingreso  = new Ingresos();
-				float ccs=0;
-		
-				try {
-					ingreso = ingDao.obtenerIngresosPorDescripcion((String)objetosSeleccionados[i]);
-					ccs = ingreso.getMonto();
-				} catch (Exception e) {
-					// TODO Auto-generated catch block
-					e.printStackTrace();
-				}
+					ingreso  = new Ingresos();
+					float ccs=0;
 			
-				System.out.println(ccs);
-				System.out.println(String.valueOf(ccs)+"aqui");
-				if(ccs!=0)
-				{
-					System.out.println(ccs+"por el if");
-
-					///	vFactura.setTxtMontoIngresoEgreso(String.valueOf(ccs));
-			
-				
-					Object[] datosDeLaFila = {ingreso.getCodIngreso(),ingreso.getDescripcion(),ingreso.getMonto()/*montoEgreso.toString()*/, ingreso.getClasifIngreso(),(String)objetoPrestamoPendiente};
-					modeloDeLaTabla.addRow(datosDeLaFila);
-				}else
-				{
-				
-							System.out.println(ccs+"por el else");
-							if(null == vFactura.getTxtMontoIngresoEgreso() || "".equals(vFactura.getTxtMontoIngresoEgreso()))
-								
-								JOptionPane.showMessageDialog(null, "Debe seleccionar un Monto", "Atención!", JOptionPane.ERROR_MESSAGE);
-			
-							else 
-					{
-						montoEgreso= Double.parseDouble(vFactura.getTxtMontoIngresoEgreso());
-						System.out.println(montoEgreso);
-						Object[] datosDeLaFila = {ingreso.getCodIngreso(),ingreso.getDescripcion(),montoEgreso.toString(), ingreso.getClasifIngreso(),(String)objetoPrestamoPendiente};
-						 modeloDeLaTabla.addRow(datosDeLaFila);
+					try {
+						ingreso = ingDao.obtenerIngresosPorDescripcion((String)objetosSeleccionados[i]);
+						ccs = ingreso.getMonto();
+					} catch (Exception e) {
+						// TODO Auto-generated catch block
+						e.printStackTrace();
 					}
-				}
+				
+					if(ccs!=0)
+					{
+						Object[] datosDeLaFila = {ingreso.getCodIngreso(),ingreso.getDescripcion(),ingreso.getMonto()/*montoEgreso.toString()*/,
+								ingreso.getClasifIngreso(),(String)objetoPrestamoPendiente};
+						modeloDeLaTabla.addRow(datosDeLaFila);
+					}else
+					{
+								if(null == vFactura.getTxtMontoIngresoEgreso() || "".equals(vFactura.getTxtMontoIngresoEgreso()))
+									
+									JOptionPane.showMessageDialog(null, "Debe seleccionar un Monto", "Atención!", JOptionPane.ERROR_MESSAGE);
+				
+								else 
+						{
+							montoEgreso= Double.parseDouble(vFactura.getTxtMontoIngresoEgreso());
+							System.out.println(montoEgreso);
+							Object[] datosDeLaFila = {ingreso.getCodIngreso(),ingreso.getDescripcion(),montoEgreso.toString(), ingreso.getClasifIngreso(),(String)objetoPrestamoPendiente};
+							 modeloDeLaTabla.addRow(datosDeLaFila);
+						}
+					}
 			}
 			else if(tipoFactura.equalsIgnoreCase(vFactura.TIPO_DE_FACTURA_EGRESOS)){
 				egreso = new Egresos();
@@ -442,8 +437,7 @@ public String guardarFacturaEgreso(String tipoFacturado, String campoId, String 
 	 String montoString ="";
 	 String clasificacion="";
 	 Float montoDouble = (float) 0;
-	 
-	
+	 	
 	 try {
 		 this.GuardarFormaPagoFactura();
 		 
@@ -458,7 +452,6 @@ public String guardarFacturaEgreso(String tipoFacturado, String campoId, String 
 		 else if(tipoFacturado.equalsIgnoreCase(Arrendatario.TIPO_FACTURADO_ARRENDATARIO)){
 			 factura.setArrendatario(arrendatarioDao.buscarPorCedulaArrendatario(cedula));
 		 }
-		 
 		 factura.setCodRuta(rutaDao.buscarPorCodRuta("J-306-902686"));
 		 factura.setNroFactura(facturaDao.buscarUltimoNumeroFactura());	
 		 
@@ -469,7 +462,6 @@ public String guardarFacturaEgreso(String tipoFacturado, String campoId, String 
 		 facturaDao.agregarFactura(factura);
 		 
 		//Para guardar la forma de pago.
-		 		
 		 String nom="";
 		 Object[] array = formasPagoSeleccionadas.toArray();
 					
@@ -496,87 +488,60 @@ public String guardarFacturaEgreso(String tipoFacturado, String campoId, String 
 			
 				 factFPDao.agregarFormaPago(factFP);
 		 }
-			
-		
-		List<Float> monto= new ArrayList<>(); 
-		 
-		Set<DetalleFactura> listaDetalleFactura = new HashSet<DetalleFactura>();
+					
+		List<Float> monto= new ArrayList<>();
 		 Egresos egreso = new Egresos();
-		 
-		 System.out.println("lista filasss " + lista.getRowCount()+ "columnas "+ lista.getColumnCount());
+		  monto= new ArrayList<Float>();
+		  
 		 for(int i=0; i<lista.getRowCount(); i++) //recorro las filas
 		 {
-		
-			 /*Set<Egresos> Legresos = new HashSet<Egresos>();
-			 Object[] LL = Legresos.toArray();*/
-			// ArrayList<Egresos> Legresos = new ArrayList<Egresos>();
-			
-			 egresosFactura= new LinkedHashSet<Egresos>();
+			 Egresos eg=new Egresos();
 			 
-			 /*
-			  * yo creo que se puede añadir el egreso completo a la lista buscandolo por
-			  * codigo en la bd por q al fin y la cabo eso es lo que se debiera hacer, el detalle esta
-			  * en lo sig... si yo busco el cod en esa lista temporal lo añade, pero la descripcion para ese cod 
-			  * esta vacia ps entonces no se esta sospechochooooo
-			  * 
-			  * */
-			 monto= new ArrayList<Float>();
 			 for(int a=0; a<lista.getColumnCount(); a++) //recorro las columnas
 			 {
-				 Egresos eg=new Egresos();
-				 System.out.println("eg factura ini "+ egresosFactura.size());
 				if (a==0){
 					eg.setCodEgreso(lista.getValueAt(i ,a).toString());
-					//System.out.println("0 " +lista.getValueAt(i ,a).toString());
 				}
 				else if(a==1){
 					eg.setDescripcion(lista.getValueAt(i ,a).toString());
-					//System.out.println(" 1 "+lista.getValueAt(i ,a).toString());
 				}
 				else if(a==2){
 					montoDouble = (float) 0;
 					montoDouble = Float.valueOf((String) lista.getValueAt(i ,a));	
-					//System.out.println("2 monto "+ montoDouble);
 				}
 				else if(a==3){
 					clasificacion = lista.getValueAt(i ,a).toString();
-					System.out.println("3  "+ lista.getValueAt(i ,a).toString());
 				}
+				
 				egresosFactura.add(eg);
-				System.out.println("eg factura fin "+ egresosFactura.size());
-				monto.add(i, montoDouble);
-				//detalleFactura.setEgresos((List<Egresos>) Legresos);
+				monto.add(i, montoDouble);			
 			 } 
-			 
-			 System.out.println("dentro del ciclo "+ i);
-			 System.out.println("tam monto" +monto.size());
 		 }	 
 		 
 		 Prestamos prestamo = new Prestamos();
+		 
+		 //PARA AGREGAR EL DETALLE
 		 DetalleFactura detalleFactura = new DetalleFactura();
 		 detalleFactura.setCoddetalle(detalleFacturaDao.buscarUltimoNumeroDetalleFactura());
 		 detalleFactura.setCodFactura(factura);
 		 detalleFacturaDao.agregarDetalleFactura(detalleFactura);
 		 
+		 //PARA LOS EGRESOS Y SUS MONTOS
 		 Object[] arrayEgresos= egresosFactura.toArray();
-		 System.out.println("array egresosss" + egresosFactura.size());
-		 
-		 
-		 for (int i=0; i< arrayEgresos.length;i++){
+	
+		 for (int i=0; i< arrayEgresos.length;i++)
+		 {
+			 System.out.println("iiii "+ i);
 			 ieDetFac= new IEDetalleFactura();
 			 Egresos eg = (Egresos) arrayEgresos[i];
-			 
-			 System.out.println("la facturaaa : "+detalleFactura.getCoddetalle());
-			 System.out.println("cualq cosa "+detalleFactura.getCodFactura());
-			 System.out.println("eggg " + eg.getDescripcion() + "cod "+ eg.getCodEgreso());
+			
 			   ieDetFac.setIddetalle(IEFDao.buscarUltimoNumeroDetalleFactura());
-			   ieDetFac.setDf(detalleFactura);
+			   ieDetFac.setDf(detalleFacturaDao.buscarPorCodDetalle(detalleFactura.getCoddetalle()));
 			   ieDetFac.setCantidad(0);
-			   ieDetFac.setEg(eg);
+			   ieDetFac.setEg(egDao.obtenerEgresos(eg.getCodEgreso()));
 			   ieDetFac.setMonto(monto.get(i));
 			 
 			 IEFDao.agregarDetalle(ieDetFac);
-			 
 		 }
 			 
 		//A PARTIR DE ACA ESTA EL ERROR
@@ -660,6 +625,8 @@ public String guardarFacturaIngreso(String tipoFacturado, String campoId, String
 	 String montoString ="";
 	 String clasificacion="";
 	 String codigoPrestamo="";
+	 Float montoDouble = (float) 0;
+	 Integer cant = 0;
 	 try {
 
 		 this.GuardarFormaPagoFactura();
@@ -714,58 +681,65 @@ public String guardarFacturaIngreso(String tipoFacturado, String campoId, String
 		 }
 
 	 
-		 Set<DetalleFactura> listaDetalleFactura = new HashSet<DetalleFactura>();
-
-		 for(int i=0; i<lista.getRowCount(); i++) //recorro las filas
-		 {
-			 System.out.println(i);
+			List<Float> monto= new ArrayList<>();
+			 Ingresos ingreso = new Ingresos();
+			  List<Integer> cantidad= new ArrayList<Integer>();
+			  
+			 for(int i=0; i<lista.getRowCount(); i++) //recorro las filas
+			 {
+				 Ingresos in = new Ingresos();
+				 
+				 for(int a=0; a<lista.getColumnCount(); a++) //recorro las columnas
+				 {
+					if (a==0){
+						in.setCodIngreso((lista.getValueAt(i ,a).toString()));
+					}
+					else if(a==1){
+						in.setDescripcion(lista.getValueAt(i ,a).toString());
+					}
+					else if(a==2){
+						montoDouble = (float) 0;
+						montoDouble = Float.valueOf((String) lista.getValueAt(i ,a));	
+					}
+					else if(a==3){
+						clasificacion = lista.getValueAt(i ,a).toString();
+					}else if(a==4){
+						
+						cant= Integer.valueOf(lista.getValueAt(i ,a).toString());
+					}
+					
+					ingresosFactura.add(in);
+					monto.add(i, montoDouble);	
+					cantidad.add(i, cant);
+				 } 
+			 }	 
+			 
+			 Prestamos prestamo = new Prestamos();
+			 
+			 //PARA AGREGAR EL DETALLE
 			 DetalleFactura detalleFactura = new DetalleFactura();
 			 detalleFactura.setCoddetalle(detalleFacturaDao.buscarUltimoNumeroDetalleFactura());
 			 detalleFactura.setCodFactura(factura);
-			 
-			/* 
-			 ArrayList<Avance> listado = new ArrayList<Avance>();
-				for(int i = 0; i < avanceDao.obtenerTodos().size(); i++)
-					if(avanceDao.obtenerTodos().get(i).getSocio().getNroSocio().equals(vAvance.getTxtNroSocio()))
-						listado.add(avanceDao.obtenerTodos().get(i));*/
-		 
-			 Ingresos ingreso = new Ingresos();
-			 ArrayList<Ingresos> Lingresos = new ArrayList<Ingresos>();
-			 for(int a=0; a<lista.getColumnCount(); a++) //recorro las columnas
-			 {
-
-				if (a==0){
-					ingreso.setCodIngreso(lista.getValueAt(i ,a).toString());
-				}
-				else if(a==1){
-					ingreso.setDescripcion(lista.getValueAt(i ,a).toString());
-				}
-				else if(a==2){
-					//montoString = new String();
-					//montoString = (String)lista.getValueAt(i ,a);		
-					ingreso.setMonto(Float.parseFloat(lista.getValueAt(i, a).toString()));
-				}
-				else if(a==3){
-					clasificacion = lista.getValueAt(i ,a).toString();
-				}
-				else if(a==4){
-					if(null!=lista.getValueAt(i ,a)){
-						codigoPrestamo = lista.getValueAt(i ,a).toString();
-					}
-					
-				}
-				Lingresos.add(ingreso);
-				//detalleFactura.setIngresos(Lingresos);		
-			 }
 			 detalleFacturaDao.agregarDetalleFactura(detalleFactura);
-		// }
-//			 for (Iterator iterator = listaFormaPago.iterator(); iterator.hasNext();) {
-//				String formaPagoDesc = (String) iterator.next();
-//				FormaPago formaPago = new FormaPago();
-//				
-//				formaPago = formaPagoDao.buscarPorDescripcion(formaPagoDesc);
-//				
-//			}
+			 
+			 //PARA LOS EGRESOS Y SUS MONTOS
+			 Object[] arrayIngresos= ingresosFactura.toArray();
+		
+			 for (int i=0; i< arrayIngresos.length;i++)
+			 {
+				 ieDetFac= new IEDetalleFactura();
+				 Ingresos ing = (Ingresos) arrayIngresos[i];
+				
+				   ieDetFac.setIddetalle(IEFDao.buscarUltimoNumeroDetalleFactura());
+				   ieDetFac.setDf(detalleFacturaDao.buscarPorCodDetalle(detalleFactura.getCoddetalle()));
+				   ieDetFac.setCantidad(cantidad.get(i));
+				   ieDetFac.setIng(ingDao.obtenerIngresos(ing.getCodIngreso()));
+				   ieDetFac.setMonto(monto.get(i));
+				 
+				 IEFDao.agregarDetalle(ieDetFac);
+			 }
+			 
+			
 			 
 			 if(clasificacion.equalsIgnoreCase(Egresos.CLASIFICACION_EGRESO_ALQUILER)){
 				 CuentaAlquiler cuentaAlquiler = new CuentaAlquiler();
@@ -802,7 +776,9 @@ public String guardarFacturaIngreso(String tipoFacturado, String campoId, String
 				 
 			}
 		 
-		 if(tipoFacturado.equalsIgnoreCase(Socio.TIPO_FACTURADO_SOCIO) && (ingreso.getDescripcion().equalsIgnoreCase(Egresos.TIPO_EGRESO_OTROS_PRESTAMO) || ingreso.getDescripcion().equalsIgnoreCase(Egresos.TIPO_EGRESO_PRESTAMO_FONDO_DE_CHOQUE))){
+		 if(tipoFacturado.equalsIgnoreCase(Socio.TIPO_FACTURADO_SOCIO) && 
+				 (ingreso.getDescripcion().equalsIgnoreCase(Egresos.TIPO_EGRESO_OTROS_PRESTAMO) 
+						 || ingreso.getDescripcion().equalsIgnoreCase(Egresos.TIPO_EGRESO_PRESTAMO_FONDO_DE_CHOQUE))){
 //			 prestamo.setCodPrestamo(prestamosDao.buscarUltimoNumeroPrestamo());
 //			 prestamo.setStatus('A');
 //			 prestamo.setNroSocio(factura.getNroSocio());
@@ -823,8 +799,6 @@ public String guardarFacturaIngreso(String tipoFacturado, String campoId, String
 
 			 
 		 }
-
-	 }
 	 } catch (Exception e) {
 		 // TODO Auto-generated catch block
 		 e.printStackTrace();

@@ -46,7 +46,7 @@ public class Egresos implements Serializable{
 
 	@OneToMany(cascade= CascadeType.ALL)
 	@JoinColumn(name="codegreso")
-	List<IEDetalleFactura> det;
+	private List<IEDetalleFactura> det;
 
 	public Egresos() {
 		super();

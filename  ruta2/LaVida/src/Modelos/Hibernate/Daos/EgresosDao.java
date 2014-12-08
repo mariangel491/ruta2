@@ -35,7 +35,7 @@ private HibernateUtil sesionPostgres;
 		} 
 	}
 
-	public Egresos obtenerEgresos(int id) throws Exception{		 
+	public Egresos obtenerEgresos(String id) throws Exception{		 
 		@SuppressWarnings("static-access")
 		Session sesion = sesionPostgres.openSession();  
 	    Egresos dato = null;        
