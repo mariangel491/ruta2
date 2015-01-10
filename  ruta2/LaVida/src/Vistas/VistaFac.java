@@ -1264,6 +1264,7 @@ private static VistaFac vFactura=null;
 	}
 	public void CheckEfectivo(){
 		txtEfectivo.setEditable(true);
+		txtEfectivo.setVisible(true);
 		this.Check();
 		this.checkEfectivo.setActionCommand("OcultarCheck");
 	}
@@ -1306,7 +1307,7 @@ private static VistaFac vFactura=null;
 	
 	public void CheckDeposito(){
 		txtDeposito.setVisible(true);
-		//txtDeposito.setEditable(true);
+		txtDeposito.setEditable(true);
 		this.Check();
 		this.checkDeposito.setActionCommand("OcultarCheckDeposito");
 	}
@@ -1330,6 +1331,7 @@ private static VistaFac vFactura=null;
 		txtTransferencia.setEditable(false);
 		txtTransferencia.setText("");
 		checkTransferencia.setActionCommand("CheckTrasnferencia");
+		System.out.println("si pasaaa por aqui");
 	}
 	
 	public void CheckCheque(){

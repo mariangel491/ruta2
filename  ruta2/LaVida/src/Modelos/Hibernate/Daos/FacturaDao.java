@@ -60,12 +60,12 @@ private ArrendatarioDao arrendatarioDao = new ArrendatarioDao();
 		} 
 	}
 
-	public Factura obtenerFactura(String id) throws Exception{		 
+	public Factura obtenerFactura(String nroFactura) throws Exception{		 
 		@SuppressWarnings("static-access")
 		Session sesion = sesionPostgres.openSession();  
 	    Factura dato = null;        
             try{
-                dato = (Factura) sesion.get(Factura.class,  id);
+                dato = (Factura) sesion.get(Factura.class,  nroFactura);
             } catch (Exception e) {  
             e.printStackTrace();
            
