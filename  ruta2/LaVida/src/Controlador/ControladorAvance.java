@@ -21,7 +21,6 @@ import Vistas.VistaArrendatario;
 import Vistas.VistaAvance;
 import Vistas.VistaSocio;
 import Vistas.VistaVehiculo;
-import Vistas.vTablaAvance;
 
 
 public class ControladorAvance implements ActionListener {
@@ -150,7 +149,7 @@ public class ControladorAvance implements ActionListener {
 		}
 		else if (a.getActionCommand().equalsIgnoreCase("GuardarArrendatario")) {
 			try {
-				this.registrarAvanceArren();
+			//	this.registrarAvanceArren();                   revisar esto que esta aqui para confirmar.....
 			} catch (Exception e) {
 				// TODO Auto-generated catch block
 				e.printStackTrace();
@@ -164,7 +163,7 @@ public class ControladorAvance implements ActionListener {
 			vAvance.cerrarVentana();
 			vSocio.cerrarVentana();
 			try {
-				this.registrarAvanceSocio();
+			//	this.registrarAvanceSocio();
 			} catch (Exception e) {
 				// TODO Auto-generated catch block
 				e.printStackTrace();
@@ -435,7 +434,7 @@ public class ControladorAvance implements ActionListener {
 			socio.getAvances().remove(vAvance.filaSeleccionada());
 	}
 	
-	private void registrarAvanceSocio() throws Exception {
+	/*private void registrarAvanceSocio() throws Exception {
 		System.out.println("registrando");
 		if (this.vAvance.CamposllenosSocio() == true) {
 
@@ -460,7 +459,7 @@ public class ControladorAvance implements ActionListener {
 			}			
 		} else
 			this.vSocio.mostrarMensaje("Debe llenar todos los campos");
-	} 
+	} */
 	
 	
 	/////***********************METODOS ARRENDATARIO-AVANCE**************************///
@@ -624,7 +623,7 @@ public class ControladorAvance implements ActionListener {
 	}
 	
 	
-	private void registrarAvanceArren() throws Exception {
+/*	private void registrarAvanceArren() throws Exception {
 		System.out.println("registrando");
 		if (this.vAvance.CamposllenosSocio() == true) {
 
@@ -649,7 +648,7 @@ public class ControladorAvance implements ActionListener {
 		} else
 			JOptionPane.showMessageDialog(null, "Debe llenar todos los campos", "Atención!", JOptionPane.ERROR_MESSAGE);
 	} 
-	
+*/	
 	private void modificarAvanceArren() throws Exception {
 		if (vAvance.CamposllenosSocio() == true) {
 			socio.setNombre(vAvance.getTxtNomSocio());

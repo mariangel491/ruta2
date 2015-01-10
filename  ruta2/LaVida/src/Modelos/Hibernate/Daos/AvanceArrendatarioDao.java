@@ -7,6 +7,8 @@ import org.hibernate.Session;
 import org.hibernate.Transaction;
 
 
+
+import Modelos.Avance;
 import Modelos.AvanceArrendatario;
 import Modelos.Hibernate.Config.HibernateUtil;
 
@@ -117,6 +119,17 @@ private HibernateUtil sesionPostgres;
 		return datos; 
 	}
 	
+	
+	public List<AvanceArrendatario> ObtenerPorArrendatarios(String cod) throws Exception{
+		List<AvanceArrendatario> avancexArren= new ArrayList<AvanceArrendatario>();
+		
+		for(AvanceArrendatario avance: obtenerTodos())
+			if(avance.getArrendatario().getCedula().equals(cod))
+				avancexArren.add(avance);
+		return avancexArren;
+		
+	}
+	
 
 	public AvanceArrendatario buscarPorCodAvanceArren(String codAvance) throws Exception {
 		for (AvanceArrendatario avanceA : obtenerTodos())
@@ -141,6 +154,19 @@ private HibernateUtil sesionPostgres;
 
 	public boolean encontrarCod(String codArrendatario) throws Exception {
 		if (buscarPorCodArrendatario(codArrendatario) == null)
+			return false;
+		return true;
+	}
+	
+	public AvanceArrendatario buscarPorCedArrendatario(String cedArrendatario) throws Exception {
+		for (AvanceArrendatario avance : obtenerTodos())
+			if (avance.getArrendatario().equals(cedArrendatario))
+				return avance;
+		return null;
+	}
+
+	public boolean encontrarCedArrendatario(String cedArrendatario) throws Exception {
+		if (buscarPorCodArrendatario(cedArrendatario) == null)
 			return false;
 		return true;
 	}

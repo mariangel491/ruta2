@@ -7,18 +7,8 @@ import java.util.Date;
 import java.util.List;
 
 
-
-
-
-
-
 import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
-
-
-
-
-
 
 
 import Modelos.Socio;
@@ -29,7 +19,6 @@ import Modelos.Hibernate.Daos.SocioDao;
 import Vistas.VistaAvance;
 import Vistas.VistaSocio;
 import Vistas.VistaVehiculo;
-import Vistas.vTablaAvance;
 
 
 

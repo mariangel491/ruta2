@@ -91,11 +91,16 @@ public class ControladorVehiculo implements ActionListener {
 		vVehiculo.setVisible(true);
 		vVehiculo.limpiarCampos();
 		vVehiculo.agregarListener(this);
+		System.out.println("entro por");
 		
 		////si viene de socio
 		socioPrueba= va.RetornaSocio();
+		arrendatarioPrueba= va.RetornaArrendatario();
+	System.out.println(socioPrueba.getNombre());
+	System.out.println(arrendatarioPrueba.getNombre());
+	System.out.println(!socioPrueba.equals(null));
 	
-		if (socioPrueba!=null)
+		if (!socioPrueba.equals(null))
 		{
 			//socioPrueba = va.GuardarSocio();
 			
@@ -120,7 +125,7 @@ public class ControladorVehiculo implements ActionListener {
 			}
 		}
 		else{
-			arrendatarioPrueba= va.GuardarArrendatario();
+			arrendatarioPrueba= va.RetornaArrendatario();
 		System.out.println(arrendatarioPrueba.getCedula());
 			if(arrendatarioPrueba!=null){
 				
@@ -237,7 +242,7 @@ public class ControladorVehiculo implements ActionListener {
 	}
 	else if (a.getActionCommand().equalsIgnoreCase("GuardarArrendatario")) {
 		try {
-			this.registrarVehiculoArren();
+			this.registrarTodoArren();
 		} catch (Exception e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
@@ -261,10 +266,10 @@ public class ControladorVehiculo implements ActionListener {
 				vVehiculo.dispose();
 			
 		}
-		else if (a.getActionCommand().equalsIgnoreCase("Siguente")) {
+		/*else if (a.getActionCommand().equalsIgnoreCase("Siguente")) {
 				if(vVehiculo.CamposllenosSocio()==true){
 					Cavance =  new ControladorAvance(vSocio);
-			}}
+			}}*/
 		else if (a.getActionCommand().equalsIgnoreCase("BuscarPlaca")) {
 		try {
 			this.BuscarVehiculo();
@@ -488,7 +493,7 @@ public class ControladorVehiculo implements ActionListener {
 			socio.getVehiculos().add(vehiculo); 
 			this.cargarListadoDeVehiculos();
 			
-			avanceprueba=new String();
+			//avanceprueba=new String();
 			//vVehiculo.eliminarConductorCombo();
 			vVehiculo.limpiarCamposVehiculo();
 		
@@ -663,7 +668,7 @@ public class ControladorVehiculo implements ActionListener {
 		}
 	}
 	
-	public void guardarTodo(){
+	/*public void guardarTodo(){
 		String avanceprueba,placa,serial,marca,anno,puestos;
 		//boolean encontroSocio=false, encontroAvance=false;
 		
@@ -687,24 +692,24 @@ public class ControladorVehiculo implements ActionListener {
 						veh.setCodMarca(marcaDao.buscarPorNombre(marca));
 						veh.setAnno(Integer.parseInt(anno));
 						veh.setNropuestos(Integer.parseInt(puestos));
-						/*for(int i=0; i< listaAvancesSocio.size();i++)
+						for(int i=0; i< listaAvancesSocio.size();i++)
 						{
 							if(avanceprueba.equals(listaAvancesSocio.get(i).getNombre()+" "+listaAvancesSocio.get(i).getApellido()))
 								avan= listaAvancesSocio.get(i);
-						}*/
+						}
 						for(int l=0; l<avanceDao.obtenerTodos().size();l++){	
 						//veh.setAvance(this.guardarAvance(avan));
 							if(avanceprueba.equals(avanceDao.obtenerTodos().get(l).getNombre()+" "+avanceDao.obtenerTodos().get(l).getApellido()))
-							veh.setAvance(avanceprueba);/*(*//*listaAvancesSocio.get(0)*/
-											/*avanceDao.obtenerTodos().get(l));*/
+							veh.setAvance(avanceprueba);(listaAvancesSocio.get(0)
+											avanceDao.obtenerTodos().get(l));
 						}
-						/*for(int i=0; i<socioDao.obtenerTodos().size();i++){	
+						for(int i=0; i<socioDao.obtenerTodos().size();i++){	
 							
 							if(socioDao.obtenerTodos().get(i).getNroSocio().equals(vVehiculo.getTxtNroSocio())){
 								veh.setSocio(socioDao.obtenerTodos().get(i));
 								}
 							System.out.println(socioDao.obtenerTodos().get(i).getNroSocio());
-						}		*/
+						}		
 						//veh.setSocio(socio);
 						//System.out.println("socio del socio: "+ socio.getNroSocio());
 						vehiculoDao.agregarVehiculo(veh);
@@ -718,7 +723,7 @@ public class ControladorVehiculo implements ActionListener {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
-	}
+	}*/
 	
 	
 	//////////////****************************METODO DE PRUEBA(no esta a prueba de fallos)*****************************////////////////////
@@ -766,11 +771,11 @@ public class ControladorVehiculo implements ActionListener {
 				vehi.setSocio(socio);
 				//Asignar al avance
 				System.out.println("probando daooo "+ avanceDao.ObtenerPorSocios(socio.getNroSocio()).size());
-				for(Avance avance : avanceDao.obtenerTodos()) {
+				for(Avance avance : avanceDao.ObtenerPorSocios(codi)) {
 					if(((avance.getNombre()+" "+avance.getApellido()).equalsIgnoreCase(vehi.getAvance())))
 					{
 						vehi.setAvance(avance.getCodAvance());
-						break;
+						//break;
 					}
 				}	
 				if(!vehiculoDao.encontrar(vehi.getPlaca()))
@@ -979,7 +984,7 @@ public class ControladorVehiculo implements ActionListener {
 		}
 		
 		
-		private void registrarVehiculoArren() throws Exception {
+		/*private void registrarVehiculoArren() throws Exception {
 			System.out.println("registrando");
 			if (this.vVehiculo.CamposllenosSocio() == true) {
 
@@ -1003,7 +1008,7 @@ public class ControladorVehiculo implements ActionListener {
 				}			
 			} else
 				JOptionPane.showMessageDialog(null, "Debe llenar todos los campos", "Atención!", JOptionPane.ERROR_MESSAGE);
-		} 
+		} */
 		
 		private void modificarVehiculoArren() throws Exception {
 			if (vVehiculo.CamposllenosSocio() == true) {
@@ -1037,5 +1042,67 @@ public class ControladorVehiculo implements ActionListener {
 			if(vVehiculo.filaSeleccionada()>=0)
 				arrendatario.getVehiculos().remove(vVehiculo.filaSeleccionada());
 		}
+	
+	
+	
+	public String asignarCodAvanceArren(){
+		Integer nro_avances=0;
+	
+		try {
+			nro_avances= avanceArrenDao.obtenerTodos().size()+1;
+		} catch (Exception e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+				return "AA"+nro_avances.toString();	
+	}
+
+	private void registrarTodoArren() throws Exception {
+		
+		if (vVehiculo.CamposllenosSocio() == true) {
+
+			Arrendatario arren = new Arrendatario();		
+		//BUSCAR EL SOCIO
+			String codi = vVehiculo.getTxtNroSocio();
+			
+				if(!arrenDao.encontrar(codi))
+				{
+					arrenDao.agregarArrendatario(arrendatarioPrueba);
+				}
+				arren = arrenDao.buscarPorCedulaArrendatario(codi);
+				
+			for(AvanceArrendatario avan : this.listaAvancesArren) //////aqui dudas... va el get o va la lista de la vista llenarAvances
+			{
+				avan.setArrendatario(arren);
+				avan.setCodAvance(this.asignarCodAvanceArren());
+				if(!avanceArrenDao.encontrarCedArrendatario(avan.getCedula()))
+					{
+						avanceArrenDao.agregarAvance(avan);
+					}
+			}
+			
+			for(VehiculoArrendatario vehi : vVehiculo.LlenarListaVehiculosArren()) //////aqui dudas... va el get o va la lista de la vista llenarvehiculos
+			{
+				
+				vehi.setArrendatario(arren);
+				//Asignar al avance
+				for(AvanceArrendatario avance : avanceArrenDao.ObtenerPorArrendatarios(codi)) {
+					if(((avance.getNombre()+" "+avance.getApellido()).equalsIgnoreCase(vehi.getAvance())))
+					{
+						vehi.setAvance(avance.getCodAvance());
+					}
+				}	
+				if(!vehArrenDao.encontrar(vehi.getPlaca()))
+					{
+						vehArrenDao.agregarVehiculoArren(vehi);
+					}
+			}			
+		} else
+			this.vSocio.mostrarMensaje("Debe llenar todos los campos");
+	} 
+	
+	
+	
+	
 }
 	

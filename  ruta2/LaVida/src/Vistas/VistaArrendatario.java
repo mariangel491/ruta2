@@ -337,7 +337,10 @@ public class VistaArrendatario extends javax.swing.JFrame {
 				JOptionPane.showMessageDialog(null, "Debe responder la pregunta",
 						"Error", 0);
 			}
-				CamposLLenos=true;
+			else {
+				// sino falta nada
+				CamposLLenos = true;
+			}
 			
 			return CamposLLenos;
 			
@@ -381,7 +384,7 @@ public class VistaArrendatario extends javax.swing.JFrame {
 			VistaAvance vavance =new VistaAvance();
 		vavance.setTxtNomSocio(this.getTxtNombre()+" "+this.getTxtApellido());
 		System.out.println(getTxtNombre());
-		return vavance.getTxtNombre();
+		return vavance.getTxtNomSocio();
 		}
 		
 		
@@ -479,7 +482,7 @@ public class VistaArrendatario extends javax.swing.JFrame {
 				else
 					arren.setTiene(false);
 
-				arren.setMonto(Float.parseFloat(getTxtMonto()));
+			arren.setMonto(Float.parseFloat(getTxtMonto()));
 			
 			arren.setNombre(getTxtNombre());
 			arren.setStatus("Activo");

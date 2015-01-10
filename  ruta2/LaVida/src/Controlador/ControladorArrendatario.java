@@ -23,7 +23,7 @@ public class ControladorArrendatario implements ActionListener {
 
 	public ControladorArrendatario() {
 		super();
-		
+		 vArrendatario = new VistaArrendatario();
 		 vArrendatario.obtenerInstancia();
 		 vArrendatario.setLocationRelativeTo(null);
 		 vArrendatario.setVisible(true);

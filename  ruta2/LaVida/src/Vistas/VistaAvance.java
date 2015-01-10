@@ -82,6 +82,7 @@ public class VistaAvance extends javax.swing.JFrame {
 	private JLabel lblAvance;
 
 	Socio socioprueba= new Socio();
+	Arrendatario arrenPrueba = new Arrendatario();
 	/**
 	* Auto-generated main method to display this JFrame
 	*/
@@ -716,7 +717,7 @@ public Socio GuardarSocio(Socio soc){
 	Socio socio= new Socio();
 	RutaDao rutaDao= new RutaDao();
 	Date f= new Date();
-	VistaSocio vs = new VistaSocio();
+	//VistaSocio vs = new VistaSocio();
 	
 	socio.setCedula(soc.getCedula());
 	socio.setApellido(soc.getApellido());
@@ -746,39 +747,40 @@ public Socio RetornaSocio(){
 	return socioprueba;
 }
 
-public Arrendatario GuardarArrendatario() {
+public Arrendatario GuardarArrendatario(Arrendatario a) {
 	Arrendatario arren= new Arrendatario();
-	RutaDao rutaDao= new RutaDao();
 	Date f= new Date();
 	VistaArrendatario va = new VistaArrendatario();
 	
-	arren.setCedula(va.getTxtCedulaRif());
-	arren.setApellido(va.getTxtApellido());
-	arren.setDireccion(va.getTxtDireccion());
+	arren.setCedula(a.getCedula());
+	arren.setApellido(a.getApellido());
+	arren.setDireccion(a.getDireccion());
 	arren.setFechaIngreso(f);
 	if(va.Seleccion()==1)
 	arren.setTiene(true);
 	else
 		arren.setTiene(false);
-	/*if(this.getTxtMonto().equals("")){
-		arren.setMonto((float) 0);
-	}else*/
-		arren.setMonto(Float.parseFloat(va.getTxtMonto()));
 	
-	arren.setNombre(va.getTxtNombre());
+	arren.setMonto(a.getMonto());
+	
+	arren.setNombre(a.getNombre());
 	arren.setStatus("Activo");
-	/*if(va.getTxtTelefono().equals("")){
-		arren.setTelefono(0);
-	}else*/
-		arren.setTelefono(Integer.parseInt(va.getTxtTelefono()));
+	
+	arren.setTelefono(a.getTelefono());
 	try {
-		arren.setRuta(rutaDao.buscarPorCodRuta("J-306-902686"));
+		arren.setRuta(a.getRuta());
+		arrenPrueba = a;
 	} catch (Exception e) {
 		// TODO Auto-generated catch block
 		e.printStackTrace();
 	}
 	
 	return arren;
+}
+
+public Arrendatario RetornaArrendatario(){
+	
+	return arrenPrueba;
 }
 
 
