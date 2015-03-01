@@ -743,7 +743,7 @@ public Socio GuardarSocio(Socio soc){
 }
 
 public Socio RetornaSocio(){
-	
+	System.out.println("de la vista "+ socioprueba.getNombre()+ "   "+ socioprueba.getApellido());
 	return socioprueba;
 }
 
@@ -779,7 +779,7 @@ public Arrendatario GuardarArrendatario(Arrendatario a) {
 }
 
 public Arrendatario RetornaArrendatario(){
-	
+	System.out.println("arrendatario vista "+ arrenPrueba.getNombre()+"    "+ arrenPrueba.getApellido());
 	return arrenPrueba;
 }
 

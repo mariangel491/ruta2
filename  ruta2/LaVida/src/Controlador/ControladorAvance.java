@@ -79,6 +79,7 @@ public class ControladorAvance implements ActionListener {
 			this.obtenerAvanceArren();
 			this.asignarCodArrend();
 			arrendatarioPrueba= va.GuardarArrendatario();
+			
 		} catch (Exception e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();

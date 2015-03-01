@@ -79,7 +79,7 @@ public class ControladorVehiculo implements ActionListener {
 		
 			if(resp.equals("Vehiculo Arrendatario")){
 				vVehiculo.CambiarNombrePanel();
-				
+			
 			}
 	}
 	
@@ -96,8 +96,8 @@ public class ControladorVehiculo implements ActionListener {
 		////si viene de socio
 		socioPrueba= va.RetornaSocio();
 		arrendatarioPrueba= va.RetornaArrendatario();
-	System.out.println(socioPrueba.getNombre());
-	System.out.println(arrendatarioPrueba.getNombre());
+	System.out.println("por socio"+socioPrueba.getNombre());
+	System.out.println("por arrendatario"+arrendatarioPrueba.getNombre());
 	System.out.println(!socioPrueba.equals(null));
 	
 		if (!socioPrueba.equals(null))
