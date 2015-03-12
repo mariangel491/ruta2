@@ -11,6 +11,7 @@ import java.text.ParseException;
 import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
+import java.util.Vector;
 
 import javax.swing.BorderFactory;
 import javax.swing.ButtonGroup;
@@ -39,6 +40,7 @@ import javax.swing.border.BevelBorder;
 import javax.swing.border.LineBorder;
 import javax.swing.border.SoftBevelBorder;
 import javax.swing.event.ChangeEvent;
+import javax.swing.event.ListSelectionListener;
 import javax.swing.table.DefaultTableModel;
 import javax.swing.table.TableModel;
 import javax.swing.text.MaskFormatter;
@@ -76,6 +78,7 @@ public class VistaFac extends javax.swing.JFrame {
 	private JPanel jPanelTitulo;
 	private JPanel jPanelContenido;
 	private JScrollPane jScrollPaneFactura;
+	private JScrollPane jScrollPrestFactura;
 	private JLabel lblNroFactura;
 	private JTextField txtApellido;
 	private JLabel lblApellido;
@@ -118,11 +121,18 @@ public class VistaFac extends javax.swing.JFrame {
 	private JToggleButton jToggleButton1;
 	private JButton btnanadir;
 	private JTable jTableIngresosXFactura;
+	private JTable jTablePrestamosXFactura;
+	private JTable jTablePrestamos;
 	private JPanel jPanelInfFactura;
+	private JLabel lblMontoAbonar;
+	private JTextField txtMontoAdeudado;
+	private JLabel lblMontoAdeudado;
+	
 	private JScrollPane jScrollingresos;
 	private JList jListIngresos;
 	private JLabel lblNombreSocio;
 	private JTextField txtNombSocio;
+	//private JTextField txtMontoAbonar;
 	private JLabel lblNombIngreso;
 	private JPanel jPanelIngresos;
 	private JButton btnBuscar;
@@ -154,6 +164,7 @@ public class VistaFac extends javax.swing.JFrame {
 		LinkedListModel<String> listaModeloIngresoEgreso=new LinkedListModel<>();
 		private DefaultTableModel defaultTableModelIngresoXfactura = new DefaultTableModel();
 		LinkedListModel<String> listaModeloAux=new LinkedListModel<>();
+		private String filaSeleccionada="";
 	
 	
 	/**
@@ -300,6 +311,7 @@ private static VistaFac vFactura=null;
 							txtNroSocio = new JTextField();
 							jPanelDatosPersonales.add(txtNroSocio);
 							txtNroSocio.setBounds(146, 18, 72, 23);
+							txtNroSocio.setActionCommand("BuscarXNroSocio");
 						}
 						{
 							lblCedSocio = new JLabel();
@@ -311,6 +323,7 @@ private static VistaFac vFactura=null;
 							txtCedulaSocio = new JTextField();
 							jPanelDatosPersonales.add(txtCedulaSocio);
 							txtCedulaSocio.setBounds(146, 44, 126, 23);
+							txtCedulaSocio.setActionCommand("BuscarCedSocTeclado");
 						}
 						{
 							btnBuscarCedSoc = new JButton();
@@ -360,12 +373,63 @@ private static VistaFac vFactura=null;
 							jLabelMontoIngresoEgreso.setBounds(17, 259, 39, 15);
 						}
 						{
-							txtMontoIngresoEgreso = new JTextField();
-							jPanelIngresos.add(txtMontoIngresoEgreso);
-							txtMontoIngresoEgreso.setBounds(103, 256, 134, 22);
+							lblMontoAbonar = new JLabel();
+							jPanelIngresos.add(lblMontoAbonar);
+							lblMontoAbonar.setText("Monto Abono");
+							lblMontoAbonar.setBounds(17, 259, 90, 15);
+							lblMontoAbonar.setVisible(false);
 						}
 						{
-								ListModel jList1Model = 
+							lblMontoAdeudado = new JLabel();
+							jPanelIngresos.add(lblMontoAdeudado);
+							lblMontoAdeudado.setText("Monto Deuda");
+							lblMontoAdeudado.setBounds(220, 259, 90, 15);
+							lblMontoAdeudado.setVisible(false);
+						}
+						{
+							txtMontoIngresoEgreso = new JTextField();
+							jPanelIngresos.add(txtMontoIngresoEgreso);
+							txtMontoIngresoEgreso.setBounds(103, 256, 100, 22);
+						}
+					/*	{
+							txtMontoAbonar = new JTextField();
+							jPanelIngresos.add(txtMontoAbonar);
+							txtMontoAbonar.setBounds(103, 256, 100, 22);
+							txtMontoAbonar.setVisible(false);
+						}*/
+						{
+							txtMontoAdeudado = new JTextField();
+							jPanelIngresos.add(txtMontoAdeudado);
+							txtMontoAdeudado.setBounds(300, 256, 100, 22);
+							txtMontoAdeudado.setVisible(false);
+							txtMontoAdeudado.setEnabled(false);
+						}
+						{
+							jScrollPrestFactura = new JScrollPane();
+							jPanelIngresos.add(jScrollPrestFactura);
+							jScrollPrestFactura.setBounds(103, 174, 296, 65);
+							jScrollPrestFactura.setBorder(new SoftBevelBorder(BevelBorder.LOWERED, null, null, null, null));
+							{
+								TableModel jTablePrestamosXFacturaModel = 
+										new DefaultTableModel(
+												new String[][] {},
+												new String[] { "Descripción", "Monto"});
+								jTablePrestamosXFactura = new JTable();
+								jScrollPrestFactura.setViewportView(jTablePrestamosXFactura);
+								jTablePrestamosXFactura.setModel(jTablePrestamosXFacturaModel);
+								jTablePrestamosXFactura.getTableHeader().setFont(new java.awt.Font("Verdana",0,11));
+								jTablePrestamosXFactura.setFont(new java.awt.Font("Verdana",0,11));
+								jTablePrestamosXFactura.setDragEnabled(false);
+								jTablePrestamosXFactura.setCellSelectionEnabled(false);
+								jTablePrestamosXFactura.addMouseListener(new MouseAdapter() {
+									public void mouseClicked(MouseEvent evt) {
+										//TODO add your code for jTablePrestamosXFactura.mouseClicked
+										agregarPrestamos();
+																				}
+								});
+								
+							}
+								/*ListModel jList1Model = 
 										new DefaultComboBoxModel(
 												new String[] {});
 								jListPrestamosPendientes = new JList();
@@ -373,7 +437,7 @@ private static VistaFac vFactura=null;
 								jListPrestamosPendientes.setModel(jList1Model);
 								jListPrestamosPendientes.setBorder(BorderFactory.createEtchedBorder(BevelBorder.LOWERED));
 								jListPrestamosPendientes.setBounds(103, 174, 296, 65);
-								jListPrestamosPendientes.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
+								jListPrestamosPendientes.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);*/
 						}
 						{
 							jScrollingresos = new JScrollPane();
@@ -391,8 +455,7 @@ private static VistaFac vFactura=null;
 								jListIngresos.addMouseListener(new MouseAdapter() {
 									public void mouseClicked(MouseEvent evt) {
 										//TODO add your code for jListIngresos.mouseClicked
-											
-										
+											llenartxtMontIng();	
 									}
 								});
 							}
@@ -490,6 +553,7 @@ private static VistaFac vFactura=null;
 								jTableIngresosXFactura.setFont(new java.awt.Font("Verdana",0,11));
 								jTableIngresosXFactura.setDragEnabled(false);
 								jTableIngresosXFactura.setCellSelectionEnabled(false);
+							
 								
 							}
 						}
@@ -713,7 +777,10 @@ private static VistaFac vFactura=null;
 		jListIngresos.setPreferredSize(new java.awt.Dimension(279, 22));
 	}
 
-	
+	public void setjListPrestamosModel(LinkedListModel<String> model)
+	{
+		jListPrestamosPendientes.setModel(model);
+	}
 	public JList getjListPrestamosPendientes() {
 		return jListPrestamosPendientes;
 	}
@@ -756,6 +823,9 @@ private static VistaFac vFactura=null;
 		txtDeposito.addActionListener(accion);
 		txtEfectivo.addActionListener(accion);
 		txtSubsidio.addActionListener(accion);
+		
+	 
+		
 	}
 	
 	public void agregarFocusListener(FocusListener fl){
@@ -793,7 +863,7 @@ private static VistaFac vFactura=null;
 		listaModeloIngresoEgreso.clear();
 		listaModeloAux.clear();
 		jListIngresos.removeAll();
-		jListPrestamosPendientes.removeAll();
+		//jListPrestamosPendientes.removeAll();
 		
 	}
 
@@ -866,7 +936,7 @@ private static VistaFac vFactura=null;
 			txtCedulaSocio.setText("");
 			txtNombSocio.setText("");
 			txtApellido.setText("");
-			JOptionPane.showMessageDialog(this, "No se encontró resultado");
+			JOptionPane.showMessageDialog(this, "Debe completar el campo");
 		}
 	}
 	
@@ -910,6 +980,7 @@ private static VistaFac vFactura=null;
 		txtEfectivo.addKeyListener(a);
 		txtSubsidio.addKeyListener(a);
 		txtTransferencia.addKeyListener(a);
+		//txtMontoAbonar.addKeyListener(a);
 		
 	}
 	
@@ -1283,7 +1354,7 @@ private static VistaFac vFactura=null;
 		txtMontoDisp.setEditable(false);
 		txtMontoDisp.setVisible(true);
 		this.Check();
-		System.out.println(txtMontoDisp.getText());
+	
 		if(Float.parseFloat(txtMontoDisp.getText())==0.0 || "".equals(txtMontoDisp.getText()) || null== txtMontoDisp.getText())
 		{
 			this.txtSubsidio.setEditable(false);
@@ -1331,7 +1402,7 @@ private static VistaFac vFactura=null;
 		txtTransferencia.setEditable(false);
 		txtTransferencia.setText("");
 		checkTransferencia.setActionCommand("CheckTrasnferencia");
-		System.out.println("si pasaaa por aqui");
+		
 	}
 	
 	public void CheckCheque(){
@@ -1346,17 +1417,6 @@ private static VistaFac vFactura=null;
 		checkCheque.setActionCommand("CheckCheque");
 	}
 	
-	public void BuscarSubsidio(String nroSocio) throws Exception{
-		Double montoTotal=(double) 0;
-		for(int i=0;i<subDao.obtenerTodos().size();i++)
-		{
-			if(subDao.obtenerTodos().get(i).getSocio().getNroSocio().equals(nroSocio)){
-				montoTotal= montoTotal+subDao.obtenerTodos().get(i).getMonto();
-			}
-		}
-		this.txtMontoDisp.setText(String.valueOf(montoTotal));
-	
-	}
 	
 	public void QuitarSeleccionSub(){
 		checkSubsidio.setSelected(false);
@@ -1377,5 +1437,118 @@ private static VistaFac vFactura=null;
 				jTableIngresosXFactura.setModel(tblListadoModel);
 
 	}
+	
+	
+	//Para Los ingresos
+	public void agregarFilaIngresos(String cod, String nombre, String monto, String clasif, String cantidad)
+	{
+		Vector<String> ingresos = new Vector<String>();
+
+		ingresos.add(cod);
+		ingresos.add(nombre);
+		ingresos.add(monto);
+		ingresos.add(clasif);
+		ingresos.add(cantidad);
+		
+		DefaultTableModel dtm = (DefaultTableModel) jTableIngresosXFactura.getModel();
+		dtm.addRow(ingresos);	
+	}
+	
+	public void agregarFilaEgresos(String cod, String nombre, String monto, String clasif){
+		Vector<String> egresos = new Vector<String>();
+
+		egresos.add(cod);
+		egresos.add(nombre);
+		egresos.add(monto);
+		egresos.add(clasif);
+		
+		DefaultTableModel dtm = (DefaultTableModel) jTableIngresosXFactura.getModel();
+		dtm.addRow(egresos);	
+	}
+	
+	public void agregarFilaPrestamos(String descripcion, String monto){
+		Vector<String>prestamos = new Vector<String>();
+
+		prestamos.add(descripcion);
+		prestamos.add(monto);
+		
+		DefaultTableModel dtm = (DefaultTableModel) jTablePrestamosXFactura.getModel();
+		dtm.addRow(prestamos);	
+	}
+	
+
+
+	public void llenartxtMontIng(){
+		
+		if(this.getCmbTipoFactu().equals(vFactura.TIPO_DE_FACTURA_INGRESOS)){
+			txtMontoIngresoEgreso.setVisible(true);
+			jLabelMontoIngresoEgreso.setVisible(true);
+			lblCantidad.setVisible(true);
+			jSpinnerCantidad.setVisible(true);
+			Ingresos ing= new Ingresos();
+			try {
+				ing = ingDao.obtenerIngresosPorDescripcion(this.getjListIngresos().getSelectedValue().toString());
+				if(ing.getMonto()!=0){
+					txtMontoIngresoEgreso.setText(Float.toString(ing.getMonto()));
+					txtMontoIngresoEgreso.disable();
+				}else{
+					txtMontoIngresoEgreso.setText("");
+					txtMontoIngresoEgreso.enable();
+				}
+			} catch (Exception e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+		}else if(this.getCmbTipoFactu().equals(vFactura.TIPO_DE_FACTURA_EGRESOS)){
+			txtMontoIngresoEgreso.setText("");
+			txtMontoIngresoEgreso.enable();
+		}
+	}
+	
+	
+	public void agregarPrestamos(){
+		filaSeleccionada="";
+		
+		txtMontoIngresoEgreso.setEnabled(true);
+		jLabelMontoIngresoEgreso.setVisible(false);
+		lblCantidad.setVisible(false);
+		jSpinnerCantidad.setVisible(false);
+		
+		lblMontoAbonar.setVisible(true);
+		//txtMontoAbonar.setVisible(true);
+		lblMontoAdeudado.setVisible(true);
+		txtMontoAdeudado.setVisible(true);
+		
+		 int f=jTablePrestamosXFactura.getSelectionModel().getLeadSelectionIndex();
+	     // int c=jTablePrestamosXFactura.getColumnModel().getSelectionModel().getLeadSelectionIndex();
+		//System.out.println(this.getjTablePrestamosXFactura().getSelectionModel());
+		filaSeleccionada= (String) this.jTablePrestamosXFactura.getValueAt(f,0);
+		
+	}
+	
+	public String filaPrestamos(){
+		return filaSeleccionada;
+	}
+	
+	public JTable getjTablePrestamosXFactura() {
+		return jTablePrestamosXFactura;
+	}
+
+	public void setjTablePrestamosXFactura(JTable jTablePrestamosXFactura) {
+		this.jTablePrestamosXFactura = jTablePrestamosXFactura;
+	}
+
+	public String getTxtMontoAdeudado() {
+		return txtMontoAdeudado.getText();
+	}
+
+	public void setTxtMontoAdeudado(String txtMontoAdeudado) {
+		this.txtMontoAdeudado.setText(txtMontoAdeudado);
+	}
+
+
+	
+	
+
 	
 }

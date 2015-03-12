@@ -18,7 +18,7 @@ public class CuentaPrestamos {
 	
 	@Id
 	@Column(name="nrotransaccion", nullable=false)
-	private String nro_cuenta;
+	private String nro_transaccion;
 	@Column(name="montotransaccion", nullable=false)
 	private float montoTransaccion;
 	@Column(name="fecha", nullable=false)
@@ -45,11 +45,11 @@ public class CuentaPrestamos {
 		super();
 		// TODO Auto-generated constructor stub
 	}
-	public String getNro_cuenta() {
-		return nro_cuenta;
+	public String getNro_transaccion() {
+		return nro_transaccion;
 	}
-	public void setNro_cuenta(String nro_cuenta) {
-		this.nro_cuenta = nro_cuenta;
+	public void setNro_transaccion(String nro_cuenta) {
+		this.nro_transaccion = nro_cuenta;
 	}
 	public float getMontoTransaccion() {
 		return montoTransaccion;
