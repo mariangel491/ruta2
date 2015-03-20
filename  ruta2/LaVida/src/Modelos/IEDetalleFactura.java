@@ -29,6 +29,10 @@ public class IEDetalleFactura
 	@OneToOne(cascade= CascadeType.ALL)
 	@JoinColumn(name="codingreso")
 	private Ingresos ing;
+	
+/*	@OneToOne(cascade= CascadeType.ALL)
+	@JoinColumn(name="codprestamo")
+	private Prestamos prest;*/
 
 	@Column(name="cantidad", nullable=false)
 	private int cantidad;

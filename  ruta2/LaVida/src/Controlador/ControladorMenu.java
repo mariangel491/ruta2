@@ -31,6 +31,8 @@ public class ControladorMenu implements ActionListener{
 
 	mnuPrincipal menu;
 	
+	menuAlquiler mnuAlquiler;
+	
 	//Controladores
 	ControladorAlquiler alquiler;
 	ControladorAvance avance;

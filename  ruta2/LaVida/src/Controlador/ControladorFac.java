@@ -346,22 +346,30 @@ public class ControladorFac implements ActionListener, KeyListener, FocusListene
 				
 			}
 				
-		}
+		}//Fin del if
 			else if(vFactura.getCmbTipoFactu().equals(vFactura.TIPO_DE_FACTURA_EGRESOS))
 		{
 				Egresos egre= new Egresos();
 				try {
-					egre = egDao.obtenerEgresosPorDescripcion(vFactura.getjListIngresos().getSelectedValue().toString());
+					if(vFactura.getjListIngresos().getSelectedIndex()>0)
+						egre = egDao.obtenerEgresosPorDescripcion(vFactura.getjListIngresos().getSelectedValue().toString());
 				} catch (Exception e) {
 					// TODO Auto-generated catch block
 					e.printStackTrace();
 				}
+				if(vFactura.getjListIngresos().getSelectedValue().toString().equals("Prestamos")
+				   || vFactura.getjListIngresos().getSelectedValue()=="Prestamos fondo de choque"){
+					ControladorPrestamo controP= new ControladorPrestamo();
+					
+				}else{
+					if(null == vFactura.getTxtMontoIngresoEgreso() || "".equals(vFactura.getTxtMontoIngresoEgreso()))
+						JOptionPane.showMessageDialog(null, "Debe llenar el campo monto", "Atención!", JOptionPane.ERROR_MESSAGE);
+					else
+							vFactura.agregarFilaEgresos(egre.getCodEgreso(), egre.getDescripcion(),
+									vFactura.getTxtMontoIngresoEgreso(), egre.getClasificacion());		
+				}
 				
-				if(null == vFactura.getTxtMontoIngresoEgreso() || "".equals(vFactura.getTxtMontoIngresoEgreso()))
-					JOptionPane.showMessageDialog(null, "Debe llenar el campo monto", "Atención!", JOptionPane.ERROR_MESSAGE);
-				else
-						vFactura.agregarFilaEgresos(egre.getCodEgreso(), egre.getDescripcion(),
-								vFactura.getTxtMontoIngresoEgreso(), egre.getClasificacion());			
+				
 			
 		}
 		
@@ -449,12 +457,15 @@ public void CalcularTotalFormaPago(){
 	}
 
 //PARA COMPROBAR QUE EL TOTAL DE LA FACTURA NO SEA MENOR AL ESTIMADO
-public void comprobarMonto(){
+public boolean comprobarMonto(){
 	float montoFP= Float.parseFloat(vFactura.getTxtTotal().getText());
 	float montoLista=Float.parseFloat(vFactura.getTxtMontoTotal());
-	if(montoFP<montoLista)
+	if(montoFP<montoLista){
 		JOptionPane.showMessageDialog(null,"Monto a pagar Insuficiente","Atencion!",
 				JOptionPane.INFORMATION_MESSAGE);
+		return true;}
+	else 
+		return false;
 }
 
 
@@ -758,6 +769,7 @@ public void comprobarMonto(){
 			 
 			 factura.setCodRuta(rutaDao.buscarPorCodRuta("J-306-902686"));
 			 factura.setNroFactura(facturaDao.buscarUltimoNumeroFactura());		 
+			
 			 facturaDao.agregarFactura(factura);
 			 
 			 ////////////////////////////////////////MetodoFormaPago///////////////////////////
@@ -804,20 +816,16 @@ public void comprobarMonto(){
 					 for(int a=0; a<lista.getColumnCount(); a++) //recorro las columnas
 					 {
 						if (a==0){
-							
 							if(lista.getValueAt(i, a).toString().charAt(0)=='I')
 							{
 								tipo="I";
-								in.setCodIngreso((lista.getValueAt(i ,a).toString()));
-								
+								in.setCodIngreso((lista.getValueAt(i ,a).toString()));	
 							}
 							else if(lista.getValueAt(i, a).toString().charAt(0)=='P')
 							{
 								tipo="P";
 								prest=prestDao.buscarPorCodigoPrestamo(lista.getValueAt(i, a).toString());
-								prestamosFactura.add(prest);
-								
-								
+								prestamosFactura.add(prest);							
 							}
 						}
 						else if(a==1){
@@ -842,16 +850,15 @@ public void comprobarMonto(){
 							if(tipo=="I")
 								cant= Integer.valueOf(lista.getValueAt(i ,a).toString());
 						}
-						
-						
-						
+	
 					} 
 					 
 					 if(tipo=="I"){
+						 //System.out.println("agregando ingresossss");
 							ingresosFactura.add(in);
 							monto.add(ingresosFactura.size()-1, montoIng);	
 							cantidad.add(ingresosFactura.size()-1, cant);
-							}else 
+					}else 
 							{
 								montoPrestamos.add(prestamosFactura.size()-1,montoPrest);
 							}
@@ -880,7 +887,7 @@ public void comprobarMonto(){
 					   ieDetFac.setCantidad(cantidad.get(i));
 					   ieDetFac.setIng(ingDao.obtenerIngresos(ing.getCodIngreso()));
 					   ieDetFac.setMonto(monto.get(i));
-					 
+					 System.out.println("array ingresos");
 					 IEFDao.agregarDetalle(ieDetFac);
 					 
 					 clasificacion=ingDao.obtenerIngresos(ing.getCodIngreso()).getClasifIngreso();
@@ -913,7 +920,7 @@ public void comprobarMonto(){
 						 cuentaPrestamos.setMontoTransaccion(montoPrestamos.get(i));
 						 cuentaPrestamos.setNro_transaccion(cuentaPrestamosDao.buscarUltimoNumeroTramsaccionCuentaFondoChoque());
 						 cuentaPrestamosDao.agregarTransaccion(cuentaPrestamos);
-						 
+						 System.out.println("araaay prest");
 					}
 				}
 				 		 
@@ -993,7 +1000,6 @@ public void comprobarMonto(){
 		
 		if(vFactura.getCmbTipoFactu().equalsIgnoreCase(vFactura.TIPO_DE_FACTURA_INGRESOS)){
 			
-			//this.guardarFacturaEgreso(vFactura.getCmbTipoFacturado(), vFactura.getTxtNroSocio(), vFactura.getTxtCed(), vFactura.getjTableIngresosXFactura(), vFactura.getTxtMontoTotal());
 			this.guardarFacturaIngreso(vFactura.getCmbTipoFacturado(),vFactura.getTxtNroSocio(), 
 			vFactura.getTxtCed(),vFactura.getjTableIngresosXFactura(),vFactura.getTxtMontoTotal());
 			
@@ -1003,7 +1009,7 @@ public void comprobarMonto(){
 				
 				this.guardarFacturaEgreso(vFactura.getCmbTipoFacturado(), vFactura.getTxtNroSocio(), 
 				vFactura.getTxtCed(), vFactura.getjTableIngresosXFactura(), vFactura.getTxtMontoTotal());
-				//this.guardarFacturaIngreso(vFactura.getCmbTipoFacturado(),vFactura.getTxtNroSocio(), vFactura.getTxtCed(),vFactura.getjTableIngresosXFactura(),vFactura.getTxtMontoTotal());
+				
 			}
 			
 		vFactura.limpiarTodo();
@@ -1045,5 +1051,7 @@ public void comprobarMonto(){
 		return prestamo;
 		
 	}
+	
+
 	
 }

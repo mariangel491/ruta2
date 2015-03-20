@@ -92,6 +92,7 @@ public class VistaFac extends javax.swing.JFrame {
 	private JLabel lblTotal;
 	private JLabel lblPendiente;
 	private JLabel lblPrestamos;
+	private JLabel lblModulo;
 	private JTextField txtCheque;
 	private JTextField txtTransferencia;
 	private JTextField txtDeposito;
@@ -208,27 +209,36 @@ private static VistaFac vFactura=null;
 					jPanelTitulo = new JPanel();
 					jPanelVentana.add(jPanelTitulo);
 					jPanelTitulo.setLayout(null);
-					jPanelTitulo.setBounds(12, -6, 559, 70);
+					jPanelTitulo.setBounds(25, -8, 900, 90);
+					jPanelTitulo.setBackground(new java.awt.Color(255,255,255));
 					{
 						lblTitulo = new JLabel();
 						jPanelTitulo.add(lblTitulo);
 						lblTitulo.setText("SOCIEDAD CIVIL RUTA 2");
-						lblTitulo.setBounds(232, 21, 194, 16);
-						lblTitulo.setFont(new java.awt.Font("Century Gothic",3,14));
+						lblTitulo.setBounds(18, 65, 194, 16);
+						lblTitulo.setFont(new java.awt.Font("Century Gothic",3,12));
 					}
 					{
 						lblRif = new JLabel();
 						jPanelTitulo.add(lblRif);
 						jPanelTitulo.add(getLblLogo());
 						lblRif.setText("RIF J-306-902686");
-						lblRif.setBounds(232, 36, 186, 16);
-						lblRif.setFont(new java.awt.Font("Century Gothic",3,14));
+						lblRif.setBounds(45, 75, 184, 16);
+						lblRif.setFont(new java.awt.Font("Century Gothic",3,10));
+					}
+					{
+						lblModulo = new JLabel();
+						jPanelTitulo.add(lblModulo);
+						jPanelTitulo.add(getLblLogo());
+						lblModulo.setText("Modulo de Facturación");
+						lblModulo.setBounds(300, 30, 380, 40);
+						lblModulo.setFont(new java.awt.Font("Century Gothic",3,32));
 					}
 				}
 				{
 					jPanelContenido = new JPanel();
 					jPanelVentana.add(jPanelContenido);
-					jPanelContenido.setBounds(24, 76, 901, 552);
+					jPanelContenido.setBounds(24, 84, 901, 552);
 					jPanelContenido.setBorder(BorderFactory.createTitledBorder("Factura"));
 					jPanelContenido.setLayout(null);
 					{
@@ -863,6 +873,9 @@ private static VistaFac vFactura=null;
 		listaModeloIngresoEgreso.clear();
 		listaModeloAux.clear();
 		jListIngresos.removeAll();
+		jListPrestamosPendientes.removeAll();
+		jTablePrestamosXFactura.removeAll();
+		jTableIngresosXFactura.removeAll();
 		//jListPrestamosPendientes.removeAll();
 		
 	}

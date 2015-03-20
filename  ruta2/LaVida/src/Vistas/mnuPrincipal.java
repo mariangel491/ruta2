@@ -1,4 +1,5 @@
 package Vistas;
+import java.awt.Image;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
@@ -96,7 +97,8 @@ public class mnuPrincipal extends javax.swing.JFrame {
 				btnRuta.setBorder(BorderFactory.createEtchedBorder(BevelBorder.LOWERED));
 				btnRuta.setBackground(new java.awt.Color(206,221,225));
 				btnRuta.setFont(new java.awt.Font("Segoe UI",2,20));
-				//btnRuta.setIcon(new ImageIcon(getClass().getClassLoader().getResource("Imagenes/bus.png")));
+				btnRuta.setIcon(new ImageIcon(getClass().getClassLoader().getResource("Imagenes/bus.png")));
+				btnRuta.setActionCommand("menuRuta");
 			}
 			{
 				jButton1 = new JButton();
@@ -107,7 +109,9 @@ public class mnuPrincipal extends javax.swing.JFrame {
 				jButton1.setActionCommand("Alquiler");
 				jButton1.setBackground(new java.awt.Color(206,221,225));
 				jButton1.setFont(new java.awt.Font("Segoe UI",2,20));
-				//jButton1.setIcon(new ImageIcon(getClass().getClassLoader().getResource("Imagenes/homeFolder.png")));
+				jButton1.setActionCommand("menuAlq");
+				//
+				jButton1.setIcon(new ImageIcon(getClass().getClassLoader().getResource("Imagenes/homeFolder.png")));
 			}
 			{
 				jButton2 = new JButton();
@@ -117,13 +121,19 @@ public class mnuPrincipal extends javax.swing.JFrame {
 				jButton2.setBorder(BorderFactory.createEtchedBorder(BevelBorder.LOWERED));
 				jButton2.setBackground(new java.awt.Color(206,221,225));
 				jButton2.setFont(new java.awt.Font("Segoe UI",2,20));
-				//jButton2.setIcon(new ImageIcon(getClass().getClassLoader().getResource("Imagenes/tyres.png")));
+				jButton2.setActionCommand("menuFC");
+			
+				/*String ruta_logo="Imagenes/tyres.png";
+				ImageIcon img = new ImageIcon("Imagenes/tyres.png");
+				jButton2.setIcon(new ImageIcon(img.getImage().getScaledInstance(16, 16, Image.SCALE_SMOOTH)));*/
+				
+				jButton2.setIcon(new ImageIcon(getClass().getClassLoader().getResource("Imagenes/tyres.png")));
 			}
 			{
 				lblImagen = new JLabel();
 				getContentPane().add(lblImagen);
-				lblImagen.setBounds(-8, 12, 792, 316);
-				//lblImagen.setIcon(new ImageIcon(getClass().getClassLoader().getResource("Imagenes/Pendrive 16gb/RUTA2_VICTOR.jpg")));
+				lblImagen.setBounds(95, 12, 792, 316);
+				lblImagen.setIcon(new ImageIcon(getClass().getClassLoader().getResource("Imagenes/Pendrive 16gb/logo.jpg")));
 			}
 			{
 				mnuBar = new JMenuBar();
@@ -300,6 +310,9 @@ public class mnuPrincipal extends javax.swing.JFrame {
 		 this.mnuItmCargarSubsidio.addActionListener(evento);
 		 this.itmDepCaja.addActionListener(evento);
 		 this.itmFactura.addActionListener(evento);
+		 this.btnRuta.addActionListener(evento);
+		 this.jButton1.addActionListener(evento);
+		 this.jButton2.addActionListener(evento);
 	}
 
 }
