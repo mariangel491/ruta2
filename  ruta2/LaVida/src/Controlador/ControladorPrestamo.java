@@ -113,7 +113,8 @@ public class ControladorPrestamo implements ActionListener, KeyListener {
 				System.out.println(nombre);
 				
 				vPrestamo.OcultarListado(this.LlenarListado());
-				vPrestamo.LlenarListaPrestamos(this.LlenarListado());
+				this.LlenarListado();
+				//vPrestamo.LlenarListaPrestamos(/*this.LlenarListado()*/);
 				
 				
 			} else
@@ -137,10 +138,18 @@ public ArrayList<Prestamos> LlenarListado () throws Exception {
 		ArrayList<Prestamos> listado = new ArrayList<Prestamos>();
 		
 		for (int i = 0; i<prestamosDao.obtenerTodos().size(); i++) {
-			if(prestamosDao.obtenerTodos().get(i).getNroSocio().equals(vPrestamo.getTxtNroSocio())) 
-				System.out.println(listado.size()  +"1do");
+			System.out.println(prestamosDao.obtenerTodos().get(i).getNroSocio().getNroSocio().equals(vPrestamo.getTxtNroSocio()));
+			System.out.println(prestamosDao.obtenerTodos().get(i).getNroSocio().getNroSocio());
+			System.out.println(vPrestamo.getTxtNroSocio());
+			Prestamos p= new Prestamos();
+			if(prestamosDao.obtenerTodos().get(i).getNroSocio().getNroSocio().equals(vPrestamo.getTxtNroSocio())) 
+			{
+				System.out.println(listado.size()  +"1do este no se esta imprimiendo");
 				listado.add(prestamosDao.obtenerTodos().get(i));
-				System.out.println(listado.size()  +"2do");
+				p=prestamosDao.obtenerTodos().get(i);
+				System.out.println(listado.size()  +"   2do y porque este si");
+				vPrestamo.agregarfilaPrestamos(p.getCodPrestamo(), p.getDescripcion(), Float.toString(p.getMonto()), p.getFechaEmision().toString());
+			}
 		
 		}
 			socio.setPrestamos(listado);

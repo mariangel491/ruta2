@@ -313,6 +313,8 @@ private static VistaPrestamo vPrest=null;
 		txtCodPrestamo.setText(CodPrestamo);
 	}
 
+	
+	
 	//agregar listeners
 	public void agregarListener(ActionListener accion) {
 		this.btnGuardar.addActionListener(accion);
@@ -408,9 +410,11 @@ private static VistaPrestamo vPrest=null;
 	
 	
 	public void OcultarListado(List<Prestamos> listPrest) throws Exception {
-		if(listPrest.size() != 0) {
+		if(listPrest.size() > 0) {
 			
 			this.jpListadoPrestamos.setVisible(true);
+			this.spListadoPrestamos.setVisible(true);
+			this.jtPrestamos.setVisible(true);
 			this.btnAgregar.setVisible(true);
 	
 		}
@@ -476,11 +480,11 @@ private static VistaPrestamo vPrest=null;
 	}
 	
 	
-public void LlenarListaPrestamos(List<Prestamos> a){
+/*public List<Prestamos> LlenarListaPrestamos(List<Prestamos> a){
 		
 		int column= jtPrestamos.getColumnCount();
 		int fila= jtPrestamos.getRowCount();
-		//List<Prestamos> a = new ArrayList<Prestamos>();
+		List<Prestamos> a = new ArrayList<Prestamos>();
 		String cod="", descrip="", monto="";
 		Date fecha = new Date();
 		String fecha1 = fecha.toString();
@@ -504,6 +508,21 @@ public void LlenarListaPrestamos(List<Prestamos> a){
 			}
 				
 		}
+		return a;
+	}*/
+	
+	
+	public void agregarfilaPrestamos(String cod, String descrip, String monto, String fecha){
+		Vector<String>prestamos = new Vector<String>();
+		
+		
+		prestamos.add(cod);
+		prestamos.add(descrip);
+		prestamos.add(fecha);
+		prestamos.add(monto);
+		
+		DefaultTableModel dtm = (DefaultTableModel) jtPrestamos.getModel();
+		dtm.addRow(prestamos);	
 	}
 
 	private JPanel getPnelEncabezado() {

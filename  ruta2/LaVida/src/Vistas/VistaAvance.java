@@ -695,7 +695,7 @@ private JLabel getLblImagen() {
 	return lblImagen;
 }
 
-public void CambiarNombrePanel(){
+/*public void CambiarNombrePanel(){
 	jpAvancexSocio.setBorder(BorderFactory.createTitledBorder("Listado de Avances por Arrendatario"));
 	jpDatosSocio.setBorder(BorderFactory.createTitledBorder("Datos del Arrendatario"));
 	btnGuardar.setActionCommand("GuardarArrendatario");
@@ -710,7 +710,7 @@ public void CambiarNombrePanel(){
 	//btnRS.setActionCommand("RS");
 	
 	
-}
+}*/
 
 
 public Socio GuardarSocio(Socio soc){

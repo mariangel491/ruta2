@@ -26,6 +26,7 @@ import Modelos.Hibernate.Daos.VehiculoArrendatarioDao;
 import Modelos.Hibernate.Daos.VehiculoDao;
 import Vistas.VistaArrendatario;
 import Vistas.VistaAvance;
+import Vistas.VistaAvanceArren;
 import Vistas.VistaSocio;
 import Vistas.VistaVehiculo;
 
@@ -125,7 +126,7 @@ public class ControladorVehiculo implements ActionListener {
 			}
 		}
 		else{
-			arrendatarioPrueba= va.RetornaArrendatario();
+			/*arrendatarioPrueba= va.RetornaArrendatario();
 		System.out.println(arrendatarioPrueba.getCedula());
 			if(arrendatarioPrueba!=null){
 				
@@ -144,12 +145,45 @@ public class ControladorVehiculo implements ActionListener {
 				} catch (Exception e) {
 					// TODO Auto-generated catch block
 					e.printStackTrace();
-				}
+				}*/
 				
-			}
+			//}
 			}
 			
 			
+	}
+
+public ControladorVehiculo(VistaAvanceArren vaa) {
+	vVehiculo = new VistaVehiculo();
+	vVehiculo = vVehiculo.obtenerInstancia();
+	vVehiculo.setLocationRelativeTo(null);
+	vVehiculo.setVisible(true);
+	vVehiculo.limpiarCampos();
+	vVehiculo.agregarListener(this);
+	System.out.println("entro por vistaArren");
+
+
+	arrendatarioPrueba= vaa.RetornaArrendatario();
+	System.out.println(arrendatarioPrueba.getCedula());
+		if(arrendatarioPrueba!=null){
+		
+			vVehiculo.setTxtNroSocio(vaa.llenarCodigo()); 
+			vVehiculo.setTxtNomSocio(vaa.llenarNombre());
+			listaAvancesArren= vaa.LlenarListaAvancesArren();
+			for(int i=0; i<vaa.LlenarListaAvancesArren().size();i++)
+			{
+				vVehiculo.setCmbConductor(vaa.LlenarListaAvancesArren().get(i).getNombre()+ " "+
+						vaa.LlenarListaAvancesArren().get(i).getApellido());
+			}
+		
+			try {
+				vVehiculo.LlenarComboMarca();
+				this.obtenerVehiculoArren();
+			} catch (Exception e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+		}
 	}
 	
 	

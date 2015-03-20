@@ -19,6 +19,7 @@ import Modelos.Hibernate.Daos.AvanceDao;
 import Modelos.Hibernate.Daos.SocioDao;
 import Vistas.VistaArrendatario;
 import Vistas.VistaAvance;
+import Vistas.VistaAvanceArren;
 import Vistas.VistaSocio;
 import Vistas.VistaVehiculo;
 
@@ -28,6 +29,7 @@ public class ControladorAvance implements ActionListener {
 	private VistaAvance vAvance;
 	private VistaSocio vSocio;
 	private VistaArrendatario vArrendatario;
+	private VistaAvanceArren vAvanceArren;
 	
 	AvanceDao avanceDao = new AvanceDao();
 	private SocioDao socioDao = new SocioDao();
@@ -52,11 +54,18 @@ public class ControladorAvance implements ActionListener {
 		vAvance.agregarListener(this);
 		vAvance.limpiarTablaAvances();
 		
+		vAvanceArren = new VistaAvanceArren();
+		vAvanceArren = vAvanceArren.obtenerInstancia();
+		vAvanceArren.setLocationRelativeTo(null);
+		vAvanceArren.setVisible(true);
+		vAvanceArren.agregarListener(this);
+		vAvanceArren.limpiarTablaAvances();
+		
 		if(resp.equals("Avance")){
 		this.asignarCod();
 		}
 		if(resp.equals("Avance Arrendatario")){
-			vAvance.CambiarNombrePanel();
+			//vAvance.CambiarNombrePanel();
 			this.asignarCodArrend();
 			
 		}
@@ -64,17 +73,17 @@ public class ControladorAvance implements ActionListener {
 	
 
 	public ControladorAvance(VistaArrendatario va){
-		vAvance = new VistaAvance();
-		vAvance = vAvance.obtenerInstancia();
-		vAvance.setLocationRelativeTo(null);
-		vAvance.setVisible(true);
-		vAvance.agregarListener(this);
-		vAvance.CambiarNombrePanel();
+		vAvanceArren = new VistaAvanceArren();
+		vAvanceArren = vAvanceArren.obtenerInstancia();
+		vAvanceArren.setLocationRelativeTo(null);
+		vAvanceArren.setVisible(true);
+		vAvanceArren.agregarListener(this);
+		vAvanceArren.CambiarNombrePanel();
 		
-		if (va.Selec()==1){
-		vAvance.setTxtNroSocio(va.llenarCodigo());
-		vAvance.setTxtNomSocio(va.llenarNombre());
-		}
+		//if (va.Selec()==1){
+		vAvanceArren.setTxtNroSocio(va.llenarCodigo());
+		vAvanceArren.setTxtNomSocio(va.llenarNombre());
+		//}
 		try {
 			this.obtenerAvanceArren();
 			this.asignarCodArrend();
@@ -97,10 +106,10 @@ public class ControladorAvance implements ActionListener {
 		vAvance.setLocationRelativeTo(null);
 		vAvance.setVisible(true);
 		vAvance.agregarListener(this);
-		if(vs.Selec()==1){
+		//if(vs.Selec()==1){
 		vAvance.setTxtNroSocio(vs.llenarCodigo());
 		vAvance.setTxtNomSocio(vs.llenarNombre());
-		}
+		//}
 		try {
 			this.obtenerAvance();
 			this.asignarCod();
@@ -203,7 +212,7 @@ public class ControladorAvance implements ActionListener {
 				JOptionPane.showMessageDialog(null, "Debe llenar todos los campos del avance", "Atención!", JOptionPane.ERROR_MESSAGE);
 			
 		}else if (a.getActionCommand().equalsIgnoreCase("AgregarAvanceArrend")) {
-			if (this.vAvance.CamposllenosAvance()) {
+			if (this.vAvanceArren.CamposllenosAvance()) {
 				this.agregarAvanceArren();
 			//	this.asignarCodArrend();
 				

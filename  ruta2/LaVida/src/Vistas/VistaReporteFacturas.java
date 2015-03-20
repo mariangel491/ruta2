@@ -13,6 +13,8 @@ import javax.swing.JPanel;
 import javax.swing.WindowConstants;
 import javax.swing.SwingUtilities;
 
+import ControladorReportes.ControladorReporteFactura;
+
 import com.toedter.calendar.JDateChooser;
 
 
@@ -40,7 +42,6 @@ public class VistaReporteFacturas extends javax.swing.JFrame {
 	private JLabel lblTipoReporte;
 	private JLabel lblDesde;
 	private JLabel lblHasta;
-	private JLabel lblImagen;
 	private JLabel lblTitulo;
 
 	/**
@@ -49,16 +50,17 @@ public class VistaReporteFacturas extends javax.swing.JFrame {
 	public static void main(String[] args) {
 		SwingUtilities.invokeLater(new Runnable() {
 			public void run() {
-				VistaReporteFacturas inst = new VistaReporteFacturas();
-				inst.setLocationRelativeTo(null);
-				inst.setVisible(true);
+			//	VistaReporteFacturas inst = new VistaReporteFacturas(null);
+				//inst.setLocationRelativeTo(null);
+				//inst.setVisible(true);
 			}
 		});
 	}
 	
-	public VistaReporteFacturas() {
+	public VistaReporteFacturas(ControladorReporteFactura crf) {
 		super();
 		initGUI();
+		cmbReportes.addItemListener(crf);
 	}
 	
 	private void initGUI() {
@@ -153,4 +155,10 @@ public class VistaReporteFacturas extends javax.swing.JFrame {
 		}
 	}
 
+	public int getClasificacion ()
+	{
+		return cmbReportes.getSelectedIndex();
+	}
+
+	
 }
