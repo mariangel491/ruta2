@@ -557,13 +557,15 @@ public ControladorVehiculo(VistaAvanceArren vaa) {
 		Avance sera;
 		String codi = vehi.get(posi).getAvance();
 		System.out.println("nuevo metooodooo. " +codi);
-		for(int i=0; i < listaAvancesSocio.size();i++)
+		List<Avance> Avances = this.AvancesporSocio(vehi.get(posi).getSocio().getNroSocio());
+		System.out.println(Avances.size());
+		for(int i=0; i < Avances.size();i++)
 		{
-			System.out.println("avances por socio" +listaAvancesSocio.get(i).getCodAvance());
-			if(listaAvancesSocio.get(i).getCodAvance().equalsIgnoreCase(codi))
+			System.out.println("avances por socio" +Avances.get(i).getCodAvance());
+			if(Avances.get(i).getCodAvance().equalsIgnoreCase(codi))
 			{
 				System.out.println("entro en el if");
-				sera = listaAvancesSocio.get(i);
+				sera = Avances.get(i);
 				avan = sera.getNombre()+" "+sera.getApellido();
 			}
 		}
@@ -592,11 +594,11 @@ public ControladorVehiculo(VistaAvanceArren vaa) {
 				String marca = vehiculos.get(i).getCodMarca().getDescripcion().toString();
 				Integer año = vehiculos.get(i).getAnno();
 				Integer nropstos= vehiculos.get(i).getNropuestos();
-				//String avance = vehiculos.get(i).getAvance();
+			//	String avance = vehiculos.get(i).getAvance();
 					
 				//System.out.println(avance);
-				String avance= //this.traerNombreyApe(vehiculos, i);
-						vVehiculo.getCmbConductor();
+			String avance= this.traerNombreyApe(vehiculos, i);
+				//		vVehiculo.getCmbConductor();
 					
 				//	String avance = vehiculos.get(i).getNombre()+" "+vehiculos.get(i).getAvance().getApellido();
 				
