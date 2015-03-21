@@ -594,7 +594,7 @@ private static VistaFac vFactura=null;
 					{
 						jPanelFormaPago = new JPanel();
 						jPanelContenido.add(jPanelFormaPago);
-						jPanelFormaPago.setBounds(469, 324, 420, 212);
+						jPanelFormaPago.setBounds(469, 360, 420, 170);
 						jPanelFormaPago.setBorder(BorderFactory.createTitledBorder("Forma de Pago"));
 						jPanelFormaPago.setLayout(null);
 						jPanelFormaPago.setFocusable(false);
@@ -1109,7 +1109,7 @@ private static VistaFac vFactura=null;
 		if(checkDeposito == null) {
 			checkDeposito = new JCheckBox();
 			checkDeposito.setText("Deposito");
-			checkDeposito.setBounds(18, 98, 80, 20);
+			checkDeposito.setBounds(220, 36, 99, 20);
 			checkDeposito.setActionCommand("CheckDeposito");
 		}
 		return checkDeposito;
@@ -1190,7 +1190,7 @@ private static VistaFac vFactura=null;
 	public JTextField getTxtCheque() {
 		if(txtCheque == null) {
 			txtCheque = new JTextField();
-			txtCheque.setBounds(128, 153, 71, 23);
+			txtCheque.setBounds(310, 36, 90, 20);
 			txtCheque.setActionCommand("total");
 		}
 		return txtCheque;
