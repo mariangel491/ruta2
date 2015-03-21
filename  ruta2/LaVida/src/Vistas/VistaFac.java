@@ -57,7 +57,7 @@ import Modelos.Hibernate.Daos.PrestamosDao;
 import Modelos.Hibernate.Daos.SubsidioDao;
 
 import com.jgoodies.common.collect.LinkedListModel;
-
+import com.jgoodies.forms.layout.FormLayout;
 
 /**
 * This code was edited or generated using CloudGarden's Jigloo
@@ -86,6 +86,10 @@ public class VistaFac extends javax.swing.JFrame {
 	private JTextField txtCedulaSocio;
 	private JLabel lblCedSocio;
 	private JTextField txtEfectivo;
+	private JTable jTableDeudasPorSocio;
+	private JButton btnAnnadirDeuda;
+	private JScrollPane deudasSocio;
+	private JPanel jPanelDeudasSocio;
 	private JTextField txtMontoDisp;
 	private JLabel lblMontoDispo;
 	private JTextField txtTotal;
@@ -202,20 +206,20 @@ private static VistaFac vFactura=null;
 			{
 				jPanelVentana = new JPanel();
 				getContentPane().add(jPanelVentana, "Center");
-				jPanelVentana.setBounds(12, 24, 953, 636);
+				jPanelVentana.setBounds(0, 0, 965, 639);
 				jPanelVentana.setLayout(null);
 				jPanelVentana.setFocusable(false);
 				{
 					jPanelTitulo = new JPanel();
 					jPanelVentana.add(jPanelTitulo);
 					jPanelTitulo.setLayout(null);
-					jPanelTitulo.setBounds(25, -8, 900, 90);
+					jPanelTitulo.setBounds(0, 0, 959, 85);
 					jPanelTitulo.setBackground(new java.awt.Color(255,255,255));
 					{
 						lblTitulo = new JLabel();
 						jPanelTitulo.add(lblTitulo);
 						lblTitulo.setText("SOCIEDAD CIVIL RUTA 2");
-						lblTitulo.setBounds(18, 65, 194, 16);
+						lblTitulo.setBounds(18, 59, 194, 16);
 						lblTitulo.setFont(new java.awt.Font("Century Gothic",3,12));
 					}
 					{
@@ -223,7 +227,7 @@ private static VistaFac vFactura=null;
 						jPanelTitulo.add(lblRif);
 						jPanelTitulo.add(getLblLogo());
 						lblRif.setText("RIF J-306-902686");
-						lblRif.setBounds(45, 75, 184, 16);
+						lblRif.setBounds(45, 71, 184, 16);
 						lblRif.setFont(new java.awt.Font("Century Gothic",3,10));
 					}
 					{
@@ -231,14 +235,14 @@ private static VistaFac vFactura=null;
 						jPanelTitulo.add(lblModulo);
 						jPanelTitulo.add(getLblLogo());
 						lblModulo.setText("Modulo de Facturación");
-						lblModulo.setBounds(300, 30, 380, 40);
+						lblModulo.setBounds(306, 32, 380, 40);
 						lblModulo.setFont(new java.awt.Font("Century Gothic",3,32));
 					}
 				}
 				{
 					jPanelContenido = new JPanel();
 					jPanelVentana.add(jPanelContenido);
-					jPanelContenido.setBounds(24, 84, 901, 552);
+					jPanelContenido.setBounds(12, 88, 933, 552);
 					jPanelContenido.setBorder(BorderFactory.createTitledBorder("Factura"));
 					jPanelContenido.setLayout(null);
 					{
@@ -543,13 +547,13 @@ private static VistaFac vFactura=null;
 					{
 						jPanelInfFactura = new JPanel();
 						jPanelContenido.add(jPanelInfFactura);
-						jPanelInfFactura.setBounds(469, 69, 420, 249);
+						jPanelInfFactura.setBounds(469, 205, 447, 194);
 						jPanelInfFactura.setBorder(BorderFactory.createTitledBorder("Información de la factura"));
 						jPanelInfFactura.setLayout(null);
 						{
 							jScrollPaneFactura = new JScrollPane();
 							jPanelInfFactura.add(jScrollPaneFactura);
-							jScrollPaneFactura.setBounds(12, 29, 391, 177);
+							jScrollPaneFactura.setBounds(13, 25, 389, 134);
 							jScrollPaneFactura.setBorder(new SoftBevelBorder(BevelBorder.LOWERED, null, null, null, null));
 							{
 								TableModel jTableIngresosXFacturaModel = 
@@ -571,21 +575,21 @@ private static VistaFac vFactura=null;
 							jToggleButton1 = new JToggleButton();
 							jPanelInfFactura.add(jToggleButton1);
 							jToggleButton1.setText("Total");
-							jToggleButton1.setBounds(127, 211, 85, 23);
+							jToggleButton1.setBounds(128, 164, 87, 25);
 							jToggleButton1.setBorder(new SoftBevelBorder(BevelBorder.LOWERED, null, null, null, null));
 							jToggleButton1.setFont(new java.awt.Font("Verdana",0,11));
 						}
 						{
 							txtMontoTotal = new JTextField();
 							jPanelInfFactura.add(txtMontoTotal);
-							txtMontoTotal.setBounds(224, 212, 179, 23);
+							txtMontoTotal.setBounds(225, 165, 179, 22);
 							txtMontoTotal.setEditable(false);
 							txtMontoTotal.setFont(new java.awt.Font("Verdana",0,11));
 						}
 						{
 							btnQuitar = new JButton();
 							jPanelInfFactura.add(btnQuitar);
-							btnQuitar.setBounds(17, 214, 28, 27);
+							btnQuitar.setBounds(25, 162, 30, 25);
 							btnQuitar.setIcon(new ImageIcon(getClass().getClassLoader().getResource("Imagenes/black_delete_16x16.gif")));
 							btnQuitar.setActionCommand("Quitar");
 						
@@ -594,7 +598,7 @@ private static VistaFac vFactura=null;
 					{
 						jPanelFormaPago = new JPanel();
 						jPanelContenido.add(jPanelFormaPago);
-						jPanelFormaPago.setBounds(469, 360, 420, 170);
+						jPanelFormaPago.setBounds(469, 403, 447, 133);
 						jPanelFormaPago.setBorder(BorderFactory.createTitledBorder("Forma de Pago"));
 						jPanelFormaPago.setLayout(null);
 						jPanelFormaPago.setFocusable(false);
@@ -635,6 +639,7 @@ private static VistaFac vFactura=null;
 					{
 						txtResponsableFactura = new JTextField();
 						jPanelContenido.add(txtResponsableFactura);
+						jPanelContenido.add(getJPanelDeudasSocio());
 						txtResponsableFactura.setBounds(116, 15, 330, 23);
 					}
 				}
@@ -643,7 +648,7 @@ private static VistaFac vFactura=null;
 				btnSalir = new JButton();
 				getContentPane().add(btnSalir);
 				btnSalir.setText("Salir");
-				btnSalir.setBounds(613, 666, 79, 32);
+				btnSalir.setBounds(585, 645, 117, 32);
 				//btnSalir.setIcon(new ImageIcon(getClass().getClassLoader().getResource("Imagenes/exit_16x16 (1).png")));
 				btnSalir.setFont(new java.awt.Font("Verdana",0,11));
 				btnSalir.setActionCommand("Salir");
@@ -653,7 +658,7 @@ private static VistaFac vFactura=null;
 				btnCancelar = new JButton();
 				getContentPane().add(btnCancelar);
 				btnCancelar.setText("Cancelar");
-				btnCancelar.setBounds(442, 666, 94, 32);
+				btnCancelar.setBounds(399, 645, 136, 32);
 				btnCancelar.setFont(new java.awt.Font("Verdana",0,11));
 				btnCancelar.setIcon(new ImageIcon(getClass().getClassLoader().getResource("Imagenes/exit.png")));
 				btnCancelar.setActionCommand("Cancelar");
@@ -662,14 +667,14 @@ private static VistaFac vFactura=null;
 				btnProcesar = new JButton();
 				getContentPane().add(btnProcesar);
 				btnProcesar.setText("Procesar");
-				btnProcesar.setBounds(268, 666, 110, 32);
+				btnProcesar.setBounds(200, 645, 145, 32);
 				btnProcesar.setIcon(new ImageIcon(getClass().getClassLoader().getResource("Imagenes/save.png")));
 				btnProcesar.setFont(new java.awt.Font("Verdana",0,11));
 				btnProcesar.setActionCommand("Procesar");
 				
 			}
 			pack();
-			this.setSize(975, 747);
+			this.setSize(975, 727);
 		} catch (Exception e) {
 		    //add your error handling code here
 			e.printStackTrace();
@@ -680,7 +685,7 @@ private static VistaFac vFactura=null;
 		if(lblLogo == null) {
 			lblLogo = new JLabel();
 			lblLogo.setIcon(new ImageIcon(getClass().getClassLoader().getResource("Imagenes/LogoRuta2.jpg")));
-			lblLogo.setBounds(7, 2, 168, 70);
+			lblLogo.setBounds(7, -4, 168, 70);
 		}
 		return lblLogo;
 	}
@@ -1089,7 +1094,7 @@ private static VistaFac vFactura=null;
 		if(checkEfectivo == null) {
 			checkEfectivo = new JCheckBox();
 			checkEfectivo.setText("Efectivo");
-			checkEfectivo.setBounds(20, 36, 99, 20);
+			checkEfectivo.setBounds(17, 23, 116, 11);
 			checkEfectivo.setActionCommand("CheckEfectivo");
 		}
 		return checkEfectivo;
@@ -1099,7 +1104,7 @@ private static VistaFac vFactura=null;
 		if(checkSubsidio == null) {
 			checkSubsidio = new JCheckBox();
 			checkSubsidio.setText("Subsidio");
-			checkSubsidio.setBounds(19, 67, 72, 20);
+			checkSubsidio.setBounds(17, 79, 116, 11);
 			checkSubsidio.setActionCommand("CheckSubsidio");
 		}
 		return checkSubsidio;
@@ -1109,7 +1114,7 @@ private static VistaFac vFactura=null;
 		if(checkDeposito == null) {
 			checkDeposito = new JCheckBox();
 			checkDeposito.setText("Deposito");
-			checkDeposito.setBounds(220, 36, 99, 20);
+			checkDeposito.setBounds(220, 23, 116, 11);
 			checkDeposito.setActionCommand("CheckDeposito");
 		}
 		return checkDeposito;
@@ -1119,7 +1124,7 @@ private static VistaFac vFactura=null;
 		if(checkTransferencia == null) {
 			checkTransferencia = new JCheckBox();
 			checkTransferencia.setText("Transferencia");
-			checkTransferencia.setBounds(17, 125, 105, 20);
+			checkTransferencia.setBounds(17, 50, 116, 11);
 			checkTransferencia.setActionCommand("CheckTransferencia");
 		
 		}
@@ -1130,7 +1135,7 @@ private static VistaFac vFactura=null;
 		if(checkCheque == null) {
 			checkCheque = new JCheckBox();
 			checkCheque.setText("Cheque");
-			checkCheque.setBounds(17, 152, 80, 20);
+			checkCheque.setBounds(220, 50, 116, 11);
 			checkCheque.setActionCommand("CheckCheque");
 			
 		}
@@ -1218,7 +1223,7 @@ private static VistaFac vFactura=null;
 		if(lblTotal == null) {
 			lblTotal = new JLabel();
 			lblTotal.setText("TOTAL:");
-			lblTotal.setBounds(51, 186, 56, 16);
+			lblTotal.setBounds(91, 104, 56, 19);
 			lblTotal.setFont(new java.awt.Font("Segoe UI",1,12));
 		}
 		return lblTotal;
@@ -1236,7 +1241,7 @@ private static VistaFac vFactura=null;
 		if(lblMontoDispo == null) {
 			lblMontoDispo = new JLabel();
 			lblMontoDispo.setText("Monto Disponible:");
-			lblMontoDispo.setBounds(228, 69, 114, 16);
+			lblMontoDispo.setBounds(220, 81, 116, 11);
 		}
 		return lblMontoDispo;
 	}
@@ -1558,10 +1563,48 @@ private static VistaFac vFactura=null;
 	public void setTxtMontoAdeudado(String txtMontoAdeudado) {
 		this.txtMontoAdeudado.setText(txtMontoAdeudado);
 	}
-
-
 	
+	private JPanel getJPanelDeudasSocio() {
+		if(jPanelDeudasSocio == null) {
+			jPanelDeudasSocio = new JPanel();
+			jPanelDeudasSocio.setLayout(null);
+			jPanelDeudasSocio.setBounds(474, 46, 442, 153);
+			jPanelDeudasSocio.setBorder(BorderFactory.createTitledBorder("Deudas"));
+			jPanelDeudasSocio.add(getDeudasSocio());
+			jPanelDeudasSocio.add(getBtnAnnadirDeuda());
+		}
+		return jPanelDeudasSocio;
+	}
 	
+	private JScrollPane getDeudasSocio() {
+		if(deudasSocio == null) {
+			deudasSocio = new JScrollPane();
+			deudasSocio.setBounds(17, 18, 408, 101);
+			deudasSocio.setViewportView(getJTableDeudasPorSocio());
+		}
+		return deudasSocio;
+	}
+	
+	private JButton getBtnAnnadirDeuda() {
+		if(btnAnnadirDeuda == null) {
+			btnAnnadirDeuda = new JButton();
+			btnAnnadirDeuda.setText("Añadir");
+			btnAnnadirDeuda.setIcon(new ImageIcon(getClass().getClassLoader().getResource("Imagenes/add.png")));
+			btnAnnadirDeuda.setBounds(173, 123, 69, 23);
+		}
+		return btnAnnadirDeuda;
+	}
+	
+	private JTable getJTableDeudasPorSocio() {
+		if(jTableDeudasPorSocio == null) {
+			TableModel jTableDeudasPorSocioModel = 
+					new DefaultTableModel(
+							new String[][] { { "", " " }, { "", "" } },
+							new String[] { "Descripción", "Fecha","Monto" });
+			jTableDeudasPorSocio = new JTable();
+			jTableDeudasPorSocio.setModel(jTableDeudasPorSocioModel);
+		}
+		return jTableDeudasPorSocio;
+	}
 
-	
 }
