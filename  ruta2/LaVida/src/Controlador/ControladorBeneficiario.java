@@ -148,6 +148,7 @@ public class ControladorBeneficiario implements ActionListener, KeyListener {
 					for (Beneficiario bene : this.socio.getBeneficiarios()) {
 						bene.setSocio(socio);
 						bene.setStatus("Activo");
+						System.out.println(bene.getApellido());
 						try {
 							if (!benefDao.encontrar(bene.getCedBeneficiario()))
 								benefDao.agregarBeneficiario(bene);

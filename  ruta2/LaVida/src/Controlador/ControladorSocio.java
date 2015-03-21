@@ -180,7 +180,9 @@ public class ControladorSocio implements ActionListener {
 				vSocio.setTxtApellidoSoc(ape);
 				telef = socio.getTelefono();
 				vSocio.setTxtTelefono(telef.toString());
+				
 				tieneavance = socio.isTiene();
+				System.out.println(tieneavance);
 				vSocio.prueba(tieneavance);
 				
 			//	this.cargarListadoDeAvances();
