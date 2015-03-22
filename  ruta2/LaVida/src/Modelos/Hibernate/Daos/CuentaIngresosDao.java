@@ -102,7 +102,7 @@ private HibernateUtil sesionPostgres;
 
 	public CuentaIngresos buscarPorNroCuenta(String nroCuenta) throws Exception {
 		for (CuentaIngresos ctaahorro : obtenerTodos())
-			if (ctaahorro.getNro_cuenta().equals(nroCuenta))
+			if (ctaahorro.getNro_transaccion().equals(nroCuenta))
 				return ctaahorro;
 		return null;
 	}

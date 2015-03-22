@@ -32,6 +32,7 @@ import Modelos.CuentaFondoChoque;
 import Modelos.CuentaIngresos;
 import Modelos.CuentaPrestamos;
 import Modelos.DetalleFactura;
+import Modelos.Deuda;
 import Modelos.Egresos;
 import Modelos.Factura;
 import Modelos.FacturaxFormaPago;
@@ -47,6 +48,7 @@ import Modelos.Hibernate.Daos.CuentaFondoChoqueDao;
 import Modelos.Hibernate.Daos.CuentaIngresosDao;
 import Modelos.Hibernate.Daos.CuentaPrestamosDao;
 import Modelos.Hibernate.Daos.DetalleFacturaDao;
+import Modelos.Hibernate.Daos.DeudaDao;
 import Modelos.Hibernate.Daos.EgresosDao;
 import Modelos.Hibernate.Daos.FacturaDao;
 import Modelos.Hibernate.Daos.FacturaxFormaPagoDao;
@@ -85,9 +87,11 @@ public class ControladorFac implements ActionListener, KeyListener, FocusListene
 	private IngEgrDetalleFactDao IEFDao= new IngEgrDetalleFactDao();
 	private SubsidioDao subDao= new SubsidioDao();
 	private PrestamosDao prestDao= new PrestamosDao();
+	private DeudaDao deudaDao= new DeudaDao();
 	
 	//MODELOS
 	private CuentaPrestamos cuentaPrestamos = new CuentaPrestamos();
+	private CuentaIngresos cuentaIngresos= new CuentaIngresos();
 	private FacturaxFormaPago factFP= new FacturaxFormaPago();
 	private IEDetalleFactura ieDetFac= new IEDetalleFactura();
 	
@@ -99,7 +103,9 @@ public class ControladorFac implements ActionListener, KeyListener, FocusListene
 	private Set<Ingresos> ingresosFactura= new LinkedHashSet<Ingresos>();
 	private Set<Prestamos> prestamosFactura= new LinkedHashSet<Prestamos>();
 	private Set<Egresos> egresosFactura= new LinkedHashSet<Egresos>();
+	private Set<Deuda> deudasFactura=new LinkedHashSet<Deuda>();
 	private List<Prestamos> listPrestamosXSocio= new ArrayList<Prestamos>();
+	private List<Deuda> listDeudasXSocio= new ArrayList<Deuda>();
 	
 	
 	 List<FormaPago> list= new ArrayList<>();
@@ -155,6 +161,7 @@ public class ControladorFac implements ActionListener, KeyListener, FocusListene
 					this.BuscarSocioPorNro();
 					this.BuscarSubsidio(vFactura.getTxtNroSocio());
 					this.BuscarPrestamos(vFactura.getTxtNroSocio());
+					this.BuscarDeudas();
 				} catch (Exception e) {
 					// TODO Auto-generated catch block
 					e.printStackTrace();
@@ -215,6 +222,8 @@ public class ControladorFac implements ActionListener, KeyListener, FocusListene
 				e.printStackTrace();
 			}
 			
+		}else if(ae.getActionCommand().equalsIgnoreCase("annadirDeuda")){
+			this.agregarElemento();
 		}
 					
 		
@@ -296,7 +305,7 @@ public class ControladorFac implements ActionListener, KeyListener, FocusListene
 			try {
 				if(vFactura.getTxtNroSocio()!=null)
 					socio = socioDao.buscarPorNroSocio(vFactura.getTxtNroSocio().trim());
-
+					
 			} catch (Exception e1) {
 				// TODO Auto-generated catch block
 				e1.printStackTrace();
@@ -312,6 +321,16 @@ public class ControladorFac implements ActionListener, KeyListener, FocusListene
 	//PARA AÑADIR UN INGRESO o EGRESO A LA LISTA
 	public void agregarElemento(){
 	
+		
+		Deuda d= new Deuda();	
+		try {
+			d=deudaDao.buscarPorCodDeuda(vFactura.agregarDeuda());
+			vFactura.agregarFilaIngresos(d.getCodigo(), d.getDescripcion(), String.valueOf(d.getMonto()), "Ingresos", "0");	
+		} catch (Exception e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		
 		if(vFactura.getCmbTipoFactu().equals(vFactura.TIPO_DE_FACTURA_INGRESOS))
 		{
 			Ingresos ing= new Ingresos();
@@ -699,7 +718,7 @@ public boolean comprobarMonto(){
 					 cuentaIngresos.setFecha(new Date(System.currentTimeMillis()));
 					 cuentaIngresos.setMontoTransaccion(Float.valueOf(ruta) * -1);
 					 cuentaIngresos.setStatus("A");	
-					 cuentaIngresos.setNro_cuenta(cuentaIngresosDao.buscarUltimoNumeroTramsaccionCuentaIngresos());
+					 cuentaIngresos.setNro_transaccion(cuentaIngresosDao.buscarUltimoNumeroTramsaccionCuentaIngresos());
 					 cuentaIngresos.setTipo("GASTO");
 					 cuentaIngresosDao.agregarTransaccion(cuentaIngresos); 
 				   }
@@ -804,9 +823,11 @@ public boolean comprobarMonto(){
 		 
 				List<Float> monto= new ArrayList<>();
 				List<Float> montoPrestamos= new ArrayList<Float>();
-				 Ingresos ingreso = new Ingresos();
-				  List<Integer> cantidad= new ArrayList<Integer>();
-				  String tipo="";
+				//List<Float>montoDeudas=new ArrayList<Float>();
+				
+				Ingresos ingreso = new Ingresos();
+				List<Integer> cantidad= new ArrayList<Integer>();
+				String tipo="";
 				
 				 for(int i=0; i<lista.getRowCount(); i++) //recorro las filas
 				 {
@@ -826,6 +847,9 @@ public boolean comprobarMonto(){
 								tipo="P";
 								prest=prestDao.buscarPorCodigoPrestamo(lista.getValueAt(i, a).toString());
 								prestamosFactura.add(prest);							
+							}else if(lista.getValueAt(i, a).toString().charAt(0)=='D'){
+								tipo="D";
+								deudasFactura.add(deudaDao.buscarPorCodDeuda(lista.getValueAt(i, a).toString()));
 							}
 						}
 						else if(a==1){
@@ -858,7 +882,7 @@ public boolean comprobarMonto(){
 							ingresosFactura.add(in);
 							monto.add(ingresosFactura.size()-1, montoIng);	
 							cantidad.add(ingresosFactura.size()-1, cant);
-					}else 
+					}else if(tipo=="P")
 							{
 								montoPrestamos.add(prestamosFactura.size()-1,montoPrest);
 							}
@@ -923,6 +947,26 @@ public boolean comprobarMonto(){
 						 System.out.println("araaay prest");
 					}
 				}
+				 
+				 System.out.println("Deudaaasss facturaaaa  "+deudasFactura.size());
+				 if(deudasFactura.size()>0){
+					 Object[] arrayDeudas= deudasFactura.toArray();
+					 for(int i=0;i<arrayDeudas.length; i++){
+						 Deuda deuda= (Deuda) arrayDeudas[i];
+						 cuentaIngresos = new CuentaIngresos();
+						 cuentaIngresos.setDescripTransac(deuda.getDescripcion());
+						 cuentaIngresos.setFactura(facturaDao.obtenerFactura(factura.getNroFactura()));
+						 cuentaIngresos.setFecha(new Date(System.currentTimeMillis()));
+						 cuentaIngresos.setMontoTransaccion(deuda.getMonto());
+						 cuentaIngresos.setNro_transaccion(cuentaIngresosDao.buscarUltimoNumeroTramsaccionCuentaIngresos());
+						 cuentaIngresos.setStatus("C");
+						 cuentaIngresos.setTipo("Ingresos");
+						 
+						 cuentaIngresosDao.agregarTransaccion(cuentaIngresos);
+						 deuda.setStatus("C");
+						 deudaDao.actualizarDeuda(deuda);
+					 }
+				 }
 				 		 
 				 if(clasificacion.equalsIgnoreCase(Ingresos.TIPO_INGRESO_ALQUILER))
 				 {
@@ -956,7 +1000,7 @@ public boolean comprobarMonto(){
 					 cuentaIngresos.setMontoTransaccion(Float.valueOf(ruta));
 					// cuentaIngresos.setMontoTransaccion(Float.valueOf(montoString));
 					 cuentaIngresos.setStatus("A");	
-					 cuentaIngresos.setNro_cuenta(cuentaIngresosDao.buscarUltimoNumeroTramsaccionCuentaIngresos());
+					 cuentaIngresos.setNro_transaccion(cuentaIngresosDao.buscarUltimoNumeroTramsaccionCuentaIngresos());
 					 cuentaIngresos.setTipo("GASTO");
 					 cuentaIngresosDao.agregarTransaccion(cuentaIngresos);
 					 
@@ -991,6 +1035,7 @@ public boolean comprobarMonto(){
 			 valorMensaje="Se ha producido un Error al Guardar Detalle de la Factura";
 		 }	
 
+		 vFactura.limpiarTodo();
 		return factura.getNroFactura();
 		
 	}
@@ -1040,6 +1085,21 @@ public boolean comprobarMonto(){
 			}
 		}
 	}
+	
+	public void BuscarDeudas(){
+		
+		List<Deuda> deudasSocio=deudaDao.obtenerDeudasActivasPorSocio(vFactura.getTxtNroSocio());
+		if(deudasSocio.size()>0)
+		{
+			for(int i=0;i<deudasSocio.size();i++){
+				Deuda d= new Deuda();
+				d=deudasSocio.get(i);
+				vFactura.agregarFilaDeudas(d.getCodigo(),d.getDescripcion(),d.getFecha().toString() ,Float.toString(d.getMonto()));
+			}
+		}
+	}
+	
+
 	
 	public Prestamos AnnadirPrestamos(){
 		Prestamos prestamo= new Prestamos();

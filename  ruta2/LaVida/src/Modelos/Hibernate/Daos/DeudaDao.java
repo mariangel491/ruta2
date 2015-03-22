@@ -14,7 +14,7 @@ public class DeudaDao {
 private HibernateUtil sesionPostgres;
 	
 	
-	public void agregarEgresos(Deuda dato) throws Exception{
+	public void agregarDeuda(Deuda dato) throws Exception{
 		@SuppressWarnings("static-access")
 		Session em = sesionPostgres.openSession();  
 		Transaction tx = null;  
@@ -31,7 +31,7 @@ private HibernateUtil sesionPostgres;
 		} 
 	}
 
-	public Deuda obtenerEgresos(int id) throws Exception{		 
+	public Deuda obtenerDeuda(int id) throws Exception{		 
 		@SuppressWarnings("static-access")
 		Session sesion = sesionPostgres.openSession();  
 	    Deuda dato = null;        
@@ -49,7 +49,7 @@ private HibernateUtil sesionPostgres;
 	}
 
 
-	public void eliminarEgresos(int posi, Deuda dato) throws Exception{		 
+	public void eliminarDeuda(Deuda dato) throws Exception{		 
 		@SuppressWarnings("static-access")
 		Session sesion = sesionPostgres.openSession();  
 		Transaction tx = null;  
@@ -67,7 +67,7 @@ private HibernateUtil sesionPostgres;
 		}  
 	}
 
-	public void actualizarEgresos(int posi, Deuda dato) throws Exception{
+	public void actualizarDeuda(Deuda dato) throws Exception{
 		@SuppressWarnings("static-access")
 		Session em = sesionPostgres.openSession();  
 		Transaction tx = null;  
@@ -100,7 +100,26 @@ private HibernateUtil sesionPostgres;
 		return datos; 
 	}	
 	
-	public Deuda buscarPorCodEgreso(String codDeuda) throws Exception {
+	public List<Deuda> obtenerDeudasActivasPorSocio(String nroSocio){
+		List<Deuda> datos = new ArrayList<Deuda>();  
+		Session em = sesionPostgres.openSession();  	
+		try {  	
+			for(int i=0;i<this.obtenerTodos().size(); i++) {
+				if(this.obtenerTodos().get(i).getSocio().getNroSocio().equals(nroSocio)){
+					if(this.obtenerTodos().get(i).getStatus().equals('A'))
+						datos.add(this.obtenerTodos().get(i));
+				}
+			}          
+		} catch (Exception e) {             
+
+		} finally {  
+			em.close();  
+		} 
+   
+		return datos; 
+	}
+	
+	public Deuda buscarPorCodDeuda(String codDeuda) throws Exception {
 		for (Deuda deuda : obtenerTodos())
 			if (deuda.getCodigo().equals(codDeuda))
 				return deuda;
@@ -108,7 +127,7 @@ private HibernateUtil sesionPostgres;
 	}
 
 	public boolean encontrar(String codDeuda) throws Exception {
-		if (buscarPorCodEgreso(codDeuda) == null)
+		if (buscarPorCodDeuda(codDeuda) == null)
 			return false;
 		return true;
 	}

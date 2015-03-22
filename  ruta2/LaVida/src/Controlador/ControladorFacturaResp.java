@@ -596,7 +596,7 @@ public String guardarFacturaEgreso(String tipoFacturado, String campoId, String 
 				 cuentaIngresos.setFecha(new Date(System.currentTimeMillis()));
 				 cuentaIngresos.setMontoTransaccion(Float.valueOf(ruta) * -1);
 				 cuentaIngresos.setStatus("A");	
-				 cuentaIngresos.setNro_cuenta(cuentaIngresosDao.buscarUltimoNumeroTramsaccionCuentaIngresos());
+				 cuentaIngresos.setNro_transaccion(cuentaIngresosDao.buscarUltimoNumeroTramsaccionCuentaIngresos());
 				 cuentaIngresos.setTipo("GASTO");
 				 cuentaIngresosDao.agregarTransaccion(cuentaIngresos); 
 			   }
@@ -808,7 +808,7 @@ public String guardarFacturaIngreso(String tipoFacturado, String campoId, String
 				 cuentaIngresos.setMontoTransaccion(Float.valueOf(ruta));
 				// cuentaIngresos.setMontoTransaccion(Float.valueOf(montoString));
 				 cuentaIngresos.setStatus("A");	
-				 cuentaIngresos.setNro_cuenta(cuentaIngresosDao.buscarUltimoNumeroTramsaccionCuentaIngresos());
+				 cuentaIngresos.setNro_transaccion(cuentaIngresosDao.buscarUltimoNumeroTramsaccionCuentaIngresos());
 				 cuentaIngresos.setTipo("GASTO");
 				 cuentaIngresosDao.agregarTransaccion(cuentaIngresos);
 				 

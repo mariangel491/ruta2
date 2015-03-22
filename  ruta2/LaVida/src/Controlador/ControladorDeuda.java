@@ -215,7 +215,7 @@ for ( int i =  0 ; i < model . getRowCount (); i ++)  {
 							deuda.setDescripcion(ing.getDescripcion());
 							deuda.setStatus("A");
 							
-							deudaDao.agregarEgresos(deuda);
+							deudaDao.agregarDeuda(deuda);
 							this.DeudaConductorSoc(socio);
 						cont++;
 					}
@@ -240,7 +240,7 @@ for ( int i =  0 ; i < model . getRowCount (); i ++)  {
 					deuda.setDescripcion(ing.getDescripcion());
 					deuda.setStatus("A");
 					
-					deudaDao.agregarEgresos(deuda);
+					deudaDao.agregarDeuda(deuda);
 			
 		} catch (Exception e) {
 			// TODO Auto-generated catch block
