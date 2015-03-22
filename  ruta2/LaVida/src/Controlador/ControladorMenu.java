@@ -136,6 +136,7 @@ public class ControladorMenu implements ActionListener{
 		}
 		else if (ae.getActionCommand().equalsIgnoreCase("Deuda"))
 	    {
+			System.out.println("deudaaaaa");
 	        deuda = new ControladorDeuda();
 		}
 		else if (ae.getActionCommand().equalsIgnoreCase("Socio"))

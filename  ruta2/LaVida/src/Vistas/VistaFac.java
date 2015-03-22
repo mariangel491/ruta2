@@ -1550,7 +1550,10 @@ private static VistaFac vFactura=null;
 	public String agregarDeuda(){
 		filaDeudaSelec="";
 		 int f=jTableDeudasPorSocio.getSelectionModel().getLeadSelectionIndex();
-		 return filaDeudaSelec= (String) this.jTableDeudasPorSocio.getValueAt(f,0);
+		 if(f>0)
+			 return filaDeudaSelec= (String) this.jTableDeudasPorSocio.getValueAt(f,0);
+		 else
+			 return null;
 		
 	}
 	
@@ -1600,7 +1603,7 @@ private static VistaFac vFactura=null;
 			btnAnnadirDeuda = new JButton();
 			btnAnnadirDeuda.setText("Añadir");
 			btnAnnadirDeuda.setIcon(new ImageIcon(getClass().getClassLoader().getResource("Imagenes/add.png")));
-			btnAnnadirDeuda.setBounds(173, 123, 69, 28);
+			btnAnnadirDeuda.setBounds(173, 123, 110, 28);
 			btnAnnadirDeuda.setActionCommand("annadirDeuda");
 		}
 		return btnAnnadirDeuda;

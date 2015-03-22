@@ -27,8 +27,10 @@ import com.sun.xml.internal.bind.v2.runtime.unmarshaller.XsiNilLoader.Array;
 
 import Modelos.Arrendatario;
 import Modelos.Avance;
+import Modelos.Caja;
 import Modelos.CuentaAlquiler;
 import Modelos.CuentaFondoChoque;
+import Modelos.CuentaGeneral;
 import Modelos.CuentaIngresos;
 import Modelos.CuentaPrestamos;
 import Modelos.DetalleFactura;
@@ -43,6 +45,7 @@ import Modelos.Inquilino;
 import Modelos.Prestamos;
 import Modelos.Socio;
 import Modelos.Hibernate.Daos.ArrendatarioDao;
+import Modelos.Hibernate.Daos.CajaDao;
 import Modelos.Hibernate.Daos.CuentaAlquilerDao;
 import Modelos.Hibernate.Daos.CuentaFondoChoqueDao;
 import Modelos.Hibernate.Daos.CuentaIngresosDao;
@@ -82,18 +85,21 @@ public class ControladorFac implements ActionListener, KeyListener, FocusListene
 	private CuentaFondoChoqueDao cuentaFondoChoqueDao = new CuentaFondoChoqueDao();
 	private CuentaIngresosDao cuentaIngresosDao = new CuentaIngresosDao();
 	private CuentaPrestamosDao cuentaPrestamosDao = new CuentaPrestamosDao();
+	//private CuentaGeneralDao cuentaGralDao= new CuentaGeneral();
 	private FormaPagoDao formaPagoDao = new FormaPagoDao();
 	private FacturaxFormaPagoDao factFPDao= new FacturaxFormaPagoDao();
 	private IngEgrDetalleFactDao IEFDao= new IngEgrDetalleFactDao();
 	private SubsidioDao subDao= new SubsidioDao();
 	private PrestamosDao prestDao= new PrestamosDao();
 	private DeudaDao deudaDao= new DeudaDao();
+	private CajaDao cajaDao= new CajaDao();
 	
 	//MODELOS
 	private CuentaPrestamos cuentaPrestamos = new CuentaPrestamos();
 	private CuentaIngresos cuentaIngresos= new CuentaIngresos();
 	private FacturaxFormaPago factFP= new FacturaxFormaPago();
 	private IEDetalleFactura ieDetFac= new IEDetalleFactura();
+	private Caja caja= new Caja();
 	
 	
 	//LISTAS
@@ -324,8 +330,12 @@ public class ControladorFac implements ActionListener, KeyListener, FocusListene
 		
 		Deuda d= new Deuda();	
 		try {
-			d=deudaDao.buscarPorCodDeuda(vFactura.agregarDeuda());
-			vFactura.agregarFilaIngresos(d.getCodigo(), d.getDescripcion(), String.valueOf(d.getMonto()), "Ingresos", "0");	
+			if(vFactura.agregarDeuda()!=null){
+				d=deudaDao.buscarPorCodDeuda(vFactura.agregarDeuda());
+				vFactura.agregarFilaIngresos(d.getCodigo(), d.getDescripcion(), 
+											String.valueOf(d.getMonto()), "Ingresos", "0");	
+			}
+			
 		} catch (Exception e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
@@ -603,8 +613,11 @@ public boolean comprobarMonto(){
 						 factFP.setMonto(montoCheque);
 					 if(nom.equals("Deposito"))
 						factFP.setMonto(montDep);
-					 if(nom.equals("Efectivo"))
+					 if(nom.equals("Efectivo")){
 						 factFP.setMonto(montoEf);
+						 
+					 }
+						 
 					 if(nom.equals("Subsidio"))	
 						factFP.setMonto(montoSub);
 					 if(nom.equals("Transferencia"))
@@ -810,8 +823,16 @@ public boolean comprobarMonto(){
 						 factFP.setMonto(montoCheque);
 					 if(nom.equals("Deposito"))
 						factFP.setMonto(montDep);
-					 if(nom.equals("Efectivo"))
+					 if(nom.equals("Efectivo")){
 						 factFP.setMonto(montoEf);
+						 caja.setFactura(facturaDao.obtenerFactura(factura.getNroFactura()));
+						 caja.setFecha(new Date(System.currentTimeMillis()));
+						 caja.setMontoTransaccion(montoEf);
+						 caja.setNro_cuenta(cajaDao.buscarUltimoNumeroTramsaccionCaja());
+						 caja.setStatus("ND");
+						 cajaDao.agregarTransaccion(caja);
+					 }
+						
 					 if(nom.equals("Subsidio"))	
 						factFP.setMonto(montoSub);
 					 if(nom.equals("Transferencia"))

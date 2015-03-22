@@ -8,6 +8,7 @@ import org.hibernate.Transaction;
 
 import Modelos.Caja;
 import Modelos.Hibernate.Config.HibernateUtil;
+import Utilidades.Utilidades;
 
 public class CajaDao {
 		
@@ -99,5 +100,27 @@ public class CajaDao {
 		        return datos; 
 			}
 
+			public String buscarUltimoNumeroTramsaccionCaja() {
+				// TODO Auto-generated method stub
+				Integer nrotransaccion = new Integer(0);
+				Session em = sesionPostgres.openSession();  
+				String sqlQuery = "select 1 + cast(max(nrotransaccion) as integer) from caja";
+
+				try {
+					List<Integer> lista =   em.createSQLQuery(sqlQuery).list(); 
+					if(null != lista.get(0)){
+						nrotransaccion = lista.get(0);
+					}
+					else{
+						nrotransaccion=1;
+					}
+
+				} catch (Exception e) {
+					// TODO: handle exception
+
+				}
+
+				return Utilidades.completar(nrotransaccion.toString(),"0", 10,true);
+			}
 
 }

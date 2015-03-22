@@ -99,7 +99,7 @@ for ( int i =  0 ; i < model . getRowCount (); i ++)  {
     if (( Boolean ) model . getValueAt ( i ,  0 ))  { 
         // eliminar la fila 
      } 
-}*/
+}*//*
 	
 	public int ValidarMesSig(){
 		Date fecha = new Date();
@@ -118,8 +118,8 @@ for ( int i =  0 ; i < model . getRowCount (); i ++)  {
 		}else
 			return fecha.getMonth()-1;
 	}
-	
-	public Deuda guardarDeuda(Date fecha, float monto, Socio socio, String codigo, String descrip, String status){
+	*/
+	/*public Deuda guardarDeuda(Date fecha, float monto, Socio socio, String codigo, String descrip, String status){
 		Deuda deuda= new Deuda();
 		deuda.setFecha(fecha);
 		deuda.setMonto(monto);
@@ -129,7 +129,7 @@ for ( int i =  0 ; i < model . getRowCount (); i ++)  {
 		deuda.setStatus(status);
 		System.out.println(fecha.toString()+socio.getApellido()+codigo+ descrip+status);
 		return deuda;
-	}
+	}*/
 	
 	public String GenerarCodigoDeuda(){
 		
@@ -162,8 +162,8 @@ for ( int i =  0 ; i < model . getRowCount (); i ++)  {
 		try {
 				if(deudaDao.obtenerTodos().size()==1)
 				mayor= deudaDao.obtenerTodos().get(0).getFecha().getMonth();
-			else{
-				cant=deudaDao.obtenerTodos().size();
+				else{
+					cant=deudaDao.obtenerTodos().size();
 				for(int i=0; i<cant;i++)
 				{
 						mes=deudaDao.obtenerTodos().get(i).getFecha().getMonth();
@@ -177,6 +177,36 @@ for ( int i =  0 ; i < model . getRowCount (); i ++)  {
 						mayor=otroMes;
 					else
 						mayor=mes;	
+				}
+				return mayor;
+			}	
+		} catch (Exception e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}	
+		return mayor;
+	}
+	
+	public int mayorAnno(){
+		int mayor=0, anno,otroAnno, cant;
+		try {
+				if(deudaDao.obtenerTodos().size()==1)
+				mayor= deudaDao.obtenerTodos().get(0).getFecha().getYear();
+				else{
+					cant=deudaDao.obtenerTodos().size();
+				for(int i=0; i<cant;i++)
+				{
+						anno=deudaDao.obtenerTodos().get(i).getFecha().getYear();
+						if(i+1<cant)
+							otroAnno= deudaDao.obtenerTodos().get(i+1).getFecha().getYear();
+						else
+							otroAnno=deudaDao.obtenerTodos().get(i).getFecha().getMonth();
+					if(anno>otroAnno)
+						 mayor=anno;
+					else if(anno<otroAnno)
+						mayor=otroAnno;
+					else
+						mayor=anno;	
 				}
 				return mayor;
 			}	
@@ -204,21 +234,25 @@ for ( int i =  0 ; i < model . getRowCount (); i ++)  {
 		System.out.println("mayor mes: "+this.mayorMes());
 		if(fecha.getMonth()>this.mayorMes())
 		{	
-					while(cont<fin){
-						Socio socio=new Socio();
-						socio=socioDao.obtenerTodos().get(cont);
+			if(fecha.getYear()>=this.mayorAnno())
+			{
+				while(cont<fin){
+					Socio socio=new Socio();
+					socio=socioDao.obtenerTodos().get(cont);
+					
+						deuda.setFecha(fecha);
+						deuda.setMonto(ing.getMonto());
+						deuda.setSocio(socio);
+						deuda.setCodigo(this.GenerarCodigoDeuda());
+						deuda.setDescripcion(ing.getDescripcion());
+						deuda.setStatus("A");
 						
-							deuda.setFecha(fecha);
-							deuda.setMonto(ing.getMonto());
-							deuda.setSocio(socio);
-							deuda.setCodigo(this.GenerarCodigoDeuda());
-							deuda.setDescripcion(ing.getDescripcion());
-							deuda.setStatus("A");
-							
-							deudaDao.agregarDeuda(deuda);
-							this.DeudaConductorSoc(socio);
-						cont++;
-					}
+						deudaDao.agregarDeuda(deuda);
+						this.DeudaConductorSoc(socio);
+					cont++;
+				}
+			}
+					
 		}		
 		} catch (Exception e) {
 			// TODO Auto-generated catch block

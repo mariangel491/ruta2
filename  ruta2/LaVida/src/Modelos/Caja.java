@@ -71,14 +71,7 @@ public class Caja {
 		this.status = status;
 	}
 
-	public CuentaGeneral getCtaGeneral() {
-		return ctaGeneral;
-	}
-
-	public void setCtaGeneral(CuentaGeneral ctaGeneral) {
-		this.ctaGeneral = ctaGeneral;
-	}
-
+	
 	public Factura getFactura() {
 		return factura;
 	}

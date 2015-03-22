@@ -241,7 +241,8 @@ public class mnuPrincipal extends javax.swing.JFrame {
 					{
 						jMenuItem1 = new JMenuItem();
 						Registrar.add(jMenuItem1);
-						jMenuItem1.setText("Facturación");
+						jMenuItem1.setText("Deuda");
+						jMenuItem1.setActionCommand("Deuda");
 					}
 				}
 				{
@@ -313,6 +314,7 @@ public class mnuPrincipal extends javax.swing.JFrame {
 		 this.btnRuta.addActionListener(evento);
 		 this.jButton1.addActionListener(evento);
 		 this.jButton2.addActionListener(evento);
+		 this.jMenuItem1.addActionListener(evento);
 	}
 
 }
