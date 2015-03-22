@@ -72,6 +72,7 @@ public class ControladorVehiculo implements ActionListener {
 		try {
 			vVehiculo.LlenarComboMarca();
 			
+			
 		} catch (Exception e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
@@ -109,7 +110,7 @@ public class ControladorVehiculo implements ActionListener {
 			vVehiculo.setTxtNomSocio(va.llenarNombre());
 			listaAvancesSocio= va.LlenarListaAvances();
 			
-			System.out.println("lista socios "+ listaAvancesSocio.size());
+			System.out.println("lista avances socios "+ listaAvancesSocio.size());
 			
 			for(int i=0; i<va.LlenarListaAvances().size();i++)
 			{
@@ -420,10 +421,11 @@ public ControladorVehiculo(VistaAvanceArren vaa) {
 				codigo = socio.getNroSocio();
 				vVehiculo.setTxtNroSocio(codigo);
 
-				nombre = socio.getNombre();
+				nombre = socio.getNombre() + " " + socio.getApellido();
 				vVehiculo.setTxtNomSocio(nombre);
 				
 				this.obtenerVehiculos();
+				vVehiculo.OcultarListado(this.obtenerVehiculos());	
 				this.comboAvance();
 				
 			} else
@@ -433,15 +435,17 @@ public ControladorVehiculo(VistaAvanceArren vaa) {
 	
 	
 	
-	public void BuscarAvances() throws Exception {
+	public void BuscarAvances(String ava) throws Exception {
 		
 		Avance avan = new Avance();
-		
-		
+		System.out.println("esta llamando al metodo");
+		System.out.println(vVehiculo.getTxtNroSocio());
 		if (avanceDao.encontrarCod(vVehiculo.getTxtNroSocio())) {
 			avan = avanceDao.buscarPorCodSocio(vVehiculo.getTxtNroSocio());
+			System.out.println(avan.getApellido());
 			
-			vVehiculo.setCmbConductor(Integer.parseInt(avan.getNombre()+avan.getApellido()));
+			vVehiculo.setCmbConductor(avan.getNombre() +" "+ avan.getApellido());
+			System.out.println(avan.getNombre()+avan.getApellido());
 			
 		}
 	}
@@ -467,7 +471,7 @@ public ControladorVehiculo(VistaAvanceArren vaa) {
 				String placa;
 				String serial;
 				Marca marca;
-				Integer año;
+				Integer año, nropuestos;
 				String avance;
 				
 
@@ -480,13 +484,17 @@ public ControladorVehiculo(VistaAvanceArren vaa) {
 				vVehiculo.setTxtPlaca(placa);
 				serial = vehiculo.getSerialCarroceria();
 				vVehiculo.setTxtSerial(serial);
-				marca = vehiculo.getCodMarca();
-				vVehiculo.setCmbMarca(Integer.parseInt(marca.getCodMarca()));
+				marca = vehiculo.getMarca();
+				vVehiculo.setCmbMarcaP(marca.getDescripcion());
 				año = vehiculo.getAnno();
 				vVehiculo.setTxtAnno(año.toString());
-				//avance = vehiculo.getAvance();
+				nropuestos = vehiculo.getNropuestos();
+				vVehiculo.setNroPuestos(nropuestos.toString());
+				avance = vehiculo.getAvance();
+				System.out.println(avance);
+				//vVehiculo.setCmbConductorP(avance);
 				
-				this.BuscarAvances();
+				this.BuscarAvances(avance);
 			//	vVehiculo.eliminarConductores();
 				
 				//vVehiculo.setCmbConductor(Integer.parseInt(avance.getNombre()+avance.getApellido()));
@@ -505,19 +513,28 @@ public ControladorVehiculo(VistaAvanceArren vaa) {
 			String placa = vVehiculo.getTxtPlaca();
 			String serial = vVehiculo.getTxtSerial();
 			int marca = vVehiculo.getCmbMarca();
-			Integer año = Integer.parseInt(vVehiculo.getTxtAnno());
+			int año = Integer.parseInt(vVehiculo.getTxtAnno());
 		//	int avance = vVehiculo.getCmbConductorInt();
-			Integer cant_puestos= Integer.parseInt(vVehiculo.getNroPuestos());
+			int cant_puestos= Integer.parseInt(vVehiculo.getNroPuestos());
 			String avanceprueba= vVehiculo.getCmbConductor();
 			
 			Vehiculo vehiculo = new Vehiculo();
 			vehiculo.setPlaca(placa);
 			vehiculo.setSerialCarroceria(serial);
-			vehiculo.setCodMarca(marcaDao.obtenerTodos().get(marca));
+			vehiculo.setMarca(marcaDao.obtenerTodos().get(marca));
 			vehiculo.setAnno(año);
 			vehiculo.setNropuestos(cant_puestos);
+			
+/*			System.out.println("avance  " +avanceprueba);
+			for(int l=0; l<this.listaAvancesSocio.size();l++){	
+					if(avanceprueba.equals(this.listaAvancesSocio.get(l).getNombre()+" "+
+					    this.listaAvancesSocio.get(l).getApellido()))
+							vehiculo.setAvance(this.listaAvancesSocio.get(l).getCodAvance());*/
 						
+			
+			//este metodo es de prueba...
 			System.out.println("avance  " +avanceprueba);
+			System.out.println(listaAvancesSocio.size());
 			for(int l=0; l<this.listaAvancesSocio.size();l++){	
 					if(avanceprueba.equals(this.listaAvancesSocio.get(l).getNombre()+" "+
 					    this.listaAvancesSocio.get(l).getApellido()))
@@ -591,14 +608,14 @@ public ControladorVehiculo(VistaAvanceArren vaa) {
 				//this.avanceNombre(vehiculos, i);
 				String placa = vehiculos.get(i).getPlaca();
 				String serial = vehiculos.get(i).getSerialCarroceria();
-				String marca = vehiculos.get(i).getCodMarca().getDescripcion().toString();
+				String marca = vehiculos.get(i).getMarca().getDescripcion().toString();
 				Integer año = vehiculos.get(i).getAnno();
 				Integer nropstos= vehiculos.get(i).getNropuestos();
 			//	String avance = vehiculos.get(i).getAvance();
 					
 				//System.out.println(avance);
 			String avance= this.traerNombreyApe(vehiculos, i);
-				//		vVehiculo.getCmbConductor();
+						//vVehiculo.getCmbConductor();
 					
 				//	String avance = vehiculos.get(i).getNombre()+" "+vehiculos.get(i).getAvance().getApellido();
 				
@@ -636,13 +653,6 @@ public ControladorVehiculo(VistaAvanceArren vaa) {
 		for(int i = 0; i < vehiculoDao.obtenerTodos().size(); i++)
 			if(vehiculoDao.obtenerTodos().get(i).getSocio().getNroSocio().equals(vVehiculo.getTxtNroSocio()))
 					listado.add(vehiculoDao.obtenerTodos().get(i));
-			
-		/*	else {
-					if(vehiculoDao.obtenerTodos().get(i).getSocio().getNroSocio().equals("null")
-							&&encontrarAvanceSocio()==true){
-						listado.add(vehiculoDao.obtenerTodos().get(i));	
-					}
-				}*/
 		
 		socio.setVehiculos(listado);
 		this.cargarListadoDeVehiculos();
@@ -950,13 +960,13 @@ public ControladorVehiculo(VistaAvanceArren vaa) {
 					vVehiculo.setTxtPlaca(placa);
 					serial = vehiculo.getSerialCarroceria();
 					vVehiculo.setTxtSerial(serial);
-					marca = vehiculo.getCodMarca();
+					marca = vehiculo.getMarca();
 					vVehiculo.setCmbMarca(Integer.parseInt(marca.getCodMarca()));
 					año = vehiculo.getAnno();
 					vVehiculo.setTxtAnno(año.toString());
 					//avance = vehiculo.getAvance();
 					
-					this.BuscarAvances();
+				//	this.BuscarAvances();
 				//	vVehiculo.eliminarConductores();
 					
 					//vVehiculo.setCmbConductor(Integer.parseInt(avance.getNombre()+avance.getApellido()));
@@ -985,9 +995,9 @@ public ControladorVehiculo(VistaAvanceArren vaa) {
 				String placa = vVehiculo.getTxtPlaca();
 				String serial = vVehiculo.getTxtSerial();
 				int marca = vVehiculo.getCmbMarca();
-				Integer año = Integer.parseInt(vVehiculo.getTxtAnno());
+				int año = Integer.parseInt(vVehiculo.getTxtAnno());
 			//	int avance = vVehiculo.getCmbConductorInt();
-				Integer cant_puestos= Integer.parseInt(vVehiculo.getNroPuestos());
+				int cant_puestos= Integer.parseInt(vVehiculo.getNroPuestos());
 				String avanceprueba= vVehiculo.getCmbConductor();
 				
 				VehiculoArrendatario vehiculo = new VehiculoArrendatario();

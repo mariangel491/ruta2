@@ -427,6 +427,7 @@ private static VistaVehiculo vVehic=null;
 		this.cmbMarca = cmbMarca;
 	}
 	
+	
 	public String getNroPuestos(){
 		return this.txtNroPuestos.getText();
 	}
@@ -582,12 +583,25 @@ private static VistaVehiculo vVehic=null;
 	
 		//**Retorna la marca del vehiculo*//*
 	    public int getCmbMarca(){
-	    	return cmbMarca.getSelectedIndex();
+	    	return cmbMarca.getSelectedIndex()-1;
 	    }
 	    //**Asigna la marca del vehiculo*//*
 	    public void setCmbMarca(int i){
 	    	cmbMarca.setSelectedIndex(i);
 	    }
+	    
+	    public void setCmbMarcaP(String marca) {
+	    	cmbMarca.setSelectedItem(marca);
+	    	//cmbConductor.setSelectedItem(marca);
+	    }
+	    
+	    public void setCmbConductorP(String conductor) {
+	    	System.out.println("cmb"+conductor);
+	    	cmbConductor.setSelectedItem(conductor);
+	    	System.out.println(cmbConductor.getSelectedItem());
+	    }
+	  
+	    
 	    //**Retorna el conductor*//*
 	    public String getCmbConductor(){
 	    	return cmbConductor.getSelectedItem().toString();
@@ -597,7 +611,7 @@ private static VistaVehiculo vVehic=null;
 	    	return cmbConductor.getSelectedIndex();
 	    }
 	    public void setCmbConductor(int i){
-	    	cmbMarca.setSelectedIndex(i);
+	    	cmbConductor.setSelectedIndex(i);
 	    }
 	 
 	    public void eliminarConductorCombo(){
@@ -661,7 +675,7 @@ private static VistaVehiculo vVehic=null;
 			vehiculo.add(placa);
 			vehiculo.add(serial);
 			vehiculo.add(marca);
-			vehiculo.add(año.toString());
+			vehiculo.add(año);
 			vehiculo.add(nroPuestos);
 			vehiculo.add(avance);
 			//this.eliminarConductorCombo();
@@ -706,7 +720,7 @@ private static VistaVehiculo vVehic=null;
 						{
 							//if(veh.getCodMarca().getDescripcion().equals(marca))
 							if(md.obtenerTodos().get(j).getDescripcion().equalsIgnoreCase(marca))
-								veh.setCodMarca(md.obtenerTodos().get(j));
+								veh.setMarca(md.obtenerTodos().get(j));
 						}
 					} catch (Exception e) {
 						// TODO Auto-generated catch block

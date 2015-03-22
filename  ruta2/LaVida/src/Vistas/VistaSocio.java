@@ -548,7 +548,7 @@ private static VistaSocio vSocio=null;
 		soc.setDireccion(getTxtdirecSocio());
 		soc.setFechaIngreso(f);
 		soc.setNombre(getTxtnomSocio());
-		soc.setTelefono(Integer.parseInt(getTxttelefono()));
+		soc.setTelefono(getTxttelefono());
 		soc.setMontoAhorro(0);
 		
 		if(this.Seleccion()==1)

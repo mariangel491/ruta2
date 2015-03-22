@@ -41,7 +41,7 @@ public class Vehiculo implements Serializable{
 	
 	@OneToOne(cascade= CascadeType.ALL)
 	@JoinColumn(name="marca")
-	private Marca codMarca;
+	private Marca Marca;
 	
 	
 	
@@ -100,11 +100,11 @@ public class Vehiculo implements Serializable{
 	}
 	
 	
-	public Marca getCodMarca() {
-		return codMarca;
+	public Marca getMarca() {
+		return Marca;
 	}
-	public void setCodMarca(Marca codMarca) {
-		this.codMarca = codMarca;
+	public void setMarca(Marca marca) {
+		Marca = marca;
 	}
 	
 	public String getAvance() {

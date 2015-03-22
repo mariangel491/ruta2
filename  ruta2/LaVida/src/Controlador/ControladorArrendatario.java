@@ -61,7 +61,7 @@ public class ControladorArrendatario implements ActionListener {
 		}else if(ae.getActionCommand().equalsIgnoreCase("Siguiente")){
 			if(vArrendatario.CamposLlenos()==true) {
 			   if(vArrendatario.Seleccion()==1)
-				   avance =  new ControladorAvance(vArrendatario);
+				   avance =  new ControladorAvanceA(vArrendatario);
 			   else if(vArrendatario.Seleccion()==2)
 				   vehiculo= new ControladorVehiculo(vArrendatario);
 			}

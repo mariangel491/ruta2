@@ -34,7 +34,7 @@ public class Socio implements Serializable{
 	@Column(name="direccion")
 	private String direccion;
 	@Column(name="telefono")
-	private Integer telefono;
+	private String telefono;
 	@Column(name="status")
 	private char status;
 	@Column(name="fechaingreso")
@@ -120,10 +120,10 @@ public class Socio implements Serializable{
 	}
 
 
-	public Integer getTelefono() {
+	public String getTelefono() {
 		return telefono;
 	}
-	public void setTelefono(Integer telefono) {
+	public void setTelefono(String telefono) {
 		this.telefono = telefono;
 	}
 	

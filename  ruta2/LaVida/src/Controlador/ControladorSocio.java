@@ -122,8 +122,7 @@ public class ControladorSocio implements ActionListener {
 			if (socioDao.encontrarCed(cedula)) { 
 				socio = socioDao.buscarPorCedula(cedula);
 				
-				String codigo, nombre, direc, ced, ape;
-				Integer telef;
+				String codigo, nombre, direc, ced, ape, telef;
 
 				codigo = socio.getNroSocio();
 				vSocio.setTxtNroSocio(codigo);
@@ -165,7 +164,7 @@ public class ControladorSocio implements ActionListener {
 				String direc;
 				String ced;
 				String ape;
-				Integer telef;
+				String telef;
 				Boolean tieneavance;
 
 				codigo = socio.getNroSocio();
@@ -179,7 +178,7 @@ public class ControladorSocio implements ActionListener {
 				ape = socio.getApellido();
 				vSocio.setTxtApellidoSoc(ape);
 				telef = socio.getTelefono();
-				vSocio.setTxtTelefono(telef.toString());
+				vSocio.setTxtTelefono(telef);
 				
 				tieneavance = socio.isTiene();
 				System.out.println(tieneavance);
@@ -210,7 +209,7 @@ public class ControladorSocio implements ActionListener {
 			socio.setNombre(vSocio.getTxtnomSocio());
 			socio.setApellido(vSocio.getTxtapellidoSoc());
 			socio.setDireccion(vSocio.getTxtdirecSocio());
-			socio.setTelefono(Integer.parseInt(vSocio.getTxttelefono()));
+			socio.setTelefono(vSocio.getTxttelefono());
 			socio.setFechaIngreso(fechaIngreso);
 			socio.setStatus('A');
 			socio.setRuta(rutaDao.buscarPorCodRuta("J-306-902686"));

@@ -142,7 +142,7 @@ private HibernateUtil sesionPostgres;
 	
 	public Avance buscarPorCodSocio(String codSocio) throws Exception {
 		for (Avance avance : obtenerTodos())
-			if (avance.getSocio().equals(codSocio))
+			if (avance.getSocio().getNroSocio().equals(codSocio))
 				return avance;
 		return null;
 	}

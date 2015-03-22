@@ -64,15 +64,15 @@ public class ControladorAvance implements ActionListener {
 		if(resp.equals("Avance")){
 		this.asignarCod();
 		}
-		if(resp.equals("Avance Arrendatario")){
+		/*if(resp.equals("Avance Arrendatario")){
 			//vAvance.CambiarNombrePanel();
 			this.asignarCodArrend();
 			
-		}
+		}*/
 	}
 	
 
-	public ControladorAvance(VistaArrendatario va){
+	/*public ControladorAvance(VistaArrendatario va){
 		vAvanceArren = new VistaAvanceArren();
 		vAvanceArren = vAvanceArren.obtenerInstancia();
 		vAvanceArren.setLocationRelativeTo(null);
@@ -94,7 +94,7 @@ public class ControladorAvance implements ActionListener {
 			e.printStackTrace();
 		}
 	
-	}
+	}*/
 	
 
 
