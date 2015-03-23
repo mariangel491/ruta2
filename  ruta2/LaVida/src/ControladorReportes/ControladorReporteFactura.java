@@ -7,11 +7,13 @@ import java.awt.event.ItemListener;
 import java.awt.event.MouseAdapter;
 import java.io.File;
 import java.sql.Connection;
+import java.sql.Date;
 import java.sql.DriverManager;
 import java.util.ArrayList;
 import java.util.Vector;
 
 import javax.swing.JOptionPane;
+
 
 
 
@@ -65,6 +67,7 @@ public class ControladorReporteFactura extends MouseAdapter implements ActionLis
 				if(vrp.getClasificacion() == 1) {
 					
 					String ruta=new File("").getAbsolutePath() + "/src/Reportes/ReporteFacturaDiaria.jrxml";
+					//Date fechasis= new java.sql.Date(07, 12, 14);
 					try {
 						JasperReport reporte = JasperCompileManager.compileReport(ruta);
 						JasperPrint print = JasperFillManager.fillReport(reporte, null, con);
