@@ -38,8 +38,8 @@ public class mnuPrincipal extends javax.swing.JFrame {
 	private JMenu mnuConsulta;
 	private JMenuItem itmVehiculo;
 	private JMenuItem itmSocio;
-	private JMenuItem itmPrestamo;
-	private JMenuItem jMenuItem1;
+	//private JMenuItem itmPrestamo;
+	//private JMenuItem jMenuItem1;
 	private JMenuItem itmDepCaja;
 	private JMenuItem mnuItmCargarSubsidio;
 	private JMenuItem itmAvanceArren;
@@ -197,12 +197,12 @@ public class mnuPrincipal extends javax.swing.JFrame {
 						itmCargarIngresos.setText("Monto Ingreso");
 						itmCargarIngresos.setActionCommand("CargarIngresos");
 					}
-					{
+					/*{
 						itmPrestamo = new JMenuItem();
 						Registrar.add(itmPrestamo);
 						itmPrestamo.setText("Prestamo");
 						itmPrestamo.setActionCommand("Prestamo");
-					}
+					}*/
 					{
 						itmSocio = new JMenuItem();
 						Registrar.add(itmSocio);
@@ -238,12 +238,12 @@ public class mnuPrincipal extends javax.swing.JFrame {
 						itmDepCaja.setText("Depositar caja");
 						itmDepCaja.setActionCommand("DepositoCaja");
 					}
-					{
+					/*{
 						jMenuItem1 = new JMenuItem();
 						Registrar.add(jMenuItem1);
 						jMenuItem1.setText("Deuda");
 						jMenuItem1.setActionCommand("Deuda");
-					}
+					}*/
 				}
 				{
 					mnuConsulta = new JMenu();
@@ -298,7 +298,7 @@ public class mnuPrincipal extends javax.swing.JFrame {
 		 this.itmAvance.addActionListener(evento);
 		 this.itmCargarIngresos.addActionListener(evento);
 		 this.itmIngresos.addActionListener(evento);
-		 this.itmPrestamo.addActionListener(evento);
+		// this.itmPrestamo.addActionListener(evento);
 		 this.itmSocio.addActionListener(evento);
 		 this.itmVehiculo.addActionListener(evento);
 		 this.itmAlquiler.addActionListener(evento);
@@ -314,7 +314,7 @@ public class mnuPrincipal extends javax.swing.JFrame {
 		 this.btnRuta.addActionListener(evento);
 		 this.jButton1.addActionListener(evento);
 		 this.jButton2.addActionListener(evento);
-		 this.jMenuItem1.addActionListener(evento);
+		// this.jMenuItem1.addActionListener(evento);
 	}
 
 }

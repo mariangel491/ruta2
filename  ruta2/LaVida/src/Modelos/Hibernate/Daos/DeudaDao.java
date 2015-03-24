@@ -106,7 +106,7 @@ private HibernateUtil sesionPostgres;
 		try {  	
 			for(int i=0;i<this.obtenerTodos().size(); i++) {
 				if(this.obtenerTodos().get(i).getSocio().getNroSocio().equals(nroSocio)){
-					if(this.obtenerTodos().get(i).getStatus().equals('A'))
+					if(this.obtenerTodos().get(i).getStatus().equals("A"))
 						datos.add(this.obtenerTodos().get(i));
 				}
 			}          

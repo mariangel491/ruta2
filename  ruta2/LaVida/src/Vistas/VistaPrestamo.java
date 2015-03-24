@@ -408,6 +408,19 @@ private static VistaPrestamo vPrest=null;
 		
 	}
 	
+public void OcultarCasiTodo(){
+		
+		this.jpPrestamo.setVisible(true);
+		this.jpListadoPrestamos.setVisible(false);
+		this.jpDatosSocio.setVisible(true);
+		this.spListadoPrestamos.setVisible(false);
+		this.lblTexto.setVisible(false);
+		this.btnAgregar.setVisible(false);
+		this.btnGuardar.setVisible(true);
+		this.btnModificar.setVisible(true);
+		
+	}
+	
 	
 	public void OcultarListado(List<Prestamos> listPrest) throws Exception {
 		if(listPrest.size() > 0) {

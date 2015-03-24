@@ -104,9 +104,14 @@ private HibernateUtil sesionPostgres;
 	}	
 	
 	public Ingresos buscarPorCodIngreso(String codIngreso) throws Exception {
-		for (Ingresos ingresos : obtenerTodos())
-			if (ingresos.getCodIngreso().equals(codIngreso))
-				return ingresos;
+		Ingresos ingresos= new Ingresos();
+			for(int i=0; i<obtenerTodos().size(); i++)
+			{
+				ingresos= obtenerTodos().get(i);
+				if (ingresos.getCodIngreso().equals(codIngreso))
+					return ingresos;
+			}
+				
 		return null;
 	}
 

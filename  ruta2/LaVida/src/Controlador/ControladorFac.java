@@ -163,6 +163,7 @@ public class ControladorFac implements ActionListener, KeyListener, FocusListene
 		}
 		else if(ae.getActionCommand().equalsIgnoreCase("Buscar"))
 		{
+			vFactura.limpiarTablaDeudas();
 				try {
 					this.BuscarSocioPorNro();
 					this.BuscarSubsidio(vFactura.getTxtNroSocio());
@@ -325,41 +326,82 @@ public class ControladorFac implements ActionListener, KeyListener, FocusListene
 	}
 
 	//PARA AÑADIR UN INGRESO o EGRESO A LA LISTA
-	public void agregarElemento(){
+	/*public void agregarElementoDeuda(){
 	
-		
-		Deuda d= new Deuda();	
-		try {
-			if(vFactura.agregarDeuda()!=null){
-				d=deudaDao.buscarPorCodDeuda(vFactura.agregarDeuda());
-				vFactura.agregarFilaIngresos(d.getCodigo(), d.getDescripcion(), 
-											String.valueOf(d.getMonto()), "Ingresos", "0");	
+		if(vFactura.getCmbTipoFactu().equals(vFactura.TIPO_DE_FACTURA_INGRESOS)){
+			Deuda d= new Deuda();
+			try {
+				if(vFactura.agregarDeuda()!=null){
+					d=deudaDao.buscarPorCodDeuda(vFactura.agregarDeuda());
+					vFactura.agregarFilaIngresos(d.getCodigo(), d.getDescripcion(), 
+												String.valueOf(d.getMonto()), "Ingresos", "0");	
+				}
+				
+			} catch (Exception e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
 			}
-			
-		} catch (Exception e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
 		}
+		vFactura.getjListIngresos().clearSelection();
+		vFactura.getjTablePrestamosXFactura().clearSelection();
+		vFactura.getJTableDeudasPorSocio().clearSelection();
+		vFactura.setTxtMontoIngresoEgreso("");
+		vFactura.sumarMontoTablaIngresoXFactura();
+	}*/
+	
+	//PARA AÑADIR UN ELEMENTO DE DEUDA A LA INFORMACION DE LA FACTURA
+public void agregarElemento(){
 		
 		if(vFactura.getCmbTipoFactu().equals(vFactura.TIPO_DE_FACTURA_INGRESOS))
 		{
 			Ingresos ing= new Ingresos();
 			Prestamos p = new Prestamos();
-			try {
+			Deuda d= new Deuda();
 			
+			try {
+				System.out.println(vFactura.getjListIngresos().getSelectedIndex());
+				System.out.println(vFactura.getJTableDeudasPorSocio().getSelectionModel().getLeadSelectionIndex());
+				System.out.println(vFactura.getjTablePrestamosXFactura().getSelectionModel().getLeadSelectionIndex());
+				
 				if(vFactura.getjListIngresos().getSelectedIndex()>0)//PARA SABER SI UN ELEMNTO DEL JLIST FUE SELECCIONADO
+				{
 					ing= ingDao.obtenerIngresosPorDescripcion(vFactura.getjListIngresos().getSelectedValue().toString());
-				else
+					System.out.println("añadiendo ingresos");
+				}
+				else if(vFactura.getJTableDeudasPorSocio().getSelectionModel().getLeadSelectionIndex()>=0)
+				{
+					d=this.AnnadirDeudas();
+					
+					System.out.println("anadiendo deudaaa");
+					
+					//
+					//
+					//vFactura.getJTableDeudasPorSocio().
+					
+				}else{
 					 p= this.AnnadirPrestamos();
+					 System.out.println("añadiendo prestamos");
+					 }
 			} catch (Exception e) {
 				// TODO Auto-generated catch block
 				e.printStackTrace();
 			}
 			
 						
-			if(null == vFactura.getTxtMontoIngresoEgreso() || "".equals(vFactura.getTxtMontoIngresoEgreso()))
-				JOptionPane.showMessageDialog(null,"Debe llenar el campo monto","Atencion!",
-							JOptionPane.INFORMATION_MESSAGE);
+			if(null == vFactura.getTxtMontoIngresoEgreso() || "".equals(vFactura.getTxtMontoIngresoEgreso())){
+				
+				if(vFactura.getJTableDeudasPorSocio().getSelectionModel().getLeadSelectionIndex()>=0){
+				//if(d!=null){
+					
+					vFactura.agregarFilaIngresos(d.getCodigo(), d.getDescripcion(), 
+												String.valueOf(d.getMonto()), "Ingresos", "0");	
+					d=null;
+					
+				}else
+					JOptionPane.showMessageDialog(null,"Debe llenar el campo monto","Atencion!",
+						JOptionPane.INFORMATION_MESSAGE);
+			}
+				
 			else	
 			{
 				if(vFactura.getjListIngresos().getSelectedIndex()>0)
@@ -388,7 +430,7 @@ public class ControladorFac implements ActionListener, KeyListener, FocusListene
 				}
 				if(vFactura.getjListIngresos().getSelectedValue().toString().equals("Prestamos")
 				   || vFactura.getjListIngresos().getSelectedValue()=="Prestamos fondo de choque"){
-					ControladorPrestamo controP= new ControladorPrestamo();
+					ControladorPrestamo controP= new ControladorPrestamo(vFactura);
 					
 				}else{
 					if(null == vFactura.getTxtMontoIngresoEgreso() || "".equals(vFactura.getTxtMontoIngresoEgreso()))
@@ -404,6 +446,7 @@ public class ControladorFac implements ActionListener, KeyListener, FocusListene
 		
 		vFactura.getjListIngresos().clearSelection();
 		vFactura.getjTablePrestamosXFactura().clearSelection();
+		vFactura.getJTableDeudasPorSocio().clearSelection();
 		vFactura.setTxtMontoIngresoEgreso("");
 		vFactura.sumarMontoTablaIngresoXFactura();
 	}
@@ -899,7 +942,7 @@ public boolean comprobarMonto(){
 					} 
 					 
 					 if(tipo=="I"){
-						 //System.out.println("agregando ingresossss");
+						
 							ingresosFactura.add(in);
 							monto.add(ingresosFactura.size()-1, montoIng);	
 							cantidad.add(ingresosFactura.size()-1, cant);
@@ -932,7 +975,7 @@ public boolean comprobarMonto(){
 					   ieDetFac.setCantidad(cantidad.get(i));
 					   ieDetFac.setIng(ingDao.obtenerIngresos(ing.getCodIngreso()));
 					   ieDetFac.setMonto(monto.get(i));
-					 System.out.println("array ingresos");
+					
 					 IEFDao.agregarDetalle(ieDetFac);
 					 
 					 clasificacion=ingDao.obtenerIngresos(ing.getCodIngreso()).getClasifIngreso();
@@ -965,11 +1008,11 @@ public boolean comprobarMonto(){
 						 cuentaPrestamos.setMontoTransaccion(montoPrestamos.get(i));
 						 cuentaPrestamos.setNro_transaccion(cuentaPrestamosDao.buscarUltimoNumeroTramsaccionCuentaFondoChoque());
 						 cuentaPrestamosDao.agregarTransaccion(cuentaPrestamos);
-						 System.out.println("araaay prest");
+						
 					}
 				}
 				 
-				 System.out.println("Deudaaasss facturaaaa  "+deudasFactura.size());
+				 
 				 if(deudasFactura.size()>0){
 					 Object[] arrayDeudas= deudasFactura.toArray();
 					 for(int i=0;i<arrayDeudas.length; i++){
@@ -1107,7 +1150,7 @@ public boolean comprobarMonto(){
 		}
 	}
 	
-	public void BuscarDeudas(){
+	public void BuscarDeudas() throws Exception{
 		
 		List<Deuda> deudasSocio=deudaDao.obtenerDeudasActivasPorSocio(vFactura.getTxtNroSocio());
 		if(deudasSocio.size()>0)
@@ -1115,6 +1158,7 @@ public boolean comprobarMonto(){
 			for(int i=0;i<deudasSocio.size();i++){
 				Deuda d= new Deuda();
 				d=deudasSocio.get(i);
+				listDeudasXSocio.add(d);
 				vFactura.agregarFilaDeudas(d.getCodigo(),d.getDescripcion(),d.getFecha().toString() ,Float.toString(d.getMonto()));
 			}
 		}
@@ -1131,6 +1175,15 @@ public boolean comprobarMonto(){
 		}
 		return prestamo;
 		
+	}
+	
+	public Deuda AnnadirDeudas(){
+		Deuda d= new Deuda();
+		for(int i=0; i<listDeudasXSocio.size();i++){
+			if(listDeudasXSocio.get(i).getCodigo().equals(vFactura.filaDeuda()))
+				d= listDeudasXSocio.get(i);
+		}
+		return d;
 	}
 	
 

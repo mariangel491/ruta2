@@ -18,6 +18,7 @@ import Modelos.Socio;
 import Modelos.Hibernate.Daos.PrestamosDao;
 import Modelos.Hibernate.Daos.RutaDao;
 import Modelos.Hibernate.Daos.SocioDao;
+import Vistas.VistaFac;
 import Vistas.VistaPrestamo;
 
 
@@ -32,7 +33,7 @@ public class ControladorPrestamo implements ActionListener, KeyListener {
 	
 	//PARA LO DE LOS REPORTES
 	
-		
+		private VistaFac vfac;
 	
 	
 	public ControladorPrestamo() {
@@ -44,6 +45,22 @@ public class ControladorPrestamo implements ActionListener, KeyListener {
 		vPrestamo.OcultarTodo();
 		vPrestamo.limpiarCampos();
 		vPrestamo.asignarCod();
+		//vPrestamo.agregarKey(this);
+	}
+	
+	public ControladorPrestamo(VistaFac vf) {
+		vPrestamo = new VistaPrestamo();
+		vPrestamo = vPrestamo.obtenerInstancia();
+		vPrestamo.setLocationRelativeTo(null);
+		vPrestamo.setVisible(true);
+		vPrestamo.agregarListener(this);
+		vPrestamo.OcultarCasiTodo();
+		vPrestamo.limpiarCampos();
+		vPrestamo.asignarCod();
+		vPrestamo.setTxtNroSocio(vf.getTxtNroSocio());
+		vPrestamo.setTxtNomSocio(vf.getTxtNombSocio());
+		vPrestamo.setTxtMonto(vf.getTxtMontoIngresoEgreso());
+		
 		//vPrestamo.agregarKey(this);
 	}
 
@@ -72,6 +89,8 @@ public class ControladorPrestamo implements ActionListener, KeyListener {
 		else if (a.getActionCommand().equalsIgnoreCase("Guardar")) {
 			try {
 				this.AgregarPrestamos();
+				
+				vPrestamo.dispose();
 		
 			} catch (Exception e) {
 				// TODO Auto-generated catch block

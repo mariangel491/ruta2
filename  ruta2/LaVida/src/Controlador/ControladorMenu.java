@@ -6,9 +6,18 @@ import java.io.File;
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 
 import javax.swing.JOptionPane;
+
+
+
+
+
+
+
+
 
 
 
@@ -23,8 +32,16 @@ import net.sf.jasperreports.engine.JasperFillManager;
 import net.sf.jasperreports.engine.JasperPrint;
 import net.sf.jasperreports.engine.JasperReport;
 import net.sf.jasperreports.view.JasperViewer;
+import Modelos.Avance;
+import Modelos.Deuda;
+import Modelos.Ingresos;
 import Modelos.Local;
+import Modelos.Socio;
+import Modelos.Hibernate.Daos.AvanceDao;
+import Modelos.Hibernate.Daos.DeudaDao;
+import Modelos.Hibernate.Daos.IngresosDao;
 import Modelos.Hibernate.Daos.LocalDao;
+import Modelos.Hibernate.Daos.SocioDao;
 import Vistas.*;
 
 public class ControladorMenu implements ActionListener{
@@ -40,7 +57,7 @@ public class ControladorMenu implements ActionListener{
 	ControladorPrestamo prestamo;
 	ControladorRegistrarLocal local;
 	ControladorSocio socio;
-	ControladorDeuda deuda;
+	//ControladorDeuda deuda;
 	ControladorArrendatario arrendatario;
 	ControladorVehiculo vehiculo;
 	ControladorIngresos ingresos;
@@ -52,6 +69,12 @@ public class ControladorMenu implements ActionListener{
 	ControladorDepositosCaja depositosCaja;
 	VistaFac vFactura;
 	private Connection con;
+	
+	//Para cargar las deudas de los socios
+	private DeudaDao deudaDao= new DeudaDao();
+	private AvanceDao avanceDao= new AvanceDao();
+	private IngresosDao ingDao= new IngresosDao();
+	private SocioDao socioDao= new SocioDao();
 	
 	//PARA LOS REPORTES
 	//ControladorReporte controReporSocio;
@@ -65,6 +88,7 @@ public class ControladorMenu implements ActionListener{
 		menu.setVisible(true);
 		menu.setResizable(false);
 		menu.setTitle("Menu Principal");
+		this.cargarDeudaTodosSocios();
 		
 		try {
 			con = DriverManager.getConnection("jdbc:postgresql://localhost:5432/BDRuta2","postgres","postgres");
@@ -137,7 +161,7 @@ public class ControladorMenu implements ActionListener{
 		else if (ae.getActionCommand().equalsIgnoreCase("Deuda"))
 	    {
 			System.out.println("deudaaaaa");
-	        deuda = new ControladorDeuda();
+	      //  deuda = new ControladorDeuda();
 		}
 		else if (ae.getActionCommand().equalsIgnoreCase("Socio"))
 	    {
@@ -188,7 +212,192 @@ public class ControladorMenu implements ActionListener{
 	}
    
 	
+	//**************METODOSSSS PARA CARGAR LAS DEUDAS DE LOS SOCIOSSSSSS************************
+	
+	public String GenerarCodigoDeuda(){
+		
+		int cantDeuda;
+		try {
+			cantDeuda = deudaDao.obtenerTodos().size()+1;
+		
+			if(cantDeuda<10)
+			{
+				return ("D000"+cantDeuda);			
+			}else if(cantDeuda<100)
+			{
+				 return ("D00"+cantDeuda);
+			}else if(cantDeuda<1000)
+			{
+				return("D0"+cantDeuda);
+			}else{
+				return("D"+cantDeuda);
+				}
+			
+		} catch (Exception e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		return "";
+	}
+	
+	public int mayorMes(){
+		int mayor=0, mes,otroMes, cant;
+		try {
+				if(deudaDao.obtenerTodos().size()==1)
+					mayor= deudaDao.obtenerTodos().get(0).getFecha().getMonth();
+				
+				else{
+					cant=deudaDao.obtenerTodos().size();
+				
+					for(int i=0; i<cant;i++)
+					{
+							mes=deudaDao.obtenerTodos().get(i).getFecha().getMonth();
+							if(i+1<cant)
+								otroMes= deudaDao.obtenerTodos().get(i+1).getFecha().getMonth();
+							else
+								otroMes=deudaDao.obtenerTodos().get(i).getFecha().getMonth();
+						if(mes>otroMes)
+							 mayor=mes;
+						else if(mes<otroMes)
+							mayor=otroMes;
+						else
+							mayor=mes;	
+					}
+					return mayor;
+					
+				}	
+		} catch (Exception e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}	
+		return mayor;
+	}
+	
+	public int mayorAnno(){
+		int mayor=0, anno,otroAnno, cant;
+		try {
+				if(deudaDao.obtenerTodos().size()==1)
+				mayor= deudaDao.obtenerTodos().get(0).getFecha().getYear();
+				else{
+					cant=deudaDao.obtenerTodos().size();
+				for(int i=0; i<cant;i++)
+				{
+						anno=deudaDao.obtenerTodos().get(i).getFecha().getYear();
+						if(i+1<cant)
+							otroAnno= deudaDao.obtenerTodos().get(i+1).getFecha().getYear();
+						else
+							otroAnno=deudaDao.obtenerTodos().get(i).getFecha().getMonth();
+					if(anno>otroAnno)
+						 mayor=anno;
+					else if(anno<otroAnno)
+						mayor=otroAnno;
+					else
+						mayor=anno;	
+				}
+				return mayor;
+			}	
+		} catch (Exception e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}	
+		return mayor;
+	}
 
+	public void cargarDeudaTodosSocios(){
+		try {
+	
+		Date fecha = new Date(System.currentTimeMillis());
+		Deuda deuda= new Deuda();
+		Ingresos ing= new Ingresos();
+		int cont=0;
+				
+		int fin=socioDao.obtenerTodos().size();
+		this.mayorMes();
+		ing=ingDao.buscarPorCodIngreso("I0001");
+		//System.out.println("ing "+ ing.getDescripcion());
+		if(fecha.getMonth()>this.mayorMes())
+		{	
+			if(fecha.getYear()>=this.mayorAnno())
+			{
+				while(cont<fin){
+					Socio socio=new Socio();
+					socio=socioDao.obtenerTodos().get(cont);
+					//System.out.println(socio.getNombre()+ " " +socio.getNroSocio());
+					
+						deuda.setFecha(fecha);
+						deuda.setMonto(ing.getMonto());
+						deuda.setSocio(socio);
+						deuda.setCodigo(this.GenerarCodigoDeuda());
+						deuda.setDescripcion(ing.getDescripcion());
+						deuda.setStatus("A");
+						
+						deudaDao.agregarDeuda(deuda);
+						
+					cont++;
+					//System.out.println(cont);
+				}this.DeudaConductorSoc();
+			}
+					
+		}		
+		} catch (Exception e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}	 
+	}
+	
+	
+	public void DeudaConductorSoc(){
+		Deuda deuda= new Deuda();
+		Date f= new Date();
+		int contador=0;
+		try {
+			Ingresos ing=ingDao.buscarPorCodIngreso("I0002");
+			List<Socio> listaSocios= new ArrayList<Socio>();
+			List<Avance> listaAvance= new ArrayList<Avance>();
+			listaSocios=socioDao.obtenerTodos();
+			listaAvance= avanceDao.obtenerTodos();
+			Socio socio= new Socio();
+			for(int i=0; i<listaSocios.size();i++)
+			{
+				//System.out.println("listaSocios "+listaSocios.get(i).isTiene()+ " cod   "+ listaSocios.get(i).getNroSocio());
+				//System.out.println( " resp ");
+				//System.out.println(listaSocios.get(i).isTiene()==true);
+				if(listaSocios.get(i).isTiene()==true)
+				{
+					contador=0;
+					socio = listaSocios.get(i);
+					for(int j=0; j<listaAvance.size();j++)
+					{
+						
+						if(listaAvance.get(j).getSocio().getNroSocio().equals(socio.getNroSocio())){
+							contador++;	
+						}
+						System.out.println(contador);
+					}
+					if(contador>0)
+					{
+						//System.out.println("AxS"+ contador+ " "+ socioDao.obtenerTodos().get(i).getNroSocio());
+						deuda.setFecha(f);
+						deuda.setMonto(ing.getMonto()*contador);
+						deuda.setSocio(socio);
+						deuda.setCodigo(this.GenerarCodigoDeuda());
+						deuda.setDescripcion(ing.getDescripcion());
+						deuda.setStatus("A");
+						
+						deudaDao.agregarDeuda(deuda);
+					}
+				}
+			}
+		
+			
+			
+					
+			
+		} catch (Exception e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+	}
 	
 	
 }

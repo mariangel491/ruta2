@@ -439,6 +439,8 @@ private static VistaFac vFactura=null;
 								jTablePrestamosXFactura.addMouseListener(new MouseAdapter() {
 									public void mouseClicked(MouseEvent evt) {
 										//TODO add your code for jTablePrestamosXFactura.mouseClicked
+										jTableIngresosXFactura.clearSelection();
+										jTableDeudasPorSocio.clearSelection();
 										agregarPrestamos();
 																				}
 								});
@@ -920,7 +922,10 @@ private static VistaFac vFactura=null;
 		try {
 			for (Iterator iterator = ingDao.obtenerIngresosPorTipos(tipoFacturado).iterator(); iterator.hasNext();) {
 				Ingresos ingre = (Ingresos)iterator.next();
-				listaModeloIngresoEgreso.add(ingre.getDescripcion());
+				System.out.println(ingre.getDescripcion().equals("Aporte Socio"));
+				System.out.println(ingre.getDescripcion().equals("Aporte Conductor"));
+				if(!ingre.getDescripcion().equals("Aporte Socio") || !ingre.getDescripcion().equals("Aporte Conductor"))
+					listaModeloIngresoEgreso.add(ingre.getDescripcion());
 			}
 			jListIngresos.setModel(listaModeloIngresoEgreso);
 		} catch (Exception e) {
@@ -1038,7 +1043,7 @@ private static VistaFac vFactura=null;
 	        totalRow-=1; 
 	        for(int i=0;i<=(totalRow);i++)
 	        {
-	        	System.out.println("de la tabla deudas por socio  "+defaultTableModelIngresoXfactura.getValueAt(i,2));
+	        	//System.out.println("de la tabla deudas por socio  "+defaultTableModelIngresoXfactura.getValueAt(i,2));
 	             sumatoria = sumatoria +  (Double.parseDouble(String.valueOf(defaultTableModelIngresoXfactura.getValueAt(i,2)))*Double.parseDouble(String.valueOf(jSpinnerCantidad.getValue())));
 	             
 	        }
@@ -1440,6 +1445,15 @@ private static VistaFac vFactura=null;
 
 		}	
 	
+	public void limpiarTablaDeudas() {
+		TableModel tblListadoModel = 
+		new DefaultTableModel(
+				new String[] {"Codigo","Descripciòn", "Monto","Fecha"},0);
+		jTableDeudasPorSocio.setModel(tblListadoModel);
+		
+
+		}	
+	
 	public void limpiarTablaIngresos(){
 		TableModel tblListadoModel = 
 				new DefaultTableModel(
@@ -1547,14 +1561,18 @@ private static VistaFac vFactura=null;
 		
 	}
 	
-	public String agregarDeuda(){
+	public void agregarDeuda(){
 		filaDeudaSelec="";
 		 int f=jTableDeudasPorSocio.getSelectionModel().getLeadSelectionIndex();
-		 if(f>0)
-			 return filaDeudaSelec= (String) this.jTableDeudasPorSocio.getValueAt(f,0);
-		 else
-			 return null;
+		filaDeudaSelec= (String) this.jTableDeudasPorSocio.getValueAt(f,0);
 		
+	
+		
+	}
+	
+	
+	public String filaDeuda(){
+		return filaDeudaSelec;
 	}
 	
 	public String filaPrestamos(){
@@ -1617,6 +1635,14 @@ private static VistaFac vFactura=null;
 							new String[] {"Codigo", "Descripción","Monto" ,"Fecha" });
 			jTableDeudasPorSocio = new JTable();
 			jTableDeudasPorSocio.setModel(jTableDeudasPorSocioModel);
+			jTableDeudasPorSocio.addMouseListener(new MouseAdapter() {
+				public void mouseClicked(MouseEvent evt) {
+					//TODO add your code for jTablePrestamosXFactura.mouseClicked
+					jTableIngresosXFactura.clearSelection();
+					jTablePrestamosXFactura.clearSelection();
+					agregarDeuda();
+															}
+			});
 		}
 		return jTableDeudasPorSocio;
 	}
