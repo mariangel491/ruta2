@@ -376,7 +376,10 @@ public void agregarElemento(){
 					
 					//
 					//
-					//vFactura.getJTableDeudasPorSocio().
+					//vFactura.getJTableDeudasPorSocio().clearSelection();
+					//vFactura.getJTableDeudasPorSocio().getSelectionModel()
+					//vFactura.liberarLista(listDeudasXSocio);
+					System.out.println(vFactura.getJTableDeudasPorSocio().getSelectionModel().getLeadSelectionIndex());
 					
 				}else{
 					 p= this.AnnadirPrestamos();

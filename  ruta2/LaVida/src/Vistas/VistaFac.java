@@ -47,6 +47,7 @@ import javax.swing.text.MaskFormatter;
 import javax.swing.SwingUtilities;
 
 import Modelos.Arrendatario;
+import Modelos.Deuda;
 import Modelos.Egresos;
 import Modelos.Ingresos;
 import Modelos.Inquilino;
