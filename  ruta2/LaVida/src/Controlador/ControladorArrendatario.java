@@ -7,18 +7,16 @@ import javax.swing.JOptionPane;
 
 import Modelos.Arrendatario;
 import Modelos.Hibernate.Daos.ArrendatarioDao;
-import Modelos.Hibernate.Daos.EgresosDao;
 import Modelos.Hibernate.Daos.RutaDao;
 import Vistas.VistaArrendatario;
 
 public class ControladorArrendatario implements ActionListener {
 	
 	private VistaArrendatario vArrendatario= new VistaArrendatario();
-	private ArrendatarioDao arrenDao= new ArrendatarioDao();
-	private EgresosDao Dao = new EgresosDao(); 
+	private ArrendatarioDao arrenDao= new ArrendatarioDao(); 
 	private Arrendatario arren= new Arrendatario();
 	
-	ControladorAvance avance;
+	ControladorAvanceArrendatario avanceArrendatario;
 	ControladorVehiculo vehiculo;
 
 	public ControladorArrendatario() {
@@ -61,7 +59,7 @@ public class ControladorArrendatario implements ActionListener {
 		}else if(ae.getActionCommand().equalsIgnoreCase("Siguiente")){
 			if(vArrendatario.CamposLlenos()==true) {
 			   if(vArrendatario.Seleccion()==1)
-				   avance =  new ControladorAvanceA(vArrendatario);
+				   avanceArrendatario =  new ControladorAvanceArrendatario(vArrendatario);
 			   else if(vArrendatario.Seleccion()==2)
 				   vehiculo= new ControladorVehiculo(vArrendatario);
 			}

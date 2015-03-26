@@ -126,7 +126,7 @@ public class ControladorVehiculo implements ActionListener {
 				e.printStackTrace();
 			}
 		}
-		else{
+		//else{
 			/*arrendatarioPrueba= va.RetornaArrendatario();
 		System.out.println(arrendatarioPrueba.getCedula());
 			if(arrendatarioPrueba!=null){
@@ -149,7 +149,7 @@ public class ControladorVehiculo implements ActionListener {
 				}*/
 				
 			//}
-			}
+		//	}
 			
 			
 	}
@@ -161,11 +161,12 @@ public ControladorVehiculo(VistaAvanceArren vaa) {
 	vVehiculo.setVisible(true);
 	vVehiculo.limpiarCampos();
 	vVehiculo.agregarListener(this);
+	vVehiculo.CambiarNombrePanel();
 	System.out.println("entro por vistaArren");
 
 
 	arrendatarioPrueba= vaa.RetornaArrendatario();
-	System.out.println(arrendatarioPrueba.getCedula());
+	System.out.println(arrendatarioPrueba.getCedula()+ "que esta imprimiendo??");
 		if(arrendatarioPrueba!=null){
 		
 			vVehiculo.setTxtNroSocio(vaa.llenarCodigo()); 
@@ -611,11 +612,12 @@ public ControladorVehiculo(VistaAvanceArren vaa) {
 				String marca = vehiculos.get(i).getMarca().getDescripcion().toString();
 				Integer año = vehiculos.get(i).getAnno();
 				Integer nropstos= vehiculos.get(i).getNropuestos();
-			//	String avance = vehiculos.get(i).getAvance();
+				String avance = vVehiculo.getCmbConductor();//vehiculos.get(i).getAvance();
+				System.out.println(avance+"del metodo");
 					
 				//System.out.println(avance);
-			String avance= this.traerNombreyApe(vehiculos, i);
-						//vVehiculo.getCmbConductor();
+		//	String avance= this.traerNombreyApe(vehiculos, i);
+						vVehiculo.getCmbConductor();
 					
 				//	String avance = vehiculos.get(i).getNombre()+" "+vehiculos.get(i).getAvance().getApellido();
 				
@@ -1113,6 +1115,8 @@ public ControladorVehiculo(VistaAvanceArren vaa) {
 			
 				if(!arrenDao.encontrar(codi))
 				{
+					System.out.println(!arrenDao.encontrar(codi));
+					System.out.println(arrendatarioPrueba.getApellido());
 					arrenDao.agregarArrendatario(arrendatarioPrueba);
 				}
 				arren = arrenDao.buscarPorCedulaArrendatario(codi);

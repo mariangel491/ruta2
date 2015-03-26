@@ -53,6 +53,7 @@ public class ControladorMenu implements ActionListener{
 	//Controladores
 	ControladorAlquiler alquiler;
 	ControladorAvance avance;
+	ControladorAvanceArrendatario avanceArrendatario;
 	ControladorInquilino inquilino;
 	ControladorPrestamo prestamo;
 	ControladorRegistrarLocal local;
@@ -138,7 +139,7 @@ public class ControladorMenu implements ActionListener{
 	    {
 	        //VistaArrendatario vArrendatario = new VistaArrendatario();
 			String resp= ae.getActionCommand();
-			avance = new ControladorAvance(resp);
+			avanceArrendatario = new ControladorAvanceArrendatario();
 	      
 		}
 		else if (ae.getActionCommand().equalsIgnoreCase("Vehiculo Arrendatario"))

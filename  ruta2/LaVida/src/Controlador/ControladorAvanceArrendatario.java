@@ -9,6 +9,7 @@ import java.util.List;
 import javax.swing.JOptionPane;
 
 import Modelos.Arrendatario;
+import Modelos.Avance;
 import Modelos.AvanceArrendatario;
 import Modelos.Hibernate.Daos.ArrendatarioDao;
 import Modelos.Hibernate.Daos.AvanceArrendatarioDao;
@@ -29,7 +30,7 @@ public class ControladorAvanceArrendatario implements ActionListener {
 		Arrendatario arrendatarioPrueba= new Arrendatario();
 		ControladorVehiculo vehiculo;
 		
-		public ControladorAvanceArrendatario(String resp) {
+		public ControladorAvanceArrendatario(/*String resp*/) {
 			super();
 			// TODO Auto-generated constructor stub
 			
@@ -40,11 +41,11 @@ public class ControladorAvanceArrendatario implements ActionListener {
 			vAvanceArren.agregarListener(this);
 			vAvanceArren.limpiarTablaAvances();
 			
-			if(resp.equals("Avance Arrendatario")){
+			//if(resp.equals("Avance Arrendatario")){
 				//vAvance.CambiarNombrePanel();
 				this.asignarCodArrend();
 				
-			}
+			//}
 		}
 		
 
@@ -56,10 +57,10 @@ public class ControladorAvanceArrendatario implements ActionListener {
 			vAvanceArren.agregarListener(this);
 			vAvanceArren.CambiarNombrePanel();
 			
-			//if (va.Selec()==1){
+			if (va.Selec()==1){
 			vAvanceArren.setTxtNroSocio(va.llenarCodigo());
 			vAvanceArren.setTxtNomSocio(va.llenarNombre());
-			//}
+			}
 			try {
 				this.obtenerAvanceArren();
 				this.asignarCodArrend();
@@ -318,7 +319,7 @@ public class ControladorAvanceArrendatario implements ActionListener {
 		}
 		
 	
-		private void modificarAvanceArren() throws Exception {
+		/*private void modificarAvanceArren() throws Exception {
 			if (vAvanceArren.CamposllenosSocio() == true) {
 				arrendatario.setNombre(vAvanceArren.getTxtNomSocio());
 				String nro = vAvanceArren.getTxtNroSocio();
@@ -337,7 +338,13 @@ public class ControladorAvanceArrendatario implements ActionListener {
 			} else
 				JOptionPane.showMessageDialog(null, "Debe llenar todos los campos");
 		}
+		*/
 		
+		private void limpiarTodo() {
+			vAvanceArren.limpiarTablaAvances();
+		//	avance = new Avance();
+			vAvanceArren.limpiarCampos();
+		}
 		
 	public void removerElementoArren(){
 			
