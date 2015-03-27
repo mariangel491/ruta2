@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!-- Created with Jaspersoft Studio version 5.6.2.final using JasperReports Library version 5.6.1  -->
-<!-- 2015-03-27T00:13:18 -->
-<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="ReporteFacturaDiaria" pageWidth="595" pageHeight="842" columnWidth="535" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" uuid="4eedbb89-b4f6-4469-9ab6-f642a1688cf7">
+<!-- 2015-03-27T00:16:18 -->
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="SubReporteAvancesxSocios" pageWidth="555" pageHeight="802" columnWidth="555" leftMargin="0" rightMargin="0" topMargin="0" bottomMargin="0" uuid="4eedbb89-b4f6-4469-9ab6-f642a1688cf7">
 	<property name="com.jaspersoft.studio.data.defaultdataadapter" value="ConexionReportes"/>
 	<style name="Title" forecolor="#FFFFFF" fontName="Times New Roman" fontSize="50" isBold="false" pdfFontName="Times-Bold"/>
 	<style name="SubTitle" forecolor="#CCCCCC" fontName="Times New Roman" fontSize="18" isBold="false" pdfFontName="Times-Roman"/>
@@ -58,60 +58,34 @@
 			<![CDATA[]]>
 		</queryString>
 	</subDataset>
+	<parameter name="CODSocio" class="java.lang.String"/>
 	<queryString>
-		<![CDATA[SELECT  factura.nrofactura,  factura.fechaemision,  factura.montototal FROM  factura]]>
+		<![CDATA[SELECT avance.cedula,
+	avance.nombre,
+	avance.apellido
+FROM avance,
+	socio
+WHERE 
+avance.codigosocio =  $P{CODSocio} 
+	AND avance.codigosocio = socio.codigo]]>
 	</queryString>
-	<field name="nrofactura" class="java.lang.String"/>
-	<field name="fechaemision" class="java.sql.Date"/>
-	<field name="montototal" class="java.lang.Double"/>
+	<field name="cedula" class="java.lang.String"/>
+	<field name="nombre" class="java.lang.String"/>
+	<field name="apellido" class="java.lang.String"/>
 	<title>
-		<band height="134" splitType="Stretch">
+		<band height="21" splitType="Stretch">
 			<staticText>
-				<reportElement x="210" y="90" width="260" height="25" uuid="57aed2b1-4f4e-40a3-a6ad-54dae8dd4c5a">
+				<reportElement mode="Transparent" x="0" y="1" width="490" height="18" backcolor="#E6E8E9" uuid="57aed2b1-4f4e-40a3-a6ad-54dae8dd4c5a">
 					<property name="local_mesure_unitheight" value="pixel"/>
 					<property name="com.jaspersoft.studio.unit.height" value="px"/>
 				</reportElement>
-				<textElement>
-					<font size="16" isBold="true"/>
+				<textElement textAlignment="Left" verticalAlignment="Middle">
+					<font fontName="Century Gothic" size="13" isBold="true"/>
 				</textElement>
-				<text><![CDATA[Monto Facturado]]></text>
+				<text><![CDATA[     Avances]]></text>
 			</staticText>
 			<line>
-				<reportElement x="0" y="80" width="556" height="1" uuid="806ce5df-1219-4876-ae0c-ca7405b1f246">
-					<property name="local_mesure_unitheight" value="pixel"/>
-					<property name="com.jaspersoft.studio.unit.height" value="px"/>
-				</reportElement>
-			</line>
-			<staticText>
-				<reportElement x="410" y="40" width="50" height="20" uuid="0f86baff-6386-4f3f-b3fe-2388707babe8"/>
-				<box rightPadding="4"/>
-				<textElement textAlignment="Right"/>
-				<text><![CDATA[Fecha:]]></text>
-			</staticText>
-			<textField pattern="EEEEE dd MMMMM yyyy">
-				<reportElement x="460" y="40" width="84" height="20" uuid="bb10dbe1-0a4f-4722-9953-c163b63cf979"/>
-				<textFieldExpression><![CDATA[new java.util.Date()]]></textFieldExpression>
-			</textField>
-			<staticText>
-				<reportElement x="10" y="8" width="210" height="25" uuid="e622555d-198b-4ccd-a4a1-c59c53304058">
-					<property name="local_mesure_unitheight" value="pixel"/>
-					<property name="com.jaspersoft.studio.unit.height" value="px"/>
-				</reportElement>
-				<textElement>
-					<font size="19" isBold="true"/>
-				</textElement>
-				<text><![CDATA[Sociedad Civil Ruta 2]]></text>
-			</staticText>
-			<staticText>
-				<reportElement x="12" y="33" width="205" height="15" uuid="c226e44d-3bb5-4145-b0b3-903bf1d79fde"/>
-				<text><![CDATA[RIF: J-306-902686]]></text>
-			</staticText>
-			<staticText>
-				<reportElement x="12" y="49" width="288" height="15" uuid="bbc0724a-cd73-42d0-8807-2a257dc313ad"/>
-				<text><![CDATA[Carrera 3 entre 19 y 20 Edif. Ruta 2 Barquisimeto Estado Lara]]></text>
-			</staticText>
-			<line>
-				<reportElement x="-1" y="124" width="556" height="1" uuid="a4c6f6b8-b453-4d47-94ac-dbc66f7babd4">
+				<reportElement x="-1" y="19" width="491" height="1" uuid="806ce5df-1219-4876-ae0c-ca7405b1f246">
 					<property name="local_mesure_unitheight" value="pixel"/>
 					<property name="com.jaspersoft.studio.unit.height" value="px"/>
 				</reportElement>
@@ -119,55 +93,53 @@
 		</band>
 	</title>
 	<columnHeader>
-		<band height="50">
+		<band height="20">
 			<staticText>
-				<reportElement style="Column header" positionType="Float" x="-6" y="10" width="185" height="20" forecolor="#000000" uuid="5a80c278-567d-4681-a5c3-11698ca8d634"/>
+				<reportElement style="Column header" positionType="Float" mode="Opaque" x="1" y="0" width="168" height="20" forecolor="#000000" backcolor="#E6E8E9" uuid="e9b87a84-90f1-4b06-a0e8-1f1241f23a91"/>
 				<textElement>
 					<font fontName="Arial" size="12" isBold="true" pdfFontName="Helvetica"/>
 				</textElement>
-				<text><![CDATA[Nro. de Factura]]></text>
+				<text><![CDATA[Cédula]]></text>
 			</staticText>
 			<staticText>
-				<reportElement style="Column header" positionType="Float" x="179" y="10" width="185" height="20" forecolor="#000000" uuid="56f40be7-f8aa-414c-8270-74b75e8b0d19"/>
+				<reportElement style="Column header" positionType="Float" mode="Opaque" x="169" y="0" width="157" height="20" forecolor="#000000" backcolor="#E6E8E9" uuid="494ebc40-4f36-4a07-b65b-86a83c2e22bf"/>
 				<textElement>
 					<font fontName="Arial" size="12" isBold="true" pdfFontName="Helvetica"/>
 				</textElement>
-				<text><![CDATA[Fecha Emisión]]></text>
+				<text><![CDATA[Nombre]]></text>
 			</staticText>
 			<staticText>
-				<reportElement style="Column header" positionType="Float" x="364" y="10" width="185" height="20" forecolor="#000000" uuid="885bef3b-101c-4086-9395-409e0f3ca094"/>
+				<reportElement style="Column header" positionType="Float" mode="Opaque" x="326" y="0" width="164" height="20" forecolor="#000000" backcolor="#E6E8E9" uuid="37114863-6102-412f-8748-3fcaea66977d"/>
 				<textElement>
 					<font fontName="Arial" size="12" isBold="true" pdfFontName="Helvetica"/>
 				</textElement>
-				<text><![CDATA[Monto Total]]></text>
+				<text><![CDATA[Apellido]]></text>
 			</staticText>
-			<textField isStretchWithOverflow="true" isBlankWhenNull="true">
-				<reportElement style="Detail" positionType="Float" x="372" y="30" width="185" height="20" uuid="06a81b6e-bcf5-449e-82c0-eab0c9c4cb5b"/>
-				<textElement>
-					<font fontName="Arial" size="12" isBold="false" pdfFontName="Helvetica"/>
-				</textElement>
-				<textFieldExpression><![CDATA[$F{montototal}]]></textFieldExpression>
-			</textField>
-			<textField isStretchWithOverflow="true" isBlankWhenNull="true">
-				<reportElement style="Detail" positionType="Float" x="180" y="30" width="185" height="20" uuid="e8a44ada-3af8-41db-a238-dbfa18c7901c"/>
-				<textElement>
-					<font fontName="Arial" size="12" isBold="false" pdfFontName="Helvetica"/>
-				</textElement>
-				<textFieldExpression><![CDATA[$F{fechaemision}]]></textFieldExpression>
-			</textField>
-			<textField isStretchWithOverflow="true" isBlankWhenNull="true">
-				<reportElement style="Detail" positionType="Float" x="9" y="30" width="185" height="20" uuid="887fa76a-4725-4d1e-ba7a-906714b38cf2"/>
-				<textElement>
-					<font fontName="Arial" size="12" isBold="false" pdfFontName="Helvetica"/>
-				</textElement>
-				<textFieldExpression><![CDATA[$F{nrofactura}]]></textFieldExpression>
-			</textField>
 		</band>
 	</columnHeader>
 	<detail>
-		<band height="20"/>
+		<band height="20">
+			<textField isStretchWithOverflow="true" isBlankWhenNull="true">
+				<reportElement style="Detail" positionType="Float" x="3" y="0" width="185" height="20" uuid="59441765-1e77-4239-8964-450d4a496b7b"/>
+				<textElement>
+					<font fontName="Arial" size="12" isBold="false" pdfFontName="Helvetica"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{cedula}]]></textFieldExpression>
+			</textField>
+			<textField isStretchWithOverflow="true" isBlankWhenNull="true">
+				<reportElement style="Detail" positionType="Float" x="169" y="0" width="185" height="20" uuid="46235a18-71df-446a-952a-e97c43aff307"/>
+				<textElement>
+					<font fontName="Arial" size="12" isBold="false" pdfFontName="Helvetica"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{nombre}]]></textFieldExpression>
+			</textField>
+			<textField isStretchWithOverflow="true" isBlankWhenNull="true">
+				<reportElement style="Detail" positionType="Float" x="329" y="0" width="161" height="20" uuid="1a067cb9-c8c5-4200-a834-e84c51c6cc89"/>
+				<textElement>
+					<font fontName="Arial" size="12" isBold="false" pdfFontName="Helvetica"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{apellido}]]></textFieldExpression>
+			</textField>
+		</band>
 	</detail>
-	<lastPageFooter>
-		<band height="177"/>
-	</lastPageFooter>
 </jasperReport>
