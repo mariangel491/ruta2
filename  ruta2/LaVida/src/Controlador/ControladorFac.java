@@ -359,9 +359,9 @@ public void agregarElemento(){
 			Deuda d= new Deuda();
 			
 			try {
-				System.out.println(vFactura.getjListIngresos().getSelectedIndex());
-				System.out.println(vFactura.getJTableDeudasPorSocio().getSelectionModel().getLeadSelectionIndex());
-				System.out.println(vFactura.getjTablePrestamosXFactura().getSelectionModel().getLeadSelectionIndex());
+				System.out.println("ingresos" + vFactura.getjListIngresos().getSelectedIndex());
+				
+				
 				
 				if(vFactura.getjListIngresos().getSelectedIndex()>0)//PARA SABER SI UN ELEMNTO DEL JLIST FUE SELECCIONADO
 				{
@@ -371,19 +371,17 @@ public void agregarElemento(){
 				else if(vFactura.getJTableDeudasPorSocio().getSelectionModel().getLeadSelectionIndex()>=0)
 				{
 					d=this.AnnadirDeudas();
+					vFactura.getJTableDeudasPorSocio().getSelectionModel().setLeadSelectionIndex(-1);
+					System.out.println("prestamos" + vFactura.getjTablePrestamosXFactura().getSelectionModel().getLeadSelectionIndex());
 					
 					System.out.println("anadiendo deudaaa");
 					
-					//
-					//
-					//vFactura.getJTableDeudasPorSocio().clearSelection();
-					//vFactura.getJTableDeudasPorSocio().getSelectionModel()
-					//vFactura.liberarLista(listDeudasXSocio);
 					System.out.println(vFactura.getJTableDeudasPorSocio().getSelectionModel().getLeadSelectionIndex());
 					
 				}else{
 					 p= this.AnnadirPrestamos();
 					 System.out.println("añadiendo prestamos");
+					 System.out.println("deudas "+ vFactura.getJTableDeudasPorSocio().getSelectionModel().getLeadSelectionIndex());
 					 }
 			} catch (Exception e) {
 				// TODO Auto-generated catch block
@@ -914,6 +912,8 @@ public boolean comprobarMonto(){
 								tipo="P";
 								prest=prestDao.buscarPorCodigoPrestamo(lista.getValueAt(i, a).toString());
 								prestamosFactura.add(prest);							
+							
+								
 							}else if(lista.getValueAt(i, a).toString().charAt(0)=='D'){
 								tipo="D";
 								deudasFactura.add(deudaDao.buscarPorCodDeuda(lista.getValueAt(i, a).toString()));
@@ -966,13 +966,14 @@ public boolean comprobarMonto(){
 				 //PARA LOS EGRESOS Y SUS MONTOS
 				 Object[] arrayIngresos= ingresosFactura.toArray();
 				 Float alquiler=(float) 0, fc=(float) 0,ruta=(float) 0;
-				
+				String tipoIng="";
 				 if(arrayIngresos.length>0){
 				 for (int i=0; i< arrayIngresos.length;i++)
 				 {
 					 ieDetFac= new IEDetalleFactura();
 					 Ingresos ing = (Ingresos) arrayIngresos[i];
-					
+					 tipoIng= ing.getCodIngreso();
+					 System.out.println(tipoIng);
 					   ieDetFac.setIddetalle(IEFDao.buscarUltimoNumeroDetalleFactura());
 					   ieDetFac.setDf(detalleFacturaDao.buscarPorCodDetalle(detalleFactura.getCoddetalle()));
 					   ieDetFac.setCantidad(cantidad.get(i));
@@ -997,9 +998,26 @@ public boolean comprobarMonto(){
 					 }
 				 }
 				 }
+				 
+				 Object[] arrayPrestamos= prestamosFactura.toArray();
+				 if(arrayPrestamos.length>0){
+				 for (int i=0; i< arrayPrestamos.length;i++)
+				 {
+					 ieDetFac= new IEDetalleFactura();
+					// Prestamos p= (Prestamos) arrayPrestamos[i];
+					 					
+					   ieDetFac.setIddetalle(IEFDao.buscarUltimoNumeroDetalleFactura());
+					   ieDetFac.setDf(detalleFacturaDao.buscarPorCodDetalle(detalleFactura.getCoddetalle()));
+					   ieDetFac.setCantidad(1);
+					   ieDetFac.setIng(ingDao.buscarPorCodIngreso("I0014"));
+					   ieDetFac.setMonto(montoPrestamos.get(i));
+					
+					 IEFDao.agregarDetalle(ieDetFac);
+				 	}
+				 }
 			
 				 if(prestamosFactura.size()>0){
-				 	Object[] arrayPrestamos= prestamosFactura.toArray();
+				 	
 					for(int i=0; i<arrayPrestamos.length; i++){
 						 Prestamos pres= (Prestamos) arrayPrestamos[i];
 						 cuentaPrestamos = new CuentaPrestamos();
@@ -1103,6 +1121,10 @@ public boolean comprobarMonto(){
 		 }	
 
 		 vFactura.limpiarTodo();
+		 prestamosFactura.removeAll(deudasFactura);
+		 deudasFactura.removeAll(deudasFactura);
+		 ingresosFactura.removeAll(ingresosFactura);
+		 
 		return factura.getNroFactura();
 		
 	}

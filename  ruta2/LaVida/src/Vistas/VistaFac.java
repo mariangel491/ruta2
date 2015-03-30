@@ -923,10 +923,13 @@ private static VistaFac vFactura=null;
 		try {
 			for (Iterator iterator = ingDao.obtenerIngresosPorTipos(tipoFacturado).iterator(); iterator.hasNext();) {
 				Ingresos ingre = (Ingresos)iterator.next();
-				System.out.println(ingre.getDescripcion().equals("Aporte Socio"));
-				System.out.println(ingre.getDescripcion().equals("Aporte Conductor"));
-				if(!ingre.getDescripcion().equals("Aporte Socio") || !ingre.getDescripcion().equals("Aporte Conductor"))
+				
+			 if(!ingre.getDescripcion().equals("Aporte Conductor") && !ingre.getDescripcion().equals("Aporte Socio"))
+				{
 					listaModeloIngresoEgreso.add(ingre.getDescripcion());
+				}
+					
+				
 			}
 			jListIngresos.setModel(listaModeloIngresoEgreso);
 		} catch (Exception e) {
