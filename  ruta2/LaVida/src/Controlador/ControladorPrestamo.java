@@ -30,6 +30,7 @@ public class ControladorPrestamo implements ActionListener, KeyListener {
 	Prestamos prestamos = new Prestamos();
 	private SocioDao socioDao = new SocioDao();
 	private Socio socio = new Socio();
+	private VistaFac vistaF= new VistaFac();
 	
 	//PARA LO DE LOS REPORTES
 	
@@ -50,6 +51,7 @@ public class ControladorPrestamo implements ActionListener, KeyListener {
 	
 	public ControladorPrestamo(VistaFac vf) {
 		vPrestamo = new VistaPrestamo();
+		vistaF = vf;
 		vPrestamo = vPrestamo.obtenerInstancia();
 		vPrestamo.setLocationRelativeTo(null);
 		vPrestamo.setVisible(true);
@@ -58,8 +60,9 @@ public class ControladorPrestamo implements ActionListener, KeyListener {
 		vPrestamo.limpiarCampos();
 		vPrestamo.asignarCod();
 		vPrestamo.setTxtNroSocio(vf.getTxtNroSocio());
-		vPrestamo.setTxtNomSocio(vf.getTxtNombSocio());
+		vPrestamo.setTxtNomSocio(vf.getTxtNombSocio()+ " " + vf.getTxtApellido().getText());
 		vPrestamo.setTxtMonto(vf.getTxtMontoIngresoEgreso());
+		vPrestamo.DesactivarCampos();
 		
 		//vPrestamo.agregarKey(this);
 	}
@@ -125,11 +128,9 @@ public class ControladorPrestamo implements ActionListener, KeyListener {
 
 				codigo = socio.getNroSocio();
 				vPrestamo.setTxtNroSocio(codigo);
-				System.out.println(codigo);
 
 				nombre = socio.getNombre();
 				vPrestamo.setTxtNomSocio(nombre);
-				System.out.println(nombre);
 				
 				vPrestamo.OcultarListado(this.LlenarListado());
 				this.LlenarListado();
@@ -145,8 +146,6 @@ public class ControladorPrestamo implements ActionListener, KeyListener {
 	
 	public static Date getFechaActual() {
 	    Date fecha = new Date();
-	   // SimpleDateFormat formateador = new SimpleDateFormat("dd-MM-yyyy");
-	    //return formateador.format(fecha);
 	    return fecha;
 	}
 	
@@ -157,23 +156,17 @@ public ArrayList<Prestamos> LlenarListado () throws Exception {
 		ArrayList<Prestamos> listado = new ArrayList<Prestamos>();
 		
 		for (int i = 0; i<prestamosDao.obtenerTodos().size(); i++) {
-			System.out.println(prestamosDao.obtenerTodos().get(i).getNroSocio().getNroSocio().equals(vPrestamo.getTxtNroSocio()));
-			System.out.println(prestamosDao.obtenerTodos().get(i).getNroSocio().getNroSocio());
-			System.out.println(vPrestamo.getTxtNroSocio());
+	
 			Prestamos p= new Prestamos();
 			if(prestamosDao.obtenerTodos().get(i).getNroSocio().getNroSocio().equals(vPrestamo.getTxtNroSocio())) 
 			{
-				System.out.println(listado.size()  +"1do este no se esta imprimiendo");
 				listado.add(prestamosDao.obtenerTodos().get(i));
 				p=prestamosDao.obtenerTodos().get(i);
-				System.out.println(listado.size()  +"   2do y porque este si");
 				vPrestamo.agregarfilaPrestamos(p.getCodPrestamo(), p.getDescripcion(), Float.toString(p.getMonto()), p.getFechaEmision().toString());
 			}
 		
 		}
 			socio.setPrestamos(listado);
-			System.out.println(listado.size()+  "no se");
-		
 		return listado;
 			
 	}
@@ -189,7 +182,11 @@ public ArrayList<Prestamos> LlenarListado () throws Exception {
 		prestamos.setStatus('A');
 		prestamos.setNroSocio(socioDao.buscarPorNroSocio(vPrestamo.getTxtNroSocio()));
 		
-			prestamosDao.agregarPrestamos(prestamos);
+			//prestamosDao.agregarPrestamos(prestamos);
+		vPrestamo.AnnadirPrestamosProv(prestamos);
+		System.out.println("tam lista prest "+ vPrestamo.getListaPrest().size());
+		vistaF.agregarFilaPrestIng(vPrestamo.getTxtCodPrestamo(), vPrestamo.getTxtDescripcion(), vPrestamo.getTxtMonto());
+		vistaF.LlenarLista(prestamos);
 			vPrestamo.limpiarCampos();
 			
 	}
@@ -203,10 +200,7 @@ public ArrayList<Prestamos> LlenarListado () throws Exception {
 			prestamos.setStatus('C');
 			prestamosDao.actualizarPrestamos(nro, prestamos);
 		}
-		System.out.println(prestamos.getMonto());
-	
-		
-	}
+			}
 			
 	
 	@Override

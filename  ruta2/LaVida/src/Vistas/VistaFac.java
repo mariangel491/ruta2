@@ -51,6 +51,7 @@ import Modelos.Deuda;
 import Modelos.Egresos;
 import Modelos.Ingresos;
 import Modelos.Inquilino;
+import Modelos.Prestamos;
 import Modelos.Socio;
 import Modelos.Hibernate.Daos.EgresosDao;
 import Modelos.Hibernate.Daos.IngresosDao;
@@ -174,6 +175,7 @@ public class VistaFac extends javax.swing.JFrame {
 		LinkedListModel<String> listaModeloAux=new LinkedListModel<>();
 		private String filaSeleccionada="";
 		private String filaDeudaSelec="";
+		private ArrayList<Prestamos> listaPrestamos=new ArrayList<Prestamos>();
 	
 	
 	/**
@@ -532,6 +534,7 @@ private static VistaFac vFactura=null;
 										jScrollPrestFactura.setVisible(false);
 										lblPrestamos.setVisible(false);
 										lblPendiente.setVisible(false);
+										btnAnnadirPrestamo.setVisible(false);
 										
 									}
 									else if(cmbTipoFactu.getSelectedItem().toString().equalsIgnoreCase(vFactura.TIPO_DE_FACTURA_EGRESOS)){
@@ -547,6 +550,7 @@ private static VistaFac vFactura=null;
 										jScrollPrestFactura.setVisible(false);
 										lblPrestamos.setVisible(false);
 										lblPendiente.setVisible(false);
+										btnAnnadirPrestamo.setVisible(false);
 
 									}else if(cmbTipoFactu.getSelectedItem().toString().equalsIgnoreCase(vFactura.TIPO_DE_FACTURA_PRESTAMOS)){
 										jListIngresos.setVisible(false);
@@ -559,6 +563,7 @@ private static VistaFac vFactura=null;
 									    jScrollPrestFactura.setVisible(true);
 										lblPrestamos.setVisible(true);
 										lblPendiente.setVisible(true);
+										btnAnnadirPrestamo.setVisible(true);
 										
 										
 									}
@@ -848,6 +853,7 @@ private static VistaFac vFactura=null;
 		this.btnSalir.addActionListener(accion);
 		this.btnBuscarCedSoc.addActionListener(accion);
 		this.btnAnnadirDeuda.addActionListener(accion);
+		this.btnAnnadirPrestamo.addActionListener(accion);
 		
 		
 		//CHECKBUTTON
@@ -864,6 +870,7 @@ private static VistaFac vFactura=null;
 		txtDeposito.addActionListener(accion);
 		txtEfectivo.addActionListener(accion);
 		txtSubsidio.addActionListener(accion);
+		txtNroSocio.addActionListener(accion);
 		
 	 
 		
@@ -1037,6 +1044,7 @@ private static VistaFac vFactura=null;
 		jScrollPrestFactura.setVisible(false);
 		lblPrestamos.setVisible(false);
 		lblPendiente.setVisible(false);
+		btnAnnadirPrestamo.setVisible(false);
 	}
 	public void removerElementoTablaIngresoXFactura(){
 		 defaultTableModelIngresoXfactura = (DefaultTableModel) jTableIngresosXFactura.getModel();
@@ -1702,8 +1710,21 @@ private static VistaFac vFactura=null;
 			btnAnnadirPrestamo = new JButton();
 			btnAnnadirPrestamo.setIcon(new ImageIcon(getClass().getClassLoader().getResource("Imagenes/add.png")));
 			btnAnnadirPrestamo.setBounds(400, 131, 30, 23);
+			btnAnnadirPrestamo.setActionCommand("AnnadirPrestamos");
 		}
+		
 		return btnAnnadirPrestamo;
 	}
 
+	public void LlenarLista(Prestamos p){
+		listaPrestamos.add(p);
+	}
+
+	public ArrayList<Prestamos> getListaPrestamos() {
+		return listaPrestamos;
+	}
+
+	public void setListaPrestamos(ArrayList<Prestamos> listaPrestamos) {
+		this.listaPrestamos = listaPrestamos;
+	}
 }

@@ -6,6 +6,7 @@ import Modelos.Hibernate.Daos.PrestamosDao;
 import com.toedter.calendar.JDateChooser;
 
 import java.awt.BorderLayout;
+import java.awt.Container;
 import java.awt.event.ActionListener;
 import java.awt.event.KeyListener;
 import java.util.ArrayList;
@@ -75,6 +76,8 @@ public class VistaPrestamo extends javax.swing.JFrame {
 
 	
 	private PrestamosDao prestamosDao = new PrestamosDao();
+	private Prestamos prest;
+	private ArrayList<Prestamos> listaPrest= new ArrayList<Prestamos>();
 	
 	/**
 	* Auto-generated main method to display this JFrame
@@ -558,4 +561,38 @@ public void OcultarCasiTodo(){
 		return lblLogo;
 	}
 
+	
+	public void DesactivarCampos(){
+		this.txtNroSocio.setEditable(false);
+		this.txtNomSocio.setEditable(false);
+		this.txtCodPrestamo.setEditable(false);
+	}
+	
+
+	public Prestamos getPrest() {
+		return prest;
+	}
+
+
+	public void setPrest(Prestamos prest) {
+		this.prest = prest;
+	}
+	
+	public void AnnadirPrestamosProv(Prestamos prest){
+		System.out.println("annadir "+ prest.getDescripcion());
+		listaPrest.add(prest);
+	}
+
+
+	public ArrayList<Prestamos> getListaPrest() {
+		return listaPrest;
+	}
+
+
+	public void setListaPrest(ArrayList<Prestamos> listaPrest) {
+		this.listaPrest = listaPrest;
+	}
+	
+	
+	
 }
