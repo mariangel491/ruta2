@@ -87,6 +87,7 @@ public class VistaFac extends javax.swing.JFrame {
 	private JTextField txtCedulaSocio;
 	private JLabel lblCedSocio;
 	private JTextField txtEfectivo;
+	private JButton btnAnnadirPrestamo;
 	private JTable jTableDeudasPorSocio;
 	private JButton btnAnnadirDeuda;
 	private JScrollPane deudasSocio;
@@ -506,6 +507,7 @@ private static VistaFac vFactura=null;
 							jPanelIngresos.add(getLblCantidad());
 							jPanelIngresos.add(getLblPrestamos());
 							jPanelIngresos.add(getLblPendiente());
+							jPanelIngresos.add(getBtnAnnadirPrestamo());
 							cmbTipoFactu.setModel(cmbTipoFactuModel);
 							cmbTipoFactu.setBounds(118, 21, 230, 23);
 							cmbTipoFactu.setEditable(false);
@@ -812,7 +814,7 @@ private static VistaFac vFactura=null;
 
 	public void setjListIngresos(JList jListIngresos) {
 		this.jListIngresos = jListIngresos;
-		jListIngresos.setPreferredSize(new java.awt.Dimension(279, 22));
+		jListIngresos.setPreferredSize(new java.awt.Dimension(310, 110));
 	}
 
 	public void setjListPrestamosModel(LinkedListModel<String> model)
@@ -1693,6 +1695,15 @@ private static VistaFac vFactura=null;
 			});
 		}
 		return jTableDeudasPorSocio;
+	}
+	
+	private JButton getBtnAnnadirPrestamo() {
+		if(btnAnnadirPrestamo == null) {
+			btnAnnadirPrestamo = new JButton();
+			btnAnnadirPrestamo.setIcon(new ImageIcon(getClass().getClassLoader().getResource("Imagenes/add.png")));
+			btnAnnadirPrestamo.setBounds(400, 131, 30, 23);
+		}
+		return btnAnnadirPrestamo;
 	}
 
 }
