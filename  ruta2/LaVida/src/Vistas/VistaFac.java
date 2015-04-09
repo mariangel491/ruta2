@@ -583,7 +583,7 @@ private static VistaFac vFactura=null;
 						{
 							jScrollPaneFactura = new JScrollPane();
 							jPanelInfFactura.add(jScrollPaneFactura);
-							jScrollPaneFactura.setBounds(13, 25, 389, 265);
+							jScrollPaneFactura.setBounds(13, 25, 417, 131);
 							jScrollPaneFactura.setBorder(new SoftBevelBorder(BevelBorder.LOWERED, null, null, null, null));
 							{
 								TableModel jTableIngresosXFacturaModel = 
@@ -605,14 +605,14 @@ private static VistaFac vFactura=null;
 							jToggleButton1 = new JToggleButton();
 							jPanelInfFactura.add(jToggleButton1);
 							jToggleButton1.setText("Total");
-							jToggleButton1.setBounds(128, 164, 87, 25);
+							jToggleButton1.setBounds(128, 162, 87, 25);
 							jToggleButton1.setBorder(new SoftBevelBorder(BevelBorder.LOWERED, null, null, null, null));
 							jToggleButton1.setFont(new java.awt.Font("Verdana",0,11));
 						}
 						{
 							txtMontoTotal = new JTextField();
 							jPanelInfFactura.add(txtMontoTotal);
-							txtMontoTotal.setBounds(225, 165, 179, 22);
+							txtMontoTotal.setBounds(225, 163, 205, 22);
 							txtMontoTotal.setEditable(false);
 							txtMontoTotal.setFont(new java.awt.Font("Verdana",0,11));
 						}
