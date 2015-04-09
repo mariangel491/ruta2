@@ -1668,7 +1668,7 @@ private static VistaFac vFactura=null;
 	private JScrollPane getDeudasSocio() {
 		if(deudasSocio == null) {
 			deudasSocio = new JScrollPane();
-			deudasSocio.setBounds(17, 18, 408, 101);
+			deudasSocio.setBounds(17, 16, 408, 101);
 			deudasSocio.setViewportView(getJTableDeudasPorSocio());
 		}
 		return deudasSocio;
@@ -1679,7 +1679,7 @@ private static VistaFac vFactura=null;
 			btnAnnadirDeuda = new JButton();
 			btnAnnadirDeuda.setText("Añadir");
 			btnAnnadirDeuda.setIcon(new ImageIcon(getClass().getClassLoader().getResource("Imagenes/add.png")));
-			btnAnnadirDeuda.setBounds(173, 123, 110, 28);
+			btnAnnadirDeuda.setBounds(173, 119, 110, 28);
 			btnAnnadirDeuda.setActionCommand("annadirDeuda");
 		}
 		return btnAnnadirDeuda;
