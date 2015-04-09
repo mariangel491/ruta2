@@ -44,6 +44,7 @@ import Modelos.Ingresos;
 import Modelos.Inquilino;
 import Modelos.Prestamos;
 import Modelos.Socio;
+import Modelos.Subsidio;
 import Modelos.Hibernate.Daos.ArrendatarioDao;
 import Modelos.Hibernate.Daos.CajaDao;
 import Modelos.Hibernate.Daos.CuentaAlquilerDao;
@@ -128,6 +129,7 @@ public class ControladorFac implements ActionListener, KeyListener, FocusListene
 		vFactura.agregarKey(this);
 		vFactura.agregarFocusListener(this);
 		vFactura.OcultarCamposFormaPago();
+		vFactura.ocultarTablas();
 	}
 	
 
@@ -358,15 +360,10 @@ public void agregarElemento(){
 			Prestamos p = new Prestamos();
 			Deuda d= new Deuda();
 			
-			try {
-				System.out.println("ingresos" + vFactura.getjListIngresos().getSelectedIndex());
-				
-				
-				
+			try {	
 				if(vFactura.getjListIngresos().getSelectedIndex()>0)//PARA SABER SI UN ELEMNTO DEL JLIST FUE SELECCIONADO
 				{
 					ing= ingDao.obtenerIngresosPorDescripcion(vFactura.getjListIngresos().getSelectedValue().toString());
-					System.out.println("añadiendo ingresos");
 				}
 				else if(vFactura.getJTableDeudasPorSocio().getSelectionModel().getLeadSelectionIndex()>=0)
 				{
@@ -378,11 +375,9 @@ public void agregarElemento(){
 					
 					System.out.println(vFactura.getJTableDeudasPorSocio().getSelectionModel().getLeadSelectionIndex());
 					
-				}else{
+				}/*else{
 					 p= this.AnnadirPrestamos();
-					 System.out.println("añadiendo prestamos");
-					 System.out.println("deudas "+ vFactura.getJTableDeudasPorSocio().getSelectionModel().getLeadSelectionIndex());
-					 }
+					 }*/
 			} catch (Exception e) {
 				// TODO Auto-generated catch block
 				e.printStackTrace();
@@ -443,6 +438,13 @@ public void agregarElemento(){
 				
 				
 			
+		}else if(vFactura.getCmbTipoFactu().equals(vFactura.TIPO_DE_FACTURA_PRESTAMOS)){
+			 Prestamos p= new Prestamos();
+			 if(vFactura.getjTablePrestamosXFactura().getSelectionModel().getLeadSelectionIndex()>=0){
+				 p= this.AnnadirPrestamos();
+				 vFactura.agregarFilaPrestIng(p.getCodPrestamo(), p.getDescripcion(),Float.toString(p.getMonto()));
+			 }
+			 
 		}
 		
 		vFactura.getjListIngresos().clearSelection();
@@ -1154,7 +1156,9 @@ public boolean comprobarMonto(){
 		Double montoTotal=(double) 0;
 		for(int i=0;i<subDao.obtenerTodos().size();i++)
 		{
-			if(subDao.obtenerTodos().get(i).getSocio().getNroSocio().equals(nroSocio)){
+			Subsidio sub= new Subsidio();
+			sub=subDao.obtenerTodos().get(i);
+			if(sub.getSocio().getNroSocio().equals(nroSocio)){
 				montoTotal= montoTotal+subDao.obtenerTodos().get(i).getMonto();
 			}
 		}
@@ -1167,7 +1171,8 @@ public boolean comprobarMonto(){
 		for(int i=0;i<prestamosDao.obtenerTodos().size();i++)
 		{
 			Prestamos prest= new Prestamos();
-			if(prestamosDao.obtenerTodos().get(i).getNroSocio().getNroSocio().equals(nroSocio)){
+			Prestamos otroPrest= prestamosDao.obtenerTodos().get(i);
+			if(otroPrest.getNroSocio().getNroSocio().equals(nroSocio) && otroPrest.getStatus()=='A'){
 				prest = prestamosDao.obtenerTodos().get(i);
 				listPrestamosXSocio.add(prest);
 				vFactura.agregarFilaPrestamos(prest.getDescripcion(), Float.toString(prest.getMonto()));

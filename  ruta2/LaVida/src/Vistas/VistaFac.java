@@ -128,7 +128,7 @@ public class VistaFac extends javax.swing.JFrame {
 	private JButton btnanadir;
 	private JTable jTableIngresosXFactura;
 	private JTable jTablePrestamosXFactura;
-	private JTable jTablePrestamos;
+	
 	private JPanel jPanelInfFactura;
 	private JLabel lblMontoAbonar;
 	private JTextField txtMontoAdeudado;
@@ -161,6 +161,7 @@ public class VistaFac extends javax.swing.JFrame {
 	static public String TIPO_FACTURADO_INQUILINO = "INQUILINO";
 	static public String TIPO_FACTURADO_ARRENDATARIO = "ARRENDATARIO";	
 	static public String TIPO_DE_FACTURA_INGRESOS = "Ingresos";
+	static public String TIPO_DE_FACTURA_PRESTAMOS = "Prestamos";
 	private JList jListPrestamosPendientes;
 
 	//Mis datos 
@@ -423,7 +424,7 @@ private static VistaFac vFactura=null;
 						{
 							jScrollPrestFactura = new JScrollPane();
 							jPanelIngresos.add(jScrollPrestFactura);
-							jScrollPrestFactura.setBounds(103, 174, 296, 65);
+							jScrollPrestFactura.setBounds(104, 57, 296, 165);
 							jScrollPrestFactura.setBorder(new SoftBevelBorder(BevelBorder.LOWERED, null, null, null, null));
 							{
 								TableModel jTablePrestamosXFacturaModel = 
@@ -460,7 +461,7 @@ private static VistaFac vFactura=null;
 						{
 							jScrollingresos = new JScrollPane();
 							jPanelIngresos.add(jScrollingresos);
-							jScrollingresos.setBounds(104, 55, 295, 102);
+							jScrollingresos.setBounds(104, 55, 295, 180);
 							{
 								ListModel jListIngresosModel = 
 										new DefaultComboBoxModel(
@@ -498,7 +499,7 @@ private static VistaFac vFactura=null;
 						{
 							ComboBoxModel cmbTipoFactuModel = 
 									new DefaultComboBoxModel(
-											new String[] { OPCION_COMBO_SELECCIONE,this.TIPO_DE_FACTURA_INGRESOS, this.TIPO_DE_FACTURA_EGRESOS});
+											new String[] { OPCION_COMBO_SELECCIONE,this.TIPO_DE_FACTURA_INGRESOS, this.TIPO_DE_FACTURA_EGRESOS, this.TIPO_DE_FACTURA_PRESTAMOS});
 							cmbTipoFactu = new JComboBox();
 							jPanelIngresos.add(cmbTipoFactu);
 							jPanelIngresos.add(getJSpinnerCantidad());
@@ -524,22 +525,40 @@ private static VistaFac vFactura=null;
 										limpiarTablaIngresos();
 										jSpinnerCantidad.setVisible(true);
 										lblCantidad.setVisible(true);
-									//	activarFormaDePago();
-//										txtMontoIngresoEgreso.setEnabled(false);
-//										txtMontoIngresoEgreso.setEditable(false);
-//										txtMontoIngresoEgreso.setText("");
+										jListIngresos.setVisible(true);
+										jScrollingresos.setVisible(true);
+										jScrollPrestFactura.setVisible(false);
+										lblPrestamos.setVisible(false);
+										lblPendiente.setVisible(false);
+										
 									}
 									else if(cmbTipoFactu.getSelectedItem().toString().equalsIgnoreCase(vFactura.TIPO_DE_FACTURA_EGRESOS)){
-									//	desactivarFormaDePago();
+									
 										listaModeloAux.clear();
 										llenarEgresos(cmbTipoFacturado.getSelectedItem().toString());
 										jListIngresos.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
 										jSpinnerCantidad.setVisible(false);
 										lblCantidad.setVisible(false);
 										limpiarTablaEgresos();
-//										txtMontoIngresoEgreso.setEnabled(true);
-//										txtMontoIngresoEgreso.setEditable(true);
-//										txtMontoIngresoEgreso.setText("");
+										jListIngresos.setVisible(true);
+										jScrollingresos.setVisible(true);
+										jScrollPrestFactura.setVisible(false);
+										lblPrestamos.setVisible(false);
+										lblPendiente.setVisible(false);
+
+									}else if(cmbTipoFactu.getSelectedItem().toString().equalsIgnoreCase(vFactura.TIPO_DE_FACTURA_PRESTAMOS)){
+										jListIngresos.setVisible(false);
+										jScrollingresos.setVisible(false);
+										lblNombIngreso.setVisible(false);
+										jSpinnerCantidad.setVisible(false);
+										lblCantidad.setVisible(false);
+										limpiarTablaPrestamos();
+									    btnAnnadirDeuda.setEnabled(false);
+									    jScrollPrestFactura.setVisible(true);
+										lblPrestamos.setVisible(true);
+										lblPendiente.setVisible(true);
+										
+										
 									}
 								}
 								
@@ -557,7 +576,7 @@ private static VistaFac vFactura=null;
 						{
 							jScrollPaneFactura = new JScrollPane();
 							jPanelInfFactura.add(jScrollPaneFactura);
-							jScrollPaneFactura.setBounds(13, 25, 389, 134);
+							jScrollPaneFactura.setBounds(13, 25, 389, 265);
 							jScrollPaneFactura.setBorder(new SoftBevelBorder(BevelBorder.LOWERED, null, null, null, null));
 							{
 								TableModel jTableIngresosXFacturaModel = 
@@ -1012,7 +1031,11 @@ private static VistaFac vFactura=null;
 		
 	}
 	
-
+	public void ocultarTablas(){
+		jScrollPrestFactura.setVisible(false);
+		lblPrestamos.setVisible(false);
+		lblPendiente.setVisible(false);
+	}
 	public void removerElementoTablaIngresoXFactura(){
 		 defaultTableModelIngresoXfactura = (DefaultTableModel) jTableIngresosXFactura.getModel();
 		
@@ -1448,6 +1471,14 @@ private static VistaFac vFactura=null;
 		jTableIngresosXFactura.setModel(tblListadoModel);
 
 		}	
+
+	public void limpiarTablaPrestamos() {
+		TableModel tblListadoModel = 
+		new DefaultTableModel(
+				new String[] {"Codigo","Nombre", "Monto"},0);
+		jTableIngresosXFactura.setModel(tblListadoModel);
+
+		}
 	
 	public void limpiarTablaDeudas() {
 		TableModel tblListadoModel = 
@@ -1481,6 +1512,19 @@ private static VistaFac vFactura=null;
 		DefaultTableModel dtm = (DefaultTableModel) jTableIngresosXFactura.getModel();
 		dtm.addRow(ingresos);	
 	}
+	
+	//Para Los ingresos
+		public void agregarFilaPrestIng(String cod, String nombre, String monto)
+		{
+			Vector<String> prestamos = new Vector<String>();
+
+			prestamos.add(cod);
+			prestamos.add(nombre);
+			prestamos.add(monto);
+		
+			DefaultTableModel dtm = (DefaultTableModel) jTableIngresosXFactura.getModel();
+			dtm.addRow(prestamos);	
+		}
 	
 	public void agregarFilaEgresos(String cod, String nombre, String monto, String clasif){
 		Vector<String> egresos = new Vector<String>();
