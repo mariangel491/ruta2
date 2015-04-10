@@ -911,9 +911,14 @@ private static VistaFac vFactura=null;
 		listaModeloIngresoEgreso.clear();
 		listaModeloAux.clear();
 		jListIngresos.removeAll();
-		jTablePrestamosXFactura.removeAll();
-		jTableIngresosXFactura.removeAll();
-		jTableDeudasPorSocio.removeAll();
+		limpiarTablaDeudas();
+		limpiarTablaEgresos();
+		limpiarTablaIngresos();
+		limpiarTablaIngresoXFactura();
+		limpiarTablaPrestamos();
+		limpiarTablaListPrestamos();
+		
+		
 		
 	}
 
@@ -1505,6 +1510,13 @@ private static VistaFac vFactura=null;
 						new String[] {"Codigo","Nombre", "Monto","Clasif","Cantidad"},0);
 				jTableIngresosXFactura.setModel(tblListadoModel);
 
+	}
+	
+	public void limpiarTablaListPrestamos(){
+		TableModel tblListadoModel = 
+				new DefaultTableModel(
+						new String[] {"Descripción", "Monto"},0);
+				jTablePrestamosXFactura.setModel(tblListadoModel);
 	}
 	
 	

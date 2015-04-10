@@ -143,6 +143,7 @@ public class ControladorFac implements ActionListener, KeyListener, FocusListene
 		else if(ae.getActionCommand().equalsIgnoreCase("Procesar"))
 		{
 			this.Procesar();
+		
 			/*this.guardarFacturaIngreso(vFactura.getCmbTipoFacturado(),vFactura.getTxtNroSocio(), 
 			vFactura.getTxtCed(),vFactura.getjTableIngresosXFactura(),vFactura.getTxtMontoTotal());*/
 	
@@ -1254,7 +1255,7 @@ public boolean comprobarMonto(){
 			 String valorMensaje = "Se ha producido un Error al Guardar Detalle de la Factura";
 		 }	
 
-		 vFactura.limpiarTodo();
+		 //vFactura.limpiarTodo();
 		 prestamosFactura.removeAll(deudasFactura);
 		 deudasFactura.removeAll(deudasFactura);
 		 ingresosFactura.removeAll(ingresosFactura);
@@ -1265,7 +1266,6 @@ public boolean comprobarMonto(){
 
 
 	public void Procesar() {
-		System.out.println("tipo fact " +vFactura.TIPO_DE_FACTURA_INGRESOS);
 		if(vFactura.getCmbTipoFactu().equalsIgnoreCase(vFactura.TIPO_DE_FACTURA_INGRESOS)){
 			
 			this.guardarFacturaIngreso(vFactura.getCmbTipoFacturado(),vFactura.getTxtNroSocio(), 

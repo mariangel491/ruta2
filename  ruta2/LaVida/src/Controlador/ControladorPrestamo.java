@@ -182,11 +182,11 @@ public ArrayList<Prestamos> LlenarListado () throws Exception {
 		prestamos.setStatus('A');
 		prestamos.setNroSocio(socioDao.buscarPorNroSocio(vPrestamo.getTxtNroSocio()));
 		
-			//prestamosDao.agregarPrestamos(prestamos);
+		//prestamosDao.agregarPrestamos(prestamos);
 		vPrestamo.AnnadirPrestamosProv(prestamos);
-		System.out.println("tam lista prest "+ vPrestamo.getListaPrest().size());
 		vistaF.agregarFilaPrestIng(vPrestamo.getTxtCodPrestamo(), vPrestamo.getTxtDescripcion(), vPrestamo.getTxtMonto());
 		vistaF.LlenarLista(prestamos);
+		vistaF.sumarMontoTablaIngresoXFactura();
 			vPrestamo.limpiarCampos();
 			
 	}
