@@ -143,10 +143,6 @@ public class ControladorFac implements ActionListener, KeyListener, FocusListene
 		else if(ae.getActionCommand().equalsIgnoreCase("Procesar"))
 		{
 			this.Procesar();
-		
-			/*this.guardarFacturaIngreso(vFactura.getCmbTipoFacturado(),vFactura.getTxtNroSocio(), 
-			vFactura.getTxtCed(),vFactura.getjTableIngresosXFactura(),vFactura.getTxtMontoTotal());*/
-	
 		}
 		else if(ae.getActionCommand().equalsIgnoreCase("Cancelar"))
 		{
@@ -182,9 +178,9 @@ public class ControladorFac implements ActionListener, KeyListener, FocusListene
 				// TODO Auto-generated catch block
 				e.printStackTrace();
 			}
-		}else if(ae.getActionCommand().equalsIgnoreCase("total"))
+		}
+		else if(ae.getActionCommand().equalsIgnoreCase("total"))
 		{
-		
 			this.CalcularTotalFormaPago();
 		}
 		else if(ae.getActionCommand().equalsIgnoreCase("CheckEfectivo")){
@@ -221,14 +217,17 @@ public class ControladorFac implements ActionListener, KeyListener, FocusListene
 			}
 		}else if(ae.getActionCommand().equalsIgnoreCase("BuscarXNroSocio")){
 			
-			try {
-				this.BuscarSocioPorNro();
-				this.BuscarSubsidio(vFactura.getTxtNroSocio());
-			} catch (Exception e) {
-				// TODO Auto-generated catch block
-				e.printStackTrace();
-			}
 			
+				vFactura.limpiarTablaDeudas();
+				try {
+					this.BuscarSocioPorNro();
+					this.BuscarSubsidio(vFactura.getTxtNroSocio());
+					this.BuscarPrestamos(vFactura.getTxtNroSocio());
+					this.BuscarDeudas();
+				} catch (Exception e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				}				
 		}else if(ae.getActionCommand().equalsIgnoreCase("annadirDeuda")){
 			this.agregarElemento();
 		}else if(ae.getActionCommand().equalsIgnoreCase("AnnadirPrestamos")){
@@ -240,6 +239,8 @@ public class ControladorFac implements ActionListener, KeyListener, FocusListene
 			else{
 				ControladorPrestamo controP= new ControladorPrestamo(vFactura);
 			}
+		}else if(ae.getActionCommand().equalsIgnoreCase("MontoDeudaP")){
+			this.CalcularDeudaRestante();
 		}
 					
 		
@@ -445,7 +446,12 @@ public void agregarElemento(){
 			 Prestamos p= new Prestamos();
 			 if(vFactura.getjTablePrestamosXFactura().getSelectionModel().getLeadSelectionIndex()>=0){
 				 p= this.AnnadirPrestamos();
-				 vFactura.agregarFilaPrestIng(p.getCodPrestamo(), p.getDescripcion(),Float.toString(p.getMonto()));
+				 if(Float.parseFloat(vFactura.getTxtMontoIngresoEgreso())>0)
+				 {
+				 vFactura.agregarFilaPrestIng(p.getCodPrestamo(), p.getDescripcion(),vFactura.getTxtMontoIngresoEgreso());
+				 vFactura.setTxtMontoAdeudado("");
+				 }else 
+					 JOptionPane.showMessageDialog(null, "El monto debe ser mayor que cero", "Atención!", JOptionPane.ERROR_MESSAGE);
 			 }
 			 
 		}
@@ -1302,16 +1308,24 @@ public boolean comprobarMonto(){
 	
 	}
 	
+	
+	
 	public void BuscarPrestamos(String nroSocio) throws Exception
 	{
+		List<CuentaPrestamos> listPrest= new ArrayList<CuentaPrestamos>();
+		Float monto=(float) 0;
 		for(int i=0;i<prestamosDao.obtenerTodos().size();i++)
 		{
 			Prestamos prest= new Prestamos();
 			Prestamos otroPrest= prestamosDao.obtenerTodos().get(i);
+			/*listPrest=cuentaPrestamosDao.MovimientosPrestamos(otroPrest.getCodPrestamo());
+			for(int j=0;j<listPrest.size();i++){
+				monto= monto+listPrest.get(j).getMontoTransaccion();
+			}*/
 			if(otroPrest.getNroSocio().getNroSocio().equals(nroSocio) && otroPrest.getStatus()=='A'){
 				prest = prestamosDao.obtenerTodos().get(i);
 				listPrestamosXSocio.add(prest);
-				vFactura.agregarFilaPrestamos(prest.getDescripcion(), Float.toString(prest.getMonto()));
+				vFactura.agregarFilaPrestamos(prest.getDescripcion(), Float.toString(prest.getMonto()), Float.toString(monto));
 			}
 		}
 	}
@@ -1319,6 +1333,7 @@ public boolean comprobarMonto(){
 	public void BuscarDeudas() throws Exception{
 		
 		List<Deuda> deudasSocio=deudaDao.obtenerDeudasActivasPorSocio(vFactura.getTxtNroSocio());
+		
 		if(deudasSocio.size()>0)
 		{
 			for(int i=0;i<deudasSocio.size();i++){
@@ -1334,6 +1349,7 @@ public boolean comprobarMonto(){
 	
 	public Prestamos AnnadirPrestamos(){
 		Prestamos prestamo= new Prestamos();
+		
 		for(int i=0; i<listPrestamosXSocio.size();i++)
 		{
 			if(listPrestamosXSocio.get(i).getDescripcion().equals(vFactura.filaPrestamos()))
@@ -1350,6 +1366,22 @@ public boolean comprobarMonto(){
 				d= listDeudasXSocio.get(i);
 		}
 		return d;
+	}
+	
+	public void CalcularDeudaRestante(){
+		
+		if(null!= vFactura.getTxtMontoIngresoEgreso() && 
+				this.AnnadirPrestamos().getMonto()>= Float.parseFloat(vFactura.getTxtMontoIngresoEgreso()))
+		{
+			vFactura.setTxtMontoAdeudado(String.valueOf(this.AnnadirPrestamos().getMonto()-
+										Float.parseFloat(vFactura.getTxtMontoIngresoEgreso())));
+		}
+		else
+		{ 
+			JOptionPane.showMessageDialog(null,"El monto abonado no debe ser superior al prestamo","Atencion!",
+					JOptionPane.INFORMATION_MESSAGE);
+			vFactura.setTxtMontoIngresoEgreso("");
+		}
 	}
 	
 

@@ -410,6 +410,7 @@ private static VistaFac vFactura=null;
 							txtMontoIngresoEgreso = new JTextField();
 							jPanelIngresos.add(txtMontoIngresoEgreso);
 							txtMontoIngresoEgreso.setBounds(103, 256, 100, 22);
+							txtMontoIngresoEgreso.setActionCommand("MontoDeudaP");
 						}
 					/*	{
 							txtMontoAbonar = new JTextField();
@@ -433,7 +434,7 @@ private static VistaFac vFactura=null;
 								TableModel jTablePrestamosXFacturaModel = 
 										new DefaultTableModel(
 												new String[][] {},
-												new String[] { "Descripción", "Monto"});
+												new String[] { "Descripción", "Monto", "Monto Deuda"});
 								jTablePrestamosXFactura = new JTable();
 								jScrollPrestFactura.setViewportView(jTablePrestamosXFactura);
 								jTablePrestamosXFactura.setModel(jTablePrestamosXFacturaModel);
@@ -872,6 +873,8 @@ private static VistaFac vFactura=null;
 		txtSubsidio.addActionListener(accion);
 		txtNroSocio.addActionListener(accion);
 		
+		txtMontoIngresoEgreso.addActionListener(accion);
+		
 	 
 		
 	}
@@ -1041,6 +1044,7 @@ private static VistaFac vFactura=null;
 		txtEfectivo.addKeyListener(a);
 		txtSubsidio.addKeyListener(a);
 		txtTransferencia.addKeyListener(a);
+		txtMontoIngresoEgreso.addKeyListener(a);
 		//txtMontoAbonar.addKeyListener(a);
 		
 	}
@@ -1515,7 +1519,7 @@ private static VistaFac vFactura=null;
 	public void limpiarTablaListPrestamos(){
 		TableModel tblListadoModel = 
 				new DefaultTableModel(
-						new String[] {"Descripción", "Monto"},0);
+						new String[] {"Descripción", "Monto", "Monto Deuda"},0);
 				jTablePrestamosXFactura.setModel(tblListadoModel);
 	}
 	
@@ -1560,11 +1564,12 @@ private static VistaFac vFactura=null;
 		dtm.addRow(egresos);	
 	}
 	
-	public void agregarFilaPrestamos(String descripcion, String monto){
+	public void agregarFilaPrestamos(String descripcion, String monto, String montoDeuda){
 		Vector<String>prestamos = new Vector<String>();
 
 		prestamos.add(descripcion);
 		prestamos.add(monto);
+		prestamos.add(montoDeuda);
 		
 		DefaultTableModel dtm = (DefaultTableModel) jTablePrestamosXFactura.getModel();
 		dtm.addRow(prestamos);	

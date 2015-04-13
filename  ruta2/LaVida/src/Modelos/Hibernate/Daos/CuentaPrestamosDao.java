@@ -8,6 +8,7 @@ import org.hibernate.Transaction;
 
 
 
+
 import Modelos.CuentaPrestamos;
 import Modelos.Hibernate.Config.HibernateUtil;
 import Utilidades.Utilidades;
@@ -124,5 +125,26 @@ private HibernateUtil sesionPostgres;
 		}
 
 		return Utilidades.completar(nrotransaccion.toString(),"0", 10,true);
+	}
+	
+	public List<CuentaPrestamos> MovimientosPrestamos(String CodPrestamo){
+		List<CuentaPrestamos> prestSoc= new ArrayList<CuentaPrestamos>();
+		try {
+			List<CuentaPrestamos> todosPrest= this.obtenerTodos();
+			
+			for(int i=0; i<todosPrest.size();i++)
+			{
+				if(todosPrest.get(i).getPrestamo().getCodPrestamo().equals(CodPrestamo) && 
+						todosPrest.get(i).getStatus().equals("A")){
+					prestSoc.add(todosPrest.get(i));
+				}
+					
+			}
+			
+		} catch (Exception e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		return prestSoc;
 	}
 }
