@@ -117,7 +117,8 @@ public class ControladorFac implements ActionListener, KeyListener, FocusListene
 	
 	 List<FormaPago> list= new ArrayList<>();
 	
-	private float totalFP=0, montDep=0, montoEf=0, montoTrasnf=0, montoSub=0, montoCheque=0;
+	private float totalFP=0, montDep=0, montoEf=0, montoTrasnf=0, montoSub=0, montoCheque=0, montoDeuda=0;
+
 	
 	
 	public ControladorFac(){
@@ -1119,6 +1120,7 @@ public boolean comprobarMonto(){
 	
 	public String guardarFacturaPrestamo(String tipoFacturado, String campoId, String cedula, JTable lista, String montoTotal){
 		
+		System.out.println("entrando por prestamossss");
 		
 		 Factura factura = new Factura();
 		// String montoString ="";
@@ -1178,8 +1180,8 @@ public boolean comprobarMonto(){
 			 }
 		 
 			 List<Float> montoPrestamos= new ArrayList<Float>();
-			 if(vFactura.getListaPrestamos().size()<0)
-			 {
+			/* if(vFactura.getListaPrestamos().size()<0)
+			 {*/
 				
 				 for(int i=0; i<lista.getRowCount(); i++) //recorro las filas
 				 {
@@ -1191,6 +1193,7 @@ public boolean comprobarMonto(){
 						 if(lista.getValueAt(i, a).toString().charAt(0)=='P')
 							{
 								prest=prestDao.buscarPorCodigoPrestamo(lista.getValueAt(i, a).toString());
+								System.out.println("encontre mi prest en prest y es  "+ prest.getDescripcion());
 								prestamosFactura.add(prest);								
 							}
 						}
@@ -1201,17 +1204,18 @@ public boolean comprobarMonto(){
 						}
 					} 			
 				 }	
-			 }else
-			 {
+			/* }else*/
+			/* {
 				 for(int i=0; i<vFactura.getListaPrestamos().size();i++)
 				 {
 					 Prestamos prest= new Prestamos();
 					 prestDao.agregarPrestamos(vFactura.getListaPrestamos().get(i));
 					 prest=prestDao.buscarPorCodigoPrestamo(vFactura.getListaPrestamos().get(i).getCodPrestamo());
+					 System.out.println("encontre mi prest en prest y es  "+ prest.getDescripcion());
 					 prestamosFactura.add(prest);
 					 montoPrestamos.add(prestamosFactura.size()-1,prest.getMonto());
 				 }
-			 }
+			 }*/
 				 
 				 
 				// Prestamos prestamo = new Prestamos();
@@ -1237,7 +1241,7 @@ public boolean comprobarMonto(){
 					 IEFDao.agregarDetalle(ieDetFac);
 				 	}
 				 }
-			
+				 System.out.println("annadiendo prest factura  " + prestamosFactura.size());
 				 if(prestamosFactura.size()>0){
 				 	
 					for(int i=0; i<arrayPrestamos.length; i++){
@@ -1321,14 +1325,18 @@ public boolean comprobarMonto(){
 			//Prestamos prest= new Prestamos();
 			Prestamos otroPrest= prestamos.get(i);
 			listPrest=cuentaPrestamosDao.MovimientosPrestamos(otroPrest.getCodPrestamo());
-			System.out.println("cantidad " + listPrest.size() );
+			
 			if(listPrest.size()>0)
 			{
 				System.out.println("entro por el if");
 				for(int j=0;j<listPrest.size();j++)
 				{
 					monto= monto+listPrest.get(j).getMontoTransaccion();
+					
+					
 				}
+				monto=monto*-1;
+				
 			}
 			if(otroPrest.getNroSocio().getNroSocio().equals(nroSocio) && otroPrest.getStatus()=='A'){
 				listPrestamosXSocio.add(otroPrest);
@@ -1380,7 +1388,8 @@ public boolean comprobarMonto(){
 		if(null!= vFactura.getTxtMontoIngresoEgreso() && 
 				this.AnnadirPrestamos().getMonto()>= Float.parseFloat(vFactura.getTxtMontoIngresoEgreso()))
 		{
-			vFactura.setTxtMontoAdeudado(String.valueOf(this.AnnadirPrestamos().getMonto()-
+			//montoDeuda=
+			vFactura.setTxtMontoAdeudado(String.valueOf(montoDeuda-
 										Float.parseFloat(vFactura.getTxtMontoIngresoEgreso())));
 		}
 		else

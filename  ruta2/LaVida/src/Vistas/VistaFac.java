@@ -1636,6 +1636,8 @@ private static VistaFac vFactura=null;
 		
 	}
 	
+	
+	
 	public void agregarDeuda(){
 		filaDeudaSelec="";
 		 int f=jTableDeudasPorSocio.getSelectionModel().getLeadSelectionIndex();
