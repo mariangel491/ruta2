@@ -3,8 +3,12 @@ package Modelos.Hibernate.Daos;
 import java.util.ArrayList;
 import java.util.List;
 
+import org.hibernate.HibernateException;
 import org.hibernate.Session;
 import org.hibernate.Transaction;
+
+
+
 
 
 
@@ -127,24 +131,36 @@ private HibernateUtil sesionPostgres;
 		return Utilidades.completar(nrotransaccion.toString(),"0", 10,true);
 	}
 	
-	public List<CuentaPrestamos> MovimientosPrestamos(String CodPrestamo){
-		List<CuentaPrestamos> prestSoc= new ArrayList<CuentaPrestamos>();
-		try {
-			List<CuentaPrestamos> todosPrest= this.obtenerTodos();
-			
-			for(int i=0; i<todosPrest.size();i++)
-			{
-				if(todosPrest.get(i).getPrestamo().getCodPrestamo().equals(CodPrestamo) && 
-						todosPrest.get(i).getStatus().equals("A")){
-					prestSoc.add(todosPrest.get(i));
-				}
-					
-			}
-			
-		} catch (Exception e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
-		return prestSoc;
+/*	
+	  public List<Contacto> obtenListaContactos() throws HibernateException 
+	    { 
+	        List<Contacto> listaContactos = null;  
+
+	        try 
+	        { 
+	            iniciaOperacion(); 
+	            listaContactos = sesion.createQuery("from Contacto").list(); 
+	        } finally 
+	        { 
+	            sesion.close(); 
+	        }  
+
+	        return listaContactos; 
+	    } */
+	
+	public List<CuentaPrestamos> MovimientosPrestamos(String CodPrestamo) throws Exception{
+		List<CuentaPrestamos> prestSoc= null;
+		
+		 Session em = sesionPostgres.openSession();  	
+	        try {  	
+		   prestSoc= em.createQuery("from CuentaPrestamos where status='A'"
+		    		+ " and codprestamo= :CodPrestamo ").setParameter("CodPrestamo", CodPrestamo).list();
+	        	
+		   
+	        }  finally {  
+	          em.close();  
+	        } 
+	        return prestSoc; 
+		
 	}
 }

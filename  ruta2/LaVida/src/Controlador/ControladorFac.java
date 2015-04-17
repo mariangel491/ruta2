@@ -1209,7 +1209,7 @@ public boolean comprobarMonto(){
 					 prestDao.agregarPrestamos(vFactura.getListaPrestamos().get(i));
 					 prest=prestDao.buscarPorCodigoPrestamo(vFactura.getListaPrestamos().get(i).getCodPrestamo());
 					 prestamosFactura.add(prest);
-					 montoPrestamos.add(prestamosFactura.size()-1,prest.getMonto()*-1);
+					 montoPrestamos.add(prestamosFactura.size()-1,prest.getMonto());
 				 }
 			 }
 				 
@@ -1313,19 +1313,26 @@ public boolean comprobarMonto(){
 	public void BuscarPrestamos(String nroSocio) throws Exception
 	{
 		List<CuentaPrestamos> listPrest= new ArrayList<CuentaPrestamos>();
+		List<Prestamos> prestamos= new ArrayList<Prestamos>();
 		Float monto=(float) 0;
-		for(int i=0;i<prestamosDao.obtenerTodos().size();i++)
+		prestamos=prestamosDao.obtenerTodos();
+		for(int i=0;i<prestamos.size();i++)
 		{
-			Prestamos prest= new Prestamos();
-			Prestamos otroPrest= prestamosDao.obtenerTodos().get(i);
-			/*listPrest=cuentaPrestamosDao.MovimientosPrestamos(otroPrest.getCodPrestamo());
-			for(int j=0;j<listPrest.size();i++){
-				monto= monto+listPrest.get(j).getMontoTransaccion();
-			}*/
+			//Prestamos prest= new Prestamos();
+			Prestamos otroPrest= prestamos.get(i);
+			listPrest=cuentaPrestamosDao.MovimientosPrestamos(otroPrest.getCodPrestamo());
+			System.out.println("cantidad " + listPrest.size() );
+			if(listPrest.size()>0)
+			{
+				System.out.println("entro por el if");
+				for(int j=0;j<listPrest.size();j++)
+				{
+					monto= monto+listPrest.get(j).getMontoTransaccion();
+				}
+			}
 			if(otroPrest.getNroSocio().getNroSocio().equals(nroSocio) && otroPrest.getStatus()=='A'){
-				prest = prestamosDao.obtenerTodos().get(i);
-				listPrestamosXSocio.add(prest);
-				vFactura.agregarFilaPrestamos(prest.getDescripcion(), Float.toString(prest.getMonto()), Float.toString(monto));
+				listPrestamosXSocio.add(otroPrest);
+				vFactura.agregarFilaPrestamos(otroPrest.getDescripcion(), Float.toString(otroPrest.getMonto()), Float.toString(monto));
 			}
 		}
 	}
