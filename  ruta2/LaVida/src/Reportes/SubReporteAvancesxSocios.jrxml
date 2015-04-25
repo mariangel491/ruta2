@@ -1,8 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!-- Created with Jaspersoft Studio version 5.6.2.final using JasperReports Library version 5.6.1  -->
-<!-- 2015-03-27T00:16:18 -->
-<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="SubReporteAvancesxSocios" pageWidth="555" pageHeight="802" columnWidth="555" leftMargin="0" rightMargin="0" topMargin="0" bottomMargin="0" uuid="4eedbb89-b4f6-4469-9ab6-f642a1688cf7">
+<!-- 2015-03-30T13:42:39 -->
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="SubReporteAvancesxSocios" pageWidth="595" pageHeight="842" columnWidth="535" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" uuid="4eedbb89-b4f6-4469-9ab6-f642a1688cf7">
 	<property name="com.jaspersoft.studio.data.defaultdataadapter" value="ConexionReportes"/>
+	<property name="com.jaspersoft.studio.unit." value="pixel"/>
 	<style name="Title" forecolor="#FFFFFF" fontName="Times New Roman" fontSize="50" isBold="false" pdfFontName="Times-Bold"/>
 	<style name="SubTitle" forecolor="#CCCCCC" fontName="Times New Roman" fontSize="18" isBold="false" pdfFontName="Times-Roman"/>
 	<style name="Column header" forecolor="#666666" fontName="Times New Roman" fontSize="14" isBold="true" pdfFontName="Times-Roman"/>
@@ -73,19 +74,19 @@ avance.codigosocio =  $P{CODSocio}
 	<field name="nombre" class="java.lang.String"/>
 	<field name="apellido" class="java.lang.String"/>
 	<title>
-		<band height="21" splitType="Stretch">
+		<band height="23" splitType="Stretch">
 			<staticText>
-				<reportElement mode="Transparent" x="0" y="1" width="490" height="18" backcolor="#E6E8E9" uuid="57aed2b1-4f4e-40a3-a6ad-54dae8dd4c5a">
+				<reportElement mode="Transparent" x="0" y="4" width="421" height="18" backcolor="#E6E8E9" uuid="57aed2b1-4f4e-40a3-a6ad-54dae8dd4c5a">
 					<property name="local_mesure_unitheight" value="pixel"/>
 					<property name="com.jaspersoft.studio.unit.height" value="px"/>
 				</reportElement>
 				<textElement textAlignment="Left" verticalAlignment="Middle">
-					<font fontName="Century Gothic" size="13" isBold="true"/>
+					<font fontName="Copperplate Gothic Light" size="14" isBold="true"/>
 				</textElement>
 				<text><![CDATA[     Avances]]></text>
 			</staticText>
 			<line>
-				<reportElement x="-1" y="19" width="491" height="1" uuid="806ce5df-1219-4876-ae0c-ca7405b1f246">
+				<reportElement x="-1" y="22" width="421" height="1" uuid="806ce5df-1219-4876-ae0c-ca7405b1f246">
 					<property name="local_mesure_unitheight" value="pixel"/>
 					<property name="com.jaspersoft.studio.unit.height" value="px"/>
 				</reportElement>
@@ -93,23 +94,23 @@ avance.codigosocio =  $P{CODSocio}
 		</band>
 	</title>
 	<columnHeader>
-		<band height="20">
+		<band height="23">
 			<staticText>
-				<reportElement style="Column header" positionType="Float" mode="Opaque" x="1" y="0" width="168" height="20" forecolor="#000000" backcolor="#E6E8E9" uuid="e9b87a84-90f1-4b06-a0e8-1f1241f23a91"/>
+				<reportElement style="Column header" positionType="Float" mode="Opaque" x="1" y="0" width="109" height="20" forecolor="#000000" backcolor="#E6E8E9" uuid="e9b87a84-90f1-4b06-a0e8-1f1241f23a91"/>
 				<textElement>
 					<font fontName="Arial" size="12" isBold="true" pdfFontName="Helvetica"/>
 				</textElement>
 				<text><![CDATA[Cédula]]></text>
 			</staticText>
 			<staticText>
-				<reportElement style="Column header" positionType="Float" mode="Opaque" x="169" y="0" width="157" height="20" forecolor="#000000" backcolor="#E6E8E9" uuid="494ebc40-4f36-4a07-b65b-86a83c2e22bf"/>
+				<reportElement style="Column header" positionType="Float" mode="Opaque" x="110" y="0" width="149" height="20" forecolor="#000000" backcolor="#E6E8E9" uuid="494ebc40-4f36-4a07-b65b-86a83c2e22bf"/>
 				<textElement>
 					<font fontName="Arial" size="12" isBold="true" pdfFontName="Helvetica"/>
 				</textElement>
 				<text><![CDATA[Nombre]]></text>
 			</staticText>
 			<staticText>
-				<reportElement style="Column header" positionType="Float" mode="Opaque" x="326" y="0" width="164" height="20" forecolor="#000000" backcolor="#E6E8E9" uuid="37114863-6102-412f-8748-3fcaea66977d"/>
+				<reportElement style="Column header" positionType="Float" mode="Opaque" x="259" y="0" width="161" height="20" forecolor="#000000" backcolor="#E6E8E9" uuid="37114863-6102-412f-8748-3fcaea66977d"/>
 				<textElement>
 					<font fontName="Arial" size="12" isBold="true" pdfFontName="Helvetica"/>
 				</textElement>
@@ -118,27 +119,33 @@ avance.codigosocio =  $P{CODSocio}
 		</band>
 	</columnHeader>
 	<detail>
-		<band height="20">
+		<band height="24">
 			<textField isStretchWithOverflow="true" isBlankWhenNull="true">
-				<reportElement style="Detail" positionType="Float" x="3" y="0" width="185" height="20" uuid="59441765-1e77-4239-8964-450d4a496b7b"/>
+				<reportElement style="Detail" positionType="Float" x="260" y="0" width="161" height="20" uuid="1a067cb9-c8c5-4200-a834-e84c51c6cc89"/>
 				<textElement>
 					<font fontName="Arial" size="12" isBold="false" pdfFontName="Helvetica"/>
 				</textElement>
-				<textFieldExpression><![CDATA[$F{cedula}]]></textFieldExpression>
+				<textFieldExpression><![CDATA[$F{apellido}]]></textFieldExpression>
 			</textField>
+			<line>
+				<reportElement x="-1" y="20" width="421" height="1" uuid="ed5a5fbc-4caf-406b-9395-cb45a1bf46ec">
+					<property name="local_mesure_unitheight" value="pixel"/>
+					<property name="com.jaspersoft.studio.unit.height" value="px"/>
+				</reportElement>
+			</line>
 			<textField isStretchWithOverflow="true" isBlankWhenNull="true">
-				<reportElement style="Detail" positionType="Float" x="169" y="0" width="185" height="20" uuid="46235a18-71df-446a-952a-e97c43aff307"/>
+				<reportElement style="Detail" positionType="Float" x="110" y="0" width="149" height="20" uuid="46235a18-71df-446a-952a-e97c43aff307"/>
 				<textElement>
 					<font fontName="Arial" size="12" isBold="false" pdfFontName="Helvetica"/>
 				</textElement>
 				<textFieldExpression><![CDATA[$F{nombre}]]></textFieldExpression>
 			</textField>
 			<textField isStretchWithOverflow="true" isBlankWhenNull="true">
-				<reportElement style="Detail" positionType="Float" x="329" y="0" width="161" height="20" uuid="1a067cb9-c8c5-4200-a834-e84c51c6cc89"/>
+				<reportElement style="Detail" positionType="Float" x="0" y="0" width="109" height="20" uuid="59441765-1e77-4239-8964-450d4a496b7b"/>
 				<textElement>
 					<font fontName="Arial" size="12" isBold="false" pdfFontName="Helvetica"/>
 				</textElement>
-				<textFieldExpression><![CDATA[$F{apellido}]]></textFieldExpression>
+				<textFieldExpression><![CDATA[$F{cedula}]]></textFieldExpression>
 			</textField>
 		</band>
 	</detail>

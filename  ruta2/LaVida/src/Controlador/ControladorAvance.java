@@ -171,7 +171,7 @@ public class ControladorAvance implements ActionListener {
 		}
 		else if (a.getActionCommand().equalsIgnoreCase("Cancelar")) {
 			vAvance.cerrarVentana();
-			vSocio.cerrarVentana();
+			//vSocio.cerrarVentana();
 			try {
 			//	this.registrarAvanceSocio();
 			} catch (Exception e) {
@@ -249,6 +249,8 @@ public class ControladorAvance implements ActionListener {
 			}
 		}
 		else if (a.getActionCommand().equalsIgnoreCase("Eliminar Avance")) {
+			
+			System.out.println(vAvance.filaSeleccionada());
 		
 				vAvance.removerFila();
 				this.removerElementoSocio();
@@ -440,8 +442,10 @@ public class ControladorAvance implements ActionListener {
 	
 	public void removerElementoSocio(){
 		
-		if(vAvance.filaSeleccionada()>=0)
+		if(vAvance.filaSeleccionada()>0)
 			socio.getAvances().remove(vAvance.filaSeleccionada());
+	
+		
 	}
 	
 	/*private void registrarAvanceSocio() throws Exception {

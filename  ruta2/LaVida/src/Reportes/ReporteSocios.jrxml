@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!-- Created with Jaspersoft Studio version 5.6.2.final using JasperReports Library version 5.6.1  -->
-<!-- 2015-03-27T00:18:50 -->
+<!-- 2015-04-06T21:14:37 -->
 <jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="ReporteSocios" pageWidth="595" pageHeight="842" columnWidth="535" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" uuid="4eedbb89-b4f6-4469-9ab6-f642a1688cf7">
 	<property name="com.jaspersoft.studio.data.defaultdataadapter" value="ConexionReportes"/>
 	<style name="Title" forecolor="#FFFFFF" fontName="Times New Roman" fontSize="50" isBold="false" pdfFontName="Times-Bold"/>
@@ -78,12 +78,12 @@ ORDER BY socio.codigo ASC]]>
 	<title>
 		<band height="126" splitType="Stretch">
 			<staticText>
-				<reportElement x="194" y="89" width="190" height="25" uuid="57aed2b1-4f4e-40a3-a6ad-54dae8dd4c5a">
+				<reportElement x="180" y="95" width="226" height="25" uuid="57aed2b1-4f4e-40a3-a6ad-54dae8dd4c5a">
 					<property name="local_mesure_unitheight" value="pixel"/>
 					<property name="com.jaspersoft.studio.unit.height" value="px"/>
 				</reportElement>
 				<textElement>
-					<font size="16" isBold="true"/>
+					<font fontName="Copperplate Gothic Light" size="16" isBold="true"/>
 				</textElement>
 				<text><![CDATA[REPORTE DE SOCIOS]]></text>
 			</staticText>
@@ -104,12 +104,12 @@ ORDER BY socio.codigo ASC]]>
 				<textFieldExpression><![CDATA[new java.util.Date()]]></textFieldExpression>
 			</textField>
 			<staticText>
-				<reportElement x="10" y="5" width="210" height="25" uuid="e622555d-198b-4ccd-a4a1-c59c53304058">
+				<reportElement x="10" y="5" width="240" height="25" uuid="e622555d-198b-4ccd-a4a1-c59c53304058">
 					<property name="local_mesure_unitheight" value="pixel"/>
 					<property name="com.jaspersoft.studio.unit.height" value="px"/>
 				</reportElement>
 				<textElement>
-					<font size="19" isBold="true"/>
+					<font fontName="Copperplate Gothic Light" size="18" isBold="true"/>
 				</textElement>
 				<text><![CDATA[Sociedad Civil Ruta 2]]></text>
 			</staticText>
@@ -173,7 +173,7 @@ ORDER BY socio.codigo ASC]]>
 		</band>
 	</columnHeader>
 	<detail>
-		<band height="157">
+		<band height="209">
 			<textField isStretchWithOverflow="true" isBlankWhenNull="true">
 				<reportElement style="Detail" positionType="Float" x="20" y="0" width="111" height="20" uuid="a5290396-b427-487f-98fd-3713f4776fb0"/>
 				<textElement>
@@ -210,43 +210,45 @@ ORDER BY socio.codigo ASC]]>
 				<textFieldExpression><![CDATA[$F{telefono}]]></textFieldExpression>
 			</textField>
 			<line>
-				<reportElement x="0" y="150" width="556" height="1" uuid="e15487e7-6660-4409-8350-f69547ee023f">
-					<property name="local_mesure_unitheight" value="pixel"/>
-					<property name="com.jaspersoft.studio.unit.height" value="px"/>
-				</reportElement>
-			</line>
-			<line>
 				<reportElement x="0" y="22" width="556" height="1" uuid="422b38f5-c651-478e-887b-bdf14adc952e">
 					<property name="local_mesure_unitheight" value="pixel"/>
 					<property name="com.jaspersoft.studio.unit.height" value="px"/>
 				</reportElement>
 			</line>
 			<subreport>
-				<reportElement x="40" y="24" width="450" height="117" uuid="8eb46022-f0c2-4db4-9137-59fe85f6c802"/>
+				<reportElement x="40" y="28" width="450" height="92" uuid="8eb46022-f0c2-4db4-9137-59fe85f6c802"/>
 				<subreportParameter name="CODSocio">
 					<subreportParameterExpression><![CDATA[$F{codigo}]]></subreportParameterExpression>
 				</subreportParameter>
 				<connectionExpression><![CDATA[$P{REPORT_CONNECTION}]]></connectionExpression>
 				<subreportExpression><![CDATA["src/Reportes/SubReporteAvancesxSocios.jasper"]]></subreportExpression>
 			</subreport>
+			<subreport>
+				<reportElement x="40" y="130" width="450" height="70" uuid="0a0f3628-1dfe-4e42-8075-807d08da5f3c"/>
+				<subreportParameter name="CODSocio">
+					<subreportParameterExpression><![CDATA[$F{codigo}]]></subreportParameterExpression>
+				</subreportParameter>
+				<connectionExpression><![CDATA[$P{REPORT_CONNECTION}]]></connectionExpression>
+				<subreportExpression><![CDATA["src/Reportes/SubReporteVehiculosxSocio.jasper"]]></subreportExpression>
+			</subreport>
 		</band>
 	</detail>
 	<lastPageFooter>
-		<band height="137">
+		<band height="133">
 			<staticText>
-				<reportElement positionType="Float" mode="Opaque" x="0" y="97" width="556" height="30" backcolor="#E6E8E9" uuid="36aa233d-4305-48e6-974a-1bbf89bb3c8f"/>
+				<reportElement positionType="Float" mode="Opaque" x="0" y="72" width="556" height="30" backcolor="#E6E8E9" uuid="99905e4a-6186-42ed-97a7-ec82dcb6c9f1"/>
 				<textElement textAlignment="Center" verticalAlignment="Middle">
 					<font fontName="Serif" size="9" isItalic="true"/>
 				</textElement>
 				<text><![CDATA[]]></text>
 			</staticText>
 			<textField>
-				<reportElement x="373" y="103" width="100" height="30" uuid="695ca9a1-cffa-46e5-8643-7a479d2246dd"/>
+				<reportElement x="357" y="72" width="100" height="30" uuid="32814334-5319-406f-9c1d-e6d46ae83628"/>
 				<textElement textAlignment="Right"/>
 				<textFieldExpression><![CDATA["Page " + $V{PAGE_NUMBER}]]></textFieldExpression>
 			</textField>
 			<textField evaluationTime="Report">
-				<reportElement x="473" y="103" width="100" height="30" uuid="ddbdd297-0c72-49f9-8212-56b0eb872b3d"/>
+				<reportElement x="457" y="72" width="100" height="30" uuid="bc702368-75ad-4e3e-92bd-025f9c9fffd9"/>
 				<textElement textAlignment="Left"/>
 				<textFieldExpression><![CDATA[" of " + $V{PAGE_NUMBER}]]></textFieldExpression>
 			</textField>
