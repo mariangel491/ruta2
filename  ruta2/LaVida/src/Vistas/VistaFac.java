@@ -175,6 +175,7 @@ public class VistaFac extends javax.swing.JFrame {
 		LinkedListModel<String> listaModeloAux=new LinkedListModel<>();
 		private String filaSeleccionada="";
 		private String filaDeudaSelec="";
+		private String filaMontoDeuda="";
 		private ArrayList<Prestamos> listaPrestamos=new ArrayList<Prestamos>();
 	
 	
@@ -448,6 +449,7 @@ private static VistaFac vFactura=null;
 										jTableIngresosXFactura.clearSelection();
 										jTableDeudasPorSocio.clearSelection();
 										agregarPrestamos();
+										montoDeuda();
 																				}
 								});
 								
@@ -1636,6 +1638,15 @@ private static VistaFac vFactura=null;
 		
 	}
 	
+	public void montoDeuda(){
+		filaMontoDeuda="";
+		 int f=jTablePrestamosXFactura.getSelectionModel().getLeadSelectionIndex();
+		filaMontoDeuda= (String) this.jTablePrestamosXFactura.getValueAt(f, 2);
+	}
+	
+	
+	
+	
 	
 	
 	public void agregarDeuda(){
@@ -1654,6 +1665,11 @@ private static VistaFac vFactura=null;
 	
 	public String filaPrestamos(){
 		return filaSeleccionada;
+	}
+	
+	
+	public String filaMontoDeuda(){
+		return filaMontoDeuda;
 	}
 	
 	public JTable getjTablePrestamosXFactura() {
@@ -1737,6 +1753,7 @@ private static VistaFac vFactura=null;
 
 	public void LlenarLista(Prestamos p){
 		listaPrestamos.add(p);
+		System.out.println(listaPrestamos.size());
 	}
 
 	public ArrayList<Prestamos> getListaPrestamos() {

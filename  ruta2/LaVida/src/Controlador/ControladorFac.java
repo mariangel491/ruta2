@@ -1180,8 +1180,18 @@ public boolean comprobarMonto(){
 			 }
 		 
 			 List<Float> montoPrestamos= new ArrayList<Float>();
-			/* if(vFactura.getListaPrestamos().size()<0)
-			 {*/
+			 
+			
+			 if(vFactura.getListaPrestamos().size()>0)
+			 {
+				 for(int i=0; i<vFactura.getListaPrestamos().size();i++)
+				 {
+					 Prestamos prest= new Prestamos();
+					 prestDao.agregarPrestamos(vFactura.getListaPrestamos().get(i));
+					 prest=prestDao.buscarPorCodigoPrestamo(vFactura.getListaPrestamos().get(i).getCodPrestamo());
+				 }
+				 
+			 }
 				
 				 for(int i=0; i<lista.getRowCount(); i++) //recorro las filas
 				 {
@@ -1193,7 +1203,6 @@ public boolean comprobarMonto(){
 						 if(lista.getValueAt(i, a).toString().charAt(0)=='P')
 							{
 								prest=prestDao.buscarPorCodigoPrestamo(lista.getValueAt(i, a).toString());
-								System.out.println("encontre mi prest en prest y es  "+ prest.getDescripcion());
 								prestamosFactura.add(prest);								
 							}
 						}
@@ -1204,18 +1213,6 @@ public boolean comprobarMonto(){
 						}
 					} 			
 				 }	
-			/* }else*/
-			/* {
-				 for(int i=0; i<vFactura.getListaPrestamos().size();i++)
-				 {
-					 Prestamos prest= new Prestamos();
-					 prestDao.agregarPrestamos(vFactura.getListaPrestamos().get(i));
-					 prest=prestDao.buscarPorCodigoPrestamo(vFactura.getListaPrestamos().get(i).getCodPrestamo());
-					 System.out.println("encontre mi prest en prest y es  "+ prest.getDescripcion());
-					 prestamosFactura.add(prest);
-					 montoPrestamos.add(prestamosFactura.size()-1,prest.getMonto());
-				 }
-			 }*/
 				 
 				 
 				// Prestamos prestamo = new Prestamos();
@@ -1325,18 +1322,15 @@ public boolean comprobarMonto(){
 			//Prestamos prest= new Prestamos();
 			Prestamos otroPrest= prestamos.get(i);
 			listPrest=cuentaPrestamosDao.MovimientosPrestamos(otroPrest.getCodPrestamo());
-			
+			monto=(float) 0;
 			if(listPrest.size()>0)
 			{
-				System.out.println("entro por el if");
 				for(int j=0;j<listPrest.size();j++)
 				{
 					monto= monto+listPrest.get(j).getMontoTransaccion();
-					
-					
+					System.out.println(j+ " " + monto );
 				}
-				monto=monto*-1;
-				
+				monto=monto*-1;	
 			}
 			if(otroPrest.getNroSocio().getNroSocio().equals(nroSocio) && otroPrest.getStatus()=='A'){
 				listPrestamosXSocio.add(otroPrest);
@@ -1388,7 +1382,8 @@ public boolean comprobarMonto(){
 		if(null!= vFactura.getTxtMontoIngresoEgreso() && 
 				this.AnnadirPrestamos().getMonto()>= Float.parseFloat(vFactura.getTxtMontoIngresoEgreso()))
 		{
-			//montoDeuda=
+			
+			montoDeuda= Float.parseFloat(vFactura.filaMontoDeuda());
 			vFactura.setTxtMontoAdeudado(String.valueOf(montoDeuda-
 										Float.parseFloat(vFactura.getTxtMontoIngresoEgreso())));
 		}
