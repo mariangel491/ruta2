@@ -1387,15 +1387,15 @@ public boolean comprobarMonto(){
 	public void CalcularDeudaRestante(){
 		
 		if(null!= vFactura.getTxtMontoIngresoEgreso() && 
-				this.AnnadirPrestamos().getMonto()>= Float.parseFloat(vFactura.getTxtMontoIngresoEgreso()))
+			 Float.parseFloat(vFactura.filaMontoDeuda()) > Float.parseFloat(vFactura.getTxtMontoIngresoEgreso()))
 		{
-			//montoDeuda=
+			montoDeuda=Float.parseFloat(vFactura.filaMontoDeuda());
 			vFactura.setTxtMontoAdeudado(String.valueOf(montoDeuda-
 										Float.parseFloat(vFactura.getTxtMontoIngresoEgreso())));
 		}
 		else
 		{ 
-			JOptionPane.showMessageDialog(null,"El monto abonado no debe ser superior al prestamo","Atencion!",
+			JOptionPane.showMessageDialog(null,"El monto abonado no debe ser superior a la deuda","Atencion!",
 					JOptionPane.INFORMATION_MESSAGE);
 			vFactura.setTxtMontoIngresoEgreso("");
 		}
