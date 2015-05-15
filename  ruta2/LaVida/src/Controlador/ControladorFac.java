@@ -1320,20 +1320,15 @@ public boolean comprobarMonto(){
 		prestamos=prestamosDao.obtenerTodos();
 		for(int i=0;i<prestamos.size();i++)
 		{
-			//Prestamos prest= new Prestamos();
 			Prestamos otroPrest= prestamos.get(i);
-			System.out.println("otro prest" + otroPrest.getCodPrestamo() + " monto +" + otroPrest.getMonto());
 			listPrest=cuentaPrestamosDao.MovimientosPrestamos(otroPrest.getCodPrestamo());
 			monto=(float) 0;
 			if(listPrest.size()>0)
 			{	
 				for(int j=0;j<listPrest.size();j++)
 				{
-					System.out.println("cuenta prestamos " +listPrest.get(j).getPrestamo().getCodPrestamo()+" : "+listPrest.get(j).getMontoTransaccion() );
 					monto= monto+listPrest.get(j).getMontoTransaccion();	
-					System.out.println("monto abonado " + monto + " prest "+ listPrest.get(j).getPrestamo().getCodPrestamo());
 				}
-			//	monto=monto*-1;
 			}
 			if(otroPrest.getNroSocio().getNroSocio().equals(nroSocio) && otroPrest.getStatus()=='A'){
 				if(otroPrest.getMonto()-monto!=0)
@@ -1387,7 +1382,7 @@ public boolean comprobarMonto(){
 	public void CalcularDeudaRestante(){
 		
 		if(null!= vFactura.getTxtMontoIngresoEgreso() && 
-			 Float.parseFloat(vFactura.filaMontoDeuda()) > Float.parseFloat(vFactura.getTxtMontoIngresoEgreso()))
+			 Float.parseFloat(vFactura.filaMontoDeuda()) >= Float.parseFloat(vFactura.getTxtMontoIngresoEgreso()))
 		{
 			montoDeuda=Float.parseFloat(vFactura.filaMontoDeuda());
 			vFactura.setTxtMontoAdeudado(String.valueOf(montoDeuda-
