@@ -108,7 +108,8 @@ public class ControladorDepositosCaja implements KeyListener, ActionListener {
 	
 	//Cargar el listado de la caja
 	protected void cargarListadoCaja() throws Exception {		
-		String descripcion, monto;
+		String descripcion, monto, tipo;
+		
 		if(listMovCaja.size()>0)
 		{
 			vcaja.limpiarTablaCaja();
@@ -116,8 +117,9 @@ public class ControladorDepositosCaja implements KeyListener, ActionListener {
 			{
 				descripcion=listMovCaja.get(i).getFactura().getNroFactura();
 				monto= String.valueOf(listMovCaja.get(i).getMontoTransaccion());
+				//tipo= listMovCaja.get(i).getFactura().
 				
-				vcaja.agregarFilaCaja(descripcion, monto);
+				vcaja.agregarFilaCaja(descripcion, monto /*tipo*/);
 				SumarCaja();
 			}	
 		}

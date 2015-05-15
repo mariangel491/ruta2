@@ -12,6 +12,7 @@ import javax.swing.ButtonGroup;
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JCheckBox;
+import javax.swing.JFormattedTextField;
 import javax.swing.JLabel;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
@@ -46,6 +47,15 @@ public class VistaCaja extends javax.swing.JFrame {
 	private JLabel lblLogo;
 	private JTextField txtMontoCaja;
 	private JTextField txtMontoADepositar;
+	private JLabel lblbsfP;
+	private JLabel lblbsfA;
+	private JLabel lblbsfR;
+	private JFormattedTextField txtCtaP;
+	private JFormattedTextField txtCtaA;
+	private JLabel lblCtaP;
+	private JLabel lblCtaA;
+	private JFormattedTextField txtMontoR;
+	private JLabel lblCtaR;
 	private JButton btnCancelar;
 	private JButton btnDepositar;
 	private JTable jTableDeposito;
@@ -126,7 +136,7 @@ public class VistaCaja extends javax.swing.JFrame {
 	private JPanel getJPanelCaja() {
 		if(jPanelCaja == null) {
 			jPanelCaja = new JPanel();
-			jPanelCaja.setBounds(12, 99, 708, 309);
+			jPanelCaja.setBounds(12, 85, 708, 309);
 			jPanelCaja.setBorder(BorderFactory.createTitledBorder("Información de los depositos de la caja"));
 			jPanelCaja.setLayout(null);
 			jPanelCaja.add(getJPanelEnCaja());
@@ -147,10 +157,19 @@ public class VistaCaja extends javax.swing.JFrame {
 	private JPanel getJPanelEnCaja() {
 		if(jPanelEnCaja == null) {
 			jPanelEnCaja = new JPanel();
-			jPanelEnCaja.setBounds(27, 29, 271, 238);
+			jPanelEnCaja.setBounds(27, 18, 271, 238);
 			jPanelEnCaja.setLayout(null);
 			jPanelEnCaja.setBorder(BorderFactory.createTitledBorder("En caja"));
 			jPanelEnCaja.add(getJScrollPaneCaja());
+			jPanelEnCaja.add(getLblCtaR());
+			jPanelEnCaja.add(getTxtMontoR());
+			jPanelEnCaja.add(getLblCtaA());
+			jPanelEnCaja.add(getLblCtaP());
+			jPanelEnCaja.add(getTxtCtaA());
+			jPanelEnCaja.add(getTxtCtaP());
+			jPanelEnCaja.add(getLblbsfR());
+			jPanelEnCaja.add(getLblbsfA());
+			jPanelEnCaja.add(getLblbsfP());
 		}
 		return jPanelEnCaja;
 	}
@@ -158,7 +177,7 @@ public class VistaCaja extends javax.swing.JFrame {
 	private JPanel getJPanelADepositar() {
 		if(jPanelADepositar == null) {
 			jPanelADepositar = new JPanel();
-			jPanelADepositar.setBounds(387, 30, 294, 238);
+			jPanelADepositar.setBounds(387, 19, 294, 238);
 			jPanelADepositar.setLayout(null);
 			jPanelADepositar.setBorder(BorderFactory.createTitledBorder("A Depositar"));
 			jPanelADepositar.add(getJScrollPaneDeposito());
@@ -253,7 +272,7 @@ public class VistaCaja extends javax.swing.JFrame {
 	private JScrollPane getJScrollPaneCaja() {
 		if(jScrollPaneCaja == null) {
 			jScrollPaneCaja = new JScrollPane();
-			jScrollPaneCaja.setBounds(17, 30, 237, 184);
+			jScrollPaneCaja.setBounds(17, 23, 237, 112);
 			jScrollPaneCaja.setViewportView(getJTableCaja());
 		}
 		return jScrollPaneCaja;
@@ -264,7 +283,7 @@ public class VistaCaja extends javax.swing.JFrame {
 			TableModel jTableCajaModel = 
 					new DefaultTableModel(
 							new String[][] { { "", "" }, { "", "" } },
-							new String[] { "Descripción", "Monto" });
+							new String[] { "Descripción", "Monto", "Tipo" });
 			jTableCaja = new JTable();
 			jTableCaja.setModel(jTableCajaModel);
 		}
@@ -274,7 +293,7 @@ public class VistaCaja extends javax.swing.JFrame {
 	private JScrollPane getJScrollPaneDeposito() {
 		if(jScrollPaneDeposito == null) {
 			jScrollPaneDeposito = new JScrollPane();
-			jScrollPaneDeposito.setBounds(17, 30, 260, 181);
+			jScrollPaneDeposito.setBounds(17, 23, 260, 188);
 			jScrollPaneDeposito.setViewportView(getJTableDeposito());
 		}
 		return jScrollPaneDeposito;
@@ -363,12 +382,13 @@ public class VistaCaja extends javax.swing.JFrame {
 		btnQuitarUno.addActionListener(accion);
 	}
 
-	public void agregarFilaCaja(String descripcion, String monto)
+	public void agregarFilaCaja(String descripcion, String monto/*, String tipo*/)
 	{
 		Vector<String> caja = new Vector<String>();
 
 		caja.add(descripcion);
 		caja.add(monto);
+		//caja.add(tipo);
 		
 		DefaultTableModel dtm = (DefaultTableModel) jTableCaja.getModel();
 		dtm.addRow(caja);	
@@ -410,7 +430,7 @@ public class VistaCaja extends javax.swing.JFrame {
 	public void limpiarTablaCaja() {
 		TableModel tblListadoModel = 
 		new DefaultTableModel(
-				new String[] { "Descripción", "Monto"},0);
+				new String[] { "Descripción", "Monto", "Tipo"},0);
 		jTableCaja.setModel(tblListadoModel);
 
 		}	
@@ -433,4 +453,82 @@ public class VistaCaja extends javax.swing.JFrame {
 		}
 	}
 	
+	private JLabel getLblCtaR() {
+		if(lblCtaR == null) {
+			lblCtaR = new JLabel();
+			lblCtaR.setText("Cta. Ruta :");
+			lblCtaR.setBounds(17, 147, 73, 16);
+		}
+		return lblCtaR;
+	}
+	
+	private JFormattedTextField getTxtMontoR() {
+		if(txtMontoR == null) {
+			txtMontoR = new JFormattedTextField();
+			txtMontoR.setBounds(102, 144, 133, 23);
+		}
+		return txtMontoR;
+	}
+	
+	private JLabel getLblCtaA() {
+		if(lblCtaA == null) {
+			lblCtaA = new JLabel();
+			lblCtaA.setText("Cta. Alquiler :");
+			lblCtaA.setBounds(17, 175, 71, 16);
+		}
+		return lblCtaA;
+	}
+	
+	private JLabel getLblCtaP() {
+		if(lblCtaP == null) {
+			lblCtaP = new JLabel();
+			lblCtaP.setText("Cta. Prestamo :");
+			lblCtaP.setBounds(17, 203, 80, 16);
+		}
+		return lblCtaP;
+	}
+	
+	private JFormattedTextField getTxtCtaA() {
+		if(txtCtaA == null) {
+			txtCtaA = new JFormattedTextField();
+			txtCtaA.setBounds(100, 172, 135, 23);
+		}
+		return txtCtaA;
+	}
+	
+	private JFormattedTextField getTxtCtaP() {
+		if(txtCtaP == null) {
+			txtCtaP = new JFormattedTextField();
+			txtCtaP.setBounds(100, 200, 135, 23);
+		}
+		return txtCtaP;
+	}
+	
+	private JLabel getLblbsfR() {
+		if(lblbsfR == null) {
+			lblbsfR = new JLabel();
+			lblbsfR.setText("BsF");
+			lblbsfR.setBounds(235, 147, 18, 16);
+		}
+		return lblbsfR;
+	}
+	
+	private JLabel getLblbsfA() {
+		if(lblbsfA == null) {
+			lblbsfA = new JLabel();
+			lblbsfA.setText("BsF");
+			lblbsfA.setBounds(235, 175, 18, 16);
+		}
+		return lblbsfA;
+	}
+	
+	private JLabel getLblbsfP() {
+		if(lblbsfP == null) {
+			lblbsfP = new JLabel();
+			lblbsfP.setText("BsF");
+			lblbsfP.setBounds(235, 203, 18, 16);
+		}
+		return lblbsfP;
+	}
+
 }
