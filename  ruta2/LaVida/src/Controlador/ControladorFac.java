@@ -985,7 +985,7 @@ public boolean comprobarMonto(){
 					 ieDetFac= new IEDetalleFactura();
 					 Ingresos ing = (Ingresos) arrayIngresos[i];
 					 tipoIng= ing.getCodIngreso();
-					 System.out.println(tipoIng);
+					 
 					   ieDetFac.setIddetalle(IEFDao.buscarUltimoNumeroDetalleFactura());
 					   ieDetFac.setDf(detalleFacturaDao.buscarPorCodDetalle(detalleFactura.getCoddetalle()));
 					   ieDetFac.setCantidad(cantidad.get(i));
@@ -1119,9 +1119,7 @@ public boolean comprobarMonto(){
 	}
 	
 	public String guardarFacturaPrestamo(String tipoFacturado, String campoId, String cedula, JTable lista, String montoTotal){
-		
-		System.out.println("entrando por prestamossss");
-		
+			
 		 Factura factura = new Factura();
 		// String montoString ="";
 		 String clasificacion="";
@@ -1180,18 +1178,8 @@ public boolean comprobarMonto(){
 			 }
 		 
 			 List<Float> montoPrestamos= new ArrayList<Float>();
-			 
-			
-			 if(vFactura.getListaPrestamos().size()>0)
-			 {
-				 for(int i=0; i<vFactura.getListaPrestamos().size();i++)
-				 {
-					 Prestamos prest= new Prestamos();
-					 prestDao.agregarPrestamos(vFactura.getListaPrestamos().get(i));
-					 prest=prestDao.buscarPorCodigoPrestamo(vFactura.getListaPrestamos().get(i).getCodPrestamo());
-				 }
-				 
-			 }
+			/* if(vFactura.getListaPrestamos().size()<0)
+			 {*/
 				
 				 for(int i=0; i<lista.getRowCount(); i++) //recorro las filas
 				 {
@@ -1203,6 +1191,7 @@ public boolean comprobarMonto(){
 						 if(lista.getValueAt(i, a).toString().charAt(0)=='P')
 							{
 								prest=prestDao.buscarPorCodigoPrestamo(lista.getValueAt(i, a).toString());
+								
 								prestamosFactura.add(prest);								
 							}
 						}
@@ -1213,6 +1202,18 @@ public boolean comprobarMonto(){
 						}
 					} 			
 				 }	
+			/* }else*/
+			/* {
+				 for(int i=0; i<vFactura.getListaPrestamos().size();i++)
+				 {
+					 Prestamos prest= new Prestamos();
+					 prestDao.agregarPrestamos(vFactura.getListaPrestamos().get(i));
+					 prest=prestDao.buscarPorCodigoPrestamo(vFactura.getListaPrestamos().get(i).getCodPrestamo());
+					 
+					 prestamosFactura.add(prest);
+					 montoPrestamos.add(prestamosFactura.size()-1,prest.getMonto());
+				 }
+			 }*/
 				 
 				 
 				// Prestamos prestamo = new Prestamos();
@@ -1238,7 +1239,7 @@ public boolean comprobarMonto(){
 					 IEFDao.agregarDetalle(ieDetFac);
 				 	}
 				 }
-				 System.out.println("annadiendo prest factura  " + prestamosFactura.size());
+				
 				 if(prestamosFactura.size()>0){
 				 	
 					for(int i=0; i<arrayPrestamos.length; i++){
@@ -1321,20 +1322,26 @@ public boolean comprobarMonto(){
 		{
 			//Prestamos prest= new Prestamos();
 			Prestamos otroPrest= prestamos.get(i);
+			System.out.println("otro prest" + otroPrest.getCodPrestamo() + " monto +" + otroPrest.getMonto());
 			listPrest=cuentaPrestamosDao.MovimientosPrestamos(otroPrest.getCodPrestamo());
 			monto=(float) 0;
 			if(listPrest.size()>0)
-			{
+			{	
 				for(int j=0;j<listPrest.size();j++)
 				{
-					monto= monto+listPrest.get(j).getMontoTransaccion();
-					System.out.println(j+ " " + monto );
+					System.out.println("cuenta prestamos " +listPrest.get(j).getPrestamo().getCodPrestamo()+" : "+listPrest.get(j).getMontoTransaccion() );
+					monto= monto+listPrest.get(j).getMontoTransaccion();	
+					System.out.println("monto abonado " + monto + " prest "+ listPrest.get(j).getPrestamo().getCodPrestamo());
 				}
-				monto=monto*-1;	
+			//	monto=monto*-1;
 			}
 			if(otroPrest.getNroSocio().getNroSocio().equals(nroSocio) && otroPrest.getStatus()=='A'){
+				if(otroPrest.getMonto()-monto!=0)
+				{
 				listPrestamosXSocio.add(otroPrest);
-				vFactura.agregarFilaPrestamos(otroPrest.getDescripcion(), Float.toString(otroPrest.getMonto()), Float.toString(monto));
+				vFactura.agregarFilaPrestamos(otroPrest.getDescripcion(), Float.toString(otroPrest.getMonto()),
+						Float.toString(otroPrest.getMonto()-monto));
+				}
 			}
 		}
 	}
@@ -1382,8 +1389,7 @@ public boolean comprobarMonto(){
 		if(null!= vFactura.getTxtMontoIngresoEgreso() && 
 				this.AnnadirPrestamos().getMonto()>= Float.parseFloat(vFactura.getTxtMontoIngresoEgreso()))
 		{
-			
-			montoDeuda= Float.parseFloat(vFactura.filaMontoDeuda());
+			//montoDeuda=
 			vFactura.setTxtMontoAdeudado(String.valueOf(montoDeuda-
 										Float.parseFloat(vFactura.getTxtMontoIngresoEgreso())));
 		}
