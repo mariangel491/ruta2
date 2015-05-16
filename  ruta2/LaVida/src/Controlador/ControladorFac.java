@@ -131,6 +131,7 @@ public class ControladorFac implements ActionListener, KeyListener, FocusListene
 		vFactura.agregarFocusListener(this);
 		vFactura.OcultarCamposFormaPago();
 		vFactura.ocultarTablas();
+		vFactura.setTxtNroFactura(facturaDao.buscarUltimoNumeroFactura());
 	}
 	
 	@Override
@@ -140,14 +141,16 @@ public class ControladorFac implements ActionListener, KeyListener, FocusListene
 		if(ae.getActionCommand().equalsIgnoreCase("Añadir"))
 		{
 			this.agregarElemento();
+			
 		}
 		else if(ae.getActionCommand().equalsIgnoreCase("Procesar"))
 		{
 			this.Procesar();
 		}
-		else if(ae.getActionCommand().equalsIgnoreCase("Cancelar"))
+		else if(ae.getActionCommand().equalsIgnoreCase("Limpiar"))
 		{
-			this.AnnadirPrestamos();
+			vFactura.limpiarTodo();
+	
 		}
 		else if(ae.getActionCommand().equalsIgnoreCase("Quitar"))
 		{

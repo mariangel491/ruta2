@@ -122,7 +122,7 @@ public class VistaFac extends javax.swing.JFrame {
 	private JTextField txtNroFactura;
 	private JButton btnQuitar;
 	private JButton btnSalir;
-	private JButton btnCancelar;
+	private JButton btnLimpiar;
 	private JButton btnProcesar;
 	private JPanel jPanelFormaPago;
 	private JTextField txtMontoTotal;
@@ -155,8 +155,6 @@ public class VistaFac extends javax.swing.JFrame {
 	private JLabel jLabelMontoIngresoEgreso;
 	ArrayList<String> full_datos = new ArrayList<String>();
 
-	
-	
 	static public String TIPO_DE_FACTURA_EGRESOS = "Egresos";	
 	static public String OPCION_COMBO_SELECCIONE = "Seleccione....";	
 	static public String TIPO_FACTURADO_SOCIO = "SOCIO";
@@ -538,6 +536,7 @@ private static VistaFac vFactura=null;
 										lblPrestamos.setVisible(false);
 										lblPendiente.setVisible(false);
 										btnAnnadirPrestamo.setVisible(false);
+										btnAnnadirDeuda.setEnabled(true);
 										
 									}
 									else if(cmbTipoFactu.getSelectedItem().toString().equalsIgnoreCase(vFactura.TIPO_DE_FACTURA_EGRESOS)){
@@ -554,6 +553,7 @@ private static VistaFac vFactura=null;
 										lblPrestamos.setVisible(false);
 										lblPendiente.setVisible(false);
 										btnAnnadirPrestamo.setVisible(false);
+										btnAnnadirDeuda.setEnabled(false);
 
 									}else if(cmbTipoFactu.getSelectedItem().toString().equalsIgnoreCase(vFactura.TIPO_DE_FACTURA_PRESTAMOS)){
 										jListIngresos.setVisible(false);
@@ -688,13 +688,13 @@ private static VistaFac vFactura=null;
 				btnSalir.setIcon(new ImageIcon(getClass().getClassLoader().getResource("Imagenes/exit.png")));
 			}
 			{
-				btnCancelar = new JButton();
-				getContentPane().add(btnCancelar);
-				btnCancelar.setText("Cancelar");
-				btnCancelar.setBounds(399, 645, 136, 32);
-				btnCancelar.setFont(new java.awt.Font("Verdana",0,11));
-				btnCancelar.setIcon(new ImageIcon(getClass().getClassLoader().getResource("Imagenes/exit.png")));
-				btnCancelar.setActionCommand("Cancelar");
+				btnLimpiar = new JButton();
+				getContentPane().add(btnLimpiar);
+				btnLimpiar.setText("Limpiar");
+				btnLimpiar.setBounds(399, 645, 136, 32);
+				btnLimpiar.setFont(new java.awt.Font("Verdana",0,11));
+				btnLimpiar.setIcon(new ImageIcon(getClass().getClassLoader().getResource("Imagenes/Limpiarcodigo_1.png")));
+				btnLimpiar.setActionCommand("Limpiar");
 			}
 			{
 				btnProcesar = new JButton();
@@ -850,7 +850,7 @@ private static VistaFac vFactura=null;
 	public void agregarListener(ActionListener accion) {
 		this.btnanadir.addActionListener(accion);
 		this.btnBuscar.addActionListener(accion);
-		this.btnCancelar.addActionListener(accion);
+		this.btnLimpiar.addActionListener(accion);
 		this.btnProcesar.addActionListener(accion);
 		this.btnQuitar.addActionListener(accion);
 		this.btnSalir.addActionListener(accion);
@@ -911,6 +911,13 @@ private static VistaFac vFactura=null;
 		txtResponsableFactura.setText("");
 		txtCedulaSocio.setText("");
 		txtApellido.setText("");
+		
+		txtCheque.setText("");
+		txtDeposito.setText("");
+		txtEfectivo.setText("");
+		txtSubsidio.setText("");
+		txtTransferencia.setText("");
+		
 		cmbTipoFactu.setSelectedIndex(0);
 		cmbTipoFacturado.setSelectedIndex(0);
 		listaModeloIngresoEgreso.clear();

@@ -136,7 +136,7 @@ public class VistaCaja extends javax.swing.JFrame {
 	private JPanel getJPanelCaja() {
 		if(jPanelCaja == null) {
 			jPanelCaja = new JPanel();
-			jPanelCaja.setBounds(12, 85, 708, 309);
+			jPanelCaja.setBounds(12, 85, 708, 325);
 			jPanelCaja.setBorder(BorderFactory.createTitledBorder("Información de los depositos de la caja"));
 			jPanelCaja.setLayout(null);
 			jPanelCaja.add(getJPanelEnCaja());
@@ -157,7 +157,7 @@ public class VistaCaja extends javax.swing.JFrame {
 	private JPanel getJPanelEnCaja() {
 		if(jPanelEnCaja == null) {
 			jPanelEnCaja = new JPanel();
-			jPanelEnCaja.setBounds(27, 18, 271, 238);
+			jPanelEnCaja.setBounds(17, 18, 281, 260);
 			jPanelEnCaja.setLayout(null);
 			jPanelEnCaja.setBorder(BorderFactory.createTitledBorder("En caja"));
 			jPanelEnCaja.add(getJScrollPaneCaja());
@@ -177,7 +177,7 @@ public class VistaCaja extends javax.swing.JFrame {
 	private JPanel getJPanelADepositar() {
 		if(jPanelADepositar == null) {
 			jPanelADepositar = new JPanel();
-			jPanelADepositar.setBounds(387, 19, 294, 238);
+			jPanelADepositar.setBounds(387, 19, 294, 259);
 			jPanelADepositar.setLayout(null);
 			jPanelADepositar.setBorder(BorderFactory.createTitledBorder("A Depositar"));
 			jPanelADepositar.add(getJScrollPaneDeposito());
@@ -189,7 +189,7 @@ public class VistaCaja extends javax.swing.JFrame {
 		if(lblTotal == null) {
 			lblTotal = new JLabel();
 			lblTotal.setText("TOTAL");
-			lblTotal.setBounds(315, 278, 50, 16);
+			lblTotal.setBounds(315, 294, 50, 16);
 			lblTotal.setFont(new java.awt.Font("Segoe UI",1,14));
 		}
 		return lblTotal;
@@ -198,7 +198,7 @@ public class VistaCaja extends javax.swing.JFrame {
 	private JTextField getTxtMontoCaja() {
 		if(txtMontoCaja == null) {
 			txtMontoCaja = new JTextField();
-			txtMontoCaja.setBounds(67, 274, 170, 23);
+			txtMontoCaja.setBounds(67, 290, 170, 21);
 		}
 		return txtMontoCaja;
 	}
@@ -206,7 +206,7 @@ public class VistaCaja extends javax.swing.JFrame {
 	private JTextField getTxtMontoADepositar() {
 		if(txtMontoADepositar == null) {
 			txtMontoADepositar = new JTextField();
-			txtMontoADepositar.setBounds(444, 276, 180, 23);
+			txtMontoADepositar.setBounds(444, 292, 180, 23);
 		}
 		return txtMontoADepositar;
 	}
@@ -215,7 +215,7 @@ public class VistaCaja extends javax.swing.JFrame {
 		if(lblBsDep == null) {
 			lblBsDep = new JLabel();
 			lblBsDep.setText("Bs.");
-			lblBsDep.setBounds(636, 279, 15, 16);
+			lblBsDep.setBounds(636, 295, 15, 16);
 		}
 		return lblBsDep;
 	}
@@ -224,7 +224,7 @@ public class VistaCaja extends javax.swing.JFrame {
 		if(lblBsCaja == null) {
 			lblBsCaja = new JLabel();
 			lblBsCaja.setText("Bs.");
-			lblBsCaja.setBounds(245, 279, 25, 16);
+			lblBsCaja.setBounds(245, 295, 25, 16);
 		}
 		return lblBsCaja;
 	}
@@ -272,7 +272,7 @@ public class VistaCaja extends javax.swing.JFrame {
 	private JScrollPane getJScrollPaneCaja() {
 		if(jScrollPaneCaja == null) {
 			jScrollPaneCaja = new JScrollPane();
-			jScrollPaneCaja.setBounds(17, 23, 237, 112);
+			jScrollPaneCaja.setBounds(12, 23, 258, 139);
 			jScrollPaneCaja.setViewportView(getJTableCaja());
 		}
 		return jScrollPaneCaja;
@@ -293,7 +293,7 @@ public class VistaCaja extends javax.swing.JFrame {
 	private JScrollPane getJScrollPaneDeposito() {
 		if(jScrollPaneDeposito == null) {
 			jScrollPaneDeposito = new JScrollPane();
-			jScrollPaneDeposito.setBounds(17, 23, 260, 188);
+			jScrollPaneDeposito.setBounds(17, 23, 260, 225);
 			jScrollPaneDeposito.setViewportView(getJTableDeposito());
 		}
 		return jScrollPaneDeposito;
@@ -457,7 +457,7 @@ public class VistaCaja extends javax.swing.JFrame {
 		if(lblCtaR == null) {
 			lblCtaR = new JLabel();
 			lblCtaR.setText("Cta. Ruta :");
-			lblCtaR.setBounds(17, 147, 73, 16);
+			lblCtaR.setBounds(17, 174, 73, 16);
 		}
 		return lblCtaR;
 	}
@@ -465,7 +465,7 @@ public class VistaCaja extends javax.swing.JFrame {
 	private JFormattedTextField getTxtMontoR() {
 		if(txtMontoR == null) {
 			txtMontoR = new JFormattedTextField();
-			txtMontoR.setBounds(102, 144, 133, 23);
+			txtMontoR.setBounds(100, 171, 135, 23);
 		}
 		return txtMontoR;
 	}
@@ -474,7 +474,7 @@ public class VistaCaja extends javax.swing.JFrame {
 		if(lblCtaA == null) {
 			lblCtaA = new JLabel();
 			lblCtaA.setText("Cta. Alquiler :");
-			lblCtaA.setBounds(17, 175, 71, 16);
+			lblCtaA.setBounds(17, 202, 83, 16);
 		}
 		return lblCtaA;
 	}
@@ -483,7 +483,7 @@ public class VistaCaja extends javax.swing.JFrame {
 		if(lblCtaP == null) {
 			lblCtaP = new JLabel();
 			lblCtaP.setText("Cta. Prestamo :");
-			lblCtaP.setBounds(17, 203, 80, 16);
+			lblCtaP.setBounds(17, 230, 89, 16);
 		}
 		return lblCtaP;
 	}
@@ -491,7 +491,7 @@ public class VistaCaja extends javax.swing.JFrame {
 	private JFormattedTextField getTxtCtaA() {
 		if(txtCtaA == null) {
 			txtCtaA = new JFormattedTextField();
-			txtCtaA.setBounds(100, 172, 135, 23);
+			txtCtaA.setBounds(100, 199, 135, 23);
 		}
 		return txtCtaA;
 	}
@@ -499,7 +499,7 @@ public class VistaCaja extends javax.swing.JFrame {
 	private JFormattedTextField getTxtCtaP() {
 		if(txtCtaP == null) {
 			txtCtaP = new JFormattedTextField();
-			txtCtaP.setBounds(100, 200, 135, 23);
+			txtCtaP.setBounds(100, 227, 135, 23);
 		}
 		return txtCtaP;
 	}
@@ -508,7 +508,7 @@ public class VistaCaja extends javax.swing.JFrame {
 		if(lblbsfR == null) {
 			lblbsfR = new JLabel();
 			lblbsfR.setText("BsF");
-			lblbsfR.setBounds(235, 147, 18, 16);
+			lblbsfR.setBounds(235, 174, 29, 16);
 		}
 		return lblbsfR;
 	}
@@ -517,7 +517,7 @@ public class VistaCaja extends javax.swing.JFrame {
 		if(lblbsfA == null) {
 			lblbsfA = new JLabel();
 			lblbsfA.setText("BsF");
-			lblbsfA.setBounds(235, 175, 18, 16);
+			lblbsfA.setBounds(235, 202, 29, 16);
 		}
 		return lblbsfA;
 	}
@@ -526,7 +526,7 @@ public class VistaCaja extends javax.swing.JFrame {
 		if(lblbsfP == null) {
 			lblbsfP = new JLabel();
 			lblbsfP.setText("BsF");
-			lblbsfP.setBounds(235, 203, 18, 16);
+			lblbsfP.setBounds(235, 230, 29, 16);
 		}
 		return lblbsfP;
 	}

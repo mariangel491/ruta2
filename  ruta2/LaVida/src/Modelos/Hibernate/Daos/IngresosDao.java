@@ -125,7 +125,8 @@ private HibernateUtil sesionPostgres;
 		
 		  String condicion="";
 		  if(tipoFacturado.equalsIgnoreCase(Socio.TIPO_FACTURADO_SOCIO)){
-			  condicion = " where clasificacion in('"+Ingresos.TIPO_INGRESO_RUTA+"','"+Ingresos.TIPO_INGRESO_FONDO_DE_CHOQUE+"')";
+			  //condicion = " where clasificacion in('"+Ingresos.TIPO_INGRESO_RUTA+"','"+Ingresos.TIPO_INGRESO_FONDO_DE_CHOQUE+"')";
+			  condicion = " where clasificacion in('"+Ingresos.TIPO_INGRESO_RUTA+"')";
 		  }
 		  else if(tipoFacturado.equalsIgnoreCase(Inquilino.TIPO_FACTURADO_INQUILINO)){
 			  condicion = " where clasificacion in('"+Ingresos.TIPO_INGRESO_ALQUILER+"')";
