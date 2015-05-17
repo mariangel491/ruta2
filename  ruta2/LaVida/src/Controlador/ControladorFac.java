@@ -141,7 +141,7 @@ public class ControladorFac implements ActionListener, KeyListener, FocusListene
 		if(ae.getActionCommand().equalsIgnoreCase("Añadir"))
 		{
 			this.agregarElemento();
-			
+			vFactura.limpiarCantSplit();
 		}
 		else if(ae.getActionCommand().equalsIgnoreCase("Procesar"))
 		{
@@ -376,6 +376,7 @@ public void agregarElemento(){
 				if(vFactura.getjListIngresos().getSelectedIndex()>0)//PARA SABER SI UN ELEMNTO DEL JLIST FUE SELECCIONADO
 				{
 					ing= ingDao.obtenerIngresosPorDescripcion(vFactura.getjListIngresos().getSelectedValue().toString());
+				
 				}
 				else if(vFactura.getJTableDeudasPorSocio().getSelectionModel().getLeadSelectionIndex()>=0)
 				{

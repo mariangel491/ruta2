@@ -1500,6 +1500,9 @@ private static VistaFac vFactura=null;
 
 		}	
 
+	public void limpiarCantSplit(){
+		this.jSpinnerCantidad.setValue(1);
+	}
 	public void limpiarTablaPrestamos() {
 		TableModel tblListadoModel = 
 		new DefaultTableModel(
