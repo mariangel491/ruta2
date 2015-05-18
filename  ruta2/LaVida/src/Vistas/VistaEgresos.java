@@ -78,7 +78,7 @@ public class VistaEgresos extends javax.swing.JFrame {
 		try {
 			//System.out.println("cantidad egresos:   "+ daoEg.obtenerTodos().size());
 			this.GenerarCodigo();
-			//this.txtCodEgresO.setEnabled(false);
+			this.txtCodEgresO.setEditable(false);
 		} catch (Exception e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
@@ -236,10 +236,10 @@ public class VistaEgresos extends javax.swing.JFrame {
 	}
 
 	public void GenerarCodigo() 
-	{
-		int cantEgresos=0;
+	{		
+		//int cantEgresos=0;
 		try {
-		//	cantEgresos = daoEg.obtenerTodos().size()+1;
+		int	cantEgresos = daoEg.obtenerTodos().size()+1;
 		//	System.out.println("cant egresos"+ cantEgresos);
 			if(cantEgresos<10)
 			{

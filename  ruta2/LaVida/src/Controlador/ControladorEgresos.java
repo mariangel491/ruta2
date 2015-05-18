@@ -42,17 +42,18 @@ public class ControladorEgresos implements ActionListener, KeyListener{
 	public void actionPerformed(ActionEvent ae) {
 		// TODO Auto-generated method stub
 		if(ae.getActionCommand().equalsIgnoreCase("Buscar")){
-			ControladorMostrarResultados mo= new ControladorMostrarResultados();
+			ControladorMostrarResultados mo= new ControladorMostrarResultados();   //OJO CON ESTO QUE HACE???
 			mostrar.CrearNuevaVentana(1);
 		}else 
 		if (ae.getActionCommand().equalsIgnoreCase("Limpiar")) {
 			//vEgresos.LimpiarCampos();
 			}
-		else if(ae.getActionCommand().equalsIgnoreCase("Cancelar")){
-			System.out.println("Cancelandooooo");
+		else if(ae.getActionCommand().equalsIgnoreCase("Salir")){
+			vEgresos.cerrarVentana();
+
 		}else if(ae.getActionCommand().equalsIgnoreCase("Modificar")){
 			System.out.println("Modificandoooo");
-		}else if(ae.getActionCommand().equalsIgnoreCase("Buscar")){
+		}else if(ae.getActionCommand().equalsIgnoreCase("Buscar")){          //OJO CON ESTE PORQUE INGRESOS Y PORQUE 2 BUSCAR???
 			System.out.println("buscar");
 			ControladorIngresos ingresos=new ControladorIngresos();
 		}else if(ae.getActionCommand().equalsIgnoreCase("Guardar")){			

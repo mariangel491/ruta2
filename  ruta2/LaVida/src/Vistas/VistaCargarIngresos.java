@@ -46,7 +46,7 @@ public class VistaCargarIngresos extends javax.swing.JFrame {
 	private JLabel lblCodigoIng;
 	private JLabel lblNombIngresos;
 	private JButton btnSalir;
-	private JButton btnCancelar;
+	private JButton btnLimpiar;
 	private JButton btnGuardar;
 	private JLabel lblEtiqBsF;
 	private JTextField txtMontoIng;
@@ -185,13 +185,13 @@ private static VistaCargarIngresos vCIng=null;
 					btnGuardar.setActionCommand("Guardar");
 				}
 				{
-					btnCancelar = new JButton();
-					jPanelVentana.add(btnCancelar);
-					btnCancelar.setText("Cancelar");
-					btnCancelar.setBounds(147, 259, 105, 23);
-					btnCancelar.setFont(new java.awt.Font("Verdana",0,11));
-					btnCancelar.setIcon(new ImageIcon(getClass().getClassLoader().getResource("Imagenes/button_cancel_16x16.png")));
-					btnCancelar.setActionCommand("Cancelar");
+					btnLimpiar = new JButton();
+					jPanelVentana.add(btnLimpiar);
+					btnLimpiar.setText("Limpiar");
+					btnLimpiar.setBounds(147, 259, 105, 23);
+					btnLimpiar.setFont(new java.awt.Font("Verdana",0,11));
+					btnLimpiar.setIcon(new ImageIcon(getClass().getClassLoader().getResource("Imagenes/Limpiarcodigo_1.png")));
+					btnLimpiar.setActionCommand("Limpiar");
 				}
 				{
 					btnSalir = new JButton();
@@ -231,7 +231,7 @@ private static VistaCargarIngresos vCIng=null;
 	public void agregarListener(ActionListener accion) {
 		this.btnGuardar.addActionListener(accion);
 		this.btnBuscar.addActionListener(accion);
-		this.btnCancelar.addActionListener(accion);
+		this.btnLimpiar.addActionListener(accion);
 		this.btnSalir.addActionListener(accion);
 		this.txtCodIng.addActionListener(accion);
 	}

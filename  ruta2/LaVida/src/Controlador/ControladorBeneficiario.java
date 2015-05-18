@@ -96,13 +96,16 @@ public class ControladorBeneficiario implements ActionListener, KeyListener {
 			Vbenef.limpiarCamposSocio();
 			Vbenef.regresar();
 			Vbenef.limpiarTablaBeneficiarios();
-			
+		}else if(ae.getActionCommand().equalsIgnoreCase("Cancelar")){
+			Vbenef.cerrarVentana();
 		}else if(ae.getActionCommand().equalsIgnoreCase("Modificar")){
 			
 			try {
 				
 				this.modificarBene();
 				this.obtenerBeneficiarios();
+				Vbenef.OcultarBotones();
+				Vbenef.regresar();
 			} catch (Exception e) {
 				// TODO Auto-generated catch block
 				e.printStackTrace();
@@ -465,7 +468,8 @@ public void removerElementoBeneficiario(String ced) throws Exception{
 	@Override
 	public void keyTyped(KeyEvent e) {
 		// TODO Auto-generated method stub
-		if (!Character.isDigit(e.getKeyChar()))
+		char c = e.getKeyChar();
+		if (!Character.isDigit(e.getKeyChar()) && c!='-' && c!='.')
 			e.consume();
 	}
 	

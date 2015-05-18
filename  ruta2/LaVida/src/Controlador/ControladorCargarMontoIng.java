@@ -96,10 +96,11 @@ public class ControladorCargarMontoIng implements ActionListener, KeyListener {
 		}else if(ae.getActionCommand().equals("Guardar")){
 			this.IngresosHistorial();
 			this.actualizarIngreso();
-		}else if(ae.getActionCommand().equals("Modificar"))
-		{
+		}else if(ae.getActionCommand().equals("Limpiar")){
+			vCargarI.limpiarCampos();
 			
 		}else if(ae.getActionCommand().equals("Salir")){
+			vCargarI.cerrarVentana();
 			
 		}else if(ae.getActionCommand().equalsIgnoreCase("BIngreTecla")){
 			

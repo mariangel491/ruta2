@@ -542,9 +542,15 @@ private JLabel lblTipo;
 			}
 			}*/
 				
-			public void agregarKey(KeyListener a) {
+			public void agregarKeyCed(KeyListener a) {
 					txtCedulaRif.addKeyListener(a);
 					txtTelefono.addKeyListener(a);
 				}
+			
+			public void agregarKeyTel(KeyListener a) {
+				txtTelefono.addKeyListener(a);
+			}
+		
+
 
 }

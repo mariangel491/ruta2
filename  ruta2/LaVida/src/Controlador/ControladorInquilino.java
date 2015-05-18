@@ -43,7 +43,8 @@ public class ControladorInquilino  implements ActionListener, KeyListener {
 		vInquilino.setVisible(true);
 		vInquilino.agregarListener(this);
 		vInquilino.GenerarCodigo();
-		vInquilino.agregarKey(this);
+		vInquilino.agregarKeyCed(this);
+		vInquilino.agregarKeyTel(this);
 	}
 
 
@@ -227,7 +228,7 @@ public class ControladorInquilino  implements ActionListener, KeyListener {
 	@Override
 	public void keyTyped(KeyEvent key) {
 		char c = key.getKeyChar();
-		if (!Character.isDigit(key.getKeyChar()) && c!='.')
+		if (!Character.isDigit(key.getKeyChar()) && c!='-' && c!='.')
 			key.consume();
 			
 	}

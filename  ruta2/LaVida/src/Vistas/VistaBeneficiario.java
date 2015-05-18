@@ -425,6 +425,8 @@ public void regresar(){
 	this.cmbEstado.setVisible(false);
 	this.btnAgregar.setVisible(true);
 	this.lblEstado.setVisible(false);
+	this.txtCedulaRif.setEditable(true);
+	this.txtNroSocio.setEditable(true);
 	
 }
 

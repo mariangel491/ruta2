@@ -61,8 +61,9 @@ public class ControladorRegistrarLocal implements ActionListener, KeyListener{
 				VLocal.LimpiarCampos();
 			}
 		else if(ae.getActionCommand().equalsIgnoreCase("Cancelar")){
-			VLocal.ActivarComponentes();
-			VLocal.LimpiarCampos();
+			VLocal.cerrarVentana();
+			//VLocal.ActivarComponentes();
+			//VLocal.LimpiarCampos();
 		}else 
 			if(ae.getActionCommand().equalsIgnoreCase("Modificar"))
 			{
@@ -148,7 +149,8 @@ public class ControladorRegistrarLocal implements ActionListener, KeyListener{
 	@Override
 	public void keyTyped(KeyEvent e) {
 		// TODO Auto-generated method stub
-		if (!Character.isDigit(e.getKeyChar()))
+		char c = e.getKeyChar();
+		if (!Character.isDigit(e.getKeyChar()) && c!='.')
 			e.consume();
 	}
 }
