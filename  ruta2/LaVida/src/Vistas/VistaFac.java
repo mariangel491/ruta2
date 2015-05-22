@@ -277,6 +277,10 @@ private static VistaFac vFactura=null;
 									txtNroSocio.setEditable(true);
 									btnBuscar.setEnabled(true);
 									jPanelDatosPersonales.setBorder(BorderFactory.createTitledBorder("Datos del Inquilino"));
+									btnAnnadirDeuda.setEnabled(false);
+									jSpinnerCantidad.setVisible(false);
+									lblCantidad.setVisible(false);
+								
 									
 								}
 								else if(cmbTipoFacturado.getSelectedItem().toString().equalsIgnoreCase(TIPO_FACTURADO_SOCIO)){
@@ -286,6 +290,8 @@ private static VistaFac vFactura=null;
 									txtNroSocio.setEditable(true);
 									btnBuscar.setEnabled(true);
 									jPanelDatosPersonales.setBorder(BorderFactory.createTitledBorder("Datos del Socio"));
+									jSpinnerCantidad.setVisible(true);
+									lblCantidad.setVisible(true);
 								}
 								else if(cmbTipoFacturado.getSelectedItem().toString().equalsIgnoreCase(TIPO_FACTURADO_ARRENDATARIO)){
 									lblNroSocio.setText("Código de Arrendatario:");
@@ -294,6 +300,9 @@ private static VistaFac vFactura=null;
 									txtNroSocio.setEditable(false);
 									btnBuscar.setEnabled(false);
 									jPanelDatosPersonales.setBorder(BorderFactory.createTitledBorder("Datos del Arrendatario"));
+									jSpinnerCantidad.setVisible(true);
+									lblCantidad.setVisible(true);
+									btnAnnadirDeuda.setEnabled(false);
 								}
 
 								
@@ -505,13 +514,14 @@ private static VistaFac vFactura=null;
 									new DefaultComboBoxModel(
 											new String[] { OPCION_COMBO_SELECCIONE,this.TIPO_DE_FACTURA_INGRESOS, this.TIPO_DE_FACTURA_EGRESOS, this.TIPO_DE_FACTURA_PRESTAMOS});
 							cmbTipoFactu = new JComboBox();
+							cmbTipoFactu.setModel(cmbTipoFactuModel);
 							jPanelIngresos.add(cmbTipoFactu);
 							jPanelIngresos.add(getJSpinnerCantidad());
 							jPanelIngresos.add(getLblCantidad());
 							jPanelIngresos.add(getLblPrestamos());
 							jPanelIngresos.add(getLblPendiente());
 							jPanelIngresos.add(getBtnAnnadirPrestamo());
-							cmbTipoFactu.setModel(cmbTipoFactuModel);
+							
 							cmbTipoFactu.setBounds(118, 21, 230, 23);
 							cmbTipoFactu.setEditable(false);
 							cmbTipoFactu.addActionListener(new ActionListener() {
@@ -906,9 +916,7 @@ private static VistaFac vFactura=null;
 	//	txtDescripcion.setText("");
 		txtMontoTotal.setText("");
 		txtNombSocio.setText("");
-		txtNroFactura.setText("");
 		txtNroSocio.setText("");
-		txtResponsableFactura.setText("");
 		txtCedulaSocio.setText("");
 		txtApellido.setText("");
 		
@@ -917,12 +925,15 @@ private static VistaFac vFactura=null;
 		txtEfectivo.setText("");
 		txtSubsidio.setText("");
 		txtTransferencia.setText("");
+		txtMontoTotal.setText("");
 		
 		cmbTipoFactu.setSelectedIndex(0);
 		cmbTipoFacturado.setSelectedIndex(0);
 		listaModeloIngresoEgreso.clear();
 		listaModeloAux.clear();
 		jListIngresos.removeAll();
+		
+
 		limpiarTablaDeudas();
 		limpiarTablaEgresos();
 		limpiarTablaIngresos();
@@ -1015,10 +1026,23 @@ private static VistaFac vFactura=null;
 	
 	public void llenarCamposInquilino(Inquilino inquilino){
 		if(null!=inquilino){
-			txtNroSocio.setText(inquilino.getRif());
-			txtCedulaSocio.setText(inquilino.getCedula());
-			txtNombSocio.setText(inquilino.getNombre());
-			txtApellido.setText(inquilino.getApellido());
+			if(inquilino.getRif().equals("null")){
+			    txtNroSocio.setText("");
+			    txtNroSocio.setEditable(false);
+			    txtCedulaSocio.setText(inquilino.getCedula());
+				txtNombSocio.setText(inquilino.getNombre());
+				txtApellido.setText(inquilino.getApellido());
+				}
+			else if(inquilino.getCedula().equals("null"))
+			{
+				txtCedulaSocio.setText("");
+				txtCedulaSocio.setEditable(false);
+				txtNroSocio.setText(inquilino.getRif());
+				txtNombSocio.setText(inquilino.getNombre());
+				txtApellido.setText(inquilino.getApellido());
+			}
+	
+			
 		}
 		else{
 			txtNroSocio.setText("");
