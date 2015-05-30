@@ -270,6 +270,7 @@ private static VistaFac vFactura=null;
 							@Override
 							public void actionPerformed(ActionEvent e) {
 								// TODO Auto-generated method stub
+								if(cmbTipoFacturado.getSelectedItem().toString().equalsIgnoreCase("OPCION_COMBO_SELECCIONE"))
 								if(cmbTipoFacturado.getSelectedItem().toString().equalsIgnoreCase(TIPO_FACTURADO_INQUILINO)){
 									lblNroSocio.setText("Rif Inquilino:");
 									txtNroSocio.setText("");
