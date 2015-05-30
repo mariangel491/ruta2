@@ -28,10 +28,11 @@ public class ControladorIngresos implements ActionListener, KeyListener {
 		
 		VIng= new VistaIngresos();
 		VIng= VIng.obtenerInstancia();
+		VIng.setLocationRelativeTo(null);
 		VIng.setVisible(true);
 		VIng.setResizable(false);	
 		VIng.agregarListener(this);
-		VIng.setLocationRelativeTo(null);
+		
 
 		
 		try {

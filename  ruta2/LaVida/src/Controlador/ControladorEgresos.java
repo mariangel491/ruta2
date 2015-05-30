@@ -25,13 +25,12 @@ public class ControladorEgresos implements ActionListener, KeyListener{
 	
 	
 	public ControladorEgresos(){
-		
 		vEgresos= new VistaEgresos();
 		egresos = new Egresos();
 		egresosDao=new EgresosDao();
 		ruta= new Ruta();
 		rutaDao= new RutaDao();
-		
+		vEgresos.setLocationRelativeTo(null);
 		vEgresos.setVisible(true);
 		vEgresos.setResizable(false);	
 		vEgresos.agregarListener(this);

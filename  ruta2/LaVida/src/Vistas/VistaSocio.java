@@ -157,9 +157,8 @@ private static VistaSocio vSocio=null;
 		if(jpLogo == null) {
 			jpLogo = new JPanel();
 		//	jpLogo.setLayout(jpLogoLayout);
-			jpLogo.setBounds(0, 7, 613, 75);
+			jpLogo.setBounds(0, 0, 613, 78);
 			jpLogo.setLayout(null);
-			jpLogo.setBorder(new LineBorder(new java.awt.Color(0,0,0), 1, false));
 			jpLogo.setBackground(new java.awt.Color(255,255,255));
 			jpLogo.add(getLblSocio());
 			jpLogo.add(getLblImagen());
@@ -171,7 +170,7 @@ private static VistaSocio vSocio=null;
 		if(btnRV == null) {
 			btnRV = new JButton();
 			btnRV.setText("Registrar Vehículo");
-			btnRV.setBounds(409, 84, 208, 29);
+			btnRV.setBounds(409, 81, 208, 35);
 			btnRV.setFont(new java.awt.Font("Century Gothic",0,12));
 		}
 		return btnRV;
@@ -181,7 +180,7 @@ private static VistaSocio vSocio=null;
 		if(btnRS == null) {
 			btnRS = new JButton();
 			btnRS.setText("Registrar Socio");
-			btnRS.setBounds(0, 84, 201, 29);
+			btnRS.setBounds(0, 81, 208, 35);
 			btnRS.setFont(new java.awt.Font("Century Gothic",0,12));
 		}
 		return btnRS;
@@ -191,7 +190,7 @@ private static VistaSocio vSocio=null;
 		if(btnRA == null) {
 			btnRA = new JButton();
 			btnRA.setText("Registrar Avance");
-			btnRA.setBounds(201, 84, 208, 29);
+			btnRA.setBounds(201, 81, 208, 35);
 			btnRA.setFont(new java.awt.Font("Century Gothic",0,12));
 		}
 		return btnRA;
@@ -581,7 +580,7 @@ private static VistaSocio vSocio=null;
 	private JLabel getLblImagen() {
 		if(lblImagen == null) {
 			lblImagen = new JLabel();
-			lblImagen.setBounds(1, 1, 234, 76);
+			lblImagen.setBounds(1, 5, 234, 76);
 			lblImagen.setIcon(new ImageIcon(getClass().getClassLoader().getResource("Imagenes/LogoRuta2.jpg")));
 		}
 		return lblImagen;

@@ -48,6 +48,7 @@ public class VistaEgresos extends javax.swing.JFrame {
 	private JTextField txtDescripcion;
 	private JLabel lblCodigo;
 	private JLabel lblTitulo;
+	private JLabel lblimagen;
 	private JButton btnBuscar;
 
 	//Mis datos
@@ -92,25 +93,27 @@ public class VistaEgresos extends javax.swing.JFrame {
 			{
 				jPanelVentana = new JPanel();
 				getContentPane().add(jPanelVentana, "Center");
-				jPanelVentana.setBounds(0, 0, 384, 262);
+				jPanelVentana.setBounds(0, 0, 437, 274);
 				jPanelVentana.setLayout(null);
 				{
 					jPanelTitulo = new JPanel();
 					jPanelVentana.add(jPanelTitulo);
-					jPanelTitulo.setBounds(0, 5, 384, 67);
+					jPanelTitulo.setBounds(0, 0, 437, 72);
 					jPanelTitulo.setLayout(null);
+					jPanelTitulo.setBackground(new java.awt.Color(255,255,255));
 					{
 						lblTitulo = new JLabel();
 						jPanelTitulo.add(lblTitulo);
+						jPanelTitulo.add(getLblimagen());
 						lblTitulo.setText("Registrar Egresos");
-						lblTitulo.setBounds(162, 12, 192, 41);
-						lblTitulo.setFont(new java.awt.Font("Century Gothic",3,20));
+						lblTitulo.setBounds(162, 19, 192, 41);
+						lblTitulo.setFont(new java.awt.Font("Century Gothic",2,20));
 					}
 				}
 				{
 					jPanelCargarDatos = new JPanel();
 					jPanelVentana.add(jPanelCargarDatos);
-					jPanelCargarDatos.setBounds(12, 84, 360, 127);
+					jPanelCargarDatos.setBounds(31, 84, 360, 127);
 					jPanelCargarDatos.setBorder(BorderFactory.createTitledBorder("Datos del Egreso"));
 					jPanelCargarDatos.setLayout(null);
 					{
@@ -164,7 +167,7 @@ public class VistaEgresos extends javax.swing.JFrame {
 					btnGuardar = new JButton();
 					jPanelVentana.add(btnGuardar);
 					btnGuardar.setText("Guardar");
-					btnGuardar.setBounds(23, 228, 109, 23);
+					btnGuardar.setBounds(21, 228, 123, 29);
 					btnGuardar.setFont(new java.awt.Font("Verdana",0,11));
 					btnGuardar.setIcon(new ImageIcon(getClass().getClassLoader().getResource("Imagenes/save.png")));
 					btnGuardar.setActionCommand("Guardar");
@@ -173,7 +176,7 @@ public class VistaEgresos extends javax.swing.JFrame {
 					btnModificar = new JButton();
 					jPanelVentana.add(btnModificar);
 					btnModificar.setText("Modificar");
-					btnModificar.setBounds(143, 228, 124, 23);
+					btnModificar.setBounds(151, 228, 123, 29);
 					btnModificar.setFont(new java.awt.Font("Verdana",0,11));
 					btnModificar.setIcon(new ImageIcon(getClass().getClassLoader().getResource("Imagenes/kwrite_22x22.png")));
 					btnModificar.setText("Modificar");
@@ -182,14 +185,14 @@ public class VistaEgresos extends javax.swing.JFrame {
 					btnSalir = new JButton();
 					jPanelVentana.add(btnSalir);
 					btnSalir.setText("Salir");
-					btnSalir.setBounds(277, 228, 89, 23);
+					btnSalir.setBounds(280, 228, 123, 29);
 					btnSalir.setFont(new java.awt.Font("Verdana",0,11));
 					btnSalir.setIcon(new ImageIcon(getClass().getClassLoader().getResource("Imagenes/exit.png")));
 					btnSalir.setActionCommand("Salir");
 				}
 			}
 			pack();
-			setSize(400, 300);
+			this.setSize(438, 320);
 		} catch (Exception e) {
 		    //add your error handling code here
 			e.printStackTrace();
@@ -280,5 +283,14 @@ public class VistaEgresos extends javax.swing.JFrame {
 		btnBuscar.setActionCommand("Buscar");
 		return btnBuscar;
 		
+	}
+	
+	private JLabel getLblimagen() {
+		if(lblimagen == null) {
+			lblimagen = new JLabel();
+			lblimagen.setBounds(2, 7, 154, 65);
+			lblimagen.setIcon(new ImageIcon(getClass().getClassLoader().getResource("Imagenes/LogoRuta2.jpg")));
+		}
+		return lblimagen;
 	}
 }

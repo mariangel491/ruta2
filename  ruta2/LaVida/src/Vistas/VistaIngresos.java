@@ -118,7 +118,7 @@ private static VistaIngresos vIg=null;
 				{
 					jPanelIngresos = new JPanel();
 					jPanelVentana.add(jPanelIngresos);
-					jPanelIngresos.setBounds(12, 94, 360, 122);
+					jPanelIngresos.setBounds(40, 94, 360, 122);
 					jPanelIngresos.setBorder(BorderFactory.createTitledBorder("Datos de los Ingresos"));
 					jPanelIngresos.setLayout(null);
 					{
@@ -194,7 +194,7 @@ private static VistaIngresos vIg=null;
 				}
 			}
 			pack();
-			setSize(400, 300);
+			this.setSize(460, 318);
 		} catch (Exception e) {
 		    //add your error handling code here
 			e.printStackTrace();

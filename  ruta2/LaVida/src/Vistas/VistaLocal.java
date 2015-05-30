@@ -29,6 +29,7 @@ import com.jgoodies.common.collect.ArrayListModel;
 import com.jgoodies.common.collect.LinkedListModel;
 
 import Controlador.ControladorRegistrarLocal;
+import Modelos.Ingresos;
 import Modelos.Local;
 import Modelos.Hibernate.Daos.LocalDao;
 
@@ -70,7 +71,6 @@ public class VistaLocal extends javax.swing.JFrame {
 	private JLabel lblNombreLocal;
 	private JTextField txtNombre;
 	private JLabel lblTitulo;
-	private JButton btnModificar;
 	private JButton btnLimpiar;
 	private JList jListBusqueda;
 	private JLabel lblBs;
@@ -122,9 +122,10 @@ private static VistaLocal vLocal=null;
 			this.setFont(new java.awt.Font("Century Gothic",0,10));
 			{
 				jpDatosLocal = new JPanel();
+				getContentPane().add(getPnlEncabezado());
 				getContentPane().add(getJPanelMostrar());
 				getContentPane().add(jpDatosLocal);
-				jpDatosLocal.setBounds(16, 97, 429, 143);
+				jpDatosLocal.setBounds(31, 97, 429, 143);
 				jpDatosLocal.setLayout(null);
 				jpDatosLocal.setBorder(BorderFactory.createTitledBorder("Datos del Local"));
 				{
@@ -181,7 +182,7 @@ private static VistaLocal vLocal=null;
 				getContentPane().add(btnGuardar);
 				btnGuardar.setText("Guardar");
 				btnGuardar.setActionCommand("Guardar");
-				btnGuardar.setBounds(220, 255, 104, 28);
+				btnGuardar.setBounds(344, 255, 123, 28);
 				btnGuardar.setIcon(new ImageIcon(getClass().getClassLoader().getResource("Imagenes/save.png")));
 				btnGuardar.setFont(new java.awt.Font("Segoe UI",0,11));
 			}
@@ -190,7 +191,7 @@ private static VistaLocal vLocal=null;
 				getContentPane().add(btnCancelar);
 				btnCancelar.setText("Cancelar");
 				btnCancelar.setActionCommand("Cancelar");
-				btnCancelar.setBounds(12, 255, 96, 28);
+				btnCancelar.setBounds(28, 255, 123, 28);
 				btnCancelar.setIcon(new ImageIcon(getClass().getClassLoader().getResource("Imagenes/button_cancel_16x16.png")));
 				btnCancelar.setFont(new java.awt.Font("Segoe UI",0,11));
 			}
@@ -199,19 +200,9 @@ private static VistaLocal vLocal=null;
 				getContentPane().add(btnLimpiar);
 				btnLimpiar.setText("Limpiar");
 				btnLimpiar.setActionCommand("Limpiar");
-				btnLimpiar.setBounds(113, 255, 100, 28);
+				btnLimpiar.setBounds(184, 255, 123, 28);
 				btnLimpiar.setIcon(new ImageIcon(getClass().getClassLoader().getResource("Imagenes/Limpiarcodigo_1.png")));
 				btnLimpiar.setFont(new java.awt.Font("Segoe UI",0,11));
-			}
-			{
-				btnModificar = new JButton();
-				getContentPane().add(btnModificar);
-				getContentPane().add(getPnlEncabezado());
-				btnModificar.setText("Modificar");
-				btnModificar.setActionCommand("Modificar");
-				btnModificar.setBounds(335, 255, 113, 28);
-				btnModificar.setIcon(new ImageIcon(getClass().getClassLoader().getResource("Imagenes/kwrite_22x22.png")));
-				btnModificar.setFont(new java.awt.Font("Segoe UI",0,11));
 			}
 			pack();
 			this.setSize(514, 332);
@@ -223,7 +214,7 @@ private static VistaLocal vLocal=null;
 	public JPanel getJPanelMostrar() {
 		if(jPanelMostrar == null) {
 			jPanelMostrar = new JPanel();
-			jPanelMostrar.setBounds(12, 92, 446, 157);
+			jPanelMostrar.setBounds(24, 92, 446, 157);
 			jPanelMostrar.setLayout(null);
 			jPanelMostrar.setBorder(BorderFactory.createTitledBorder("Listado de Locales"));
 			jPanelMostrar.add(getJScrollPaneMostrar());
@@ -293,7 +284,6 @@ private static VistaLocal vLocal=null;
 		this.btnLimpiar.addActionListener(accion);
 		this.btnCancelar.addActionListener(accion);
 		this.btnGuardar.addActionListener(accion);
-		this.btnModificar.addActionListener(accion);
 	}
 	
 	public void LimpiarCampos(){
@@ -386,7 +376,10 @@ private static VistaLocal vLocal=null;
 		LinkedListModel<String> locales=new LinkedListModel<>();
 		try {
 			for(int i=0; i<localdao.obtenerTodos().size();i++){
-				locales.add(localdao.obtenerTodos().get(i).getNombre());
+				if(localdao.obtenerTodos().get(i).getTipo().equalsIgnoreCase(this.getCmbTipo().getSelectedItem().toString())==true)
+					locales.add(localdao.obtenerTodos().get(i).getNombre());
+				else
+					locales.add(localdao.obtenerTodos().get(i).getNombre());
 			}
 			jListBusqueda.setModel(locales);
 		} catch (Exception e) {
@@ -445,17 +438,16 @@ private static VistaLocal vLocal=null;
 	private JPanel getPnlEncabezado() {
 		if(pnlEncabezado == null) {
 			pnlEncabezado = new JPanel();
-			pnlEncabezado.setBounds(12, 12, 446, 68);
+			pnlEncabezado.setBounds(0, 0, 498, 75);
 			pnlEncabezado.setBackground(new java.awt.Color(255,255,255));
 			pnlEncabezado.setLayout(null);
-			pnlEncabezado.setBorder(new LineBorder(new java.awt.Color(0,0,0), 1, false));
 			{
 				lblTitulo = new JLabel();
 				pnlEncabezado.add(lblTitulo);
 				pnlEncabezado.add(getLblLogo());
 				lblTitulo.setText("Registrar Local");
-				lblTitulo.setBounds(182, 21, 175, 27);
-				lblTitulo.setFont(new java.awt.Font("Century Gothic",1,20));
+				lblTitulo.setBounds(188, 25, 175, 27);
+				lblTitulo.setFont(new java.awt.Font("Century Gothic",2,20));
 			}
 		}
 		return pnlEncabezado;
@@ -465,7 +457,7 @@ private static VistaLocal vLocal=null;
 		if(lblLogo == null) {
 			lblLogo = new JLabel();
 			lblLogo.setIcon(new ImageIcon(getClass().getClassLoader().getResource("Imagenes/LogoRuta2.jpg")));
-			lblLogo.setBounds(4, 2, 152, 61);
+			lblLogo.setBounds(5, 10, 158, 65);
 		}
 		return lblLogo;
 	}
@@ -473,7 +465,7 @@ private static VistaLocal vLocal=null;
 	private JScrollPane getJScrollPaneMostrar() {
 		if(jScrollPaneMostrar == null) {
 			jScrollPaneMostrar = new JScrollPane();
-			jScrollPaneMostrar.setBounds(10, 18, 413, 129);
+			jScrollPaneMostrar.setBounds(17, 19, 413, 129);
 			jScrollPaneMostrar.setViewportView(getJListBusqueda());
 		}
 		return jScrollPaneMostrar;

@@ -30,7 +30,7 @@ public class ControladorRegistrarLocal implements ActionListener, KeyListener{
 		localDao=new LocalDao();
 		ruta= new Ruta();
 		rutaDao= new RutaDao();
-		
+		VLocal.setLocationRelativeTo(null);
 		VLocal.setVisible(true);
 		VLocal.setResizable(false);	
 		VLocal.agregarListener(this);
