@@ -370,6 +370,7 @@ private static VistaLocal vLocal=null;
 		this.btnGuardar.setEnabled(true);
 		
 	}
+	
 	public void llenarLista(){
 		this.DesactivarComponentes();
 		this.btnGuardar.setEnabled(false);

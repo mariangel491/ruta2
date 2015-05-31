@@ -1,6 +1,9 @@
 package Vistas;
 import java.awt.BorderLayout;
 import java.awt.event.ActionListener;
+import java.awt.event.MouseAdapter;
+import java.awt.event.MouseEvent;
+import java.awt.event.MouseListener;
 import java.util.List;
 
 import javax.swing.BorderFactory;
@@ -10,15 +13,21 @@ import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JComboBox;
 import javax.swing.JLabel;
+import javax.swing.JList;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
+import javax.swing.JScrollPane;
 import javax.swing.JSpinner;
 import javax.swing.JTextField;
+import javax.swing.ListModel;
 import javax.swing.SpinnerListModel;
 import javax.swing.WindowConstants;
 import javax.swing.SwingUtilities;
 
+import com.jgoodies.common.collect.LinkedListModel;
+
 import Modelos.Egresos;
+import Modelos.Local;
 import Modelos.Hibernate.Daos.EgresosDao;
 
 
@@ -42,14 +51,17 @@ public class VistaEgresos extends javax.swing.JFrame {
 	private JLabel lblDescripEgreso;
 	private JLabel lblClasificacion;
 	private JComboBox cmbClasificacion;
+	private JList jListBusqueda;
 	private JButton btnSalir;
-	private JButton btnModificar;
+	private JButton btnLimpiar;
 	private JButton btnGuardar;
 	private JTextField txtDescripcion;
 	private JLabel lblCodigo;
 	private JLabel lblTitulo;
 	private JLabel lblimagen;
 	private JButton btnBuscar;
+	private JPanel jPanelLista;
+	private JScrollPane jScrollPanelLista;
 
 	//Mis datos
 	private EgresosDao daoEg = new EgresosDao();
@@ -173,17 +185,18 @@ public class VistaEgresos extends javax.swing.JFrame {
 					btnGuardar.setActionCommand("Guardar");
 				}
 				{
-					btnModificar = new JButton();
-					jPanelVentana.add(btnModificar);
-					btnModificar.setText("Modificar");
-					btnModificar.setBounds(151, 228, 123, 29);
-					btnModificar.setFont(new java.awt.Font("Verdana",0,11));
-					btnModificar.setIcon(new ImageIcon(getClass().getClassLoader().getResource("Imagenes/kwrite_22x22.png")));
-					btnModificar.setText("Modificar");
+					btnLimpiar = new JButton();
+					jPanelVentana.add(btnLimpiar);
+					btnLimpiar.setText("Limpiar");
+					btnLimpiar.setBounds(151, 228, 123, 29);
+					btnLimpiar.setFont(new java.awt.Font("Verdana",0,11));
+					btnLimpiar.setIcon(new ImageIcon(getClass().getClassLoader().getResource("Imagenes/Limpiarcodigo_1.png")));
+					btnLimpiar.setText("Limpiar");
 				}
 				{
 					btnSalir = new JButton();
 					jPanelVentana.add(btnSalir);
+					jPanelVentana.add(getJPanelLista());
 					btnSalir.setText("Salir");
 					btnSalir.setBounds(280, 228, 123, 29);
 					btnSalir.setFont(new java.awt.Font("Verdana",0,11));
@@ -220,7 +233,7 @@ public class VistaEgresos extends javax.swing.JFrame {
 	//agregar listeners
 	public void agregarListener(ActionListener accion) {
 		this.btnGuardar.addActionListener(accion);
-		this.btnModificar.addActionListener(accion);
+		this.btnLimpiar.addActionListener(accion);
 		this.btnSalir.addActionListener(accion);
 		this.btnBuscar.addActionListener(accion);
 		this.txtCodEgresO.addActionListener(accion);
@@ -232,6 +245,32 @@ public class VistaEgresos extends javax.swing.JFrame {
 		txtDescripcion.setText("");
 		try {
 			this.GenerarCodigo();
+		} catch (Exception e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+	}
+	
+	public void DesactivarComponentes(){
+		this.jPanelCargarDatos.setVisible(false);
+	}
+	
+	public void ActivarComponentes(){
+		this.jPanelCargarDatos.setVisible(true);
+	}
+	
+	public void llenarLista(){
+		this.DesactivarComponentes();
+		this.btnGuardar.setEnabled(false);
+		LinkedListModel<String> egresos=new LinkedListModel<>();
+		try {
+			for(int i=0; i<daoEg.obtenerTodos().size();i++){
+				if(daoEg.obtenerTodos().get(i).getClasificacion().equalsIgnoreCase(this.getCmbClasificacion().getSelectedItem().toString())==true)
+					egresos.add(daoEg.obtenerTodos().get(i).getDescripcion());
+				else
+					egresos.add(daoEg.obtenerTodos().get(i).getDescripcion());
+			}
+			jListBusqueda.setModel(egresos);
 		} catch (Exception e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
@@ -293,4 +332,71 @@ public class VistaEgresos extends javax.swing.JFrame {
 		}
 		return lblimagen;
 	}
+	
+	private JPanel getJPanelLista() {
+		if(jPanelLista == null) {
+			jPanelLista = new JPanel();
+			//jPanelLista.setLayout(jPanelListaLayout);
+			jPanelLista.setBounds(16, 83, 387, 130);
+			jPanelLista.setBorder(BorderFactory.createTitledBorder("Listado de Egresos"));
+			jPanelLista.add(getJScrollPanelLista());
+			jPanelLista.addMouseListener(new MouseAdapter() {
+			});
+		}
+		return jPanelLista;
+	}
+	
+	private JScrollPane getJScrollPanelLista() {
+		if(jScrollPanelLista == null) {
+			jScrollPanelLista = new JScrollPane();
+			jScrollPanelLista.setPreferredSize(new java.awt.Dimension(353, 96));
+			jScrollPanelLista.setViewportView(getJListBusqueda());
+		}
+		return jScrollPanelLista;
+	}
+	
+	
+	//EVENTO
+		MouseListener mouseListener = new MouseAdapter() {
+		      public void mouseClicked(MouseEvent mouseEvent) {
+		        JList theList = (JList) mouseEvent.getSource();
+		        if (mouseEvent.getClickCount() == 2) {
+		          int index = theList.locationToIndex(mouseEvent.getPoint());
+		          if (index >= 0) {
+		            Object o = theList.getModel().getElementAt(index);
+		            ItemSeleccionado();
+		            ActivarComponentes();
+		          }
+		        }
+		      }
+		    };
+
+
+		public void ItemSeleccionado(){
+			try {
+					
+					Egresos egreso= daoEg.obtenerTodos().get(jListBusqueda.getSelectedIndex());
+				
+					this.txtDescripcion.setText(egreso.getDescripcion());
+					this.txtCodEgresO.setText(egreso.getCodEgreso());
+					this.cmbClasificacion.setSelectedItem(egreso.getClasificacion());
+					this.btnGuardar.setEnabled(true);
+				
+			} catch (Exception e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+			
+		}
+		
+		private JList getJListBusqueda() {
+			if(jListBusqueda == null) {
+				ListModel jListBusquedaModel = 
+						new DefaultComboBoxModel(
+								new String[] { });
+				jListBusqueda = new JList();
+				jListBusqueda.addMouseListener(mouseListener);
+			}
+			return jListBusqueda;
+		}
 }
