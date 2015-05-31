@@ -172,6 +172,7 @@ private static VistaSocio vSocio=null;
 			btnRV.setText("Registrar Vehículo");
 			btnRV.setBounds(409, 81, 208, 35);
 			btnRV.setFont(new java.awt.Font("Century Gothic",0,12));
+			btnRV.setActionCommand("ArrRegistrarVeh");
 		}
 		return btnRV;
 	}
@@ -182,6 +183,7 @@ private static VistaSocio vSocio=null;
 			btnRS.setText("Registrar Socio");
 			btnRS.setBounds(0, 81, 208, 35);
 			btnRS.setFont(new java.awt.Font("Century Gothic",0,12));
+			btnRS.setActionCommand("ArrRegistrarSoc");
 		}
 		return btnRS;
 	}
@@ -192,6 +194,7 @@ private static VistaSocio vSocio=null;
 			btnRA.setText("Registrar Avance");
 			btnRA.setBounds(201, 81, 208, 35);
 			btnRA.setFont(new java.awt.Font("Century Gothic",0,12));
+			btnRA.setActionCommand("ArrRegistrarAvan");
 		}
 		return btnRA;
 	}

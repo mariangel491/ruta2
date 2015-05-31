@@ -34,12 +34,16 @@ public class ControladorSocio implements ActionListener {
 	ControladorVehiculo vehiculo;
 	ControladorAvance avance;
 
+	private static ControladorSocio cs= new ControladorSocio();
+	
 	public ControladorSocio() {
+		vSocio.obtenerInstancia();
 		vSocio = new VistaSocio();
 		vSocio.setLocationRelativeTo(null);
 		vSocio.setVisible(true);
 		vSocio.limpiarCampos();
 		vSocio.agregarListener(this);
+	
 	}
 
 	
@@ -106,6 +110,12 @@ public class ControladorSocio implements ActionListener {
 				// TODO Auto-generated catch block
 				e.printStackTrace();
 			}
+		}else if(a.getActionCommand().equalsIgnoreCase("ArrRegistrarAvan")){
+			
+		}else if(a.getActionCommand().equalsIgnoreCase("ArrRegistrarVeh")){
+			
+		}else if(a.getActionCommand().equalsIgnoreCase("ArrRegistrarSoc")){
+			
 		}
 	}
 

@@ -245,7 +245,12 @@ public class ControladorFac implements ActionListener, KeyListener, FocusListene
 				ControladorPrestamo controP= new ControladorPrestamo(vFactura);
 			}
 		}else if(ae.getActionCommand().equalsIgnoreCase("MontoDeudaP")){
-			this.CalcularDeudaRestante();
+			if(vFactura.getCmbTipoFactu().equalsIgnoreCase(vFactura.TIPO_DE_FACTURA_PRESTAMOS))
+				this.CalcularDeudaRestante();
+			else
+			{
+				this.agregarElemento();
+			}
 		}
 					
 		
@@ -467,6 +472,7 @@ public void agregarElemento(){
 		vFactura.getJTableDeudasPorSocio().clearSelection();
 		vFactura.setTxtMontoIngresoEgreso("");
 		vFactura.sumarMontoTablaIngresoXFactura();
+		vFactura.DesbCampos();
 	}
 	
 	
@@ -650,10 +656,8 @@ public boolean comprobarMonto(){
 					 factura.setInquilino(inquilinoDao.buscarPorCedula(campoId));
 				 
 			 }
-			 else if(tipoFacturado.equalsIgnoreCase(Arrendatario.TIPO_FACTURADO_ARRENDATARIO)){
-				 System.out.println("arrenDao   ;   "+arrendatarioDao.buscarPorCedulaArrendatario(cedula));
-				 System.out.println(campoId);
-				 System.out.println(cedula);
+			 else if(tipoFacturado.equalsIgnoreCase(Arrendatario.TIPO_FACTURADO_ARRENDATARIO))
+			 {
 				 factura.setArrendatario(arrendatarioDao.buscarPorCedulaArrendatario(cedula));
 			 }
 			 factura.setCodRuta(rutaDao.buscarPorCodRuta("J-306-902686"));

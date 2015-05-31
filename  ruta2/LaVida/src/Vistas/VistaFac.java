@@ -156,7 +156,7 @@ public class VistaFac extends javax.swing.JFrame {
 	ArrayList<String> full_datos = new ArrayList<String>();
 
 	static public String TIPO_DE_FACTURA_EGRESOS = "Egresos";	
-	static public String OPCION_COMBO_SELECCIONE = "Seleccione....";	
+	static public String OPCION_COMBO_SELECCIONE = "Seleccione una opción";	
 	static public String TIPO_FACTURADO_SOCIO = "SOCIO";
 	static public String TIPO_FACTURADO_INQUILINO = "INQUILINO";
 	static public String TIPO_FACTURADO_ARRENDATARIO = "ARRENDATARIO";	
@@ -323,7 +323,7 @@ private static VistaFac vFactura=null;
 									cmbTipoFactu.setEnabled(true);
 									ComboBoxModel cmbTipoFactuModel = 
 											new DefaultComboBoxModel(
-													new String[] { OPCION_COMBO_SELECCIONE,TIPO_DE_FACTURA_INGRESOS, TIPO_DE_FACTURA_EGRESOS,TIPO_DE_FACTURA_PRESTAMOS});
+													new String[] { OPCION_COMBO_SELECCIONE,TIPO_DE_FACTURA_INGRESOS, TIPO_DE_FACTURA_EGRESOS});
 									
 									cmbTipoFactu.setModel(cmbTipoFactuModel);
 								}else if(cmbTipoFacturado.getSelectedItem().toString().equalsIgnoreCase(OPCION_COMBO_SELECCIONE)){
@@ -949,13 +949,25 @@ private static VistaFac vFactura=null;
 		txtTransferencia.setText("");
 		txtMontoTotal.setText("");
 		
+		txtCheque.setEditable(false);
+		txtDeposito.setEditable(false);
+		txtEfectivo.setEditable(false);
+		txtSubsidio.setEditable(false);
+		txtTransferencia.setEditable(false);
+		txtMontoTotal.setEditable(false);
+		
 		cmbTipoFactu.setSelectedIndex(0);
 		cmbTipoFacturado.setSelectedIndex(0);
 		listaModeloIngresoEgreso.clear();
 		listaModeloAux.clear();
 		jListIngresos.removeAll();
 		
-
+		checkCheque.setSelected(false);
+		checkEfectivo.setSelected(false);
+		checkDeposito.setSelected(false);
+		checkSubsidio.setSelected(false);
+		checkTransferencia.setSelected(false);
+		
 		limpiarTablaDeudas();
 		limpiarTablaEgresos();
 		limpiarTablaIngresos();
@@ -1662,6 +1674,7 @@ private static VistaFac vFactura=null;
 				}else{
 					txtMontoIngresoEgreso.setText("");
 					txtMontoIngresoEgreso.enable();
+					txtMontoIngresoEgreso.setEditable(true);
 				}
 			} catch (Exception e) {
 				// TODO Auto-generated catch block
@@ -1670,6 +1683,7 @@ private static VistaFac vFactura=null;
 		}else if(this.getCmbTipoFactu().equals(vFactura.TIPO_DE_FACTURA_EGRESOS)){
 			txtMontoIngresoEgreso.setText("");
 			txtMontoIngresoEgreso.enable();
+			txtMontoIngresoEgreso.setEditable(true);
 		}
 	}
 	
@@ -1826,4 +1840,10 @@ private static VistaFac vFactura=null;
 		btnAnnadirDeuda.setEnabled(false);
 		cmbTipoFactu.setEnabled(false);
 	}
+	
+	public void DesbCampos(){
+		txtMontoIngresoEgreso.setEditable(true);
+	}
 }
+
+
