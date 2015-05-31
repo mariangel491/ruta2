@@ -132,6 +132,7 @@ public class ControladorFac implements ActionListener, KeyListener, FocusListene
 		vFactura.OcultarCamposFormaPago();
 		vFactura.ocultarTablas();
 		vFactura.setTxtNroFactura(facturaDao.buscarUltimoNumeroFactura());
+		vFactura.BloquearCamposBusq();
 	}
 	
 	@Override
@@ -641,9 +642,18 @@ public boolean comprobarMonto(){
 				 factura.setNroSocio(socioDao.buscarPorNroSocio(campoId));	 
 			 }
 			 else if(tipoFacturado.equalsIgnoreCase(Inquilino.TIPO_FACTURADO_INQUILINO)){
-				 factura.setInquilino(inquilinoDao.buscarPorRif(campoId));
+				 System.out.println("inquilino rif  + " + inquilinoDao.buscarPorRif(campoId).getCedula());
+				 System.out.println("inquilino ced + "+ inquilinoDao.buscarPorCedula(campoId).getCedula());
+				 if(inquilinoDao.buscarPorRif(campoId)!=null)
+					 factura.setInquilino(inquilinoDao.buscarPorRif(campoId));
+				 else
+					 factura.setInquilino(inquilinoDao.buscarPorCedula(campoId));
+				 
 			 }
 			 else if(tipoFacturado.equalsIgnoreCase(Arrendatario.TIPO_FACTURADO_ARRENDATARIO)){
+				 System.out.println("arrenDao   ;   "+arrendatarioDao.buscarPorCedulaArrendatario(cedula));
+				 System.out.println(campoId);
+				 System.out.println(cedula);
 				 factura.setArrendatario(arrendatarioDao.buscarPorCedulaArrendatario(cedula));
 			 }
 			 factura.setCodRuta(rutaDao.buscarPorCodRuta("J-306-902686"));
@@ -797,7 +807,8 @@ public boolean comprobarMonto(){
 				   }
 			 
 				  
-				 /* if(tipoFacturado.equalsIgnoreCase(Socio.TIPO_FACTURADO_SOCIO) && (egreso.getDescripcion().equalsIgnoreCase(Egresos.TIPO_EGRESO_OTROS_PRESTAMO) || egreso.getDescripcion().equalsIgnoreCase(Egresos.TIPO_EGRESO_PRESTAMO_FONDO_DE_CHOQUE))){
+				 /* if(tipoFacturado.equalsIgnoreCase(Socio.TIPO_FACTURADO_SOCIO) && (egreso.getDescripcion().equalsIgnoreCase(Egresos.TIPO_EGRESO_OTROS_PRESTAMO) 
+				  * || egreso.getDescripcion().equalsIgnoreCase(Egresos.TIPO_EGRESO_PRESTAMO_FONDO_DE_CHOQUE))){
 				 prestamo.setCodPrestamo(prestamosDao.buscarUltimoNumeroPrestamo());
 				 prestamo.setStatus('A');
 				 prestamo.setNroSocio(factura.getNroSocio());
@@ -836,6 +847,7 @@ public boolean comprobarMonto(){
 		
 		 String valorMensaje="";
 		 Factura factura = new Factura();
+		 facturaDao= new FacturaDao();
 		// String montoString ="";
 		 String clasificacion="";
 		 String codigoPrestamo="";
@@ -846,17 +858,19 @@ public boolean comprobarMonto(){
 
 			 this.GuardarFormaPagoFactura();
 			
-			 
 			 factura.setMontoTotal(Float.valueOf(montoTotal));
 			 factura.setFechaEmision(new Date(System.currentTimeMillis()));
 			 if(tipoFacturado.equalsIgnoreCase(Socio.TIPO_FACTURADO_SOCIO)){
 				 factura.setNroSocio(socioDao.buscarPorNroSocio(campoId));	 
 			 }
 			 else if(tipoFacturado.equalsIgnoreCase(Inquilino.TIPO_FACTURADO_INQUILINO)){
-				 factura.setInquilino(inquilinoDao.buscarPorRif(campoId));
+				 if(inquilinoDao.buscarPorRif(campoId)==null)
+					 factura.setInquilino(inquilinoDao.buscarPorCedula(campoId));
+				 else
+					 factura.setInquilino(inquilinoDao.buscarPorRif(campoId));
 			 }
 			 else if(tipoFacturado.equalsIgnoreCase(Arrendatario.TIPO_FACTURADO_ARRENDATARIO)){
-				 factura.setArrendatario(arrendatarioDao.buscarPorCedulaArrendatario(cedula));
+				 factura.setArrendatario(arrendatarioDao.buscarPorCedulaArrendatario(campoId));
 			 }
 			 
 			 factura.setCodRuta(rutaDao.buscarPorCodRuta("J-306-902686"));
@@ -1072,7 +1086,7 @@ public boolean comprobarMonto(){
 				 if(clasificacion.equalsIgnoreCase(Ingresos.TIPO_INGRESO_ALQUILER))
 				 {
 					 CuentaAlquiler cuentaAlquiler = new CuentaAlquiler();
-					 cuentaAlquiler.setFactura(factura);
+					 cuentaAlquiler.setFactura(facturaDao.obtenerFactura(factura.getNroFactura()));
 					 cuentaAlquiler.setDescripTransac(ingreso.getDescripcion());
 					 cuentaAlquiler.setFecha(new Date(System.currentTimeMillis()));
 					 cuentaAlquiler.setMontoTransaccion(Float.valueOf(alquiler));
@@ -1084,7 +1098,7 @@ public boolean comprobarMonto(){
 						 || clasificacion.equalsIgnoreCase(Ingresos.TIPO_INGRESO_FONDO_DE_CHOQUE))
 				 {
 					 CuentaFondoChoque cuentaFondoChoque = new CuentaFondoChoque();
-					 cuentaFondoChoque.setFactura(factura);
+					 cuentaFondoChoque.setFactura(facturaDao.obtenerFactura(factura.getNroFactura()));
 					 cuentaFondoChoque.setDescripTransac(ingreso.getDescripcion());
 					 cuentaFondoChoque.setFecha(new Date(System.currentTimeMillis()));
 					 cuentaFondoChoque.setMontoTransaccion(Float.valueOf(fc));
@@ -1280,8 +1294,13 @@ public boolean comprobarMonto(){
 	public void Procesar() {
 		if(vFactura.getCmbTipoFactu().equalsIgnoreCase(vFactura.TIPO_DE_FACTURA_INGRESOS)){
 			
-			this.guardarFacturaIngreso(vFactura.getCmbTipoFacturado(),vFactura.getTxtNroSocio(), 
-			vFactura.getTxtCed(),vFactura.getjTableIngresosXFactura(),vFactura.getTxtMontoTotal());
+			if(vFactura.getTxtNroSocio()==null || "".equals(vFactura.getTxtNroSocio())){
+				this.guardarFacturaIngreso(vFactura.getCmbTipoFacturado(),vFactura.getTxtCed(), 
+						vFactura.getTxtCed(),vFactura.getjTableIngresosXFactura(),vFactura.getTxtMontoTotal());
+			}else{
+				this.guardarFacturaIngreso(vFactura.getCmbTipoFacturado(),vFactura.getTxtNroSocio(), 
+						vFactura.getTxtCed(),vFactura.getjTableIngresosXFactura(),vFactura.getTxtMontoTotal());
+			}
 			
 		}
 		else

@@ -270,7 +270,7 @@ private static VistaFac vFactura=null;
 							@Override
 							public void actionPerformed(ActionEvent e) {
 								// TODO Auto-generated method stub
-								if(cmbTipoFacturado.getSelectedItem().toString().equalsIgnoreCase("OPCION_COMBO_SELECCIONE"))
+							
 								if(cmbTipoFacturado.getSelectedItem().toString().equalsIgnoreCase(TIPO_FACTURADO_INQUILINO)){
 									lblNroSocio.setText("Rif Inquilino:");
 									txtNroSocio.setText("");
@@ -281,7 +281,13 @@ private static VistaFac vFactura=null;
 									btnAnnadirDeuda.setEnabled(false);
 									jSpinnerCantidad.setVisible(false);
 									lblCantidad.setVisible(false);
-								
+									btnBuscarCedSoc.setEnabled(true);
+									cmbTipoFactu.setEnabled(true);
+									ComboBoxModel cmbTipoFactuModel = 
+											new DefaultComboBoxModel(
+													new String[] { OPCION_COMBO_SELECCIONE,TIPO_DE_FACTURA_INGRESOS, TIPO_DE_FACTURA_EGRESOS});
+									
+									cmbTipoFactu.setModel(cmbTipoFactuModel);
 									
 								}
 								else if(cmbTipoFacturado.getSelectedItem().toString().equalsIgnoreCase(TIPO_FACTURADO_SOCIO)){
@@ -293,6 +299,15 @@ private static VistaFac vFactura=null;
 									jPanelDatosPersonales.setBorder(BorderFactory.createTitledBorder("Datos del Socio"));
 									jSpinnerCantidad.setVisible(true);
 									lblCantidad.setVisible(true);
+									btnBuscarCedSoc.setEnabled(true);
+									btnAnnadirDeuda.setEnabled(true);
+									btnBuscarCedSoc.setEnabled(true);
+									cmbTipoFactu.setEnabled(true);
+									ComboBoxModel cmbTipoFactuModel = 
+											new DefaultComboBoxModel(
+													new String[] { OPCION_COMBO_SELECCIONE,TIPO_DE_FACTURA_INGRESOS, TIPO_DE_FACTURA_EGRESOS,TIPO_DE_FACTURA_PRESTAMOS});
+									
+									cmbTipoFactu.setModel(cmbTipoFactuModel);
 								}
 								else if(cmbTipoFacturado.getSelectedItem().toString().equalsIgnoreCase(TIPO_FACTURADO_ARRENDATARIO)){
 									lblNroSocio.setText("Código de Arrendatario:");
@@ -304,6 +319,16 @@ private static VistaFac vFactura=null;
 									jSpinnerCantidad.setVisible(true);
 									lblCantidad.setVisible(true);
 									btnAnnadirDeuda.setEnabled(false);
+									btnBuscarCedSoc.setEnabled(true);
+									cmbTipoFactu.setEnabled(true);
+									ComboBoxModel cmbTipoFactuModel = 
+											new DefaultComboBoxModel(
+													new String[] { OPCION_COMBO_SELECCIONE,TIPO_DE_FACTURA_INGRESOS, TIPO_DE_FACTURA_EGRESOS,TIPO_DE_FACTURA_PRESTAMOS});
+									
+									cmbTipoFactu.setModel(cmbTipoFactuModel);
+								}else if(cmbTipoFacturado.getSelectedItem().toString().equalsIgnoreCase(OPCION_COMBO_SELECCIONE)){
+									btnBuscarCedSoc.setEnabled(false);
+									btnBuscar.setEnabled(false);
 								}
 
 								
@@ -531,10 +556,6 @@ private static VistaFac vFactura=null;
 							public void actionPerformed(ActionEvent e) {
 								// TODO Auto-generated method stub
 								limpiarTablaIngresoXFactura();
-								if(cmbTipoFacturado.getSelectedItem().toString().equalsIgnoreCase(OPCION_COMBO_SELECCIONE)){
-									JOptionPane.showMessageDialog(null, "Debe seleccionar un tipo. Ej: Socio, Inquilino, Arrendatario");
-								}
-								else{
 									if(cmbTipoFactu.getSelectedItem().toString().equalsIgnoreCase(vFactura.TIPO_DE_FACTURA_INGRESOS)){
 										llenarIngresos(cmbTipoFacturado.getSelectedItem().toString());
 										jListIngresos.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
@@ -583,7 +604,7 @@ private static VistaFac vFactura=null;
 									}
 								}
 								
-							}
+							
 						});
 							
 						}
@@ -1797,5 +1818,12 @@ private static VistaFac vFactura=null;
 
 	public void setListaPrestamos(ArrayList<Prestamos> listaPrestamos) {
 		this.listaPrestamos = listaPrestamos;
+	}
+	
+	public void BloquearCamposBusq(){
+		btnBuscar.setEnabled(false);
+		btnBuscarCedSoc.setEnabled(false);
+		btnAnnadirDeuda.setEnabled(false);
+		cmbTipoFactu.setEnabled(false);
 	}
 }
