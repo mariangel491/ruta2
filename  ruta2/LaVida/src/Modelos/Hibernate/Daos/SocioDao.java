@@ -68,7 +68,7 @@ private HibernateUtil sesionPostgres;
 		}  
 	}
 
-	public void actualizarSocio(int posi, Socio dato) throws Exception{
+	public void actualizarSocio(Socio dato) throws Exception{
 		@SuppressWarnings("static-access")
 		Session em = sesionPostgres.openSession();  
 		Transaction tx = null;  

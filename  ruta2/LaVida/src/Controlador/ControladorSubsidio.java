@@ -38,10 +38,12 @@ public class ControladorSubsidio implements ActionListener {
 		}else if(ae.getActionCommand().equalsIgnoreCase("Guardar")){
 			this.GuardarSubsidioSocio();
 			vcSub.LimpiarCampos();
-		}else if(ae.getActionCommand().equalsIgnoreCase("Cancelar")){
+		}else if(ae.getActionCommand().equalsIgnoreCase("Limpiar")){
 			vcSub.LimpiarCampos();
 		}else if(ae.getActionCommand().equalsIgnoreCase("BSocioTecla")){
 			this.BuscarSocio();
+		}else if(ae.getActionCommand().equalsIgnoreCase("Cancelar")){
+			vcSub.cerrarVentana();
 		}
 	}
 	
@@ -52,7 +54,6 @@ public class ControladorSubsidio implements ActionListener {
 			if(socio!=null)
 			{
 				vcSub.setTxtNomApe(socio.getNombre()+" "+socio.getApellido());
-				vcSub.setTxtCodSubsidio(this.GenerarCodigo());
 			}
 				
 			else
@@ -71,7 +72,7 @@ public class ControladorSubsidio implements ActionListener {
 	
 	public void GuardarSubsidioSocio(){
 		try {
-		subsidio.setCodigo(vcSub.getTxtCodigoSubsidio());
+		subsidio.setCodigo(this.GenerarCodigo());
 		subsidio.setFecha(fecha);
 		subsidio.setMonto(Float.parseFloat(vcSub.getTxtMontoSubsidio()));
 		subsidio.setSocio(socioDao.buscarPorNroSocio(vcSub.getTxtCodSocio()));

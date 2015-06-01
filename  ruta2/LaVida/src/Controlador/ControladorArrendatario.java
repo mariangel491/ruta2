@@ -114,6 +114,7 @@ public class ControladorArrendatario implements ActionListener {
 				String ape;
 				Integer telef;
 				Float monto;
+				Boolean tieneAvance;
 
 				nombre = arren.getNombre();
 				vArrendatario.setTxtNombre(nombre);
@@ -127,6 +128,8 @@ public class ControladorArrendatario implements ActionListener {
 				vArrendatario.setTxtTelefono(telef.toString());
 				monto = arren.getMonto();
 				vArrendatario.setTxtMonto(monto.toString());
+				vArrendatario.SeleccionarTieneA(arren.isTiene());;
+				
 				
 			//	this.cargarListadoDeAvances();
 			} else

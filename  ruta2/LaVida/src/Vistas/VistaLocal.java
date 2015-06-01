@@ -377,10 +377,13 @@ private static VistaLocal vLocal=null;
 		LinkedListModel<String> locales=new LinkedListModel<>();
 		try {
 			for(int i=0; i<localdao.obtenerTodos().size();i++){
-				if(localdao.obtenerTodos().get(i).getTipo().equalsIgnoreCase(this.getCmbTipo().getSelectedItem().toString())==true)
+				if(localdao.obtenerTodos().get(i).getTipo().equalsIgnoreCase(this.getCmbTipo().getSelectedItem().toString())==true){
 					locales.add(localdao.obtenerTodos().get(i).getNombre());
-				else
+					}
+				else if(this.getCmbTipo().getSelectedItem().toString().equals("Seleccione una opción")) {
 					locales.add(localdao.obtenerTodos().get(i).getNombre());
+				}
+					
 			}
 			jListBusqueda.setModel(locales);
 		} catch (Exception e) {

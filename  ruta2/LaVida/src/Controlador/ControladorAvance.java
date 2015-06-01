@@ -418,7 +418,8 @@ public class ControladorAvance implements ActionListener {
 			socio.setNombre(vAvance.getTxtNomSocio());
 			String nro = vAvance.getTxtNroSocio();
 			socioDao.encontrar(nro);
-			socioDao.actualizarSocio(Integer.parseInt(nro), socio);
+			//socioDao.actualizarSocio(Integer.parseInt(nro), socio);
+			socioDao.actualizarSocio(socio);
 			for (Avance a : socio.getAvances()) {
 				a.setSocio(socio);
 				if (!avanceDao.encontrar(a.getCedula()))
@@ -668,7 +669,8 @@ public class ControladorAvance implements ActionListener {
 			socio.setNombre(vAvance.getTxtNomSocio());
 			String nro = vAvance.getTxtNroSocio();
 			socioDao.encontrar(nro);
-			socioDao.actualizarSocio(Integer.parseInt(nro), socio);
+			//socioDao.actualizarSocio(Integer.parseInt(nro), socio);
+			socioDao.actualizarSocio(socio);
 			for (Avance a : socio.getAvances()) {
 				a.setSocio(socio);
 				if (!avanceDao.encontrar(a.getCedula()))

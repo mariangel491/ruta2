@@ -11,21 +11,6 @@ import java.util.List;
 
 import javax.swing.JOptionPane;
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 import net.sf.jasperreports.engine.JRException;
 import net.sf.jasperreports.engine.JasperCompileManager;
 import net.sf.jasperreports.engine.JasperFillManager;

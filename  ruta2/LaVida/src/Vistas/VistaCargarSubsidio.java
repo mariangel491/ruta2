@@ -5,6 +5,7 @@ import javax.swing.BorderFactory;
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JLabel;
+import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JTextField;
 import javax.swing.WindowConstants;
@@ -27,9 +28,9 @@ public class VistaCargarSubsidio extends javax.swing.JFrame {
 	private JPanel jPanelTitulo;
 	private JLabel lblLogo;
 	private JPanel jPanelDatosSocio;
+	private JButton btnLimpiar;
+	private JLabel jLabel1;
 	private JLabel lblBs;
-	private JTextField txtCodSubsidio;
-	private JLabel lblCodSub;
 	private JButton btnCancelar;
 	private JTextField txtNomApe;
 	private JButton btnGuardar;
@@ -77,7 +78,7 @@ public class VistaCargarSubsidio extends javax.swing.JFrame {
 			{
 				jPanelTitulo = new JPanel();
 				getContentPane().add(jPanelTitulo);
-				jPanelTitulo.setBounds(12, 12, 496, 73);
+				jPanelTitulo.setBounds(0, 1, 520, 80);
 				jPanelTitulo.setBackground(new java.awt.Color(255,255,255));
 				jPanelTitulo.setLayout(null);
 				{
@@ -90,8 +91,8 @@ public class VistaCargarSubsidio extends javax.swing.JFrame {
 					lblTitulo = new JLabel();
 					jPanelTitulo.add(lblTitulo);
 					lblTitulo.setText("Cargar Subsidio por Socio");
-					lblTitulo.setBounds(176, 19, 268, 34);
-					lblTitulo.setFont(new java.awt.Font("Segoe UI",3,18));
+					lblTitulo.setBounds(176, 19, 320, 34);
+					lblTitulo.setFont(new java.awt.Font("Century Gothic",1,24));
 				}
 			}
 			{
@@ -141,25 +142,13 @@ public class VistaCargarSubsidio extends javax.swing.JFrame {
 					lblMontoSubsidio = new JLabel();
 					jPanelSubsidio.add(lblMontoSubsidio);
 					lblMontoSubsidio.setText("Monto:");
-					lblMontoSubsidio.setBounds(200, 30, 53, 16);
+					lblMontoSubsidio.setBounds(17, 33, 53, 16);
 				}
 				{
 					txtMontoSubsidio = new JTextField();
 					jPanelSubsidio.add(txtMontoSubsidio);
-					txtMontoSubsidio.setBounds(258, 26, 174, 23);
-				}
-				{
-					lblCodSub = new JLabel();
-					jPanelSubsidio.add(lblCodSub);
-					lblCodSub.setText("Código");
-					lblCodSub.setBounds(17, 30, 48, 16);
-				}
-				{
-					txtCodSubsidio = new JTextField();
-					jPanelSubsidio.add(txtCodSubsidio);
-					jPanelSubsidio.add(getLblBs());
-					txtCodSubsidio.setBounds(65, 27, 107, 23);
-					
+					jPanelSubsidio.add(getJLabel1());
+					txtMontoSubsidio.setBounds(67, 30, 194, 23);
 				}
 			}
 			{
@@ -167,15 +156,16 @@ public class VistaCargarSubsidio extends javax.swing.JFrame {
 				getContentPane().add(btnGuardar);
 				btnGuardar.setText("Guardar");
 				btnGuardar.setIcon(new ImageIcon(getClass().getClassLoader().getResource("Imagenes/save.png")));
-				btnGuardar.setBounds(139, 260, 111, 29);
+				btnGuardar.setBounds(57, 260, 111, 29);
 				btnGuardar.setActionCommand("Guardar");
 			}
 			{
 				btnCancelar = new JButton();
 				getContentPane().add(btnCancelar);
+				getContentPane().add(getBtnLimpiar());
 				btnCancelar.setText("Cancelar");
 				btnCancelar.setIcon(new ImageIcon(getClass().getClassLoader().getResource("Imagenes/button_cancel_16x16.png")));
-				btnCancelar.setBounds(276, 261, 160, 28);
+				btnCancelar.setBounds(195, 261, 131, 28);
 				btnCancelar.setActionCommand("Cancelar");
 			}
 			pack();
@@ -186,16 +176,7 @@ public class VistaCargarSubsidio extends javax.swing.JFrame {
 		}
 	}
 
-	public JTextField getTxtCodSubsidio() {
-		return txtCodSubsidio;
-	}
 
-	public String getTxtCodigoSubsidio() {
-		return txtCodSubsidio.getText();
-	}
-	public void setTxtCodSubsidio(String txtCodSubsidio) {
-		this.txtCodSubsidio.setText(txtCodSubsidio);
-	}
 
 	public JButton getBtnCancelar() {
 		return btnCancelar;
@@ -250,11 +231,11 @@ public class VistaCargarSubsidio extends javax.swing.JFrame {
 		this.btnBuscarSocio.addActionListener(accion);
 		this.btnCancelar.addActionListener(accion);
 		this.txtCodSocio.addActionListener(accion);
+		this.btnLimpiar.addActionListener(accion);
 	}
 	
 	public void LimpiarCampos(){
 		this.txtCodSocio.setText("");
-		this.txtCodSubsidio.setText("");
 		this.txtMontoSubsidio.setText("");
 		this.txtNomApe.setText("");
 	}
@@ -267,5 +248,33 @@ public class VistaCargarSubsidio extends javax.swing.JFrame {
 		}
 		return lblBs;
 	}
+	
+	private JLabel getJLabel1() {
+		if(jLabel1 == null) {
+			jLabel1 = new JLabel();
+			jLabel1.setText("Bs.");
+			jLabel1.setBounds(273, 33, 39, 16);
+		}
+		return jLabel1;
+	}
+	
+	private JButton getBtnLimpiar() {
+		if(btnLimpiar == null) {
+			btnLimpiar = new JButton();
+			btnLimpiar.setText("Limpiar");
+			btnLimpiar.setIcon(new ImageIcon(getClass().getClassLoader().getResource("Imagenes/Limpiarcodigo_1.png")));
+			btnLimpiar.setBounds(352, 260, 127, 29);
+			btnLimpiar.setActionCommand("Limpiar");
+		}
+		return btnLimpiar;
+	}
 
+	public void cerrarVentana() {
+		// TODO Auto-generated method stub
+		int ValorDevuelto = JOptionPane.showConfirmDialog(null,
+				"¿Seguro que desea salir?", "Salir", JOptionPane.YES_NO_OPTION);
+		if (ValorDevuelto == 0) {
+			this.dispose();
+		}
+	}
 }

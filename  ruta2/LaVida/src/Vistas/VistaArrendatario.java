@@ -503,4 +503,11 @@ public class VistaArrendatario extends javax.swing.JFrame {
 			}
 			return buttonGroup1;
 		}
+		
+		public void SeleccionarTieneA(Boolean tiene){
+			if(tiene==true){
+				jRadioButtonSi.setSelected(true);
+			}else
+				jRadioButtonNo.setSelected(true);
+		}
 }
