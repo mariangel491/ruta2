@@ -55,6 +55,10 @@ public class Inquilino implements Serializable{
 	@JoinColumn(name="codigoruta")
 	private Ruta ruta;
 	
+	@OneToMany(cascade= CascadeType.ALL)
+	@JoinColumn(name="codinquilino")
+	List<Deuda> deudas;
+	
 	public String getCodInquilino() {
 		return codinquilino;
 	}

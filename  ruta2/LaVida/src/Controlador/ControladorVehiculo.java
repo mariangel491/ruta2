@@ -2,6 +2,8 @@ package Controlador;
 
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.awt.event.KeyEvent;
+import java.awt.event.KeyListener;
 import java.text.DateFormat;
 import java.util.ArrayList;
 import java.util.Date;
@@ -32,7 +34,7 @@ import Vistas.VistaVehiculo;
 
 
 
-public class ControladorVehiculo implements ActionListener {
+public class ControladorVehiculo implements ActionListener,KeyListener {
 	
 	//cuuando se guarde el inquilino poner lq vista invisible y traerse
 	/*los datos de inquilino a la vista de alquiler y al guardar alquiler destruir
@@ -69,6 +71,7 @@ public class ControladorVehiculo implements ActionListener {
 		vVehiculo = vVehiculo.obtenerInstancia();
 		vVehiculo.setLocationRelativeTo(null);
 		vVehiculo.setVisible(true);
+		vVehiculo.agregarKeyTel(this);
 		try {
 			vVehiculo.LlenarComboMarca();
 			
@@ -1149,6 +1152,29 @@ public ControladorVehiculo(VistaAvanceArren vaa) {
 			}			
 		} else
 			this.vSocio.mostrarMensaje("Debe llenar todos los campos");
+	}
+
+
+	@Override
+	public void keyPressed(KeyEvent e) {
+		// TODO Auto-generated method stub
+		
+	}
+
+
+	@Override
+	public void keyReleased(KeyEvent e) {
+		// TODO Auto-generated method stub
+		
+	}
+
+
+	@Override
+	public void keyTyped(KeyEvent key) {
+		// TODO Auto-generated method stub
+		char c = key.getKeyChar();
+		if (!Character.isDigit(key.getKeyChar()))
+			key.consume();
 	} 
 	
 	

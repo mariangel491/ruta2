@@ -2,6 +2,7 @@ package Vistas;
 import java.awt.BorderLayout;
 import java.awt.HeadlessException;
 import java.awt.event.ActionListener;
+import java.awt.event.KeyListener;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Date;
@@ -715,5 +716,11 @@ public Arrendatario RetornaArrendatario(){
 	return arrenPrueba;
 }
 
+
+public void agregarKeyTel(KeyListener a) {
+	txtTelefono.addKeyListener(a);
+	txtNroSocio.addKeyListener(a);
+	txtCedula.addKeyListener(a);
+}
 
 }

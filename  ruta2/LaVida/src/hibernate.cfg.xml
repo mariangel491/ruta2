@@ -34,6 +34,7 @@
       <mapping class="Modelos.CuentaPrestamos"/>
       <mapping class="Modelos.DetalleFactura"/>
       <mapping class="Modelos.Deuda"/>
+      <mapping class="Modelos.DeudaAlquiler"/>
       <mapping class="Modelos.Egresos"/> 
       <mapping class="Modelos.Factura"/> 
       <mapping class="Modelos.FondoChoque"/>
@@ -51,7 +52,7 @@
       <mapping class="Modelos.VehiculoArrendatario"/>
       <mapping class="Modelos.Vehiculo"/>
       <mapping class="Modelos.Marca"/>
- 
+     
            
     </session-factory>
 

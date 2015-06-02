@@ -2,6 +2,8 @@ package Controlador;
 
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.awt.event.KeyEvent;
+import java.awt.event.KeyListener;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
@@ -24,7 +26,7 @@ import Vistas.VistaSocio;
 import Vistas.VistaVehiculo;
 
 
-public class ControladorAvance implements ActionListener {
+public class ControladorAvance implements ActionListener, KeyListener {
 	
 	private VistaAvance vAvance;
 	private VistaSocio vSocio;
@@ -53,13 +55,14 @@ public class ControladorAvance implements ActionListener {
 		vAvance.setVisible(true);
 		vAvance.agregarListener(this);
 		vAvance.limpiarTablaAvances();
+		vAvance.agregarKeyTel(this);
 		
-		vAvanceArren = new VistaAvanceArren();
+		/*vAvanceArren = new VistaAvanceArren();
 		vAvanceArren = vAvanceArren.obtenerInstancia();
 		vAvanceArren.setLocationRelativeTo(null);
 		vAvanceArren.setVisible(true);
 		vAvanceArren.agregarListener(this);
-		vAvanceArren.limpiarTablaAvances();
+		vAvanceArren.limpiarTablaAvances();*/
 		
 		if(resp.equals("Avance")){
 		this.asignarCod();
@@ -691,5 +694,29 @@ public void removerElementoArren(){
 		if(vAvance.filaSeleccionada()>=0)
 			arrendatario.getAvances().remove(vAvance.filaSeleccionada());
 	}
+
+
+@Override
+public void keyPressed(KeyEvent arg0) {
+	// TODO Auto-generated method stub
+	
+}
+
+
+@Override
+public void keyReleased(KeyEvent arg0) {
+	// TODO Auto-generated method stub
+	
+}
+
+
+@Override
+public void keyTyped(KeyEvent key) {
+	// TODO Auto-generated method stub
+	char c = key.getKeyChar();
+	if (!Character.isDigit(key.getKeyChar()) && c!='-' && c!='.')
+		key.consume();
+		
+}
 	
 }

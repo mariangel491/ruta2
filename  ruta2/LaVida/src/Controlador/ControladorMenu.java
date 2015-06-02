@@ -291,12 +291,10 @@ public class ControladorMenu implements ActionListener{
 
 	public void cargarDeudaTodosSocios(){
 		try {
-	
 		Date fecha = new Date(System.currentTimeMillis());
 		Deuda deuda= new Deuda();
 		Ingresos ing= new Ingresos();
-		int cont=0;
-				
+		int cont=0;		
 		int fin=socioDao.obtenerTodos().size();
 		this.mayorMes();
 		ing=ingDao.buscarPorCodIngreso("I0001");
@@ -322,8 +320,7 @@ public class ControladorMenu implements ActionListener{
 					cont++;
 					//System.out.println(cont);
 				}this.DeudaConductorSoc();
-			}
-					
+			}		
 		}		
 		} catch (Exception e) {
 			// TODO Auto-generated catch block
@@ -345,9 +342,6 @@ public class ControladorMenu implements ActionListener{
 			Socio socio= new Socio();
 			for(int i=0; i<listaSocios.size();i++)
 			{
-				//System.out.println("listaSocios "+listaSocios.get(i).isTiene()+ " cod   "+ listaSocios.get(i).getNroSocio());
-				//System.out.println( " resp ");
-				//System.out.println(listaSocios.get(i).isTiene()==true);
 				if(listaSocios.get(i).isTiene()==true)
 				{
 					contador=0;
@@ -373,12 +367,7 @@ public class ControladorMenu implements ActionListener{
 						deudaDao.agregarDeuda(deuda);
 					}
 				}
-			}
-		
-			
-			
-					
-			
+			}	
 		} catch (Exception e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();

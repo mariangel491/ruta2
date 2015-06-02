@@ -2,13 +2,23 @@ package Controlador;
 
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.awt.event.KeyEvent;
+import java.awt.event.KeyListener;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
 
+
+
+
+
 import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
+
+
+
+
 
 
 import Modelos.Socio;
@@ -22,7 +32,7 @@ import Vistas.VistaVehiculo;
 
 
 
-public class ControladorSocio implements ActionListener {
+public class ControladorSocio implements ActionListener, KeyListener {
 	
 	protected VistaSocio vSocio;
 	private VistaAvance vAvance;
@@ -34,16 +44,13 @@ public class ControladorSocio implements ActionListener {
 	ControladorVehiculo vehiculo;
 	ControladorAvance avance;
 
-	private static ControladorSocio cs= new ControladorSocio();
-	
 	public ControladorSocio() {
-		vSocio.obtenerInstancia();
 		vSocio = new VistaSocio();
 		vSocio.setLocationRelativeTo(null);
 		vSocio.setVisible(true);
 		vSocio.limpiarCampos();
 		vSocio.agregarListener(this);
-	
+		vSocio.agregarKeyTel(this);
 	}
 
 	
@@ -61,6 +68,7 @@ public class ControladorSocio implements ActionListener {
 			if (a.getActionCommand().equalsIgnoreCase("BuscarSocio")) {
 			try {
 				this.BuscarSocio();
+				
 			} catch (Exception e) {
 				// TODO Auto-generated catch block
 				e.printStackTrace();
@@ -91,7 +99,7 @@ public class ControladorSocio implements ActionListener {
 		}
 		if (a.getActionCommand().equalsIgnoreCase("Modificar")) {
 			try {
-				this.registrarSocio();
+				this.ModificarSocio();
 			} catch (Exception e) {
 				// TODO Auto-generated catch block
 				e.printStackTrace();
@@ -110,12 +118,6 @@ public class ControladorSocio implements ActionListener {
 				// TODO Auto-generated catch block
 				e.printStackTrace();
 			}
-		}else if(a.getActionCommand().equalsIgnoreCase("ArrRegistrarAvan")){
-			
-		}else if(a.getActionCommand().equalsIgnoreCase("ArrRegistrarVeh")){
-			
-		}else if(a.getActionCommand().equalsIgnoreCase("ArrRegistrarSoc")){
-			
 		}
 	}
 
@@ -194,6 +196,7 @@ public class ControladorSocio implements ActionListener {
 				System.out.println(tieneavance);
 				vSocio.prueba(tieneavance);
 				
+				vSocio.bloquearCampos();
 			//	this.cargarListadoDeAvances();
 			} else
 				vSocio.mostrarMensaje("El socio no existe");
@@ -247,6 +250,55 @@ public class ControladorSocio implements ActionListener {
 		} else
 			this.vSocio.mostrarMensaje("Debe llenar todos los campos");
 	} 
+	
+	public void ModificarSocio(){
+		if (this.vSocio.CamposllenosSocio() == true) {
+
+			Socio socio = new Socio();
+			try {
+				socio= socioDao.buscarPorNroSocio(vSocio.getTxtNroSocio());
+				socio.setCedula(vSocio.getTxtCedSocio());
+				socio.setNombre(vSocio.getTxtnomSocio());
+				socio.setApellido(vSocio.getTxtapellidoSoc());
+				socio.setDireccion(vSocio.getTxtdirecSocio());
+				socio.setTelefono(vSocio.getTxttelefono());
+				socioDao.actualizarSocio(socio);
+			} catch (Exception e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+			
+			vSocio.mostrarMensaje("Socio modificado con exito");
+			vSocio.limpiarCampos();
+		} else
+			this.vSocio.mostrarMensaje("Debe llenar todos los campos");
+	}
+
+
+
+	@Override
+	public void keyPressed(KeyEvent e) {
+		// TODO Auto-generated method stub
+		
+	}
+
+
+
+	@Override
+	public void keyReleased(KeyEvent e) {
+		// TODO Auto-generated method stub
+		
+	}
+
+
+
+	@Override
+	public void keyTyped(KeyEvent key) {
+		// TODO Auto-generated method stub
+		char c = key.getKeyChar();
+		if (!Character.isDigit(key.getKeyChar()) && c!='-' && c!='.')
+			key.consume();
+	}
 
 	
 

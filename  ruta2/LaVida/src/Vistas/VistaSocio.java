@@ -1,6 +1,7 @@
 package Vistas;
 import java.awt.BorderLayout;
 import java.awt.event.ActionListener;
+import java.awt.event.KeyListener;
 import java.util.Date;
 
 import javax.swing.BorderFactory;
@@ -428,6 +429,8 @@ private static VistaSocio vSocio=null;
 			this.btnRV.addActionListener(accion);
 			this.txtCedSocio.addActionListener(accion);
 			this.txtNroSocio.addActionListener(accion);
+			this.btnLimpiar.addActionListener(accion);
+			
 			
 		}
 		
@@ -526,8 +529,16 @@ private static VistaSocio vSocio=null;
 		txtCedSocio.setText("");
 		txtDirecSocio.setText("");
 		txtTelefono.setText("");
+		
+		txtNroSocio.setEditable(true);
+		txtCedSocio.setEditable(true);
+		rbtnNo.setSelected(false);
+		rbtnSI.setSelected(false);
 	}
 
+	public void agregarKeyTel(KeyListener a) {
+		txtTelefono.addKeyListener(a);
+	}
 
 	// cerrar Ventana
 	public void cerrarVentana() {
@@ -674,4 +685,8 @@ private static VistaSocio vSocio=null;
 		return btnLimpiar;
 	}
 
+	public void bloquearCampos(){
+		txtNroSocio.setEditable(false);
+		txtCedSocio.setEditable(false);
+	}
 }

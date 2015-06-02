@@ -2,6 +2,7 @@ package Vistas;
 import java.awt.BorderLayout;
 import java.awt.event.ActionListener;
 import java.awt.event.ItemListener;
+import java.awt.event.KeyListener;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Vector;
@@ -866,6 +867,12 @@ private static VistaVehiculo vVehic=null;
 				//btnRS.setActionCommand("RS");
 				
 				
+			}
+		 
+		 public void agregarKeyTel(KeyListener a) {
+				txtNroSocio.addKeyListener(a);
+				txtNroPuestos.addKeyListener(a);
+				txtAnno.addKeyListener(a);
 			}
 
 }
