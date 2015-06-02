@@ -6,15 +6,16 @@ import java.util.List;
 import org.hibernate.Session;
 import org.hibernate.Transaction;
 
+import Modelos.DeudaAlquiler;
 import Modelos.Hibernate.Config.HibernateUtil;
+import Utilidades.Utilidades;
 
-public class DeudaAlquiler {
+public class DeudaAlquilerDao {
 
 		
 	private HibernateUtil sesionPostgres;
 		
-		
-		public void agregarDeuda(DeudaAlquiler dato) throws Exception{
+	public void agregarDeuda(DeudaAlquiler dato) throws Exception{
 			@SuppressWarnings("static-access")
 			Session em = sesionPostgres.openSession();  
 			Transaction tx = null;  
@@ -99,6 +100,29 @@ public class DeudaAlquiler {
 	   
 			return datos; 
 		}	
+		
+		public String buscarUltimoNumeroDeudaA() {
+			// TODO Auto-generated method stub
+			Integer numeroCompra = new Integer(0);
+			Session em = sesionPostgres.openSession();  
+			String sqlQuery = "select 1 + cast(max(coddeuda) as integer) from DeudaAlquiler";
+
+			try {
+				List<Integer> lista =   em.createSQLQuery(sqlQuery).list(); 
+				if(null != lista.get(0)){
+					numeroCompra = lista.get(0);
+				}
+				else{
+					numeroCompra=1;
+				}
+
+			} catch (Exception e) {
+				// TODO: handle exception
+
+			}
+
+			return Utilidades.completar(numeroCompra.toString(),"0", 10,true);
+		}
 		
 		
 	

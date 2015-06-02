@@ -19,12 +19,16 @@ import net.sf.jasperreports.engine.JasperReport;
 import net.sf.jasperreports.view.JasperViewer;
 import Modelos.Avance;
 import Modelos.Deuda;
+import Modelos.DeudaAlquiler;
 import Modelos.Ingresos;
+import Modelos.Inquilino;
 import Modelos.Local;
 import Modelos.Socio;
 import Modelos.Hibernate.Daos.AvanceDao;
+import Modelos.Hibernate.Daos.DeudaAlquilerDao;
 import Modelos.Hibernate.Daos.DeudaDao;
 import Modelos.Hibernate.Daos.IngresosDao;
+import Modelos.Hibernate.Daos.InquilinoDao;
 import Modelos.Hibernate.Daos.LocalDao;
 import Modelos.Hibernate.Daos.SocioDao;
 import Vistas.*;
@@ -56,11 +60,14 @@ public class ControladorMenu implements ActionListener{
 	VistaFac vFactura;
 	private Connection con;
 	
-	//Para cargar las deudas de los socios
+	//Para cargar las deudas de los socios y alquileres
 	private DeudaDao deudaDao= new DeudaDao();
 	private AvanceDao avanceDao= new AvanceDao();
 	private IngresosDao ingDao= new IngresosDao();
 	private SocioDao socioDao= new SocioDao();
+	
+	private InquilinoDao inqDao= new InquilinoDao();
+	private DeudaAlquilerDao deudaAlqDao= new DeudaAlquilerDao();
 	
 	//PARA LOS REPORTES
 	//ControladorReporte controReporSocio;
@@ -75,6 +82,7 @@ public class ControladorMenu implements ActionListener{
 		menu.setResizable(false);
 		menu.setTitle("Menu Principal");
 		this.cargarDeudaTodosSocios();
+		this.cargarDeudaAlquileres();
 		
 		try {
 			con = DriverManager.getConnection("jdbc:postgresql://localhost:5432/BDRuta2","postgres","postgres");
@@ -374,5 +382,54 @@ public class ControladorMenu implements ActionListener{
 		}
 	}
 	
+	public void cargarDeudaAlquileres(){
+		try {
+		Date fecha = new Date(System.currentTimeMillis());
+		DeudaAlquiler deuda= new DeudaAlquiler();
+		Ingresos ing, ing2, ing3= new Ingresos();
+		int cont=0;		
+		int fin=inqDao.obtenerTodos().size();
+		this.mayorMes();
+		ing=ingDao.buscarPorCodIngreso("I0026");
+		ing2=ingDao.buscarPorCodIngreso("I0027");
+		ing3=ingDao.buscarPorCodIngreso("I0028");
 	
+		if(fecha.getMonth()>this.mayorMes())
+		{	
+			if(fecha.getYear()>=this.mayorAnno())
+			{
+				while(cont<fin){
+					Inquilino inq= new Inquilino();
+					inq=inqDao.obtenerTodos().get(cont);
+					
+					this.alquileres(deudaAlqDao.buscarUltimoNumeroDeudaA(), ing.getClasifIngreso(), fecha, inq, ing.getMonto(), "A");
+					this.alquileres(deudaAlqDao.buscarUltimoNumeroDeudaA(), ing2.getClasifIngreso(), fecha, inq, ing2.getMonto(), "A");
+					this.alquileres(deudaAlqDao.buscarUltimoNumeroDeudaA(), ing3.getClasifIngreso(), fecha, inq, ing3.getMonto(), "A");
+					cont++;
+				}
+			}		
+		}		
+		} catch (Exception e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}	 
+	}
+	
+	public void alquileres(String codigo, String descripcion, Date fecha, Inquilino inquilino, Float monto, String status){
+		DeudaAlquiler d= new DeudaAlquiler();
+		
+		d.setCodigo(codigo);
+		d.setDescripcion(descripcion);
+		d.setFecha(fecha);
+		d.setInquilino(inquilino);
+		d.setMonto(monto);
+		d.setStatus(status);
+		
+		try {
+			deudaAlqDao.agregarDeuda(d);
+		} catch (Exception e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+	}
 }
