@@ -105,12 +105,12 @@ public class VistaEgresos extends javax.swing.JFrame {
 			{
 				jPanelVentana = new JPanel();
 				getContentPane().add(jPanelVentana, "Center");
-				jPanelVentana.setBounds(0, 0, 437, 274);
+				jPanelVentana.setBounds(0, 0, 484, 324);
 				jPanelVentana.setLayout(null);
 				{
 					jPanelTitulo = new JPanel();
 					jPanelVentana.add(jPanelTitulo);
-					jPanelTitulo.setBounds(0, 0, 437, 72);
+					jPanelTitulo.setBounds(0, 0, 484, 77);
 					jPanelTitulo.setLayout(null);
 					jPanelTitulo.setBackground(new java.awt.Color(255,255,255));
 					{
@@ -125,7 +125,7 @@ public class VistaEgresos extends javax.swing.JFrame {
 				{
 					jPanelCargarDatos = new JPanel();
 					jPanelVentana.add(jPanelCargarDatos);
-					jPanelCargarDatos.setBounds(31, 84, 360, 127);
+					jPanelCargarDatos.setBounds(51, 100, 383, 151);
 					jPanelCargarDatos.setBorder(BorderFactory.createTitledBorder("Datos del Egreso"));
 					jPanelCargarDatos.setLayout(null);
 					{
@@ -166,7 +166,7 @@ public class VistaEgresos extends javax.swing.JFrame {
 					{
 						ComboBoxModel cmbClasificacionModel = 
 								new DefaultComboBoxModel(
-										new String[] { "Ruta","Alquiler", "Fondo Choque" });
+										new String[] { "Seleccione una opción", "Ruta","Alquiler", "Fondo Choque" });
 						cmbClasificacion = new JComboBox();
 						jPanelCargarDatos.add(cmbClasificacion);
 						jPanelCargarDatos.add(getBtnBuscar());
@@ -179,7 +179,7 @@ public class VistaEgresos extends javax.swing.JFrame {
 					btnGuardar = new JButton();
 					jPanelVentana.add(btnGuardar);
 					btnGuardar.setText("Guardar");
-					btnGuardar.setBounds(21, 228, 123, 29);
+					btnGuardar.setBounds(21, 282, 123, 29);
 					btnGuardar.setFont(new java.awt.Font("Verdana",0,11));
 					btnGuardar.setIcon(new ImageIcon(getClass().getClassLoader().getResource("Imagenes/save.png")));
 					btnGuardar.setActionCommand("Guardar");
@@ -188,7 +188,7 @@ public class VistaEgresos extends javax.swing.JFrame {
 					btnLimpiar = new JButton();
 					jPanelVentana.add(btnLimpiar);
 					btnLimpiar.setText("Limpiar");
-					btnLimpiar.setBounds(151, 228, 123, 29);
+					btnLimpiar.setBounds(173, 282, 123, 29);
 					btnLimpiar.setFont(new java.awt.Font("Verdana",0,11));
 					btnLimpiar.setIcon(new ImageIcon(getClass().getClassLoader().getResource("Imagenes/Limpiarcodigo_1.png")));
 					btnLimpiar.setText("Limpiar");
@@ -198,14 +198,14 @@ public class VistaEgresos extends javax.swing.JFrame {
 					jPanelVentana.add(btnSalir);
 					jPanelVentana.add(getJPanelLista());
 					btnSalir.setText("Salir");
-					btnSalir.setBounds(280, 228, 123, 29);
+					btnSalir.setBounds(325, 282, 123, 29);
 					btnSalir.setFont(new java.awt.Font("Verdana",0,11));
 					btnSalir.setIcon(new ImageIcon(getClass().getClassLoader().getResource("Imagenes/exit.png")));
 					btnSalir.setActionCommand("Salir");
 				}
 			}
 			pack();
-			this.setSize(438, 320);
+			this.setSize(494, 363);
 		} catch (Exception e) {
 		    //add your error handling code here
 			e.printStackTrace();
@@ -243,6 +243,7 @@ public class VistaEgresos extends javax.swing.JFrame {
 	public void limpiarCampos() {
 		txtCodEgresO.setText("");
 		txtDescripcion.setText("");
+		this.cmbClasificacion.setSelectedItem("Seleccione una opción");
 		try {
 			this.GenerarCodigo();
 		} catch (Exception e) {
@@ -253,10 +254,15 @@ public class VistaEgresos extends javax.swing.JFrame {
 	
 	public void DesactivarComponentes(){
 		this.jPanelCargarDatos.setVisible(false);
+		this.jListBusqueda.setVisible(true);
+		this.jPanelLista.setVisible(true);
 	}
 	
 	public void ActivarComponentes(){
 		this.jPanelCargarDatos.setVisible(true);
+		this.jPanelLista.setVisible(false);
+		this.jListBusqueda.setVisible(false);
+		this.btnGuardar.setEnabled(true);
 	}
 	
 	public void llenarLista(){
@@ -268,6 +274,7 @@ public class VistaEgresos extends javax.swing.JFrame {
 				if(daoEg.obtenerTodos().get(i).getClasificacion().equalsIgnoreCase(this.getCmbClasificacion().getSelectedItem().toString())==true)
 					egresos.add(daoEg.obtenerTodos().get(i).getDescripcion());
 				else
+					if(this.getCmbClasificacion().getSelectedItem().toString().equals("Seleccione una opción")) 
 					egresos.add(daoEg.obtenerTodos().get(i).getDescripcion());
 			}
 			jListBusqueda.setModel(egresos);
@@ -337,7 +344,7 @@ public class VistaEgresos extends javax.swing.JFrame {
 		if(jPanelLista == null) {
 			jPanelLista = new JPanel();
 			//jPanelLista.setLayout(jPanelListaLayout);
-			jPanelLista.setBounds(16, 83, 387, 130);
+			jPanelLista.setBounds(16, 83, 450, 187);
 			jPanelLista.setBorder(BorderFactory.createTitledBorder("Listado de Egresos"));
 			jPanelLista.add(getJScrollPanelLista());
 			jPanelLista.addMouseListener(new MouseAdapter() {
@@ -349,7 +356,7 @@ public class VistaEgresos extends javax.swing.JFrame {
 	private JScrollPane getJScrollPanelLista() {
 		if(jScrollPanelLista == null) {
 			jScrollPanelLista = new JScrollPane();
-			jScrollPanelLista.setPreferredSize(new java.awt.Dimension(353, 96));
+			jScrollPanelLista.setPreferredSize(new java.awt.Dimension(416, 151));
 			jScrollPanelLista.setViewportView(getJListBusqueda());
 		}
 		return jScrollPanelLista;
@@ -395,8 +402,14 @@ public class VistaEgresos extends javax.swing.JFrame {
 						new DefaultComboBoxModel(
 								new String[] { });
 				jListBusqueda = new JList();
+				jListBusqueda.setPreferredSize(new java.awt.Dimension(398, 631));
 				jListBusqueda.addMouseListener(mouseListener);
 			}
 			return jListBusqueda;
+		}
+		
+		public int ItemSelec(){
+			int selection;
+			return selection=jListBusqueda.getSelectedIndex();
 		}
 }

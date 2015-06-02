@@ -1,9 +1,13 @@
 package Vistas;
+import com.jgoodies.common.collect.LinkedListModel;
 import com.toedter.calendar.JDateChooser;
 
 import java.awt.BorderLayout;
 import java.awt.event.ActionListener;
 import java.awt.event.KeyListener;
+import java.awt.event.MouseAdapter;
+import java.awt.event.MouseEvent;
+import java.awt.event.MouseListener;
 
 import javax.swing.BorderFactory;
 import javax.swing.ComboBoxModel;
@@ -12,12 +16,16 @@ import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JComboBox;
 import javax.swing.JLabel;
+import javax.swing.JList;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
+import javax.swing.JScrollPane;
 import javax.swing.JTextField;
+import javax.swing.ListModel;
 import javax.swing.WindowConstants;
 import javax.swing.SwingUtilities;
 
+import Modelos.Ingresos;
 import Modelos.Hibernate.Daos.IngresosDao;
 /**
 * This code was edited or generated using CloudGarden's Jigloo
@@ -48,13 +56,18 @@ public class VistaIngresos extends javax.swing.JFrame {
 	private JLabel lblClasificacion;
 	private JComboBox cmbClasificacion;
 	private JButton btnSalir;
-	private JButton btnModificar;
+	private JButton btnLimpiar;
 	private JButton btnGuardar;
 	private JTextField txtDescripIngreso;
 	private JLabel lblDescripcionIng;
 	private JTextField txtCodIngreso;
 	private JPanel jPanelIngresos;
 	private JLabel lblTitulo;
+	private JList jListBusqueda;
+	private JScrollPane jScrollPanelLista;
+	private JPanel jPanelLista;
+	private JButton btnBuscar;
+	private JLabel lblLogo;
 
 	private IngresosDao ingDao= new IngresosDao();
 	
@@ -100,25 +113,27 @@ private static VistaIngresos vIg=null;
 			{
 				jPanelVentana = new JPanel();
 				getContentPane().add(jPanelVentana, "Center");
-				jPanelVentana.setBounds(0, 0, 384, 262);
+				jPanelVentana.setBounds(0, 0, 478, 311);
 				jPanelVentana.setLayout(null);
 				{
 					jPanelTitulo = new JPanel();
 					jPanelVentana.add(jPanelTitulo);
-					jPanelTitulo.setBounds(0, 0, 384, 75);
+					jPanelTitulo.setBounds(0, 0, 479, 77);
 					jPanelTitulo.setLayout(null);
+					jPanelTitulo.setBackground(new java.awt.Color(255,255,255));
 					{
 						lblTitulo = new JLabel();
 						jPanelTitulo.add(lblTitulo);
+						jPanelTitulo.add(getLblLogo());
 						lblTitulo.setText("Registrar Ingresos");
-						lblTitulo.setFont(new java.awt.Font("Century Gothic",3,20));
-						lblTitulo.setBounds(158, 24, 170, 26);
+						lblTitulo.setFont(new java.awt.Font("Century Gothic",2,20));
+						lblTitulo.setBounds(174, 29, 170, 26);
 					}
 				}
 				{
 					jPanelIngresos = new JPanel();
 					jPanelVentana.add(jPanelIngresos);
-					jPanelIngresos.setBounds(40, 94, 360, 122);
+					jPanelIngresos.setBounds(63, 110, 348, 128);
 					jPanelIngresos.setBorder(BorderFactory.createTitledBorder("Datos de los Ingresos"));
 					jPanelIngresos.setLayout(null);
 					{
@@ -137,19 +152,19 @@ private static VistaIngresos vIg=null;
 						lblDescripcionIng = new JLabel();
 						jPanelIngresos.add(lblDescripcionIng);
 						lblDescripcionIng.setText("Descripción ");
-						lblDescripcionIng.setBounds(23, 58, 74, 16);
+						lblDescripcionIng.setBounds(23, 64, 74, 16);
 						lblDescripcionIng.setFont(new java.awt.Font("Verdana",0,11));
 					}
 					{
 						txtDescripIngreso = new JTextField();
 						jPanelIngresos.add(txtDescripIngreso);
-						txtDescripIngreso.setBounds(97, 55, 205, 23);
+						txtDescripIngreso.setBounds(97, 61, 205, 23);
 					}
 					{
 						lblClasificacion = new JLabel();
 						jPanelIngresos.add(lblClasificacion);
 						lblClasificacion.setText("Clasificación");
-						lblClasificacion.setBounds(17, 86, 79, 16);
+						lblClasificacion.setBounds(17, 94, 79, 16);
 						lblClasificacion.setFont(new java.awt.Font("Verdana",0,11));
 					}
 					{
@@ -160,41 +175,49 @@ private static VistaIngresos vIg=null;
 						cmbClasificacion = new JComboBox();
 						jPanelIngresos.add(cmbClasificacion);
 						cmbClasificacion.setModel(cmbClasificacionModel);
-						cmbClasificacion.setBounds(96, 83, 206, 23);
+						cmbClasificacion.setBounds(96, 91, 206, 23);
 						cmbClasificacion.setFont(new java.awt.Font("Verdana",0,11));
+					}
+					{
+						btnBuscar = new JButton();
+						jPanelIngresos.add(btnBuscar);
+						btnBuscar.setBounds(189, 27, 33, 23);
+						btnBuscar.setIcon(new ImageIcon(getClass().getClassLoader().getResource("Imagenes/search.png")));
+						btnBuscar.setActionCommand("Buscar");
 					}
 				}
 				{
 					btnGuardar = new JButton();
 					jPanelVentana.add(btnGuardar);
 					btnGuardar.setText("Guardar");
-					btnGuardar.setBounds(15, 228, 101, 23);
+					btnGuardar.setBounds(21, 268, 121, 29);
 					btnGuardar.setFont(new java.awt.Font("Verdana",0,11));
 					btnGuardar.setIcon(new ImageIcon(getClass().getClassLoader().getResource("Imagenes/save.png")));
 					btnGuardar.setActionCommand("Guardar");
 
 				}
 				{
-					btnModificar = new JButton();
-					jPanelVentana.add(btnModificar);
-					btnModificar.setText("Modificar");
-					btnModificar.setBounds(131, 228, 114, 23);
-					btnModificar.setFont(new java.awt.Font("Verdana",0,11));
-					btnModificar.setIcon(new ImageIcon(getClass().getClassLoader().getResource("Imagenes/Lists.gif")));
-					btnModificar.setActionCommand("Modificar");
+					btnLimpiar = new JButton();
+					jPanelVentana.add(btnLimpiar);
+					btnLimpiar.setText("Limpiar");
+					btnLimpiar.setBounds(177, 268, 121, 29);
+					btnLimpiar.setFont(new java.awt.Font("Verdana",0,11));
+					btnLimpiar.setIcon(new ImageIcon(getClass().getClassLoader().getResource("Imagenes/Limpiarcodigo_1.png")));
+					btnLimpiar.setActionCommand("Limpiar");
 				}
 				{
 					btnSalir = new JButton();
 					jPanelVentana.add(btnSalir);
+					jPanelVentana.add(getJPanelLista());
 					btnSalir.setText("Salir");
-					btnSalir.setBounds(266, 228, 72, 23);
+					btnSalir.setBounds(333, 268, 121, 29);
 					btnSalir.setFont(new java.awt.Font("Verdana",0,11));
 					btnSalir.setIcon(new ImageIcon(getClass().getClassLoader().getResource("Imagenes/exit.png")));
 					btnSalir.setActionCommand("Salir");
 				}
 			}
 			pack();
-			this.setSize(460, 318);
+			this.setSize(494, 350);
 		} catch (Exception e) {
 		    //add your error handling code here
 			e.printStackTrace();
@@ -229,14 +252,15 @@ private static VistaIngresos vIg=null;
 		//agregar listeners
 		public void agregarListener(ActionListener accion) {
 			this.btnGuardar.addActionListener(accion);
-			this.btnModificar.addActionListener(accion);
+			this.btnLimpiar.addActionListener(accion);
 			this.btnSalir.addActionListener(accion);
+			this.btnBuscar.addActionListener(accion);
 			
 		}
 
 		//LimpiarCampos
 		public void limpiarCampos() {
-			//txtCodIngreso.setText("");
+			txtCodIngreso.setText("");
 			txtDescripIngreso.setText("");
 			cmbClasificacion.setSelectedItem("Seleccione una opción");
 			try {
@@ -283,6 +307,120 @@ private static VistaIngresos vIg=null;
 				}
 			}
 		
+		private JLabel getLblLogo() {
+			if(lblLogo == null) {
+				lblLogo = new JLabel();
+				lblLogo.setBounds(5, 9, 157, 65);
+				lblLogo.setIcon(new ImageIcon(getClass().getClassLoader().getResource("Imagenes/LogoRuta2.jpg")));
+			}
+			return lblLogo;
+		}
 		
 		
+		private JPanel getJPanelLista() {
+			if(jPanelLista == null) {
+				jPanelLista = new JPanel();
+				//jPanelLista.setLayout(jPanelListaLayout);
+				jPanelLista.setBounds(18, 89, 439, 171);
+				jPanelLista.setBorder(BorderFactory.createTitledBorder("Listado de Ingresos"));
+				jPanelLista.add(getJScrollPanelLista());
+			}
+			return jPanelLista;
+		}
+		
+		private JScrollPane getJScrollPanelLista() {
+			if(jScrollPanelLista == null) {
+				jScrollPanelLista = new JScrollPane();
+				jScrollPanelLista.setPreferredSize(new java.awt.Dimension(403, 133));
+				jScrollPanelLista.setViewportView(getJListBusqueda());
+			}
+			return jScrollPanelLista;
+		}
+		
+		private JList getJListBusqueda() {
+			if(jListBusqueda == null) {
+				ListModel jListBusquedaModel = 
+						new DefaultComboBoxModel(
+								new String[] {  });
+				jListBusqueda = new JList();
+				jListBusqueda.setModel(jListBusquedaModel);
+				jListBusqueda.setPreferredSize(new java.awt.Dimension(385, 508));
+				jListBusqueda.addMouseListener(mouseListener);
+			}
+			return jListBusqueda;
+		}
+		
+		
+		//EVENTO
+				MouseListener mouseListener = new MouseAdapter() {
+				      public void mouseClicked(MouseEvent mouseEvent) {
+				        JList theList = (JList) mouseEvent.getSource();
+				        if (mouseEvent.getClickCount() == 2) {
+				          int index = theList.locationToIndex(mouseEvent.getPoint());
+				          if (index >= 0) {
+				            Object o = theList.getModel().getElementAt(index);
+				            ItemSeleccionado();
+				            ActivarComponentes();
+				          }
+				        }
+				      }
+				    };
+				    
+				    
+				    public void DesactivarComponentes(){
+						this.jPanelIngresos.setVisible(false);
+						this.jListBusqueda.setVisible(true);
+						this.jPanelLista.setVisible(true);
+					}
+					
+					public void ActivarComponentes(){
+						this.jPanelIngresos.setVisible(true);
+						this.jPanelLista.setVisible(false);
+						this.jListBusqueda.setVisible(false);
+						this.btnGuardar.setEnabled(true);
+					}
+					
+					
+					public void llenarLista(){
+						this.DesactivarComponentes();
+						this.btnGuardar.setEnabled(false);
+						LinkedListModel<String> ingresos=new LinkedListModel<>();
+						try {
+							for(int i=0; i<ingDao.obtenerTodos().size();i++){
+								if(ingDao.obtenerTodos().get(i).getClasifIngreso().equalsIgnoreCase(this.getCmbClasificacion().getSelectedItem().toString())==true)
+									ingresos.add(ingDao.obtenerTodos().get(i).getDescripcion());
+								else
+									if(this.getCmbClasificacion().getSelectedItem().toString().equals("Seleccione una opción")) 
+									ingresos.add(ingDao.obtenerTodos().get(i).getDescripcion());
+							}
+							jListBusqueda.setModel(ingresos);
+						} catch (Exception e) {
+							// TODO Auto-generated catch block
+							e.printStackTrace();
+						}
+					}
+
+
+				public void ItemSeleccionado(){
+					try {
+							
+							Ingresos ingreso= ingDao.obtenerTodos().get(jListBusqueda.getSelectedIndex());
+						
+							this.txtDescripIngreso.setText(ingreso.getDescripcion());
+							this.txtCodIngreso.setText(ingreso.getCodIngreso());
+							this.cmbClasificacion.setSelectedItem(ingreso.getClasifIngreso());
+							this.btnGuardar.setEnabled(true);
+						
+					} catch (Exception e) {
+						// TODO Auto-generated catch block
+						e.printStackTrace();
+					}
+					
+				}
+
+				public int ItemSelec(){
+					int selection;
+					return selection=jListBusqueda.getSelectedIndex();
+				}
+
 }

@@ -34,6 +34,7 @@ public class ControladorEgresos implements ActionListener, KeyListener{
 		vEgresos.setVisible(true);
 		vEgresos.setResizable(false);	
 		vEgresos.agregarListener(this);
+		vEgresos.ActivarComponentes();
 		
 	}
 
@@ -41,11 +42,14 @@ public class ControladorEgresos implements ActionListener, KeyListener{
 	public void actionPerformed(ActionEvent ae) {
 		// TODO Auto-generated method stub
 		if(ae.getActionCommand().equalsIgnoreCase("Buscar")){
+			vEgresos.llenarLista();
+			vEgresos.DesactivarComponentes();
 		//	ControladorMostrarResultados mo= new ControladorMostrarResultados();   //OJO CON ESTO QUE HACE???
 		//	mostrar.CrearNuevaVentana(1);
 		}else 
 		if (ae.getActionCommand().equalsIgnoreCase("Limpiar")) {
-			//vEgresos.LimpiarCampos();
+			vEgresos.limpiarCampos();
+			vEgresos.ActivarComponentes();
 			}
 		else if(ae.getActionCommand().equalsIgnoreCase("Salir")){
 			vEgresos.cerrarVentana();

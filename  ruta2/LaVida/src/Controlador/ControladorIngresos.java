@@ -32,15 +32,9 @@ public class ControladorIngresos implements ActionListener, KeyListener {
 		VIng.setVisible(true);
 		VIng.setResizable(false);	
 		VIng.agregarListener(this);
+		VIng.ActivarComponentes();
 		
 
-		
-		try {
-			
-		} catch (Exception e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
 	}
 	
 		
@@ -58,10 +52,14 @@ public class ControladorIngresos implements ActionListener, KeyListener {
 
 	public void actionPerformed(ActionEvent ae) {
 		// TODO Auto-generated method stub
-		if(ae.getActionCommand().equalsIgnoreCase("Modificar")){
-			System.out.println("Modificandoooo");
+		if(ae.getActionCommand().equalsIgnoreCase("Limpiar")){
+				VIng.limpiarCampos();
+				VIng.ActivarComponentes();
 		}else if(ae.getActionCommand().equalsIgnoreCase("Salir")){
 			VIng.cerrarVentana();
+		}else if(ae.getActionCommand().equalsIgnoreCase("Buscar")){
+				VIng.llenarLista();
+				VIng.DesactivarComponentes();
 		}else if(ae.getActionCommand().equalsIgnoreCase("Guardar")){	
 			//Para verificar que los campos no estén vacios
 				if(VIng.getTxtCodIngreso().equals("")||
