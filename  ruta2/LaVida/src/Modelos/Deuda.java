@@ -32,6 +32,10 @@ public class Deuda implements Serializable
 	@JoinColumn(name="codsocio")
 	private Socio socio;
 	
+	@OneToOne
+	@PrimaryKeyJoinColumn
+	private HistorialDeuda historial;
+	
 	public String getCodigo() {
 		return codigo;
 	}

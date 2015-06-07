@@ -6,7 +6,9 @@ import java.util.List;
 import org.hibernate.Session;
 import org.hibernate.Transaction;
 
+import Modelos.Arrendatario;
 import Modelos.DeudaAlquiler;
+import Modelos.Inquilino;
 import Modelos.Hibernate.Config.HibernateUtil;
 import Utilidades.Utilidades;
 
@@ -123,8 +125,22 @@ public class DeudaAlquilerDao {
 
 			return Utilidades.completar(numeroCompra.toString(),"0", 10,true);
 		}
-		
-		
+
+		public List<DeudaAlquiler> buscarDeudasAlquileres(String codInquilino) {
+			
+			List<DeudaAlquiler> lista = new ArrayList<DeudaAlquiler>();
+			Session em = sesionPostgres.openSession();  	
+			try {  	
+				lista =  (List<DeudaAlquiler>)em.createQuery("from deudaalquiler where codinquilino='"+codInquilino+"'").list();
+			} catch (Exception e) {             
+				em.cancelQuery();
+
+			} finally {  
+				em.close();  
+			} 
+	   
+			return lista; 
+		}
 	
 	
 

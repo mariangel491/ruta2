@@ -1656,6 +1656,16 @@ private static VistaFac vFactura=null;
 		dtm.addRow(deudas);	
 	}
 	
+	public void agregarFilaDeudasAlquiler(String cod,String descripcion,String fecha, String monto){
+		Vector<String>deudas = new Vector<String>();
+		deudas.add(cod);
+		deudas.add(descripcion);
+		deudas.add(monto);
+		deudas.add(fecha);
+		
+		DefaultTableModel dtm = (DefaultTableModel) jTableDeudasPorSocio.getModel();
+		dtm.addRow(deudas);	
+	}
 
 
 	public void llenartxtMontIng(){
@@ -1723,9 +1733,14 @@ private static VistaFac vFactura=null;
 		filaDeudaSelec="";
 		 int f=jTableDeudasPorSocio.getSelectionModel().getLeadSelectionIndex();
 		filaDeudaSelec= (String) this.jTableDeudasPorSocio.getValueAt(f,0);
-		
+
+	}
 	
-		
+	public void agregarDeudaAlquiler(){
+		filaDeudaSelec="";
+		 int f=jTableDeudasPorSocio.getSelectionModel().getLeadSelectionIndex();
+		filaDeudaSelec= (String) this.jTableDeudasPorSocio.getValueAt(f,0);
+
 	}
 	
 	
@@ -1803,7 +1818,13 @@ private static VistaFac vFactura=null;
 					//TODO add your code for jTablePrestamosXFactura.mouseClicked
 					jTableIngresosXFactura.clearSelection();
 					jTablePrestamosXFactura.clearSelection();
-					agregarDeuda();
+					
+					if(cmbTipoFacturado.getSelectedItem().toString().equalsIgnoreCase(TIPO_FACTURADO_SOCIO)){
+						agregarDeuda();
+					}else if(cmbTipoFacturado.getSelectedItem().toString().equalsIgnoreCase(TIPO_FACTURADO_INQUILINO)){
+						agregarDeudaAlquiler();
+					}
+							
 															}
 			});
 		}

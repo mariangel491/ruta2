@@ -41,6 +41,7 @@
       <mapping class="Modelos.FormaPago"/>
       <mapping class="Modelos.FacturaxFormaPago"/>
       <mapping class="Modelos.Historial"/>
+      <mapping class="Modelos.HistorialDeuda"/>
       <mapping class="Modelos.Ingresos"/>
       <mapping class="Modelos.IEDetalleFactura"/>
       <mapping class="Modelos.Inquilino"/>

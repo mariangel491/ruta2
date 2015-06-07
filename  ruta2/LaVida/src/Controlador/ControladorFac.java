@@ -35,6 +35,7 @@ import Modelos.CuentaIngresos;
 import Modelos.CuentaPrestamos;
 import Modelos.DetalleFactura;
 import Modelos.Deuda;
+import Modelos.DeudaAlquiler;
 import Modelos.Egresos;
 import Modelos.Factura;
 import Modelos.FacturaxFormaPago;
@@ -52,6 +53,7 @@ import Modelos.Hibernate.Daos.CuentaFondoChoqueDao;
 import Modelos.Hibernate.Daos.CuentaIngresosDao;
 import Modelos.Hibernate.Daos.CuentaPrestamosDao;
 import Modelos.Hibernate.Daos.DetalleFacturaDao;
+import Modelos.Hibernate.Daos.DeudaAlquilerDao;
 import Modelos.Hibernate.Daos.DeudaDao;
 import Modelos.Hibernate.Daos.EgresosDao;
 import Modelos.Hibernate.Daos.FacturaDao;
@@ -94,6 +96,7 @@ public class ControladorFac implements ActionListener, KeyListener, FocusListene
 	private PrestamosDao prestDao= new PrestamosDao();
 	private DeudaDao deudaDao= new DeudaDao();
 	private CajaDao cajaDao= new CajaDao();
+	private DeudaAlquilerDao deudaAlqDao= new DeudaAlquilerDao();
 	
 	//MODELOS
 	private CuentaPrestamos cuentaPrestamos = new CuentaPrestamos();
@@ -113,6 +116,7 @@ public class ControladorFac implements ActionListener, KeyListener, FocusListene
 	private Set<Deuda> deudasFactura=new LinkedHashSet<Deuda>();
 	private List<Prestamos> listPrestamosXSocio= new ArrayList<Prestamos>();
 	private List<Deuda> listDeudasXSocio= new ArrayList<Deuda>();
+	private List<DeudaAlquiler> listDeudasXInquilino= new ArrayList<DeudaAlquiler>();
 	
 	
 	 List<FormaPago> list= new ArrayList<>();
@@ -306,8 +310,17 @@ public class ControladorFac implements ActionListener, KeyListener, FocusListene
 			vFactura.llenarCamposSocio(socio);
 		}
 		else if(vFactura.getCmbTipoFacturado().equalsIgnoreCase(vFactura.TIPO_FACTURADO_INQUILINO)){
-			inquilino = inquilinoDao.buscarPorCedula(vFactura.getTxtCed().trim());
+			if(vFactura.getTxtCed().trim()!=null){
+				inquilino = inquilinoDao.buscarPorCedula(vFactura.getTxtCed().trim());
+				this.BuscarDeudasAlquiler(vFactura.getTxtCed().trim());
+			}	
+			else 
+			{
+				inquilino = inquilinoDao.buscarPorRif(vFactura.getTxtNroSocio());
+				this.BuscarDeudasAlquiler(vFactura.getTxtNroSocio());
+			}
 			vFactura.llenarCamposInquilino(inquilino);
+			
 		}
 		else if(vFactura.getCmbTipoFacturado().equalsIgnoreCase(vFactura.TIPO_FACTURADO_ARRENDATARIO)){
 			arrendatario = arrendatarioDao.buscarPorCedulaArrendatario(vFactura.getTxtCed().trim());
@@ -1379,6 +1392,22 @@ public boolean comprobarMonto(){
 				d=deudasSocio.get(i);
 				listDeudasXSocio.add(d);
 				vFactura.agregarFilaDeudas(d.getCodigo(),d.getDescripcion(),d.getFecha().toString() ,Float.toString(d.getMonto()));
+			}
+		}
+	}
+	
+	public void BuscarDeudasAlquiler(String dato) throws Exception{
+		
+		System.out.println("deudas alquileres");
+		List<DeudaAlquiler> deudasInq= deudaAlqDao.buscarDeudasAlquileres(dato);
+		
+		if(deudasInq.size()>0)
+		{
+			for(int i=0;i<deudasInq.size();i++){
+				DeudaAlquiler d= new DeudaAlquiler();
+				d=deudasInq.get(i);
+				listDeudasXInquilino.add(d);
+				vFactura.agregarFilaDeudasAlquiler(d.getCodigo(),d.getDescripcion(),d.getFecha().toString() ,Float.toString(d.getMonto()));
 			}
 		}
 	}

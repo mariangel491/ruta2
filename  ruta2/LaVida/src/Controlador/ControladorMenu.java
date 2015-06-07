@@ -82,7 +82,7 @@ public class ControladorMenu implements ActionListener{
 		menu.setResizable(false);
 		menu.setTitle("Menu Principal");
 		this.cargarDeudaTodosSocios();
-		this.cargarDeudaAlquileres();
+		cargarDeudaAlquileres();
 		
 		try {
 			con = DriverManager.getConnection("jdbc:postgresql://localhost:5432/BDRuta2","postgres","postgres");
@@ -338,6 +338,7 @@ public class ControladorMenu implements ActionListener{
 	
 	
 	public void DeudaConductorSoc(){
+		System.out.println("deudas soc");
 		Deuda deuda= new Deuda();
 		Date f= new Date();
 		int contador=0;
@@ -382,23 +383,90 @@ public class ControladorMenu implements ActionListener{
 		}
 	}
 	
+	
+	
+	//**************METODOSSSS PARA CARGAR LAS DEUDAS DE LOS ALQUILEEEREEES************************
+	public int mayorMesAlq(){
+		int mayor=0, mes,otroMes, cant;
+		try {
+				if(deudaAlqDao.obtenerTodos().size()==1)
+					mayor= deudaAlqDao.obtenerTodos().get(0).getFecha().getMonth();
+				
+				else{
+					cant=deudaAlqDao.obtenerTodos().size();
+				
+					for(int i=0; i<cant;i++)
+					{
+							mes=deudaAlqDao.obtenerTodos().get(i).getFecha().getMonth();
+							if(i+1<cant)
+								otroMes= deudaAlqDao.obtenerTodos().get(i+1).getFecha().getMonth();
+							else
+								otroMes=deudaAlqDao.obtenerTodos().get(i).getFecha().getMonth();
+						if(mes>otroMes)
+							 mayor=mes;
+						else if(mes<otroMes)
+							mayor=otroMes;
+						else
+							mayor=mes;	
+					}
+					return mayor;
+					
+				}	
+		} catch (Exception e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}	
+		return mayor;
+	}
+	
+	public int mayorAnnoAlq(){
+		int mayor=0, anno,otroAnno, cant;
+		try {
+				if(deudaAlqDao.obtenerTodos().size()==1)
+				mayor= deudaAlqDao.obtenerTodos().get(0).getFecha().getYear();
+				else{
+					cant=deudaAlqDao.obtenerTodos().size();
+				for(int i=0; i<cant;i++)
+				{
+						anno=deudaAlqDao.obtenerTodos().get(i).getFecha().getYear();
+						if(i+1<cant)
+							otroAnno= deudaAlqDao.obtenerTodos().get(i+1).getFecha().getYear();
+						else
+							otroAnno=deudaDao.obtenerTodos().get(i).getFecha().getMonth();
+					if(anno>otroAnno)
+						 mayor=anno;
+					else if(anno<otroAnno)
+						mayor=otroAnno;
+					else
+						mayor=anno;	
+				}
+				return mayor;
+			}	
+		} catch (Exception e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}	
+		return mayor;
+	}
 	public void cargarDeudaAlquileres(){
 		try {
+			System.out.println("alquileres");
 		Date fecha = new Date(System.currentTimeMillis());
 		DeudaAlquiler deuda= new DeudaAlquiler();
 		Ingresos ing, ing2, ing3= new Ingresos();
 		int cont=0;		
 		int fin=inqDao.obtenerTodos().size();
-		this.mayorMes();
+		
 		ing=ingDao.buscarPorCodIngreso("I0026");
 		ing2=ingDao.buscarPorCodIngreso("I0027");
 		ing3=ingDao.buscarPorCodIngreso("I0028");
 	
-		if(fecha.getMonth()>this.mayorMes())
+		if(fecha.getMonth()>this.mayorMesAlq())
 		{	
-			if(fecha.getYear()>=this.mayorAnno())
+			if(fecha.getYear()>=this.mayorAnnoAlq())
 			{
 				while(cont<fin){
+					System.out.println("entrando por inquilino");
 					Inquilino inq= new Inquilino();
 					inq=inqDao.obtenerTodos().get(cont);
 					
@@ -424,9 +492,11 @@ public class ControladorMenu implements ActionListener{
 		d.setInquilino(inquilino);
 		d.setMonto(monto);
 		d.setStatus(status);
-		
+		System.out.println(deudaAlqDao.buscarUltimoNumeroDeudaA()+"  antes ultimo nro deuda   " + descripcion);
 		try {
 			deudaAlqDao.agregarDeuda(d);
+			System.out.println(deudaAlqDao.buscarUltimoNumeroDeudaA()+"  ultimo nro deuda");
+			deudaAlqDao= new DeudaAlquilerDao();
 		} catch (Exception e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
