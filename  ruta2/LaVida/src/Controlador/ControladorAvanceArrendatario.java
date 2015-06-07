@@ -57,16 +57,19 @@ public class ControladorAvanceArrendatario implements ActionListener, KeyListene
 			vAvanceArren.setLocationRelativeTo(null);
 			vAvanceArren.setVisible(true);
 			vAvanceArren.agregarListener(this);
-			vAvanceArren.CambiarNombrePanel();
+		//	vAvanceArren.CambiarNombrePanel();
 			
-			if (va.Selec()==1){
+			//if (va.Selec()==1){
 			vAvanceArren.setTxtNroSocio(va.llenarCodigo());
 			vAvanceArren.setTxtNomSocio(va.llenarNombre());
-			}
+	//		}
 			try {
 				this.obtenerAvanceArren();
 				this.asignarCodArrend();
 				arrendatarioPrueba= va.GuardarArrendatario();
+				
+				vAvanceArren.GuardarArrendatario(arrendatarioPrueba);
+				vAvanceArren.RetornaArrendatario();
 				
 			} catch (Exception e) {
 				// TODO Auto-generated catch block

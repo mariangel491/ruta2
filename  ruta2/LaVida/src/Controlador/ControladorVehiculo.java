@@ -100,9 +100,9 @@ public class ControladorVehiculo implements ActionListener,KeyListener {
 		
 		////si viene de socio
 		socioPrueba= va.RetornaSocio();
-		arrendatarioPrueba= va.RetornaArrendatario();
+		//arrendatarioPrueba= va.RetornaArrendatario();
 	System.out.println("por socio"+socioPrueba.getNombre());
-	System.out.println("por arrendatario"+arrendatarioPrueba.getNombre());
+//	System.out.println("por arrendatario"+arrendatarioPrueba.getNombre());
 	System.out.println(!socioPrueba.equals(null));
 	
 		if (!socioPrueba.equals(null))
@@ -170,7 +170,7 @@ public ControladorVehiculo(VistaAvanceArren vaa) {
 
 	arrendatarioPrueba= vaa.RetornaArrendatario();
 	System.out.println(arrendatarioPrueba.getCedula()+ "que esta imprimiendo??");
-		if(arrendatarioPrueba!=null){
+		if(!arrendatarioPrueba.equals(null)) {
 		
 			vVehiculo.setTxtNroSocio(vaa.llenarCodigo()); 
 			vVehiculo.setTxtNomSocio(vaa.llenarNombre());
@@ -215,7 +215,7 @@ public ControladorVehiculo(VistaAvanceArren vaa) {
 		}
 			
 		try {
-			this.obtenerVehiculoArren();
+			this.obtenerVehiculos();
 			socioPrueba= vs.GuardarSocio();
 		} catch (Exception e) {
 			// TODO Auto-generated catch block
@@ -281,7 +281,7 @@ public ControladorVehiculo(VistaAvanceArren vaa) {
 	}
 	else if (a.getActionCommand().equalsIgnoreCase("GuardarArrendatario")) {
 		try {
-			this.registrarTodoArren();
+			this.registrarPruebaArren();
 		} catch (Exception e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
@@ -290,7 +290,7 @@ public ControladorVehiculo(VistaAvanceArren vaa) {
 	
 	}else if (a.getActionCommand().equalsIgnoreCase("AgregarVehiculoArrend")) {
 		if (vVehiculo.CamposllenosSocio() && vVehiculo.CamposllenosVehiculo()) {
-			this.agregarVehiculoArren();
+			this.agregarVehiculoA();//agregarVehiculoArren();
 			
 		} else
 			JOptionPane.showMessageDialog(null, "Debe llenar todos los campos del avance", "Atención!", JOptionPane.ERROR_MESSAGE);
@@ -994,6 +994,55 @@ public ControladorVehiculo(VistaAvanceArren vaa) {
 		}
 		
 		
+		
+		private void agregarVehiculoA() {
+			try {
+				
+				String placa = vVehiculo.getTxtPlaca();
+				String serial = vVehiculo.getTxtSerial();
+				int marca = vVehiculo.getCmbMarca();
+				int año = Integer.parseInt(vVehiculo.getTxtAnno());
+			//	int avance = vVehiculo.getCmbConductorInt();
+				int cant_puestos= Integer.parseInt(vVehiculo.getNroPuestos());
+				String avanceprueba= vVehiculo.getCmbConductor();
+				
+				VehiculoArrendatario vehiculo = new VehiculoArrendatario();
+				vehiculo.setPlaca(placa);
+				vehiculo.setSerialCarroceria(serial);
+				vehiculo.setCodMarca(marcaDao.obtenerTodos().get(marca));
+				vehiculo.setAnno(año);
+				vehiculo.setNropuestos(cant_puestos);
+				
+	/*			System.out.println("avance  " +avanceprueba);
+				for(int l=0; l<this.listaAvancesSocio.size();l++){	
+						if(avanceprueba.equals(this.listaAvancesSocio.get(l).getNombre()+" "+
+						    this.listaAvancesSocio.get(l).getApellido()))
+								vehiculo.setAvance(this.listaAvancesSocio.get(l).getCodAvance());*/
+							
+				
+				//este metodo es de prueba...
+				System.out.println("avance  " +avanceprueba);
+				System.out.println(listaAvancesSocio.size());
+				for(int l=0; l<this.listaAvancesArren.size();l++){	
+						if(avanceprueba.equals(this.listaAvancesArren.get(l).getNombre()+" "+
+						    this.listaAvancesArren.get(l).getApellido()))
+								vehiculo.setAvance(this.listaAvancesArren.get(l).getCodAvance());
+				}
+				
+				arrendatario.getVehiculos().add(vehiculo); 
+				this.cargarListadoDeVehiculosArren();
+				
+				//avanceprueba=new String();
+				//vVehiculo.eliminarConductorCombo();
+				vVehiculo.limpiarCamposVehiculo();
+			
+			} catch (Exception e) {
+				// Mensaje de Dialogo en caso de que ocurra cualquier otra excepcion
+				JOptionPane.showMessageDialog(null,e.toString());
+			}
+
+		}
+		
 		private void agregarVehiculoArren() {
 			try {
 				
@@ -1107,6 +1156,55 @@ public ControladorVehiculo(VistaAvanceArren vaa) {
 		}
 				return "AA"+nro_avances.toString();	
 	}
+	
+private void registrarPruebaArren() throws Exception {
+		
+		if (vVehiculo.CamposllenosSocio() == true) {
+
+			Arrendatario arrendatario = new Arrendatario();		
+		//BUSCAR EL SOCIO
+			String codi = vVehiculo.getTxtNroSocio();
+			
+				if(!arrenDao.encontrar(codi))
+				{
+					arrenDao.agregarArrendatario(arrendatarioPrueba);
+				}
+				arrendatario = arrenDao.buscarPorCedulaArrendatario(codi);
+				
+			for(AvanceArrendatario avan : this.listaAvancesArren) //////aqui dudas... va el get o va la lista de la vista llenarAvances
+			{
+				avan.setArrendatario(arrendatario);
+				avan.setCodAvance(this.asignarCodAvanceArren());
+				if(!avanceArrenDao.encontrarCedArrendatario(avan.getCedula()))
+					{
+						avanceArrenDao.agregarAvance(avan);
+					}
+			}
+			
+			for(VehiculoArrendatario vehi : vVehiculo.LlenarListaVehiculosArren()) //////aqui dudas... va el get o va la lista de la vista llenarvehiculos
+			{
+				
+				vehi.setArrendatario(arrendatario);
+				//Asignar al avance
+				System.out.println("probando daooo "+ avanceArrenDao.ObtenerPorArrendatarios(arrendatario.getCedula()).size());
+				for(AvanceArrendatario avance : avanceArrenDao.ObtenerPorArrendatarios(codi)) {
+					if(((avance.getNombre()+" "+avance.getApellido()).equalsIgnoreCase(vehi.getAvance())))
+					{
+						vehi.setAvance(avance.getCodAvance());
+						//break;
+					}
+				}	
+				if(!vehArrenDao.encontrar(vehi.getPlaca()))
+					{
+						vehArrenDao.agregarVehiculoArren(vehi);
+					}
+			}			
+		} else
+			JOptionPane.showMessageDialog(null, "Debe llenar todos los campos");
+	} 
+	
+	
+	
 
 	private void registrarTodoArren() throws Exception {
 		

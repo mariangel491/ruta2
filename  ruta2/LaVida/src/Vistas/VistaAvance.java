@@ -755,7 +755,7 @@ public Socio RetornaSocio(){
 	return socioprueba;
 }
 
-public Arrendatario GuardarArrendatario(Arrendatario a) {
+/*public Arrendatario GuardarArrendatario(Arrendatario a) {
 	Arrendatario arren= new Arrendatario();
 	Date f= new Date();
 	VistaArrendatario va = new VistaArrendatario();
@@ -784,12 +784,12 @@ public Arrendatario GuardarArrendatario(Arrendatario a) {
 	}
 	
 	return arren;
-}
+}*/
 
-public Arrendatario RetornaArrendatario(){
+/*public Arrendatario RetornaArrendatario(){
 	System.out.println("arrendatario vista "+ arrenPrueba.getNombre()+"    "+ arrenPrueba.getApellido());
 	return arrenPrueba;
-}
+}*/
 
 
 }

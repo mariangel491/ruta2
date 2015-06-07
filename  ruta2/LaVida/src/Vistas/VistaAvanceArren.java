@@ -683,16 +683,17 @@ public void CambiarNombrePanel(){
 public Arrendatario GuardarArrendatario(Arrendatario a) {
 	Arrendatario arren= new Arrendatario();
 	Date f= new Date();
-	VistaArrendatario va = new VistaArrendatario();
+//	VistaArrendatario va = new VistaArrendatario();
 	
 	arren.setCedula(a.getCedula());
 	arren.setApellido(a.getApellido());
 	arren.setDireccion(a.getDireccion());
 	arren.setFechaIngreso(f);
-	if(va.Seleccion()==1)
+	arren.setTiene(a.isTiene());
+	/*if(va.Seleccion()==1)
 	arren.setTiene(true);
 	else
-		arren.setTiene(false);
+		arren.setTiene(false);*/
 	
 	arren.setMonto(a.getMonto());
 	
@@ -708,7 +709,7 @@ public Arrendatario GuardarArrendatario(Arrendatario a) {
 		e.printStackTrace();
 	}
 	
-	return arren;
+	return a;
 }
 
 public Arrendatario RetornaArrendatario(){
