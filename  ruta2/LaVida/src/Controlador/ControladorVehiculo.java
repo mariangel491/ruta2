@@ -870,6 +870,7 @@ public ControladorVehiculo(VistaAvanceArren vaa) {
 		else
 		if(avanceArrenDao.encontrar(codi)){
 			AvanceArrendatario sera = avanceArrenDao.buscarPorCodAvanceArren(codi);
+			System.out.println(sera.getNombre()+ "probandooo o o");
 			avan = sera.getNombre()+" "+sera.getApellido();
 		}
 		return avan;
@@ -1022,7 +1023,7 @@ public ControladorVehiculo(VistaAvanceArren vaa) {
 				
 				//este metodo es de prueba...
 				System.out.println("avance  " +avanceprueba);
-				System.out.println(listaAvancesSocio.size());
+				System.out.println(listaAvancesArren.size());
 				for(int l=0; l<this.listaAvancesArren.size();l++){	
 						if(avanceprueba.equals(this.listaAvancesArren.get(l).getNombre()+" "+
 						    this.listaAvancesArren.get(l).getApellido()))
@@ -1057,6 +1058,7 @@ public ControladorVehiculo(VistaAvanceArren vaa) {
 				VehiculoArrendatario vehiculo = new VehiculoArrendatario();
 				vehiculo.setPlaca(placa);
 				vehiculo.setSerialCarroceria(serial);
+				System.out.println("marcaaaaaaa  "+marcaDao.obtenerTodos().get(0));
 				vehiculo.setCodMarca(marcaDao.obtenerTodos().get(marca));
 				vehiculo.setAnno(año);
 				vehiculo.setNropuestos(cant_puestos);

@@ -47,7 +47,7 @@ public class AvanceArrendatario {
 			this.apellido = apellido;
 			this.direccion = direccion;
 			this.telefono = telefono;
-			FechaIngreso = fechaIngreso;
+			this.FechaIngreso = fechaIngreso;
 			this.arrendatario = arrendatario;
 		}
 

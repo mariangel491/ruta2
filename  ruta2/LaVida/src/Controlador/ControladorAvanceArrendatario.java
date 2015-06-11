@@ -91,15 +91,6 @@ public class ControladorAvanceArrendatario implements ActionListener, KeyListene
 					e.printStackTrace();
 				}
 			}
-			else if (a.getActionCommand().equalsIgnoreCase("GuardarArrendatario")) {
-				try {
-				//	this.registrarAvanceArren();                   revisar esto que esta aqui para confirmar.....
-				} catch (Exception e) {
-					// TODO Auto-generated catch block
-					e.printStackTrace();
-				}
-				this.limpiarTodo();
-			}
 			else if (a.getActionCommand().equalsIgnoreCase("Limpiar")) {
 				this.limpiarTodo();
 			}
@@ -124,12 +115,12 @@ public class ControladorAvanceArrendatario implements ActionListener, KeyListene
 			else if (a.getActionCommand().equalsIgnoreCase("Siguiente")) {
 				//vAvance.LlenarListaAvancesPrueba();
 				
-				if(vAvanceArren.CamposllenosSocio() ==true){
+				if(vAvanceArren.CamposllenosArrendatario() ==true){
 					vehiculo =  new ControladorVehiculo(vAvanceArren);
 				}
 				
 			}
-			else  if (a.getActionCommand().equalsIgnoreCase("AgregarAvanceArrend")) {
+			else  if (a.getActionCommand().equalsIgnoreCase("AgregarAvanceArrendatario")) {
 				if (this.vAvanceArren.CamposllenosAvance()) {
 					this.agregarAvanceArren();
 				//	this.asignarCodArrend();
@@ -152,7 +143,7 @@ public class ControladorAvanceArrendatario implements ActionListener, KeyListene
 					e.printStackTrace();
 				}
 			}
-			else if (a.getActionCommand().equalsIgnoreCase("Eliminar Avance Arrendatario")) {
+			else if (a.getActionCommand().equalsIgnoreCase("EliminarAvanceArrendatario")) {
 			
 					vAvanceArren.removerFila();
 					this.removerElementoArren();

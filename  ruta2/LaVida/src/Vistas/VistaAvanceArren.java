@@ -58,18 +58,18 @@ public class VistaAvanceArren extends javax.swing.JFrame {
 	private JTextField txtApellido;
 	private JButton btnAgregar;
 	private JButton btnEliminarAvance;
-	private JButton btnCancelar;
+	private JButton btnAtras;
 	private JButton btnSiguiente;
-	private JButton btnGuardar;
-	private JButton btnBuscarSocio;
+	private JButton btnCancelar;
+	private JButton btnBuscarArren;
 	private JButton btnLimpiar;
 	private JTable tblListadoAvance;
 	private JScrollPane spListadoAvance;
-	private JPanel jpAvancexSocio;
-	private JTextField txtNomSocio;
+	private JPanel jpAvancexArren;
+	private JTextField txtNomArrendatario;
 	private JLabel lblNomSocio;
-	private JTextField txtNroSocio;
-	private JLabel lblNroSocio;
+	private JTextField txtNroArrendatario;
+	private JLabel lblNroArrendatario;
 	private JPanel jpDatosSocio;
 	private JButton btnBuscarAvance;
 	private JTextField txtTelefono;
@@ -78,8 +78,8 @@ public class VistaAvanceArren extends javax.swing.JFrame {
 	private JLabel lblImagen;
 	private JPanel jpImagen;
 	private JButton btnRV;
+	private JButton btnRAA;
 	private JButton btnRA;
-	private JButton btnRS;
 	private JLabel lblAvance;
 
 	//Socio socioprueba= new Socio();
@@ -165,7 +165,7 @@ private static VistaAvanceArren vAvanceArren=null;
 					txtCedula = new JTextField();
 					jpAvance.add(txtCedula);
 					txtCedula.setBounds(89, 26, 134, 23);
-					txtCedula.setActionCommand("BCedAvanSocTecla");
+					txtCedula.setActionCommand("BCedAvanArrendTecla");
 				}
 				{
 					lblDireccion = new JLabel();
@@ -198,14 +198,14 @@ private static VistaAvanceArren vAvanceArren=null;
 					btnAgregar.setBounds(62, 212, 161, 23);
 					btnAgregar.setFont(new java.awt.Font("Century Gothic",0,12));
 					btnAgregar.setIcon(new ImageIcon(getClass().getClassLoader().getResource("Imagenes/add.png")));
-					
+					btnAgregar.setActionCommand("AgregarAvanceArrendatario");
 				}
 				{
 					btnBuscarAvance = new JButton();
 					jpAvance.add(btnBuscarAvance);
 					btnBuscarAvance.setBounds(230, 21, 31, 30);
 					btnBuscarAvance.setIcon(new ImageIcon(getClass().getClassLoader().getResource("Imagenes/search.png")));
-					btnBuscarAvance.setActionCommand("BuscarAvance");
+					btnBuscarAvance.setActionCommand("BuscarAvanceArrendatario");
 				}
 			}
 			{
@@ -223,25 +223,25 @@ private static VistaAvanceArren vAvanceArren=null;
 				jpDatosSocio.setBorder(BorderFactory.createTitledBorder("Datos del Arrendatario"));
 				jpDatosSocio.setLayout(null);
 				{
-					lblNroSocio = new JLabel();
-					jpDatosSocio.add(lblNroSocio);
-					lblNroSocio.setText("Número de Arrendatario:");
-					lblNroSocio.setBounds(17, 24, 112, 16);
-					lblNroSocio.setFont(new java.awt.Font("Verdana",0,12));
+					lblNroArrendatario = new JLabel();
+					jpDatosSocio.add(lblNroArrendatario);
+					lblNroArrendatario.setText("Nro de Arrendatario:");
+					lblNroArrendatario.setBounds(17, 24, 112, 16);
+					lblNroArrendatario.setFont(new java.awt.Font("Verdana",0,12));
 				}
 				{
-					txtNroSocio = new JTextField();
-					jpDatosSocio.add(txtNroSocio);
-					txtNroSocio.setBounds(134, 21, 94, 23);
-					txtNroSocio.setActionCommand("BNroSocTecla");
+					txtNroArrendatario = new JTextField();
+					jpDatosSocio.add(txtNroArrendatario);
+					txtNroArrendatario.setBounds(134, 21, 94, 23);
+					txtNroArrendatario.setActionCommand("BArrendatTecla");
 
 				}
 				{
-					btnBuscarSocio = new JButton();
-					jpDatosSocio.add(btnBuscarSocio);
-					btnBuscarSocio.setBounds(247, 17, 30, 29);
-					btnBuscarSocio.setIcon(new ImageIcon(getClass().getClassLoader().getResource("Imagenes/search.png")));
-					btnBuscarSocio.setActionCommand("BuscarSocio");
+					btnBuscarArren = new JButton();
+					jpDatosSocio.add(btnBuscarArren);
+					btnBuscarArren.setBounds(247, 17, 30, 29);
+					btnBuscarArren.setIcon(new ImageIcon(getClass().getClassLoader().getResource("Imagenes/search.png")));
+					btnBuscarArren.setActionCommand("BuscarArrendatario");
 				}
 				{
 					lblNomSocio = new JLabel();
@@ -251,21 +251,21 @@ private static VistaAvanceArren vAvanceArren=null;
 					lblNomSocio.setFont(new java.awt.Font("Verdana",0,12));
 				}
 				{
-					txtNomSocio = new JTextField();
-					jpDatosSocio.add(txtNomSocio);
-					txtNomSocio.setBounds(79, 49, 150, 23);
+					txtNomArrendatario = new JTextField();
+					jpDatosSocio.add(txtNomArrendatario);
+					txtNomArrendatario.setBounds(79, 49, 150, 23);
 				}
 			}
 			{
-				jpAvancexSocio = new JPanel();
-				getContentPane().add(jpAvancexSocio);
+				jpAvancexArren = new JPanel();
+				getContentPane().add(jpAvancexArren);
 				//jpAvancexSocio.setLayout(jpAvancexSocioLayout);
-				jpAvancexSocio.setBounds(319, 116, 395, 313);
-				jpAvancexSocio.setBorder(BorderFactory.createTitledBorder("Listado de Avances por Arrendatario"));
-				jpAvancexSocio.setLayout(null);
+				jpAvancexArren.setBounds(319, 116, 395, 313);
+				jpAvancexArren.setBorder(BorderFactory.createTitledBorder("Listado de Avances por Arrendatario"));
+				jpAvancexArren.setLayout(null);
 				{
 					spListadoAvance = new JScrollPane();
-					jpAvancexSocio.add(spListadoAvance);
+					jpAvancexArren.add(spListadoAvance);
 					spListadoAvance.setBounds(10, 48, 374, 196);
 					{
 						TableModel tblListadoAvanceModel = 
@@ -281,11 +281,12 @@ private static VistaAvanceArren vAvanceArren=null;
 				}
 				{
 					btnEliminarAvance = new JButton();
-					jpAvancexSocio.add(btnEliminarAvance);
+					jpAvancexArren.add(btnEliminarAvance);
 					btnEliminarAvance.setText("Eliminar Avance");
 					btnEliminarAvance.setBounds(121, 257, 155, 23);
 					btnEliminarAvance.setFont(new java.awt.Font("Century Gothic",0,12));
 					btnEliminarAvance.setIcon(new ImageIcon(getClass().getClassLoader().getResource("Imagenes/remove.png")));
+					btnEliminarAvance.setActionCommand("EliminarAvanceArrendatario");
 				}
 			}
 			{
@@ -297,12 +298,12 @@ private static VistaAvanceArren vAvanceArren=null;
 				btnLimpiar.setIcon(new ImageIcon(getClass().getClassLoader().getResource("Imagenes/Limpiarcodigo_1.png")));
 			}
 			{
-				btnGuardar = new JButton();
-				getContentPane().add(btnGuardar);
-				btnGuardar.setText("Cancelar");
-				btnGuardar.setBounds(201, 445, 125, 29);
-				btnGuardar.setFont(new java.awt.Font("Century Gothic",0,12));
-				btnGuardar.setIcon(new ImageIcon(getClass().getClassLoader().getResource("Imagenes/button_cancel_16x16.png")));
+				btnCancelar = new JButton();
+				getContentPane().add(btnCancelar);
+				btnCancelar.setText("Cancelar");
+				btnCancelar.setBounds(201, 445, 125, 29);
+				btnCancelar.setFont(new java.awt.Font("Century Gothic",0,12));
+				btnCancelar.setIcon(new ImageIcon(getClass().getClassLoader().getResource("Imagenes/button_cancel_16x16.png")));
 			}
 			{
 				btnSiguiente = new JButton();
@@ -314,29 +315,29 @@ private static VistaAvanceArren vAvanceArren=null;
 				
 			}
 			{
-				btnCancelar = new JButton();
-				getContentPane().add(btnCancelar);
-				btnCancelar.setText("Atras");
-				btnCancelar.setBounds(60, 445, 125, 29);
-				btnCancelar.setFont(new java.awt.Font("Century Gothic",0,12));
-				btnCancelar.setIcon(new ImageIcon(getClass().getClassLoader().getResource("Imagenes/atras_.png")));
+				btnAtras = new JButton();
+				getContentPane().add(btnAtras);
+				btnAtras.setText("Atras");
+				btnAtras.setBounds(60, 445, 125, 29);
+				btnAtras.setFont(new java.awt.Font("Century Gothic",0,12));
+				btnAtras.setIcon(new ImageIcon(getClass().getClassLoader().getResource("Imagenes/atras_.png")));
 				
-			}
-			{
-				btnRS = new JButton();
-				getContentPane().add(btnRS);
-				btnRS.setText("Registrar Socio");
-				btnRS.setFont(new java.awt.Font("Century Gothic",0,12));
-				btnRS.setBounds(0, 58, 243, 29);
-				btnRS.setActionCommand("RegistrarSocio");
 			}
 			{
 				btnRA = new JButton();
 				getContentPane().add(btnRA);
-				btnRA.setText("Registrar Avance");
+				btnRA.setText("Registrar Arrendatario");
 				btnRA.setFont(new java.awt.Font("Century Gothic",0,12));
-				btnRA.setBounds(243, 58, 239, 29);
-				btnRA.setActionCommand("RegistrarAvance");
+				btnRA.setBounds(0, 58, 243, 29);
+				btnRA.setActionCommand("RegistrarSocio");
+			}
+			{
+				btnRAA = new JButton();
+				getContentPane().add(btnRAA);
+				btnRAA.setText("Registrar Avance");
+				btnRAA.setFont(new java.awt.Font("Century Gothic",0,12));
+				btnRAA.setBounds(243, 58, 239, 29);
+				btnRAA.setActionCommand("RegistrarAvance");
 			}
 			{
 				btnRV = new JButton();
@@ -389,19 +390,19 @@ public String getTxtNombre() {
 	}
 
 	public String getTxtNomSocio() {
-		return txtNomSocio.getText();
+		return txtNomArrendatario.getText();
 	}
 
 	public void setTxtNomSocio(String NomSocio) {
-		txtNomSocio.setText(NomSocio); 
+		txtNomArrendatario.setText(NomSocio); 
 	}
 
 	public String getTxtNroSocio() {
-		return txtNroSocio.getText();
+		return txtNroArrendatario.getText();
 	}
 
 	public void setTxtNroSocio(String NroSocio) {
-		txtNroSocio.setText(NroSocio);
+		txtNroArrendatario.setText(NroSocio);
 	}
 
 	public String getTxtTelefono() {
@@ -412,15 +413,6 @@ public String getTxtNombre() {
 		txtTelefono.setText(Telefono);
 	}
 
-	
-	public JPanel getJpAvancexSocio() {
-		return jpAvancexSocio;
-	}
-
-
-	public void setJpAvancexSocio(JPanel jpAvancexSocio) {
-		this.jpAvancexSocio = jpAvancexSocio;
-	}
 
 	public void agregarFila(/*String cod, */String apellido, String nombre, String ced,
 			String telefono, String direccion, String fecha)
@@ -458,6 +450,7 @@ public List<AvanceArrendatario> LlenarListaAvancesArren(){
 		int fila= tblListadoAvance.getRowCount();
 		List<AvanceArrendatario> a = new ArrayList<AvanceArrendatario>();
 		String ced,codAvance, nombre, apellido,direc,telefono;
+		Date f= new Date();
 		
 		
 		
@@ -477,6 +470,7 @@ public List<AvanceArrendatario> LlenarListaAvancesArren(){
 				avance.setApellido(apellido);
 				avance.setTelefono(Integer.parseInt(telefono));
 				avance.setDireccion(direc);
+				avance.setFechaIngreso(f);
 				
 				a.add(avance);
 				
@@ -529,18 +523,18 @@ public void setTblListadoAvance(JTable tblListadoAvance) {
 
 //Agregar listeners
 public void agregarListener(ActionListener accion) {
-	this.btnGuardar.addActionListener(accion);
 	this.btnCancelar.addActionListener(accion);
+	this.btnAtras.addActionListener(accion);
 	this.btnSiguiente.addActionListener(accion);
-	this.btnBuscarSocio.addActionListener(accion);
+	this.btnBuscarArren.addActionListener(accion);
 	this.btnAgregar.addActionListener(accion);
 	this.btnBuscarAvance.addActionListener(accion);
 	this.btnEliminarAvance.addActionListener(accion);
+	this.btnRAA.addActionListener(accion);
 	this.btnRA.addActionListener(accion);
-	this.btnRS.addActionListener(accion);
 	this.btnRV.addActionListener(accion);
 	this.btnLimpiar.addActionListener(accion);
-	this.txtNroSocio.addActionListener(accion);
+	this.txtNroArrendatario.addActionListener(accion);
 	this.txtCedula.addActionListener(accion);
 
 }
@@ -556,21 +550,21 @@ public void limpiarCampos() {
 
 //validar que todos los campos esten llenos
 
-	public boolean CamposllenosSocio() {
+	public boolean CamposllenosArrendatario() {
 
 		boolean CamposLLenos = false;
 
-		if (this.txtNroSocio.getText().equals("")) {
+		if (this.txtNroArrendatario.getText().equals("")) {
 			// si falta el nro socio
-			JOptionPane.showMessageDialog(null, "Debe ingresar el numero del socio",
+			JOptionPane.showMessageDialog(null, "Debe ingresar el numero del arrendatario",
 					"Error", 0);
-			this.txtNroSocio.requestFocus();
+			this.txtNroArrendatario.requestFocus();
 			CamposLLenos = false;
-		} else if (this.txtNomSocio.equals("")) {
+		} else if (this.txtNomArrendatario.equals("")) {
 			// si falta el nombre del socio
 			JOptionPane.showMessageDialog(null,
-					"Debe ingresar el nombre del socio", "Error", 0);
-			this.txtNomSocio.requestFocus();
+					"Debe ingresar el nombre del Arrendatario", "Error", 0);
+			this.txtNomArrendatario.requestFocus();
 			CamposLLenos = false;
 		} else {
 			// sino falta nada
@@ -661,7 +655,7 @@ private JLabel getLblImagen() {
 	return lblImagen;
 }
 
-public void CambiarNombrePanel(){
+/*public void CambiarNombrePanel(){
 	jpAvancexSocio.setBorder(BorderFactory.createTitledBorder("Listado de Avances por Arrendatario"));
 	jpDatosSocio.setBorder(BorderFactory.createTitledBorder("Datos del Arrendatario"));
 	btnGuardar.setActionCommand("GuardarArrendatario");
@@ -676,7 +670,7 @@ public void CambiarNombrePanel(){
 	//btnRS.setActionCommand("RS");
 	
 	
-}
+}*/
 
 
 
@@ -720,7 +714,7 @@ public Arrendatario RetornaArrendatario(){
 
 public void agregarKeyTel(KeyListener a) {
 	txtTelefono.addKeyListener(a);
-	txtNroSocio.addKeyListener(a);
+	txtNroArrendatario.addKeyListener(a);
 	txtCedula.addKeyListener(a);
 }
 

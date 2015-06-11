@@ -753,7 +753,6 @@ private static VistaVehiculo vVehic=null;
 			List<VehiculoArrendatario> v = new ArrayList<VehiculoArrendatario>();
 			String placa,serial,marca,anno,puestos,avance;
 			MarcaDao md= new MarcaDao();
-			VistaAvance va= new VistaAvance();
 			
 			for(int i=0; i<fila;i++)
 			{		
@@ -772,8 +771,8 @@ private static VistaVehiculo vVehic=null;
 					try {
 						for(int j=0; j<md.obtenerTodos().size();j++)
 						{
-							if(veh.getCodMarca().getDescripcion().equals(marca))
-								veh.setCodMarca(md.obtenerTodos().get(i));
+							if(md.obtenerTodos().get(j).getDescripcion().equalsIgnoreCase(marca))
+								veh.setCodMarca(md.obtenerTodos().get(j));
 						}
 					} catch (Exception e) {
 						// TODO Auto-generated catch block
@@ -781,9 +780,14 @@ private static VistaVehiculo vVehic=null;
 					}
 					veh.setAnno(Integer.parseInt(anno));
 					veh.setNropuestos(Integer.parseInt(puestos));
+					veh.setAvance(avance);
+					v.add(veh);		
+			}
+		
+		return v;
+	}
 					
-					
-					 VistaArrendatario vA = new VistaArrendatario();
+				/*	 VistaArrendatario vA = new VistaArrendatario();
 					 //	String avan="";
 						if(vA.Selec()==2) 
 							veh.setAvance(getCmbConductor());
@@ -804,7 +808,7 @@ private static VistaVehiculo vVehic=null;
 		
 		return v;
 	}
-		 
+		 */
 		 
 		 private JPanel getJpImagen() {
 			 if(jpImagen == null) {
