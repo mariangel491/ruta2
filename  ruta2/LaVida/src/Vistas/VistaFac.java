@@ -173,6 +173,7 @@ public class VistaFac extends javax.swing.JFrame {
 		LinkedListModel<String> listaModeloAux=new LinkedListModel<>();
 		private String filaSeleccionada="";
 		private String filaDeudaSelec="";
+		private String filaDeudaAlq="";
 		private String filaMontoDeuda="";
 		private ArrayList<Prestamos> listaPrestamos=new ArrayList<Prestamos>();
 	
@@ -1662,7 +1663,7 @@ private static VistaFac vFactura=null;
 		deudas.add(descripcion);
 		deudas.add(monto);
 		deudas.add(fecha);
-		
+		System.out.println("agregaaar deudaaaas alquiler");
 		DefaultTableModel dtm = (DefaultTableModel) jTableDeudasPorSocio.getModel();
 		dtm.addRow(deudas);	
 	}
@@ -1737,15 +1738,19 @@ private static VistaFac vFactura=null;
 	}
 	
 	public void agregarDeudaAlquiler(){
-		filaDeudaSelec="";
+		filaDeudaAlq="";
 		 int f=jTableDeudasPorSocio.getSelectionModel().getLeadSelectionIndex();
-		filaDeudaSelec= (String) this.jTableDeudasPorSocio.getValueAt(f,0);
+		filaDeudaAlq= (String) this.jTableDeudasPorSocio.getValueAt(f,0);
 
 	}
 	
 	
 	public String filaDeuda(){
 		return filaDeudaSelec;
+	}
+	
+	public String filaDeudaAlq(){
+		return filaDeudaAlq;
 	}
 	
 	public String filaPrestamos(){

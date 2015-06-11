@@ -61,7 +61,9 @@ public class Ruta implements Serializable{
 	@PrimaryKeyJoinColumn
 	private CuentaGeneral ctagral;
 	
-
+	@OneToOne
+	@PrimaryKeyJoinColumn
+	private HistorialDeuda historial;
 	
 	
 	

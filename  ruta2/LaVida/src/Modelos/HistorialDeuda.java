@@ -6,8 +6,6 @@ import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
-import javax.persistence.ManyToOne;
-import javax.persistence.OneToMany;
 import javax.persistence.OneToOne;
 import javax.persistence.PrimaryKeyJoinColumn;
 import javax.persistence.Table;
@@ -20,8 +18,6 @@ public class HistorialDeuda {
 	@Id
 	@Column(name="codhistorial")
 	private String CodHistorial;
-	@Column(name="fechaAlquiler")
-	private Date FechaAlq;
 	@Column(name="fechaSocio")
 	private Date FechaSocio;
 	
@@ -31,12 +27,7 @@ public class HistorialDeuda {
 	public void setCodHistorial(String codHistorial) {
 		CodHistorial = codHistorial;
 	}
-	public Date getFechaAlq() {
-		return FechaAlq;
-	}
-	public void setFechaAlq(Date fechaAlq) {
-		FechaAlq = fechaAlq;
-	}
+	
 	public Date getFechaSocio() {
 		return FechaSocio;
 	}
@@ -44,13 +35,9 @@ public class HistorialDeuda {
 		FechaSocio = fechaSocio;
 	}
 	
-	/*@OneToOne(cascade= CascadeType.ALL)
-	@JoinColumn(name="coddeudasoc")
-	private Deuda deuda;
-	
 	@OneToOne(cascade= CascadeType.ALL)
-	@JoinColumn(name="coddeudalq")
-	private DeudaAlquiler deudaAlq;*/
+	@JoinColumn(name="ruta")
+	private Ruta ruta;
 	
 	
 	

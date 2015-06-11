@@ -312,13 +312,12 @@ public class ControladorFac implements ActionListener, KeyListener, FocusListene
 		else if(vFactura.getCmbTipoFacturado().equalsIgnoreCase(vFactura.TIPO_FACTURADO_INQUILINO)){
 			if(vFactura.getTxtCed().trim()!=null){
 				inquilino = inquilinoDao.buscarPorCedula(vFactura.getTxtCed().trim());
-				this.BuscarDeudasAlquiler(vFactura.getTxtCed().trim());
 			}	
 			else 
 			{
 				inquilino = inquilinoDao.buscarPorRif(vFactura.getTxtNroSocio());
-				this.BuscarDeudasAlquiler(vFactura.getTxtNroSocio());
 			}
+			this.BuscarDeudasAlquiler(inquilino.getCodInquilino());
 			vFactura.llenarCamposInquilino(inquilino);
 			
 		}
@@ -390,6 +389,7 @@ public void agregarElemento(){
 			Ingresos ing= new Ingresos();
 			Prestamos p = new Prestamos();
 			Deuda d= new Deuda();
+			DeudaAlquiler da= new DeudaAlquiler();
 			
 			try {	
 				if(vFactura.getjListIngresos().getSelectedIndex()>0)//PARA SABER SI UN ELEMNTO DEL JLIST FUE SELECCIONADO
@@ -399,8 +399,17 @@ public void agregarElemento(){
 				}
 				else if(vFactura.getJTableDeudasPorSocio().getSelectionModel().getLeadSelectionIndex()>=0)
 				{
-					d=this.AnnadirDeudas();
-					vFactura.getJTableDeudasPorSocio().getSelectionModel().setLeadSelectionIndex(-1);
+					System.out.println("aquiiiiii tipo "+ vFactura.getCmbTipoFacturado());
+					
+					if(vFactura.getCmbTipoFacturado().equals(vFactura.TIPO_FACTURADO_SOCIO)){
+						d=this.AnnadirDeudas();
+						vFactura.getJTableDeudasPorSocio().getSelectionModel().setLeadSelectionIndex(-1);
+					}
+					else if(vFactura.getCmbTipoFacturado().equals(vFactura.TIPO_FACTURADO_INQUILINO))
+					{
+						da=this.AnnadirDeudasAlquiler();
+						vFactura.getJTableDeudasPorSocio().getSelectionModel().setLeadSelectionIndex(-1);
+					}
 					
 					
 				}/*else{
@@ -661,8 +670,6 @@ public boolean comprobarMonto(){
 				 factura.setNroSocio(socioDao.buscarPorNroSocio(campoId));	 
 			 }
 			 else if(tipoFacturado.equalsIgnoreCase(Inquilino.TIPO_FACTURADO_INQUILINO)){
-				 System.out.println("inquilino rif  + " + inquilinoDao.buscarPorRif(campoId).getCedula());
-				 System.out.println("inquilino ced + "+ inquilinoDao.buscarPorCedula(campoId).getCedula());
 				 if(inquilinoDao.buscarPorRif(campoId)!=null)
 					 factura.setInquilino(inquilinoDao.buscarPorRif(campoId));
 				 else
@@ -1396,23 +1403,52 @@ public boolean comprobarMonto(){
 		}
 	}
 	
-	public void BuscarDeudasAlquiler(String dato) throws Exception{
+	public void BuscarDeudasAlquiler(String codigo) throws Exception{
 		
-		System.out.println("deudas alquileres");
-		List<DeudaAlquiler> deudasInq= deudaAlqDao.buscarDeudasAlquileres(dato);
+	/*	System.out.println("deudas alquileres");
+		List<DeudaAlquiler> deudasInq= new ArrayList<DeudaAlquiler>();
+		deudasInq=deudaAlqDao.buscarDeudasAlquileres(codigo);
 		
+		System.out.println("deudasInq  "+ deudasInq.size());
 		if(deudasInq.size()>0)
 		{
 			for(int i=0;i<deudasInq.size();i++){
 				DeudaAlquiler d= new DeudaAlquiler();
 				d=deudasInq.get(i);
 				listDeudasXInquilino.add(d);
-				vFactura.agregarFilaDeudasAlquiler(d.getCodigo(),d.getDescripcion(),d.getFecha().toString() ,Float.toString(d.getMonto()));
+				vFactura.agregarFilaDeudas(d.getCodigo(),d.getDescripcion(),d.getFecha().toString() ,Float.toString(d.getMonto()));
+			}
+		}*/
+		DeudaAlquiler d=new DeudaAlquiler();
+		int contador=0;
+		System.out.println(deudaAlqDao.obtenerTodos().size());
+		for(int i=0;i<deudaAlqDao.obtenerTodos().size();i++){
+			if(deudaAlqDao.obtenerTodos().get(i).getInquilino().getCodinquilino().equals(codigo)){
+				++contador;
+				System.out.println("conta  " +contador);
+				
+				listDeudasXInquilino.add(deudaAlqDao.obtenerTodos().get(i));
+				System.out.println(listDeudasXInquilino.size());
+				d=deudaAlqDao.obtenerTodos().get(i);
+				vFactura.agregarFilaDeudas(d.getCodigo(),d.getDescripcion(),d.getFecha().toString() ,Float.toString(d.getMonto()));
+			
 			}
 		}
+		
+		
+		
 	}
 	
-
+	public DeudaAlquiler AnnadirDeudasAlquiler(){
+		DeudaAlquiler d= new DeudaAlquiler();
+		System.out.println("tama;o listaaa "+listDeudasXInquilino.size());
+		for(int i=0; i<listDeudasXInquilino.size();i++){
+			if(listDeudasXInquilino.get(i).getCodigo().equals(vFactura.filaDeudaAlq()))
+				d= listDeudasXInquilino.get(i);
+			
+		}
+		return d;
+	}
 	
 	public Prestamos AnnadirPrestamos(){
 		Prestamos prestamo= new Prestamos();

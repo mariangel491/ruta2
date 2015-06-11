@@ -36,9 +36,6 @@ public class DeudaAlquiler implements Serializable
 	@JoinColumn(name="codinquilino")
 	private Inquilino inquilino;
 
-	@OneToOne
-	@PrimaryKeyJoinColumn
-	private HistorialDeuda historial;
 	
 	public String getCodigo() {
 		return codigo;

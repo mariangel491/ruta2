@@ -141,7 +141,5 @@ public class DeudaAlquilerDao {
 	   
 			return lista; 
 		}
-	
-	
-
+		
 }
