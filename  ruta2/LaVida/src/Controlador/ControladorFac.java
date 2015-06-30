@@ -44,6 +44,7 @@ import Modelos.IEDetalleFactura;
 import Modelos.Ingresos;
 import Modelos.Inquilino;
 import Modelos.Prestamos;
+import Modelos.Ruta;
 import Modelos.Socio;
 import Modelos.Subsidio;
 import Modelos.Hibernate.Daos.ArrendatarioDao;
@@ -872,6 +873,7 @@ public boolean comprobarMonto(){
 		 String valorMensaje="";
 		 Factura factura = new Factura();
 		 facturaDao= new FacturaDao();
+		 Ruta objruta=new Ruta();
 		// String montoString ="";
 		 String clasificacion="";
 		 String codigoPrestamo="";
@@ -894,10 +896,12 @@ public boolean comprobarMonto(){
 					 factura.setInquilino(inquilinoDao.buscarPorRif(campoId));
 			 }
 			 else if(tipoFacturado.equalsIgnoreCase(Arrendatario.TIPO_FACTURADO_ARRENDATARIO)){
+				
 				 factura.setArrendatario(arrendatarioDao.buscarPorCedulaArrendatario(campoId));
 			 }
+			 objruta=rutaDao.buscarPorCodRuta("J-306-902686");
 			 
-			 factura.setCodRuta(rutaDao.buscarPorCodRuta("J-306-902686"));
+			 factura.setCodRuta(objruta);
 			 factura.setNroFactura(facturaDao.buscarUltimoNumeroFactura());		 
 			
 			 facturaDao.agregarFactura(factura);

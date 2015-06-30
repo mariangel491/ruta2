@@ -34,15 +34,6 @@ public class FacturaDao  {
 	
 private HibernateUtil sesionPostgres;
 	
-private IngresosDao ingDao= new IngresosDao();
-private EgresosDao egDao= new EgresosDao();
-private SocioDao socioDao = new SocioDao();
-private RutaDao rutaDao = new RutaDao();
-private DetalleFacturaDao detalleFacturaDao = new DetalleFacturaDao();
-private PrestamosDao prestamosDao = new PrestamosDao();
-private InquilinoDao inquilinoDao = new InquilinoDao();
-private ArrendatarioDao arrendatarioDao = new ArrendatarioDao();
-	
 	public void agregarFactura(Factura dato) throws Exception{
 		@SuppressWarnings("static-access")
 		Session em = sesionPostgres.openSession();  
@@ -56,6 +47,7 @@ private ArrendatarioDao arrendatarioDao = new ArrendatarioDao();
 			e.printStackTrace();
 			throw e;
 		} finally {  
+			em.clear();
 			em.close();  
 		} 
 	}
@@ -78,7 +70,7 @@ private ArrendatarioDao arrendatarioDao = new ArrendatarioDao();
 	}
 
 
-	public void eliminarFactura(int posi, Factura dato) throws Exception{		 
+	public void eliminarFactura(Factura dato) throws Exception{		 
 		@SuppressWarnings("static-access")
 		Session sesion = sesionPostgres.openSession();  
 		Transaction tx = null;  
@@ -96,7 +88,7 @@ private ArrendatarioDao arrendatarioDao = new ArrendatarioDao();
 		}  
 	}
 
-	public void actualizarFactura(int posi, Factura dato) throws Exception{
+	public void actualizarFactura(Factura dato) throws Exception{
 		@SuppressWarnings("static-access")
 		Session em = sesionPostgres.openSession();  
 		Transaction tx = null;  

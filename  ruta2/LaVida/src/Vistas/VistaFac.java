@@ -273,6 +273,7 @@ private static VistaFac vFactura=null;
 								// TODO Auto-generated method stub
 							
 								if(cmbTipoFacturado.getSelectedItem().toString().equalsIgnoreCase(TIPO_FACTURADO_INQUILINO)){
+									limpiar();
 									lblNroSocio.setText("Rif Inquilino:");
 									txtNroSocio.setText("");
 									txtNroSocio.setEnabled(true);
@@ -292,6 +293,7 @@ private static VistaFac vFactura=null;
 									
 								}
 								else if(cmbTipoFacturado.getSelectedItem().toString().equalsIgnoreCase(TIPO_FACTURADO_SOCIO)){
+									limpiar();
 									lblNroSocio.setText("Código de Socio:");
 									txtNroSocio.setText("");
 									txtNroSocio.setEnabled(true);
@@ -311,6 +313,7 @@ private static VistaFac vFactura=null;
 									cmbTipoFactu.setModel(cmbTipoFactuModel);
 								}
 								else if(cmbTipoFacturado.getSelectedItem().toString().equalsIgnoreCase(TIPO_FACTURADO_ARRENDATARIO)){
+									limpiar();
 									lblNroSocio.setText("Código de Arrendatario:");
 									txtNroSocio.setText("");
 									txtNroSocio.setEnabled(false);
@@ -933,48 +936,54 @@ private static VistaFac vFactura=null;
 		txtCedulaSocio.setText("");
 		txtApellido.setText("");
 	}*/
-	
+	public void limpiar() {
+		//	txtDescripcion.setText("");
+			txtMontoTotal.setText("");
+			txtNombSocio.setText("");
+			txtNroSocio.setText("");
+			txtCedulaSocio.setText("");
+			txtApellido.setText("");
+			
+			txtCheque.setText("");
+			txtDeposito.setText("");
+			txtEfectivo.setText("");
+			txtSubsidio.setText("");
+			txtTransferencia.setText("");
+			txtMontoTotal.setText("");
+			
+			txtCheque.setEditable(false);
+			txtDeposito.setEditable(false);
+			txtEfectivo.setEditable(false);
+			txtSubsidio.setEditable(false);
+			txtTransferencia.setEditable(false);
+			txtMontoTotal.setEditable(false);
+			
+			listaModeloIngresoEgreso.clear();
+			listaModeloAux.clear();
+			jListIngresos.removeAll();
+			
+			checkCheque.setSelected(false);
+			checkEfectivo.setSelected(false);
+			checkDeposito.setSelected(false);
+			checkSubsidio.setSelected(false);
+			checkTransferencia.setSelected(false);
+			
+			limpiarTablaDeudas();
+			limpiarTablaEgresos();
+			limpiarTablaIngresos();
+			limpiarTablaIngresoXFactura();
+			limpiarTablaPrestamos();
+			limpiarTablaListPrestamos();
+			
+			
+			
+		}
 	//LimpiarTodo
 	public void limpiarTodo() {
-	//	txtDescripcion.setText("");
-		txtMontoTotal.setText("");
-		txtNombSocio.setText("");
-		txtNroSocio.setText("");
-		txtCedulaSocio.setText("");
-		txtApellido.setText("");
-		
-		txtCheque.setText("");
-		txtDeposito.setText("");
-		txtEfectivo.setText("");
-		txtSubsidio.setText("");
-		txtTransferencia.setText("");
-		txtMontoTotal.setText("");
-		
-		txtCheque.setEditable(false);
-		txtDeposito.setEditable(false);
-		txtEfectivo.setEditable(false);
-		txtSubsidio.setEditable(false);
-		txtTransferencia.setEditable(false);
-		txtMontoTotal.setEditable(false);
+		this.limpiar();
 		
 		cmbTipoFactu.setSelectedIndex(0);
 		cmbTipoFacturado.setSelectedIndex(0);
-		listaModeloIngresoEgreso.clear();
-		listaModeloAux.clear();
-		jListIngresos.removeAll();
-		
-		checkCheque.setSelected(false);
-		checkEfectivo.setSelected(false);
-		checkDeposito.setSelected(false);
-		checkSubsidio.setSelected(false);
-		checkTransferencia.setSelected(false);
-		
-		limpiarTablaDeudas();
-		limpiarTablaEgresos();
-		limpiarTablaIngresos();
-		limpiarTablaIngresoXFactura();
-		limpiarTablaPrestamos();
-		limpiarTablaListPrestamos();
 		
 		
 		
@@ -1652,7 +1661,7 @@ private static VistaFac vFactura=null;
 		deudas.add(descripcion);
 		deudas.add(monto);
 		deudas.add(fecha);
-		
+		System.out.println("otra deudaaa");
 		DefaultTableModel dtm = (DefaultTableModel) jTableDeudasPorSocio.getModel();
 		dtm.addRow(deudas);	
 	}

@@ -73,7 +73,7 @@ public class ControladorMenu implements ActionListener{
 	private InquilinoDao inqDao= new InquilinoDao();
 	private DeudaAlquilerDao deudaAlqDao= new DeudaAlquilerDao();
 	
-	private int mayorAnno, mayorMes;
+	private int mayorAnno=0, mayorMes=0;
 	//PARA LOS REPORTES
 	//ControladorReporte controReporSocio;
 	
@@ -241,6 +241,7 @@ public class ControladorMenu implements ActionListener{
 		int fin=socioDao.obtenerTodos().size();
 		
 		Date fechaHoy= new Date(System.currentTimeMillis());
+		
 		mayorAnno=historialD.obtenerTodos().get(0).getFechaSocio().getYear();
 		mayorMes=historialD.obtenerTodos().get(0).getFechaSocio().getMonth();
 		

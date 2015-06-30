@@ -110,6 +110,7 @@ public class ArrendatarioDao {
 			em.cancelQuery();
 
 		} finally {  
+			em.clear();
 			em.close();  
 		} 
    
@@ -122,7 +123,7 @@ public class ArrendatarioDao {
 		return true;
 	}
 
-	public Arrendatario buscarPorCedulaArrendatario(Integer codArren) throws Exception {
+	/*public Arrendatario buscarPorCedulaArrendatario(Integer codArren) throws Exception {
 		for (Arrendatario arrendatario : obtenerTodos())
 			if (arrendatario.getCedula().equals(codArren))
 				return arrendatario;
@@ -133,6 +134,6 @@ public class ArrendatarioDao {
 		if (buscarPorCedulaArrendatario(codArren) == null)
 			return false;
 		return true;
-	}
+	}*/
 
 }

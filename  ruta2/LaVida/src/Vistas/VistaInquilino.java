@@ -49,10 +49,8 @@ public class VistaInquilino extends javax.swing.JFrame {
 	private JButton btnGuardar;
 	private JButton btnModificar;
 	private JButton btnCancelar;
-	private JComboBox cmbTipoPerson;
 	private JTextField txtNombre;
 	private JLabel lblTelefono;
-	private JLabel txtTipoPerson;
 	private JTextField txtTelefono;
 	private JTextField txtDireccion;
 	private JLabel lblDireccion;
@@ -187,27 +185,7 @@ private JLabel lblTipo;
 					jpDatosInquilino.add(txtTelefono);
 					txtTelefono.setBounds(90, 155, 111, 23);
 				}
-				{
-					txtTipoPerson = new JLabel();
-					jpDatosInquilino.add(txtTipoPerson);
-					txtTipoPerson.setText("Tipo:");
-					txtTipoPerson.setBounds(216, 158, 54, 16);
-				}
-				{
-					ComboBoxModel cmbTipoPersonModel = 
-							new DefaultComboBoxModel(
-									new String[] { "Natural", "Júridica" });
-					cmbTipoPerson = new JComboBox();
-					jpDatosInquilino.add(cmbTipoPerson);
-					jpDatosInquilino.add(getLblTipo());
-					jpDatosInquilino.add(getRbtnJuridico());
-					jpDatosInquilino.add(getLblRif());
-					jpDatosInquilino.add(getTxtRif());
-					jpDatosInquilino.add(getLblCodigo());
-					jpDatosInquilino.add(getTxtCodigo());
-					cmbTipoPerson.setModel(cmbTipoPersonModel);
-					cmbTipoPerson.setBounds(254, 155, 191, 23);
-				}
+				
 			}
 			{
 				panelEncabez = new JPanel();
@@ -284,6 +262,19 @@ private JLabel lblTipo;
 			rbtnNatural.setText("Natural");
 			rbtnNatural.setBounds(304, 16, 57, 20);
 			getBtnGroupTipoPersona().add(rbtnNatural);
+			rbtnNatural.addActionListener(new ActionListener() {
+
+				@Override
+				public void actionPerformed(ActionEvent arg0) {
+					// TODO Auto-generated method stub
+					txtCedulaRif.setEditable(true);
+					btnBuscarCed.setEnabled(true);
+					btnBuscarRif.setEnabled(false);
+					txtRif.setEditable(false);
+				}
+			});
+				
+			
 		
 		}
 		return rbtnNatural;
@@ -295,6 +286,17 @@ private JLabel lblTipo;
 			rbtnJuridico.setText("Jurídico");
 			rbtnJuridico.setBounds(378, 16, 59, 20);
 			getBtnGroupTipoPersona().add(rbtnJuridico);
+			rbtnJuridico.addActionListener(new ActionListener() {
+
+				@Override
+				public void actionPerformed(ActionEvent arg0) {
+					// TODO Auto-generated method stub
+					txtCedulaRif.setEditable(false);
+					btnBuscarCed.setEnabled(false);
+					btnBuscarRif.setEnabled(true);
+					txtRif.setEditable(true);
+				}
+			});
 		}
 		return rbtnJuridico;
 	}
@@ -352,13 +354,7 @@ private JLabel lblTipo;
 		this.txtCedulaRif.setText(txtCedula);
 	}
 
-	public JComboBox getCmbTipoPerson() {
-		return cmbTipoPerson;
-	}
-
-	public void setCmbTipoPerson(JComboBox cmbTipoPerson) {
-		this.cmbTipoPerson = cmbTipoPerson;
-	}
+	
 
 	public String getTxtNombre() {
 		return txtNombre.getText();
@@ -368,13 +364,7 @@ private JLabel lblTipo;
 		this.txtNombre.setText(Nombre);
 	}
 
-	public JLabel getTxtTipoPerson() {
-		return txtTipoPerson;
-	}
-
-	public void setTxtTipoPerson(JLabel txtTipoPerson) {
-		this.txtTipoPerson = txtTipoPerson;
-	}
+	
 
 	public String getTxtTelefono() {
 		return txtTelefono.getText();
@@ -469,7 +459,6 @@ private JLabel lblTipo;
 			this.rbtnJuridico.setSelected(true);
 			this.rbtnJuridico.setEnabled(false);
 			this.rbtnNatural.setEnabled(false);
-			this.cmbTipoPerson.setSelectedIndex(1);
 			this.btnBuscarCed.setEnabled(false);
 		
 		}
