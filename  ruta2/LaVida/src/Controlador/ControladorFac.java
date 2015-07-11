@@ -873,7 +873,7 @@ public boolean comprobarMonto(){
 		 String valorMensaje="";
 		 Factura factura = new Factura();
 		 facturaDao= new FacturaDao();
-		 Ruta objruta=new Ruta();
+		
 		// String montoString ="";
 		 String clasificacion="";
 		 String codigoPrestamo="";
@@ -881,7 +881,7 @@ public boolean comprobarMonto(){
 		 Float montoPrest= (float) 0;
 		 Integer cant = 0;
 		 try {
-
+			// Ruta objruta=rutaDao.buscarPorCodRuta("J-306-902686");
 			 this.GuardarFormaPagoFactura();
 			
 			 factura.setMontoTotal(Float.valueOf(montoTotal));
@@ -897,11 +897,11 @@ public boolean comprobarMonto(){
 			 }
 			 else if(tipoFacturado.equalsIgnoreCase(Arrendatario.TIPO_FACTURADO_ARRENDATARIO)){
 				
-				 factura.setArrendatario(arrendatarioDao.buscarPorCedulaArrendatario(campoId));
+				 factura.setArrendatario(arrendatarioDao.buscarCedula(campoId));
 			 }
-			 objruta=rutaDao.buscarPorCodRuta("J-306-902686");
 			 
-			 factura.setCodRuta(objruta);
+			 
+			 factura.setCodRuta(rutaDao.obtenerRuta("J-306-902686"));
 			 factura.setNroFactura(facturaDao.buscarUltimoNumeroFactura());		 
 			
 			 facturaDao.agregarFactura(factura);

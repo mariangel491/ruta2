@@ -8,6 +8,7 @@ import org.hibernate.Session;
 import org.hibernate.Transaction;
 
 import Modelos.Arrendatario;
+import Modelos.Socio;
 import Modelos.Hibernate.Config.HibernateUtil;
 
 public class ArrendatarioDao {
@@ -117,6 +118,14 @@ public class ArrendatarioDao {
 		return arrendatario; 
 	}
 
+
+	public Arrendatario buscarCedula(String ced) throws Exception {
+		for (Arrendatario arrend : obtenerTodos())
+			if (arrend.getCedula().equals(ced))
+				return arrend;
+		return null;
+	}
+	
 	public boolean encontrar(String codArren) throws Exception {
 		if (buscarPorCedulaArrendatario(codArren) == null)
 			return false;
