@@ -87,13 +87,22 @@ public class VistaFac extends javax.swing.JFrame {
 	private JButton btnBuscarCedSoc;
 	private JTextField txtCedulaSocio;
 	private JLabel lblCedSocio;
+	private JTextField txtNroDeposito;
+	private JLabel lblNroDeposito;
+	private JTextField txtNroCheque;
+	private JLabel lblNroCheque;
 	private JTextField txtEfectivo;
+	private JTextField jTextField1;
+	private JLabel txtNroTransferencia;
+	private JTextField txtMontoDisp;
+	private JTextField txtTransferencia;
+	private JTextField txtSubsidio;
+	private JTextField txtDeposito;
 	private JButton btnAnnadirPrestamo;
 	private JTable jTableDeudasPorSocio;
 	private JButton btnAnnadirDeuda;
 	private JScrollPane deudasSocio;
 	private JPanel jPanelDeudasSocio;
-	private JTextField txtMontoDisp;
 	private JLabel lblMontoDispo;
 	private JTextField txtTotal;
 	private JLabel lblTotal;
@@ -101,9 +110,6 @@ public class VistaFac extends javax.swing.JFrame {
 	private JLabel lblPrestamos;
 	private JLabel lblModulo;
 	private JTextField txtCheque;
-	private JTextField txtTransferencia;
-	private JTextField txtDeposito;
-	private JTextField txtSubsidio;
 	
 	private JCheckBox checkCheque;
 	private JCheckBox checkTransferencia;
@@ -117,8 +123,6 @@ public class VistaFac extends javax.swing.JFrame {
 	private JLabel lblLogo;
 	private JComboBox cmbTipoFactu;
 	private JLabel lblTipoFact;
-	private JTextField txtResponsableFactura;
-	private JLabel lblResponsable;
 	private JTextField txtNroFactura;
 	private JButton btnQuitar;
 	private JButton btnSalir;
@@ -212,7 +216,7 @@ private static VistaFac vFactura=null;
 			{
 				jPanelVentana = new JPanel();
 				getContentPane().add(jPanelVentana, "Center");
-				jPanelVentana.setBounds(0, 0, 965, 639);
+				jPanelVentana.setBounds(0, 0, 965, 663);
 				jPanelVentana.setLayout(null);
 				jPanelVentana.setFocusable(false);
 				{
@@ -248,14 +252,14 @@ private static VistaFac vFactura=null;
 				{
 					jPanelContenido = new JPanel();
 					jPanelVentana.add(jPanelContenido);
-					jPanelContenido.setBounds(12, 88, 933, 552);
+					jPanelContenido.setBounds(12, 88, 933, 570);
 					jPanelContenido.setBorder(BorderFactory.createTitledBorder("Factura"));
 					jPanelContenido.setLayout(null);
 					{
 						lblTipoFacturado = new JLabel();
 						jPanelContenido.add(lblTipoFacturado);
 						lblTipoFacturado.setText("Tipo:");
-						lblTipoFacturado.setBounds(23, 46, 36, 16);
+						lblTipoFacturado.setBounds(23, 18, 36, 16);
 					}
 					{
 							ComboBoxModel cmbTipoFacturadoModel = 
@@ -264,7 +268,7 @@ private static VistaFac vFactura=null;
 							cmbTipoFacturado = new JComboBox();
 							jPanelContenido.add(cmbTipoFacturado);
 							cmbTipoFacturado.setModel(cmbTipoFacturadoModel);
-							cmbTipoFacturado.setBounds(81, 43, 365, 23);
+							cmbTipoFacturado.setBounds(81, 16, 371, 23);
 							cmbTipoFacturado.setEditable(false);
 							cmbTipoFacturado.addActionListener(new ActionListener() {
 							
@@ -342,7 +346,7 @@ private static VistaFac vFactura=null;
 					{
 						jPanelDatosPersonales = new JPanel();
 						jPanelContenido.add(jPanelDatosPersonales);
-						jPanelDatosPersonales.setBounds(17, 69, 435, 130);
+						jPanelDatosPersonales.setBounds(17, 45, 435, 130);
 						jPanelDatosPersonales.setLayout(null);
 						jPanelDatosPersonales.setBorder(BorderFactory.createTitledBorder("Datos del Socio"));
 						{
@@ -415,7 +419,7 @@ private static VistaFac vFactura=null;
 					{
 						jPanelIngresos = new JPanel();
 						jPanelContenido.add(jPanelIngresos);
-						jPanelIngresos.setBounds(17, 205, 435, 331);
+						jPanelIngresos.setBounds(17, 178, 435, 374);
 						jPanelIngresos.setBorder(BorderFactory.createTitledBorder("Contenido"));
 						jPanelIngresos.setLayout(null);
 						{
@@ -428,26 +432,26 @@ private static VistaFac vFactura=null;
 							jLabelMontoIngresoEgreso = new JLabel();
 							jPanelIngresos.add(jLabelMontoIngresoEgreso);
 							jLabelMontoIngresoEgreso.setText("Monto");
-							jLabelMontoIngresoEgreso.setBounds(17, 259, 39, 15);
+							jLabelMontoIngresoEgreso.setBounds(34, 314, 39, 15);
 						}
 						{
 							lblMontoAbonar = new JLabel();
 							jPanelIngresos.add(lblMontoAbonar);
 							lblMontoAbonar.setText("Monto Abono");
-							lblMontoAbonar.setBounds(17, 259, 90, 15);
+							lblMontoAbonar.setBounds(17, 314, 90, 15);
 							lblMontoAbonar.setVisible(false);
 						}
 						{
 							lblMontoAdeudado = new JLabel();
 							jPanelIngresos.add(lblMontoAdeudado);
 							lblMontoAdeudado.setText("Monto Deuda");
-							lblMontoAdeudado.setBounds(220, 259, 90, 15);
+							lblMontoAdeudado.setBounds(219, 314, 90, 15);
 							lblMontoAdeudado.setVisible(false);
 						}
 						{
 							txtMontoIngresoEgreso = new JTextField();
 							jPanelIngresos.add(txtMontoIngresoEgreso);
-							txtMontoIngresoEgreso.setBounds(103, 256, 100, 22);
+							txtMontoIngresoEgreso.setBounds(104, 310, 100, 22);
 							txtMontoIngresoEgreso.setActionCommand("MontoDeudaP");
 						}
 					/*	{
@@ -459,7 +463,7 @@ private static VistaFac vFactura=null;
 						{
 							txtMontoAdeudado = new JTextField();
 							jPanelIngresos.add(txtMontoAdeudado);
-							txtMontoAdeudado.setBounds(300, 256, 100, 22);
+							txtMontoAdeudado.setBounds(311, 312, 100, 22);
 							txtMontoAdeudado.setVisible(false);
 							txtMontoAdeudado.setEnabled(false);
 						}
@@ -504,7 +508,7 @@ private static VistaFac vFactura=null;
 						{
 							jScrollingresos = new JScrollPane();
 							jPanelIngresos.add(jScrollingresos);
-							jScrollingresos.setBounds(104, 55, 295, 180);
+							jScrollingresos.setBounds(104, 55, 307, 247);
 							{
 								ListModel jListIngresosModel = 
 										new DefaultComboBoxModel(
@@ -526,7 +530,7 @@ private static VistaFac vFactura=null;
 							btnanadir = new JButton();
 							jPanelIngresos.add(btnanadir);
 							btnanadir.setText("Añadir");
-							btnanadir.setBounds(174, 291, 100, 23);
+							btnanadir.setBounds(167, 341, 100, 23);
 							btnanadir.setIcon(new ImageIcon(getClass().getClassLoader().getResource("Imagenes/add.png")));
 							btnanadir.setFont(new java.awt.Font("Verdana",0,11));
 							btnanadir.setActionCommand("Añadir");
@@ -616,13 +620,13 @@ private static VistaFac vFactura=null;
 					{
 						jPanelInfFactura = new JPanel();
 						jPanelContenido.add(jPanelInfFactura);
-						jPanelInfFactura.setBounds(469, 205, 447, 194);
+						jPanelInfFactura.setBounds(469, 178, 447, 176);
 						jPanelInfFactura.setBorder(BorderFactory.createTitledBorder("Información de la factura"));
 						jPanelInfFactura.setLayout(null);
 						{
 							jScrollPaneFactura = new JScrollPane();
 							jPanelInfFactura.add(jScrollPaneFactura);
-							jScrollPaneFactura.setBounds(13, 25, 417, 131);
+							jScrollPaneFactura.setBounds(13, 25, 417, 114);
 							jScrollPaneFactura.setBorder(new SoftBevelBorder(BevelBorder.LOWERED, null, null, null, null));
 							{
 								TableModel jTableIngresosXFacturaModel = 
@@ -644,21 +648,21 @@ private static VistaFac vFactura=null;
 							jToggleButton1 = new JToggleButton();
 							jPanelInfFactura.add(jToggleButton1);
 							jToggleButton1.setText("Total");
-							jToggleButton1.setBounds(128, 162, 87, 25);
+							jToggleButton1.setBounds(129, 145, 87, 25);
 							jToggleButton1.setBorder(new SoftBevelBorder(BevelBorder.LOWERED, null, null, null, null));
 							jToggleButton1.setFont(new java.awt.Font("Verdana",0,11));
 						}
 						{
 							txtMontoTotal = new JTextField();
 							jPanelInfFactura.add(txtMontoTotal);
-							txtMontoTotal.setBounds(225, 163, 205, 22);
+							txtMontoTotal.setBounds(226, 146, 205, 22);
 							txtMontoTotal.setEditable(false);
 							txtMontoTotal.setFont(new java.awt.Font("Verdana",0,11));
 						}
 						{
 							btnQuitar = new JButton();
 							jPanelInfFactura.add(btnQuitar);
-							btnQuitar.setBounds(25, 162, 30, 25);
+							btnQuitar.setBounds(26, 145, 30, 25);
 							btnQuitar.setIcon(new ImageIcon(getClass().getClassLoader().getResource("Imagenes/black_delete_16x16.gif")));
 							btnQuitar.setActionCommand("Quitar");
 						
@@ -667,49 +671,53 @@ private static VistaFac vFactura=null;
 					{
 						jPanelFormaPago = new JPanel();
 						jPanelContenido.add(jPanelFormaPago);
-						jPanelFormaPago.setBounds(469, 403, 447, 133);
+						jPanelFormaPago.setBounds(469, 351, 447, 201);
 						jPanelFormaPago.setBorder(BorderFactory.createTitledBorder("Forma de Pago"));
 						jPanelFormaPago.setLayout(null);
 						jPanelFormaPago.setFocusable(false);
+						jPanelFormaPago.add(getTxtTotal());
 						jPanelFormaPago.add(getCheckEfectivo());
 						jPanelFormaPago.add(getCheckSubsidio());
 						jPanelFormaPago.add(getCheckDeposito());
 						jPanelFormaPago.add(getCheckTransferencia());
 						jPanelFormaPago.add(getCheckCheque());
-					//	jPanelFormaPago.add(getLblMonto());
-						jPanelFormaPago.add(getTxtEfectivo());
-						jPanelFormaPago.add(getTxtSubsidio());
-						jPanelFormaPago.add(getTxtDeposito());
-						jPanelFormaPago.add(getTxtTransferencia());
+					//	jPanelFormaPago.add(getLblMonto());	
+						
+					
 						jPanelFormaPago.add(getTxtCheque());
 						jPanelFormaPago.add(getLblTotal());
 						jPanelFormaPago.add(getTxtTotal());
 						jPanelFormaPago.add(getLblMontoDispo());
+						jPanelFormaPago.add(getTxtDeposito());
+						jPanelFormaPago.add(getTxtEfectivo());
+						jPanelFormaPago.add(getTxtSubsidio());
+						jPanelFormaPago.add(getTxtTransferencia());
 						jPanelFormaPago.add(getTxtMontoDisp());
+						jPanelFormaPago.add(getTxtNroTransferencia());
+						jPanelFormaPago.add(getJTextField1());
+						jPanelFormaPago.add(getLblNroCheque());
+						jPanelFormaPago.add(getTxtNroCheque());
+						jPanelFormaPago.add(getLblNroDeposito());
+						jPanelFormaPago.add(getTxtNroDeposito());
+						jPanelFormaPago.add(getTxtCheque());
+						
 					}
 					{
 						lblNroFactura = new JLabel();
 						jPanelContenido.add(lblNroFactura);
 						lblNroFactura.setText("Factura Nro.");
-						lblNroFactura.setBounds(511, 18, 85, 16);
+						lblNroFactura.setBounds(688, 16, 85, 16);
 					}
 					{
 						txtNroFactura = new JTextField();
 						jPanelContenido.add(txtNroFactura);
-						txtNroFactura.setBounds(596, 15, 103, 23);
+						txtNroFactura.setBounds(784, 13, 132, 23);
 						txtNroFactura.setEditable(false);
 					}
 					{
-						lblResponsable = new JLabel();
-						jPanelContenido.add(lblResponsable);
-						lblResponsable.setText("Responsable");
-						lblResponsable.setBounds(23, 18, 93, 16);
-					}
-					{
-						txtResponsableFactura = new JTextField();
-						jPanelContenido.add(txtResponsableFactura);
+												
 						jPanelContenido.add(getJPanelDeudasSocio());
-						txtResponsableFactura.setBounds(116, 15, 330, 23);
+						
 					}
 				}
 			}
@@ -717,7 +725,7 @@ private static VistaFac vFactura=null;
 				btnSalir = new JButton();
 				getContentPane().add(btnSalir);
 				btnSalir.setText("Salir");
-				btnSalir.setBounds(585, 645, 117, 32);
+				btnSalir.setBounds(587, 675, 117, 32);
 				//btnSalir.setIcon(new ImageIcon(getClass().getClassLoader().getResource("Imagenes/exit_16x16 (1).png")));
 				btnSalir.setFont(new java.awt.Font("Verdana",0,11));
 				btnSalir.setActionCommand("Salir");
@@ -727,7 +735,7 @@ private static VistaFac vFactura=null;
 				btnLimpiar = new JButton();
 				getContentPane().add(btnLimpiar);
 				btnLimpiar.setText("Limpiar");
-				btnLimpiar.setBounds(399, 645, 136, 32);
+				btnLimpiar.setBounds(401, 675, 136, 32);
 				btnLimpiar.setFont(new java.awt.Font("Verdana",0,11));
 				btnLimpiar.setIcon(new ImageIcon(getClass().getClassLoader().getResource("Imagenes/Limpiarcodigo_1.png")));
 				btnLimpiar.setActionCommand("Limpiar");
@@ -736,14 +744,14 @@ private static VistaFac vFactura=null;
 				btnProcesar = new JButton();
 				getContentPane().add(btnProcesar);
 				btnProcesar.setText("Procesar");
-				btnProcesar.setBounds(200, 645, 145, 32);
+				btnProcesar.setBounds(202, 675, 145, 32);
 				btnProcesar.setIcon(new ImageIcon(getClass().getClassLoader().getResource("Imagenes/save.png")));
 				btnProcesar.setFont(new java.awt.Font("Verdana",0,11));
 				btnProcesar.setActionCommand("Procesar");
 				
 			}
 			pack();
-			this.setSize(975, 727);
+			this.setSize(975, 757);
 		} catch (Exception e) {
 		    //add your error handling code here
 			e.printStackTrace();
@@ -767,14 +775,6 @@ private static VistaFac vFactura=null;
 
 	public String getTxtCed(){
 		return txtCedulaSocio.getText();
-	}
-	
-	public String getTxtResponsableFactura() {
-		return txtResponsableFactura.getText();
-	}
-
-	public void setTxtResponsableFactura(String ResponsableFactura) {
-		this.txtResponsableFactura.setText(ResponsableFactura);;
 	}
 
 	public String getTxtNroFactura() {
@@ -858,7 +858,7 @@ private static VistaFac vFactura=null;
 
 	public void setjListIngresos(JList jListIngresos) {
 		this.jListIngresos = jListIngresos;
-		jListIngresos.setPreferredSize(new java.awt.Dimension(310, 110));
+		jListIngresos.setPreferredSize(new java.awt.Dimension(310, 171));
 	}
 
 	public void setjListPrestamosModel(LinkedListModel<String> model)
@@ -948,14 +948,17 @@ private static VistaFac vFactura=null;
 			txtDeposito.setText("");
 			txtEfectivo.setText("");
 			txtSubsidio.setText("");
-			txtTransferencia.setText("");
 			txtMontoTotal.setText("");
+			
+			txtNroCheque.setText("");
+			jTextField1.setText("");
+			txtMontoDisp.setText("");
+			txtNroDeposito.setText("");
 			
 			txtCheque.setEditable(false);
 			txtDeposito.setEditable(false);
 			txtEfectivo.setEditable(false);
 			txtSubsidio.setEditable(false);
-			txtTransferencia.setEditable(false);
 			txtMontoTotal.setEditable(false);
 			
 			listaModeloIngresoEgreso.clear();
@@ -968,12 +971,16 @@ private static VistaFac vFactura=null;
 			checkSubsidio.setSelected(false);
 			checkTransferencia.setSelected(false);
 			
+			
+			
+			
 			limpiarTablaDeudas();
 			limpiarTablaEgresos();
 			limpiarTablaIngresos();
 			limpiarTablaIngresoXFactura();
 			limpiarTablaPrestamos();
 			limpiarTablaListPrestamos();
+			OcultarCamposFormaPago();
 			
 			
 			
@@ -1151,7 +1158,7 @@ private static VistaFac vFactura=null;
 		
 		int a =defaultTableModelIngresoXfactura.getRowCount()-1;  
         for(int i=a;i>=0;i--){ 
-        	
+
         	defaultTableModelIngresoXfactura.removeRow(i);
         }
         defaultTableModelIngresoXfactura.fireTableDataChanged();
@@ -1206,7 +1213,7 @@ private static VistaFac vFactura=null;
 					new SpinnerNumberModel(1, 1, 100, 1);
 			jSpinnerCantidad = new JSpinner();
 			jSpinnerCantidad.setModel(jSpinnerCantidadModel);
-			jSpinnerCantidad.setBounds(312, 256, 87, 23);
+			jSpinnerCantidad.setBounds(310, 311, 87, 23);
 		}
 		return jSpinnerCantidad;
 	}
@@ -1215,7 +1222,7 @@ private static VistaFac vFactura=null;
 		if(lblCantidad == null) {
 			lblCantidad = new JLabel();
 			lblCantidad.setText("Cantidad:");
-			lblCantidad.setBounds(255, 259, 82, 16);
+			lblCantidad.setBounds(254, 314, 82, 16);
 		}
 		return lblCantidad;
 	}
@@ -1224,7 +1231,7 @@ private static VistaFac vFactura=null;
 		if(checkEfectivo == null) {
 			checkEfectivo = new JCheckBox();
 			checkEfectivo.setText("Efectivo");
-			checkEfectivo.setBounds(17, 23, 75, 15);
+			checkEfectivo.setBounds(17, 23, 67, 15);
 			checkEfectivo.setActionCommand("CheckEfectivo");
 		}
 		return checkEfectivo;
@@ -1234,7 +1241,7 @@ private static VistaFac vFactura=null;
 		if(checkSubsidio == null) {
 			checkSubsidio = new JCheckBox();
 			checkSubsidio.setText("Subsidio");
-			checkSubsidio.setBounds(17, 79, 105, 15);
+			checkSubsidio.setBounds(17, 79, 73, 15);
 			checkSubsidio.setActionCommand("CheckSubsidio");
 		}
 		return checkSubsidio;
@@ -1244,7 +1251,7 @@ private static VistaFac vFactura=null;
 		if(checkDeposito == null) {
 			checkDeposito = new JCheckBox();
 			checkDeposito.setText("Deposito");
-			checkDeposito.setBounds(220, 23, 80, 15);
+			checkDeposito.setBounds(17, 138, 66, 15);
 			checkDeposito.setActionCommand("CheckDeposito");
 		}
 		return checkDeposito;
@@ -1254,7 +1261,7 @@ private static VistaFac vFactura=null;
 		if(checkTransferencia == null) {
 			checkTransferencia = new JCheckBox();
 			checkTransferencia.setText("Transferencia");
-			checkTransferencia.setBounds(17, 50, 105, 15);
+			checkTransferencia.setBounds(17, 51, 97, 15);
 			checkTransferencia.setActionCommand("CheckTransferencia");
 		
 		}
@@ -1265,61 +1272,19 @@ private static VistaFac vFactura=null;
 		if(checkCheque == null) {
 			checkCheque = new JCheckBox();
 			checkCheque.setText("Cheque");
-			checkCheque.setBounds(220, 50, 75, 15);
+			checkCheque.setBounds(17, 111, 70, 15);
 			checkCheque.setActionCommand("CheckCheque");
 			
 		}
 		return checkCheque;
 	}
+
 	
-	public JTextField getTxtEfectivo() {
-		if(txtEfectivo == null) {
-			txtEfectivo = new JTextField();
-			txtEfectivo.setBounds(125, 23, 71, 23);
-			txtEfectivo.setActionCommand("total");
-		}
-		return txtEfectivo;
-	}
-	
-	public String getEfectivo(){
+	/*public String getEfectivo(){
 		return txtEfectivo.toString();
-	}
+	}*/
 	
-	public JTextField getTxtSubsidio() {
-		if(txtSubsidio == null) {
-			txtSubsidio = new JTextField();
-			txtSubsidio.setBounds(125, 75, 71, 23);
-			txtSubsidio.setActionCommand("total");
-		}
-		return txtSubsidio;
-	}
-	
-	public JTextField getTxtDeposito() {
-		if(txtDeposito == null) {
-			txtDeposito = new JTextField();
-			txtDeposito.setBounds(300, 23, 100, 23);
-			txtDeposito.setActionCommand("total");
-		}
-		return txtDeposito;
-	}
-	
-	public JTextField getTxtTransferencia() {
-		if(txtTransferencia == null) {
-			txtTransferencia = new JTextField();
-			txtTransferencia.setBounds(125, 50, 71, 23);
-			txtTransferencia.setActionCommand("total");
-		}
-		return txtTransferencia;
-	}
-	
-	public JTextField getTxtCheque() {
-		if(txtCheque == null) {
-			txtCheque = new JTextField();
-			txtCheque.setBounds(300, 48,100, 23);
-			txtCheque.setActionCommand("total");
-		}
-		return txtCheque;
-	}
+
 	
 	public JLabel getLblPrestamos() {
 		if(lblPrestamos == null) {
@@ -1343,17 +1308,21 @@ private static VistaFac vFactura=null;
 		if(lblTotal == null) {
 			lblTotal = new JLabel();
 			lblTotal.setText("TOTAL:");
-			lblTotal.setBounds(91, 104, 56, 19);
+			lblTotal.setBounds(58, 171, 56, 19);
 			lblTotal.setFont(new java.awt.Font("Segoe UI",1,12));
 		}
 		return lblTotal;
 	}
 	
-	public JTextField getTxtTotal() {
+	private JTextField getTxtTotal() {
 		if(txtTotal == null) {
 			txtTotal = new JTextField();
-			txtTotal.setBounds(140, 104, 121, 23);
+			txtTotal.setBounds(123, 169, 156, 25);
 		}
+		return txtTotal;
+	}
+	
+	public JTextField getTxtTotal2(){
 		return txtTotal;
 	}
 	
@@ -1361,19 +1330,10 @@ private static VistaFac vFactura=null;
 		if(lblMontoDispo == null) {
 			lblMontoDispo = new JLabel();
 			lblMontoDispo.setText("Monto Disponible:");
-			lblMontoDispo.setBounds(220, 81, 116, 11);
+			lblMontoDispo.setBounds(225, 77, 115, 20);
 		}
 		return lblMontoDispo;
 	}
-	
-	public JTextField getTxtMontoDisp() {
-		if(txtMontoDisp == null) {
-			txtMontoDisp = new JTextField();
-			txtMontoDisp.setBounds(330, 75, 71, 23);
-		}
-		return txtMontoDisp;
-	}
-	
 	
 	
 	public JTextField getTxtApellido() {
@@ -1393,35 +1353,22 @@ private static VistaFac vFactura=null;
 	}
 
 	public void setTxtEfectivo(JTextField txtEfectivo) {
-		this.txtEfectivo = txtEfectivo;
 	}
 
 	public void setTxtMontoDisp(JTextField txtMontoDisp) {
-		this.txtMontoDisp = txtMontoDisp;
 	}
 
 	public void setTxtTotal(JTextField txtTotal) {
 		this.txtTotal = txtTotal;
 	}
 
-	public void setTxtCheque(JTextField txtCheque) {
-		this.txtCheque = txtCheque;
-	}
-
 	public void setTxtTransferencia(JTextField txtTransferencia) {
-		this.txtTransferencia = txtTransferencia;
 	}
 
 	public void setTxtDeposito(JTextField txtDeposito) {
-		this.txtDeposito = txtDeposito;
 	}
 
 	public void setTxtSubsidio(JTextField txtSubsidio) {
-		this.txtSubsidio = txtSubsidio;
-	}
-
-	public void setTxtResponsableFactura(JTextField txtResponsableFactura) {
-		this.txtResponsableFactura = txtResponsableFactura;
 	}
 
 	public void setTxtNroFactura(JTextField txtNroFactura) {
@@ -1450,7 +1397,6 @@ private static VistaFac vFactura=null;
 		this.txtCheque.setEditable(false);
 		this.txtDeposito.setEditable(false);
 		this.txtEfectivo.setEditable(false);
-		this.txtMontoDisp.setEditable(false);
 		this.txtTransferencia.setEditable(false);
 		this.txtSubsidio.setEditable(false);
 		this.lblMontoDispo.setVisible(false);
@@ -1458,7 +1404,13 @@ private static VistaFac vFactura=null;
 		txtTotal.setEditable(false);
 		//txtTotal.setVisible(false);
 		this.lblTotal.setVisible(false);
-		txtMontoDisp.setVisible(false);
+		this.txtNroCheque.setVisible(false);
+		this.txtNroDeposito.setVisible(false);
+		this.txtNroTransferencia.setVisible(false);
+		this.txtMontoDisp.setVisible(false);
+		this.jTextField1.setVisible(false);
+		this.lblNroCheque.setVisible(false);
+		this.lblNroDeposito.setVisible(false);
 	}
 	public void Check(){
 		//lblMonto.setVisible(true);
@@ -1479,6 +1431,7 @@ private static VistaFac vFactura=null;
 	}
 	
 	public void OcultarCheckEfectivo(){
+	
 		txtEfectivo.setEditable(false);
 		txtEfectivo.setText("");
 		//this.OcultarCheck();
@@ -1517,6 +1470,8 @@ private static VistaFac vFactura=null;
 	public void CheckDeposito(){
 		txtDeposito.setVisible(true);
 		txtDeposito.setEditable(true);
+		txtNroDeposito.setVisible(true);
+		lblNroDeposito.setVisible(true);
 		this.Check();
 		this.checkDeposito.setActionCommand("OcultarCheckDeposito");
 	}
@@ -1524,14 +1479,17 @@ private static VistaFac vFactura=null;
 	public void OcultarCheckDeposito(){
 		txtDeposito.setEditable(false);
 		txtDeposito.setText("");
+		txtNroDeposito.setVisible(false);
+		lblNroDeposito.setVisible(false);
 		//this.OcultarCheck();
 		checkDeposito.setActionCommand("CheckDeposito");
 	}
 	
 	public void CheckTransferencia(){
-		txtTransferencia.setVisible(true);
 		txtTransferencia.setEditable(true);
 		txtTransferencia.setText("");
+		txtNroTransferencia.setVisible(true);
+		this.jTextField1.setVisible(true);
 		this.Check();
 		this.checkDeposito.setActionCommand("OcultarCheckTransferencia");
 	}
@@ -1539,12 +1497,16 @@ private static VistaFac vFactura=null;
 	public void OcultarCheckTransferencia(){
 		txtTransferencia.setEditable(false);
 		txtTransferencia.setText("");
+		txtNroTransferencia.setVisible(false);
+		this.jTextField1.setVisible(false);
 		checkTransferencia.setActionCommand("CheckTrasnferencia");
 		
 	}
 	
 	public void CheckCheque(){
 		txtCheque.setEditable(true);
+		this.txtNroCheque.setVisible(true);
+		this.lblNroCheque.setVisible(true);
 		this.Check();
 		this.checkCheque.setActionCommand("OcultarCheckCheque");
 	}
@@ -1552,6 +1514,8 @@ private static VistaFac vFactura=null;
 	public void OcultarCheckCheque(){
 		txtCheque.setEditable(false);
 		txtCheque.setText("");
+		txtNroCheque.setVisible(false);
+		lblNroCheque.setVisible(false);
 		checkCheque.setActionCommand("CheckCheque");
 	}
 	
@@ -1685,6 +1649,7 @@ private static VistaFac vFactura=null;
 			jLabelMontoIngresoEgreso.setVisible(true);
 			lblCantidad.setVisible(true);
 			jSpinnerCantidad.setVisible(true);
+			getJSpinnerCantidad().getEditor().setPreferredSize(new java.awt.Dimension(68, 19));
 			Ingresos ing= new Ingresos();
 			try {
 				ing = ingDao.obtenerIngresosPorDescripcion(this.getjListIngresos().getSelectedValue().toString());
@@ -1791,7 +1756,7 @@ private static VistaFac vFactura=null;
 		if(jPanelDeudasSocio == null) {
 			jPanelDeudasSocio = new JPanel();
 			jPanelDeudasSocio.setLayout(null);
-			jPanelDeudasSocio.setBounds(474, 46, 442, 153);
+			jPanelDeudasSocio.setBounds(469, 35, 450, 146);
 			jPanelDeudasSocio.setBorder(BorderFactory.createTitledBorder("Deudas"));
 			jPanelDeudasSocio.add(getDeudasSocio());
 			jPanelDeudasSocio.add(getBtnAnnadirDeuda());
@@ -1813,7 +1778,7 @@ private static VistaFac vFactura=null;
 			btnAnnadirDeuda = new JButton();
 			btnAnnadirDeuda.setText("Añadir");
 			btnAnnadirDeuda.setIcon(new ImageIcon(getClass().getClassLoader().getResource("Imagenes/add.png")));
-			btnAnnadirDeuda.setBounds(173, 119, 110, 28);
+			btnAnnadirDeuda.setBounds(173, 119, 110, 23);
 			btnAnnadirDeuda.setActionCommand("annadirDeuda");
 		}
 		return btnAnnadirDeuda;
@@ -1878,6 +1843,135 @@ private static VistaFac vFactura=null;
 	
 	public void DesbCampos(){
 		txtMontoIngresoEgreso.setEditable(true);
+	}
+	
+	public JTextField getTxtCheque() {
+		if(txtCheque == null) {
+			txtCheque = new JTextField();
+			txtCheque.setBounds(92, 106, 111, 23);
+		}
+		return txtCheque;
+	}
+	
+	private JTextField getTxtDeposito() {
+		if(txtDeposito == null) {
+			txtDeposito = new JTextField();
+			txtDeposito.setBounds(93, 134, 110, 23);
+		}
+		return txtDeposito;
+	}
+	public JTextField getTxtDepositoo(){
+		return txtDeposito;
+	}
+	private JTextField getTxtEfectivo() {
+		if(txtEfectivo == null) {
+			txtEfectivo = new JTextField();
+			txtEfectivo.setBounds(87, 20, 113, 23);
+		}
+		return txtEfectivo;
+	}
+	
+	public JTextField getTxtEfectivoo(){
+		return txtEfectivo;
+	}
+	
+	
+	private JTextField getTxtSubsidio() {
+		if(txtSubsidio == null) {
+			txtSubsidio = new JTextField();
+			txtSubsidio.setBounds(93, 76, 108, 23);
+		}
+		return txtSubsidio;
+	}
+	
+	public JTextField getTxtSubsidios(){
+		return txtSubsidio;
+	}
+	
+	private JTextField getTxtTransferencia() {
+		if(txtTransferencia == null) {
+			txtTransferencia = new JTextField();
+			txtTransferencia.setBounds(119, 48, 82, 23);
+		}
+		return txtTransferencia;
+	}
+	
+	public JTextField getTxtTransferencias(){
+		return txtTransferencia;
+	}
+	
+	private JTextField getTxtMontoDisp() {
+		if(txtMontoDisp == null) {
+			txtMontoDisp = new JTextField();
+			txtMontoDisp.setBounds(338, 77, 92, 23);
+		}
+		return txtMontoDisp;
+	}
+	
+	public JTextField getTxtMontoDispo(){
+		return txtMontoDisp;
+	}
+	
+	private JLabel getTxtNroTransferencia() {
+		if(txtNroTransferencia == null) {
+			txtNroTransferencia = new JLabel();
+			txtNroTransferencia.setText("Nro.");
+			txtNroTransferencia.setBounds(224, 52, 23, 16);
+		}
+		return txtNroTransferencia;
+	}
+	
+	private JTextField getJTextField1() {
+		if(jTextField1 == null) {
+			jTextField1 = new JTextField();
+			jTextField1.setBounds(259, 49, 171, 23);
+		}
+		return jTextField1;
+	}
+	
+	public JTextField getTxtNroTransferencias(){
+		return jTextField1;
+	}
+	
+	private JLabel getLblNroCheque() {
+		if(lblNroCheque == null) {
+			lblNroCheque = new JLabel();
+			lblNroCheque.setText("Nro.");
+			lblNroCheque.setBounds(224, 110, 23, 16);
+		}
+		return lblNroCheque;
+	}
+	
+	private JTextField getTxtNroCheque() {
+		if(txtNroCheque == null) {
+			txtNroCheque = new JTextField();
+			txtNroCheque.setBounds(259, 107, 171, 23);
+		}
+		return txtNroCheque;
+	}
+	
+	public JTextField getTxtNroCheqe(){
+		return txtNroCheque;
+	}
+	private JLabel getLblNroDeposito() {
+		if(lblNroDeposito == null) {
+			lblNroDeposito = new JLabel();
+			lblNroDeposito.setText("Nro.");
+			lblNroDeposito.setBounds(224, 139, 23, 16);
+		}
+		return lblNroDeposito;
+	}
+	
+	private JTextField getTxtNroDeposito() {
+		if(txtNroDeposito == null) {
+			txtNroDeposito = new JTextField();
+			txtNroDeposito.setBounds(259, 135, 171, 23);
+		}
+		return txtNroDeposito;
+	}
+	
+	public JTextField getTxtNroDep(){
+		return txtNroDeposito;
 	}
 }
 

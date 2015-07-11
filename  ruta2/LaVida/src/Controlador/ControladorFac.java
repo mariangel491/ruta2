@@ -123,6 +123,7 @@ public class ControladorFac implements ActionListener, KeyListener, FocusListene
 	 List<FormaPago> list= new ArrayList<>();
 	
 	private float totalFP=0, montDep=0, montoEf=0, montoTrasnf=0, montoSub=0, montoCheque=0, montoDeuda=0;
+	private String nroTrasnf= "",nroCheque="", nroDeposito="";
 
 	
 	
@@ -508,13 +509,13 @@ public void CalcularTotalFormaPago(){
 		totalFP=0;
 		if(vFactura.getCheckEfectivo().isSelected()==true)
 		{
-			if("".equals(vFactura.getTxtEfectivo().getText()) || null == vFactura.getTxtEfectivo().getText())
+			if("".equals(vFactura.getTxtEfectivoo().getText()) || null == vFactura.getTxtEfectivoo().getText())
 			{
 				this.mensajeError();
 			}
-			else if(vFactura.getTxtEfectivo().getText()!=null)
+			else if(vFactura.getTxtEfectivoo().getText()!=null)
 			{
-				totalFP= totalFP+Float.parseFloat(vFactura.getTxtEfectivo().getText());
+				totalFP= totalFP+Float.parseFloat(vFactura.getTxtEfectivoo().getText());
 				vFactura.setTxtTotal(String.valueOf(totalFP));
 			}
 		}
@@ -534,40 +535,40 @@ public void CalcularTotalFormaPago(){
 		
 		if(vFactura.getCheckDeposito().isSelected()==true)
 		{
-			if("".equals(vFactura.getTxtDeposito().getText()) || null == vFactura.getTxtDeposito().getText())
+			if("".equals(vFactura.getTxtDepositoo().getText()) || null == vFactura.getTxtDepositoo().getText())
 			{
 				this.mensajeError();
 			}
-			else if(vFactura.getTxtDeposito().getText()!=null)
+			else if(vFactura.getTxtDepositoo().getText()!=null)
 			{
-				totalFP= totalFP+Float.parseFloat(vFactura.getTxtDeposito().getText());
+				totalFP= totalFP+Float.parseFloat(vFactura.getTxtDepositoo().getText());
 				vFactura.setTxtTotal(String.valueOf(totalFP));
 			}
 		}
 		
 		if(vFactura.getCheckSubsidio().isSelected()==true)
 		{
-			if("".equals(vFactura.getTxtSubsidio().getText()) || null == vFactura.getTxtSubsidio().getText())
+			if("".equals(vFactura.getTxtSubsidios().getText()) || null == vFactura.getTxtSubsidios().getText())
 			{
 				this.mensajeError();
 			}
-			else if(vFactura.getTxtSubsidio().getText()!=null)
+			else if(vFactura.getTxtSubsidios().getText()!=null)
 			{
 				this.comprobarSubsidio();
-				totalFP= totalFP+Float.parseFloat(vFactura.getTxtSubsidio().getText());
+				totalFP= totalFP+Float.parseFloat(vFactura.getTxtSubsidios().getText());
 				vFactura.setTxtTotal(String.valueOf(totalFP));
 			}
 		}
 		
 		if(vFactura.getCheckTransferencia().isSelected()==true)
 		{
-			if("".equals(vFactura.getTxtTransferencia().getText()) || null == vFactura.getTxtTransferencia().getText())
+			if("".equals(vFactura.getTxtTransferencias().getText()) || null == vFactura.getTxtTransferencias().getText())
 			{
 				this.mensajeError();
 			}
-			else if(vFactura.getTxtTransferencia().getText()!=null)
+			else if(vFactura.getTxtTransferencias().getText()!=null)
 			{
-				totalFP= totalFP+Float.parseFloat(vFactura.getTxtTransferencia().getText());
+				totalFP= totalFP+Float.parseFloat(vFactura.getTxtTransferencias().getText());
 				vFactura.setTxtTotal(String.valueOf(totalFP));
 			}
 		}
@@ -577,7 +578,7 @@ public void CalcularTotalFormaPago(){
 
 //PARA COMPROBAR QUE EL TOTAL DE LA FACTURA NO SEA MENOR AL ESTIMADO
 public boolean comprobarMonto(){
-	float montoFP= Float.parseFloat(vFactura.getTxtTotal().getText());
+	float montoFP= Float.parseFloat(vFactura.getTxtTotal2().getText());
 	float montoLista=Float.parseFloat(vFactura.getTxtMontoTotal());
 	if(montoFP<montoLista){
 		JOptionPane.showMessageDialog(null,"Monto a pagar Insuficiente","Atencion!",
@@ -604,15 +605,15 @@ public boolean comprobarMonto(){
 	
 	//PARA COMPROBAR EL TOTAL DISPONIBLE DEL SOCIO, CON EL INGRESADO
 	public void comprobarSubsidio(){
-		float totalSubsidio=Float.parseFloat(vFactura.getTxtMontoDisp().getText());
+		float totalSubsidio=Float.parseFloat(vFactura.getTxtMontoDispo().getText());
 		  if(totalSubsidio!=0.0)
 		  {
-			  if(!"".equals(vFactura.getTxtSubsidio().getText()) || null != vFactura.getTxtSubsidio().getText()){
-				  if(Float.parseFloat(vFactura.getTxtSubsidio().getText())>totalSubsidio)
+			  if(!"".equals(vFactura.getTxtSubsidios().getText()) || null != vFactura.getTxtSubsidios().getText()){
+				  if(Float.parseFloat(vFactura.getTxtSubsidios().getText())>totalSubsidio)
 				  {
 					  JOptionPane.showMessageDialog(null,"Monto Insuficiente","Atencion!",
 								JOptionPane.INFORMATION_MESSAGE);
-					  vFactura.getTxtSubsidio().setText("0");
+					  vFactura.getTxtSubsidios().setText("0");
 				  }
 			  }
 		  }
@@ -634,23 +635,25 @@ public boolean comprobarMonto(){
 		{
 			formasPagoSeleccionadas.add(this.BuscarDescripFP("Cheque"));
 			montoCheque= Float.parseFloat(vFactura.getTxtCheque().getText());
+			nroCheque= vFactura.getTxtNroCheqe().getText();
 		}
 		if(vFactura.getCheckDeposito().isSelected()==true){
 			formasPagoSeleccionadas.add(BuscarDescripFP("Deposito"));
-			montDep= Float.parseFloat(vFactura.getTxtDeposito().getText());
+			montDep= Float.parseFloat(vFactura.getTxtDepositoo().getText());
+			nroDeposito= vFactura.getTxtNroDep().getText();
 		}
 		if(vFactura.getCheckEfectivo().isSelected()==true){
 			formasPagoSeleccionadas.add(BuscarDescripFP("Efectivo"));
-			montoEf = Float.parseFloat(vFactura.getTxtEfectivo().getText());
-			
+			montoEf = Float.parseFloat(vFactura.getTxtEfectivoo().getText());
 		}
 		if(vFactura.getCheckSubsidio().isSelected()==true){
 			formasPagoSeleccionadas.add(BuscarDescripFP("Subsidio"));
-			montoSub=Float.parseFloat(vFactura.getTxtSubsidio().getText());
+			montoSub=Float.parseFloat(vFactura.getTxtSubsidios().getText());
 		}
 		if(vFactura.getCheckTransferencia().isSelected()==true){
 			formasPagoSeleccionadas.add(BuscarDescripFP("Transferencia"));
-			montoTrasnf=Float.parseFloat(vFactura.getTxtTransferencia().getText());
+			montoTrasnf=Float.parseFloat(vFactura.getTxtTransferencias().getText());
+			nroTrasnf= vFactura.getTxtNroTransferencias().getText();
 		}	
 
 	}
@@ -704,19 +707,26 @@ public boolean comprobarMonto(){
 					
 					nom= formaPagoDao.buscarPorCodForma(fp.getCodForma()).getNombre();
 									
-				   if(nom.equals("Cheque"))
-						 factFP.setMonto(montoCheque);
-					 if(nom.equals("Deposito"))
-						factFP.setMonto(montDep);
+				   if(nom.equals("Cheque")){
+					   factFP.setMonto(montoCheque);
+					   factFP.setNroFP(nroCheque);
+				   } 
+					 if(nom.equals("Deposito")){
+						 factFP.setMonto(montDep);
+						 	factFP.setNroFP(nroDeposito);
+					 }
 					 if(nom.equals("Efectivo")){
-						 factFP.setMonto(montoEf);
-						 
+						 factFP.setMonto(montoEf);	 
 					 }
 						 
 					 if(nom.equals("Subsidio"))	
 						factFP.setMonto(montoSub);
-					 if(nom.equals("Transferencia"))
+					 
+					 if(nom.equals("Transferencia")){
 						 factFP.setMonto(montoTrasnf);
+						 factFP.setNroFP(nroTrasnf);
+					 }
+						 
 				
 					 factFPDao.agregarFormaPago(factFP);
 			 }
@@ -921,10 +931,16 @@ public boolean comprobarMonto(){
 					
 					nom= formaPagoDao.buscarPorCodForma(fp.getCodForma()).getNombre();
 					
-				   if(nom.equals("Cheque"))
-						 factFP.setMonto(montoCheque);
-					 if(nom.equals("Deposito"))
-						factFP.setMonto(montDep);
+				   if(nom.equals("Cheque")){
+					   factFP.setMonto(montoCheque);
+					   factFP.setNroFP(nroCheque);
+				   }
+						 
+					 if(nom.equals("Deposito")){
+						 factFP.setMonto(montDep);
+						 factFP.setNroFP(nroDeposito);
+					 }
+						
 					 if(nom.equals("Efectivo")){
 						 factFP.setMonto(montoEf);
 						 caja.setFactura(facturaDao.obtenerFactura(factura.getNroFactura()));
@@ -937,8 +953,11 @@ public boolean comprobarMonto(){
 						
 					 if(nom.equals("Subsidio"))	
 						factFP.setMonto(montoSub);
-					 if(nom.equals("Transferencia"))
+					 if(nom.equals("Transferencia")){
 						 factFP.setMonto(montoTrasnf);
+						 factFP.setNroFP(nroTrasnf);
+					 }
+						 
 				
 					 factFPDao.agregarFormaPago(factFP);
 			 }
@@ -1357,7 +1376,7 @@ public boolean comprobarMonto(){
 				montoTotal= montoTotal+subDao.obtenerTodos().get(i).getMonto();
 			}
 		}
-		vFactura.getTxtMontoDisp().setText(String.valueOf(montoTotal));
+		vFactura.getTxtMontoDispo().setText(String.valueOf(montoTotal));
 	
 	}
 	

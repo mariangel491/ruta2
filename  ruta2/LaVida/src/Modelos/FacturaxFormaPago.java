@@ -28,6 +28,9 @@ public class FacturaxFormaPago implements Serializable{
 	@Column(name="fecha")
 	private Date fecha;
 	
+	@Column(name="nroformapago")
+	private String nroFP;
+	
 	@OneToOne(cascade= CascadeType.ALL)
 	@JoinColumn(name="codigofactura")
 	private Factura factura;
@@ -82,6 +85,15 @@ public class FacturaxFormaPago implements Serializable{
 	public void setFormaPago(FormaPago formaPago) {
 		this.formaPago = formaPago;
 	}
+
+	public String getNroFP() {
+		return nroFP;
+	}
+
+	public void setNroFP(String nroFP) {
+		this.nroFP = nroFP;
+	}
+	
 	
 	
 	

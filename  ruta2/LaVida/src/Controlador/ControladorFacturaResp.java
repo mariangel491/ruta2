@@ -408,20 +408,20 @@ public class ControladorFacturaResp implements ActionListener, KeyListener, Focu
 	}
 	if(vFactura.getCheckDeposito().isSelected()==true){
 		formasPagoSeleccionadas.add(BuscarDescripFP("Deposito"));
-		montDep= Float.parseFloat(vFactura.getTxtDeposito().getText());
+		montDep= Float.parseFloat(vFactura.getTxtDepositoo().getText());
 	}
 	if(vFactura.getCheckEfectivo().isSelected()==true){
 		formasPagoSeleccionadas.add(BuscarDescripFP("Efectivo"));
-		montoEf = Float.parseFloat(vFactura.getTxtEfectivo().getText());
+		montoEf = Float.parseFloat(vFactura.getTxtEfectivoo().getText());
 		
 	}
 	if(vFactura.getCheckSubsidio().isSelected()==true){
 		formasPagoSeleccionadas.add(BuscarDescripFP("Subsidio"));
-		montoSub=Float.parseFloat(vFactura.getTxtSubsidio().getText());
+		montoSub=Float.parseFloat(vFactura.getTxtSubsidios().getText());
 	}
 	if(vFactura.getCheckTransferencia().isSelected()==true){
 		formasPagoSeleccionadas.add(BuscarDescripFP("Transferencia"));
-		montoTrasnf=Float.parseFloat(vFactura.getTxtTransferencia().getText());
+		montoTrasnf=Float.parseFloat(vFactura.getTxtTransferencias().getText());
 	}	
 
 }
@@ -923,13 +923,13 @@ public void CalcularTotalFormaPago(){
 		totalFP=0;
 		if(vFactura.getCheckEfectivo().isSelected()==true)
 		{
-			if("".equals(vFactura.getTxtEfectivo().getText()) || null == vFactura.getTxtEfectivo().getText())
+			if("".equals(vFactura.getTxtEfectivoo().getText()) || null == vFactura.getTxtEfectivoo().getText())
 			{
 				this.mensajeError();
 			}
-			else if(vFactura.getTxtEfectivo().getText()!=null)
+			else if(vFactura.getTxtEfectivoo().getText()!=null)
 			{
-				totalFP= totalFP+Float.parseFloat(vFactura.getTxtEfectivo().getText());
+				totalFP= totalFP+Float.parseFloat(vFactura.getTxtEfectivoo().getText());
 				vFactura.setTxtTotal(String.valueOf(totalFP));
 			}
 		}
@@ -949,40 +949,40 @@ public void CalcularTotalFormaPago(){
 		
 		if(vFactura.getCheckDeposito().isSelected()==true)
 		{
-			if("".equals(vFactura.getTxtDeposito().getText()) || null == vFactura.getTxtDeposito().getText())
+			if("".equals(vFactura.getTxtDepositoo().getText()) || null == vFactura.getTxtDepositoo().getText())
 			{
 				this.mensajeError();
 			}
-			else if(vFactura.getTxtDeposito().getText()!=null)
+			else if(vFactura.getTxtDepositoo().getText()!=null)
 			{
-				totalFP= totalFP+Float.parseFloat(vFactura.getTxtDeposito().getText());
+				totalFP= totalFP+Float.parseFloat(vFactura.getTxtDepositoo().getText());
 				vFactura.setTxtTotal(String.valueOf(totalFP));
 			}
 		}
 		
 		if(vFactura.getCheckSubsidio().isSelected()==true)
 		{
-			if("".equals(vFactura.getTxtSubsidio().getText()) || null == vFactura.getTxtSubsidio().getText())
+			if("".equals(vFactura.getTxtSubsidios().getText()) || null == vFactura.getTxtSubsidios().getText())
 			{
 				this.mensajeError();
 			}
-			else if(vFactura.getTxtSubsidio().getText()!=null)
+			else if(vFactura.getTxtSubsidios().getText()!=null)
 			{
 				this.comprobarSubsidio();
-				totalFP= totalFP+Float.parseFloat(vFactura.getTxtSubsidio().getText());
+				totalFP= totalFP+Float.parseFloat(vFactura.getTxtSubsidios().getText());
 				vFactura.setTxtTotal(String.valueOf(totalFP));
 			}
 		}
 		
 		if(vFactura.getCheckTransferencia().isSelected()==true)
 		{
-			if("".equals(vFactura.getTxtTransferencia().getText()) || null == vFactura.getTxtTransferencia().getText())
+			if("".equals(vFactura.getTxtTransferencias().getText()) || null == vFactura.getTxtTransferencias().getText())
 			{
 				this.mensajeError();
 			}
-			else if(vFactura.getTxtTransferencia().getText()!=null)
+			else if(vFactura.getTxtTransferencias().getText()!=null)
 			{
-				totalFP= totalFP+Float.parseFloat(vFactura.getTxtTransferencia().getText());
+				totalFP= totalFP+Float.parseFloat(vFactura.getTxtTransferencias().getText());
 				vFactura.setTxtTotal(String.valueOf(totalFP));
 			}
 		}
@@ -1007,15 +1007,15 @@ public void CalcularTotalFormaPago(){
 	
 	//PARA COMPROBAR EL TOTAL DISPONIBLE DEL SOCIO, CON EL INGRESADO
 	public void comprobarSubsidio(){
-		float totalSubsidio=Float.parseFloat(vFactura.getTxtMontoDisp().getText());
+		float totalSubsidio=Float.parseFloat(vFactura.getTxtMontoDispo().getText());
 		  if(totalSubsidio!=0.0)
 		  {
-			  if(!"".equals(vFactura.getTxtSubsidio().getText()) || null != vFactura.getTxtSubsidio().getText()){
-				  if(Float.parseFloat(vFactura.getTxtSubsidio().getText())>totalSubsidio)
+			  if(!"".equals(vFactura.getTxtSubsidios().getText()) || null != vFactura.getTxtSubsidios().getText()){
+				  if(Float.parseFloat(vFactura.getTxtSubsidios().getText())>totalSubsidio)
 				  {
 					  JOptionPane.showMessageDialog(null,"Monto Insuficiente","Atencion!",
 								JOptionPane.INFORMATION_MESSAGE);
-					  vFactura.getTxtSubsidio().setText("0");
+					  vFactura.getTxtSubsidios().setText("0");
 				  }
 			  }
 		  }
