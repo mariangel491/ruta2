@@ -453,7 +453,7 @@ public String guardarFacturaEgreso(String tipoFacturado, String campoId, String 
 		 else if(tipoFacturado.equalsIgnoreCase(Arrendatario.TIPO_FACTURADO_ARRENDATARIO)){
 			 factura.setArrendatario(arrendatarioDao.buscarPorCedulaArrendatario(cedula));
 		 }
-		 factura.setCodRuta(rutaDao.buscarPorCodRuta("J-306-902686"));
+		// factura.setCodRuta(rutaDao.buscarPorCodRuta("J-306-902686"));
 		 factura.setNroFactura(facturaDao.buscarUltimoNumeroFactura());	
 		 
 		 if(formasPagoSeleccionadas.size()==0)
@@ -663,7 +663,7 @@ public String guardarFacturaIngreso(String tipoFacturado, String campoId, String
 			 factura.setArrendatario(arrendatarioDao.buscarPorCedulaArrendatario(cedula));
 		 }
 		 
-		 factura.setCodRuta(rutaDao.buscarPorCodRuta("J-306-902686"));
+		// factura.setCodRuta(rutaDao.buscarPorCodRuta("J-306-902686"));
 		 factura.setNroFactura(facturaDao.buscarUltimoNumeroFactura());		 
 		 facturaDao.agregarFactura(factura);
 		 

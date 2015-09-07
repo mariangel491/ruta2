@@ -192,7 +192,7 @@ public class ControladorAvance implements ActionListener, KeyListener {
 		}
 		else if (a.getActionCommand().equalsIgnoreCase("BuscarAvance")) {
 			try {
-				this.BuscarAvanceArren();
+				this.BuscarAvanceSocio();
 			} catch (Exception e) {
 				// TODO Auto-generated catch block
 				e.printStackTrace();
@@ -347,8 +347,8 @@ public class ControladorAvance implements ActionListener, KeyListener {
 		else {
 			
 			String cod = vAvance.getTxtCedula();
-			if (avanceDao.encontrar(cod)) { 
-				avance = avanceDao.buscarPorCodAvance(cod);
+			if (avanceDao.encontrarPorCedula(cod)) { 
+				avance = avanceDao.buscarPorCedulaAvance(cod);
 
 				String codigo;
 				String nombre;

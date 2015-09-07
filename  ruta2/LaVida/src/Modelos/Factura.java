@@ -46,9 +46,9 @@ public class Factura implements Serializable{
 	@JoinColumn(name="codarrendatario")
 	private Arrendatario arrendatario;
 	
-	@OneToOne(cascade= CascadeType.ALL)
+	/*@OneToOne(cascade= CascadeType.ALL)
 	@JoinColumn(name="codruta")
-	private Ruta codRuta;
+	private Ruta codRuta;*/
 	
 	@OneToMany(cascade= CascadeType.ALL)
 	@JoinColumn(name="codigofactura")
@@ -92,7 +92,7 @@ public class Factura implements Serializable{
 		this.montoTotal = montoTotal;
 		this.fechaEmision = fechaEmision;
 		this.nroSocio = nroSocio;
-		this.codRuta = codRuta;
+		//this.codRuta = codRuta;
 	}
 	
 	public Factura() {
@@ -133,14 +133,14 @@ public class Factura implements Serializable{
 	}
 
 
-	public Ruta getCodRuta() {
+	/*public Ruta getCodRuta() {
 		return codRuta;
 	}
 
 
 	public void setCodRuta(Ruta codRuta) {
 		this.codRuta = codRuta;
-	}
+	}*/
 
 
 	public Inquilino getInquilino() {

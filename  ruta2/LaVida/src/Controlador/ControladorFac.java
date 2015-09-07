@@ -684,7 +684,7 @@ public boolean comprobarMonto(){
 			 {
 				 factura.setArrendatario(arrendatarioDao.buscarPorCedulaArrendatario(cedula));
 			 }
-			 factura.setCodRuta(rutaDao.buscarPorCodRuta("J-306-902686"));
+			// factura.setCodRuta(rutaDao.buscarPorCodRuta("J-306-902686"));
 			 factura.setNroFactura(facturaDao.buscarUltimoNumeroFactura());	
 			 
 			 if(formasPagoSeleccionadas.size()==0)
@@ -908,10 +908,13 @@ public boolean comprobarMonto(){
 			 else if(tipoFacturado.equalsIgnoreCase(Arrendatario.TIPO_FACTURADO_ARRENDATARIO)){
 				
 				 factura.setArrendatario(arrendatarioDao.buscarCedula(campoId));
+				 System.out.println(campoId+ " Cedula del arren");
+				 System.out.println(arrendatarioDao.buscarCedula(campoId).getApellido()+ arrendatarioDao.buscarCedula(campoId).getCedula()+"busqueda");
 			 }
 			 
 			 
-			 factura.setCodRuta(rutaDao.obtenerRuta("J-306-902686"));
+			// factura.setCodRuta(rutaDao.obtenerRuta("J-306-902686"));
+			 System.out.println(rutaDao.obtenerRuta("J-306-902686").getNombre()+ " delsetCodRuta");
 			 factura.setNroFactura(facturaDao.buscarUltimoNumeroFactura());		 
 			
 			 facturaDao.agregarFactura(factura);
@@ -1201,7 +1204,7 @@ public boolean comprobarMonto(){
 			 if(tipoFacturado.equalsIgnoreCase(Socio.TIPO_FACTURADO_SOCIO)){
 				 factura.setNroSocio(socioDao.buscarPorNroSocio(campoId));	 
 			 }
-			 factura.setCodRuta(rutaDao.buscarPorCodRuta("J-306-902686"));
+			// factura.setCodRuta(rutaDao.buscarPorCodRuta("J-306-902686"));
 			 factura.setNroFactura(facturaDao.buscarUltimoNumeroFactura());		 
 			
 			 facturaDao.agregarFactura(factura);

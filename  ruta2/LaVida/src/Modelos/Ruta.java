@@ -29,9 +29,9 @@ public class Ruta implements Serializable{
 	@Column(name="telefono")
 	private Integer telefono;
 
-	@OneToMany(cascade= CascadeType.ALL)
+	/*@OneToMany(cascade= CascadeType.ALL)
 	@JoinColumn(name="codruta")
-	List<Factura> facturas;
+	List<Factura> facturas;*/
 	
 	@OneToMany(cascade= CascadeType.ALL)
 	@JoinColumn(name="codruta")

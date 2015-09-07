@@ -43,7 +43,6 @@ public class VistaCargarIngresos extends javax.swing.JFrame {
 	private JPanel jPanelVentana;
 	private JPanel jPanelTitulo;
 	private JPanel jPanelCargarMontos;
-	private JLabel lblCodigoIng;
 	private JLabel lblNombIngresos;
 	private JButton btnSalir;
 	private JButton btnLimpiar;
@@ -53,14 +52,13 @@ public class VistaCargarIngresos extends javax.swing.JFrame {
 	private JLabel lblMontoIngreso;
 	private JList jListIngresos;
 	private JScrollPane jScrollPaneIngresos;
-	private JButton btnBuscar;
-	private JTextField txtCodIng;
 	private JLabel lblTitulo;
 
 	
 	//Mis datos
 	DefaultListModel mod= new DefaultListModel ();
 	LinkedListModel<String> ingresos=new LinkedListModel<>();
+	private JLabel jLabel1;
 	private IngresosDao ingDao= new IngresosDao();
 	
 	
@@ -97,62 +95,46 @@ private static VistaCargarIngresos vCIng=null;
 			{
 				jPanelVentana = new JPanel();
 				getContentPane().add(jPanelVentana);
-				jPanelVentana.setBounds(0, 0, 389, 293);
+				jPanelVentana.setBounds(0, 0, 443, 314);
 				jPanelVentana.setLayout(null);
 				{
 					jPanelTitulo = new JPanel();
 					jPanelVentana.add(jPanelTitulo);
-					jPanelTitulo.setBounds(0, 0, 390, 66);
+					jPanelTitulo.setBounds(0, 0, 443, 60);
 					jPanelTitulo.setLayout(null);
+					jPanelTitulo.setBackground(new java.awt.Color(255,255,255));
 					{
 						lblTitulo = new JLabel();
+						jPanelTitulo.add(getJLabel1());
 						jPanelTitulo.add(lblTitulo);
 						lblTitulo.setText("Cargar Ingresos");
-						lblTitulo.setBounds(167, 26, 151, 28);
-						lblTitulo.setFont(new java.awt.Font("Century Gothic",3,18));
+						lblTitulo.setBounds(190, 20, 151, 28);
+						lblTitulo.setFont(new java.awt.Font("Segoe UI",2,22));
 					}
 				}
 				{
 					jPanelCargarMontos = new JPanel();
 					jPanelVentana.add(jPanelCargarMontos);
-					jPanelCargarMontos.setBounds(10, 72, 369, 181);
+					jPanelCargarMontos.setBounds(10, 72, 416, 230);
 					jPanelCargarMontos.setBorder(BorderFactory.createTitledBorder("Cargar Montos de Ingresos"));
 					jPanelCargarMontos.setLayout(null);
-					{
-						lblCodigoIng = new JLabel();
-						jPanelCargarMontos.add(lblCodigoIng);
-						lblCodigoIng.setText("Código");
-						lblCodigoIng.setBounds(39, 35, 39, 16);
-					}
-					{
-						txtCodIng = new JTextField();
-						jPanelCargarMontos.add(txtCodIng);
-						txtCodIng.setBounds(96, 32, 101, 23);
-						txtCodIng.setActionCommand("BIngreTecla");
-					}
-					{
-						btnBuscar = new JButton();
-						jPanelCargarMontos.add(btnBuscar);
-						btnBuscar.setBounds(212, 29, 28, 29);
-						btnBuscar.setIcon(new ImageIcon(getClass().getClassLoader().getResource("Imagenes/search.png")));
-						btnBuscar.setActionCommand("Buscar");
-					}
 					{
 						lblNombIngresos = new JLabel();
 						jPanelCargarMontos.add(lblNombIngresos);
 						lblNombIngresos.setText("Nombre");
-						lblNombIngresos.setBounds(39, 69, 44, 16);
+						lblNombIngresos.setBounds(37, 70, 57, 16);
 					}
 					{
 						jScrollPaneIngresos = new JScrollPane();
 						jPanelCargarMontos.add(jScrollPaneIngresos);
-						jScrollPaneIngresos.setBounds(95, 65, 184, 60);
+						jScrollPaneIngresos.setBounds(96, 68, 212, 111);
 						{
 							ListModel jListIngresosModel = 
 									new DefaultComboBoxModel(
 											new String[] {  });
 							jListIngresos = new JList();
 							jScrollPaneIngresos.setViewportView(jListIngresos);
+							jListIngresos.setPreferredSize(new java.awt.Dimension(209, 92));
 							jListIngresos.setModel(jListIngresosModel);
 							jListIngresos.addMouseListener(mouseListener);
 						}
@@ -161,50 +143,50 @@ private static VistaCargarIngresos vCIng=null;
 						lblMontoIngreso = new JLabel();
 						jPanelCargarMontos.add(lblMontoIngreso);
 						lblMontoIngreso.setText("Monto ");
-						lblMontoIngreso.setBounds(39, 140, 39, 16);
+						lblMontoIngreso.setBounds(41, 191, 39, 16);
 					}
 					{
 						txtMontoIng = new JTextField();
 						jPanelCargarMontos.add(txtMontoIng);
-						txtMontoIng.setBounds(96, 137, 101, 23);
+						txtMontoIng.setBounds(97, 188, 101, 23);
 					}
 					{
 						lblEtiqBsF = new JLabel();
 						jPanelCargarMontos.add(lblEtiqBsF);
 						lblEtiqBsF.setText("BsF.");
-						lblEtiqBsF.setBounds(203, 140, 37, 16);
+						lblEtiqBsF.setBounds(204, 191, 37, 16);
 					}
 				}
-				{
-					btnGuardar = new JButton();
-					jPanelVentana.add(btnGuardar);
-					btnGuardar.setText("Guardar");
-					btnGuardar.setBounds(22, 259, 110, 23);
-					btnGuardar.setFont(new java.awt.Font("Verdana",0,11));
-					btnGuardar.setIcon(new ImageIcon(getClass().getClassLoader().getResource("Imagenes/save.png")));
-					btnGuardar.setActionCommand("Guardar");
-				}
-				{
-					btnLimpiar = new JButton();
-					jPanelVentana.add(btnLimpiar);
-					btnLimpiar.setText("Limpiar");
-					btnLimpiar.setBounds(147, 259, 105, 23);
-					btnLimpiar.setFont(new java.awt.Font("Verdana",0,11));
-					btnLimpiar.setIcon(new ImageIcon(getClass().getClassLoader().getResource("Imagenes/Limpiarcodigo_1.png")));
-					btnLimpiar.setActionCommand("Limpiar");
-				}
-				{
-					btnSalir = new JButton();
-					jPanelVentana.add(btnSalir);
-					btnSalir.setText("Salir");
-					btnSalir.setBounds(268, 259, 98, 23);
-					btnSalir.setFont(new java.awt.Font("Verdana",0,11));
-					btnSalir.setIcon(new ImageIcon(getClass().getClassLoader().getResource("Imagenes/exit.png")));
-					btnSalir.setActionCommand("Salir");
-				}
+			}
+			{
+				btnSalir = new JButton();
+				getContentPane().add(btnSalir);
+				btnSalir.setText("Salir");
+				btnSalir.setBounds(292, 326, 98, 23);
+				btnSalir.setFont(new java.awt.Font("Verdana",0,11));
+				btnSalir.setIcon(new ImageIcon(getClass().getClassLoader().getResource("Imagenes/exit.png")));
+				btnSalir.setActionCommand("Salir");
+			}
+			{
+				btnLimpiar = new JButton();
+				getContentPane().add(btnLimpiar);
+				btnLimpiar.setText("Limpiar");
+				btnLimpiar.setBounds(171, 326, 105, 23);
+				btnLimpiar.setFont(new java.awt.Font("Verdana",0,11));
+				btnLimpiar.setIcon(new ImageIcon(getClass().getClassLoader().getResource("Imagenes/Limpiarcodigo_1.png")));
+				btnLimpiar.setActionCommand("Limpiar");
+			}
+			{
+				btnGuardar = new JButton();
+				getContentPane().add(btnGuardar);
+				btnGuardar.setText("Guardar");
+				btnGuardar.setBounds(46, 326, 110, 23);
+				btnGuardar.setFont(new java.awt.Font("Verdana",0,11));
+				btnGuardar.setIcon(new ImageIcon(getClass().getClassLoader().getResource("Imagenes/save.png")));
+				btnGuardar.setActionCommand("Guardar");
 			}
 			pack();
-			this.setSize(405, 331);
+			this.setSize(459, 399);
 		} catch (Exception e) {
 		    //add your error handling code here
 			e.printStackTrace();
@@ -219,26 +201,26 @@ private static VistaCargarIngresos vCIng=null;
 		txtMontoIng.setText(MontoIng);
 	}
 
-	public String getTxtCodIng() {
+/*	public String getTxtCodIng() {
 		return txtCodIng.getText();
 	}
 
 	public void setTxtCodIng(String CodIng) {
 		txtCodIng.setText(CodIng);
-	}
+	}*/
 
 	//agregar listeners
 	public void agregarListener(ActionListener accion) {
 		this.btnGuardar.addActionListener(accion);
-		this.btnBuscar.addActionListener(accion);
+	//	this.btnBuscar.addActionListener(accion);
 		this.btnLimpiar.addActionListener(accion);
 		this.btnSalir.addActionListener(accion);
-		this.txtCodIng.addActionListener(accion);
+		//this.txtCodIng.addActionListener(accion);
 	}
 
 	//LimpiarCampos
 	public void limpiarCampos() {
-		txtCodIng.setText("");
+	//	txtCodIng.setText("");
 		txtMontoIng.setText("");
 		jListIngresos.clearSelection();
 		jListIngresos.removeAll();
@@ -277,10 +259,10 @@ private static VistaCargarIngresos vCIng=null;
 	}
 	public void ItemSeleccionado(){
 		int nro_seleccionado= jListIngresos.getSelectedIndex();
-		txtCodIng.setEnabled(false);
+		//txtCodIng.setEnabled(false);
 		try {
 			Ingresos ing= ingDao.obtenerTodos().get(nro_seleccionado);
-			txtCodIng.setText(ing.getCodIngreso());
+		//	txtCodIng.setText(ing.getCodIngreso());
 			if(ing.getMonto()==0)
 			{
 				txtMontoIng.setText("");
@@ -314,4 +296,13 @@ private static VistaCargarIngresos vCIng=null;
 		    public void agregarKey(KeyListener a) {
 				txtMontoIng.addKeyListener(a);
 			}
+		    
+		    private JLabel getJLabel1() {
+		    	if(jLabel1 == null) {
+		    		jLabel1 = new JLabel();
+		    		jLabel1.setBounds(1, 2, 156, 58);
+		    		jLabel1.setIcon(new ImageIcon(getClass().getClassLoader().getResource("Imagenes/LogoRuta2.jpg")));
+		    	}
+		    	return jLabel1;
+		    }
 }

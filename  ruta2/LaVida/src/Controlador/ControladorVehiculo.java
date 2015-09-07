@@ -441,16 +441,12 @@ public ControladorVehiculo(VistaAvanceArren vaa) {
 	
 	public void BuscarAvances(String ava) throws Exception {
 		
-		Avance avan = new Avance();
-		System.out.println("esta llamando al metodo");
-		System.out.println(vVehiculo.getTxtNroSocio());
-		if (avanceDao.encontrarCod(vVehiculo.getTxtNroSocio())) {
-			avan = avanceDao.buscarPorCodSocio(vVehiculo.getTxtNroSocio());
-			System.out.println(avan.getApellido());
-			
-			vVehiculo.setCmbConductor(avan.getNombre() +" "+ avan.getApellido());
-			System.out.println(avan.getNombre()+avan.getApellido());
-			
+		Avance avance = new Avance();
+		String avan= ava;
+		
+		if (avanceDao.encontrar(avan)) {
+			avance = avanceDao.buscarPorCodAvance(avan);
+			vVehiculo.setCmbConductorP(avance.getNombre() +" "+ avance.getApellido());
 		}
 	}
 	
@@ -601,33 +597,23 @@ public ControladorVehiculo(VistaAvanceArren vaa) {
 	}
 	
 	protected void cargarListadoDeVehiculos() throws Exception {
-		
-		
 		if(socio.getVehiculos().size()>0)
 		{
 			List<Vehiculo> vehiculos = socio.getVehiculos();
 			vVehiculo.limpiarTablaVehiculos();
 			for(int i=0; i<vehiculos.size(); i++)
 			{
-				//this.avanceNombre(vehiculos, i);
+				
 				String placa = vehiculos.get(i).getPlaca();
 				String serial = vehiculos.get(i).getSerialCarroceria();
 				String marca = vehiculos.get(i).getMarca().getDescripcion().toString();
 				Integer año = vehiculos.get(i).getAnno();
-				Integer nropstos= vehiculos.get(i).getNropuestos();
-				String avance = vVehiculo.getCmbConductor();//vehiculos.get(i).getAvance();
-				System.out.println(avance+"del metodo");
-					
-				//System.out.println(avance);
-		//	String avance= this.traerNombreyApe(vehiculos, i);
-						vVehiculo.getCmbConductor();
-					
-				//	String avance = vehiculos.get(i).getNombre()+" "+vehiculos.get(i).getAvance().getApellido();
+				Integer nropstos= vehiculos.get(i).getNropuestos();	
+				String avanceN= this.traerNombreyApe(vehiculos, i);
 				
-				vVehiculo.agregarFila(placa, serial, marca, año.toString(),nropstos.toString(), avance);
-				
+				vVehiculo.agregarFila(placa, serial, marca, año.toString(),nropstos.toString(), avanceN);	
 			}
-		}		
+		}
 	}
 	
 	/*public boolean encontrarAvanceSocio(){

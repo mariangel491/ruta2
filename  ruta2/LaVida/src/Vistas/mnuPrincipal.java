@@ -194,7 +194,7 @@ public class mnuPrincipal extends javax.swing.JFrame {
 					{
 						itmCargarIngresos = new JMenuItem();
 						Registrar.add(itmCargarIngresos);
-						itmCargarIngresos.setText("Monto Ingreso");
+						itmCargarIngresos.setText("Cargar Ingresos");
 						itmCargarIngresos.setActionCommand("CargarIngresos");
 					}
 					/*{

@@ -58,7 +58,7 @@ public class ControladorCargarMontoIng implements ActionListener, KeyListener {
 		
 		float monto = Float.parseFloat(vCargarI.getTxtMontoIng());
 		try {
-			ingreso= ingDao.buscarPorCodIngreso(vCargarI.getTxtCodIng());
+		//	ingreso= ingDao.buscarPorCodIngreso(vCargarI.getTxtCodIng());
 			ingreso.setMonto(monto);
 			ingDao.actualizarIngresos(vCargarI.itemSeleccionado(), ingreso);
 			JOptionPane.showMessageDialog(null,"Monto registrado con exito","Atención",

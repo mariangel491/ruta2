@@ -1173,7 +1173,6 @@ private static VistaFac vFactura=null;
 	        totalRow-=1; 
 	        for(int i=0;i<=(totalRow);i++)
 	        {
-	        	//System.out.println("de la tabla deudas por socio  "+defaultTableModelIngresoXfactura.getValueAt(i,2));
 	             sumatoria = sumatoria +  (Double.parseDouble(String.valueOf(defaultTableModelIngresoXfactura.getValueAt(i,2)))*Double.parseDouble(String.valueOf(jSpinnerCantidad.getValue())));
 	             
 	        }
@@ -1688,7 +1687,7 @@ private static VistaFac vFactura=null;
 		
 		 int f=jTablePrestamosXFactura.getSelectionModel().getLeadSelectionIndex();
 	     // int c=jTablePrestamosXFactura.getColumnModel().getSelectionModel().getLeadSelectionIndex();
-		//System.out.println(this.getjTablePrestamosXFactura().getSelectionModel());
+	
 		filaSeleccionada= (String) this.jTablePrestamosXFactura.getValueAt(f,0);
 		
 	}
@@ -1823,7 +1822,6 @@ private static VistaFac vFactura=null;
 
 	public void LlenarLista(Prestamos p){
 		listaPrestamos.add(p);
-		System.out.println(listaPrestamos.size());
 	}
 
 	public ArrayList<Prestamos> getListaPrestamos() {
