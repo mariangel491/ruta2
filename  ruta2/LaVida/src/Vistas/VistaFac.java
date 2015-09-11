@@ -1230,7 +1230,7 @@ private static VistaFac vFactura=null;
 		if(checkEfectivo == null) {
 			checkEfectivo = new JCheckBox();
 			checkEfectivo.setText("Efectivo");
-			checkEfectivo.setBounds(17, 23, 67, 15);
+			checkEfectivo.setBounds(12, 23, 78, 15);
 			checkEfectivo.setActionCommand("CheckEfectivo");
 		}
 		return checkEfectivo;
@@ -1240,7 +1240,7 @@ private static VistaFac vFactura=null;
 		if(checkSubsidio == null) {
 			checkSubsidio = new JCheckBox();
 			checkSubsidio.setText("Subsidio");
-			checkSubsidio.setBounds(17, 79, 73, 15);
+			checkSubsidio.setBounds(11, 79, 76, 15);
 			checkSubsidio.setActionCommand("CheckSubsidio");
 		}
 		return checkSubsidio;
@@ -1250,7 +1250,7 @@ private static VistaFac vFactura=null;
 		if(checkDeposito == null) {
 			checkDeposito = new JCheckBox();
 			checkDeposito.setText("Deposito");
-			checkDeposito.setBounds(17, 138, 66, 15);
+			checkDeposito.setBounds(10, 138, 83, 15);
 			checkDeposito.setActionCommand("CheckDeposito");
 		}
 		return checkDeposito;
@@ -1260,7 +1260,7 @@ private static VistaFac vFactura=null;
 		if(checkTransferencia == null) {
 			checkTransferencia = new JCheckBox();
 			checkTransferencia.setText("Transferencia");
-			checkTransferencia.setBounds(17, 51, 97, 15);
+			checkTransferencia.setBounds(11, 51, 108, 15);
 			checkTransferencia.setActionCommand("CheckTransferencia");
 		
 		}
@@ -1271,7 +1271,7 @@ private static VistaFac vFactura=null;
 		if(checkCheque == null) {
 			checkCheque = new JCheckBox();
 			checkCheque.setText("Cheque");
-			checkCheque.setBounds(17, 111, 70, 15);
+			checkCheque.setBounds(10, 111, 79, 15);
 			checkCheque.setActionCommand("CheckCheque");
 			
 		}
@@ -1490,7 +1490,7 @@ private static VistaFac vFactura=null;
 		txtNroTransferencia.setVisible(true);
 		this.jTextField1.setVisible(true);
 		this.Check();
-		this.checkDeposito.setActionCommand("OcultarCheckTransferencia");
+		this.checkTransferencia.setActionCommand("OcultarCheckTransferencia");
 	}
 
 	public void OcultarCheckTransferencia(){
@@ -1498,7 +1498,7 @@ private static VistaFac vFactura=null;
 		txtTransferencia.setText("");
 		txtNroTransferencia.setVisible(false);
 		this.jTextField1.setVisible(false);
-		checkTransferencia.setActionCommand("CheckTrasnferencia");
+		checkTransferencia.setActionCommand("CheckTransferencia");
 		
 	}
 	
@@ -1854,7 +1854,7 @@ private static VistaFac vFactura=null;
 	private JTextField getTxtDeposito() {
 		if(txtDeposito == null) {
 			txtDeposito = new JTextField();
-			txtDeposito.setBounds(93, 134, 110, 23);
+			txtDeposito.setBounds(94, 134, 110, 23);
 		}
 		return txtDeposito;
 	}
@@ -1864,7 +1864,7 @@ private static VistaFac vFactura=null;
 	private JTextField getTxtEfectivo() {
 		if(txtEfectivo == null) {
 			txtEfectivo = new JTextField();
-			txtEfectivo.setBounds(87, 20, 113, 23);
+			txtEfectivo.setBounds(90, 20, 113, 23);
 		}
 		return txtEfectivo;
 	}
@@ -1877,7 +1877,7 @@ private static VistaFac vFactura=null;
 	private JTextField getTxtSubsidio() {
 		if(txtSubsidio == null) {
 			txtSubsidio = new JTextField();
-			txtSubsidio.setBounds(93, 76, 108, 23);
+			txtSubsidio.setBounds(95, 76, 108, 23);
 		}
 		return txtSubsidio;
 	}
@@ -1889,7 +1889,7 @@ private static VistaFac vFactura=null;
 	private JTextField getTxtTransferencia() {
 		if(txtTransferencia == null) {
 			txtTransferencia = new JTextField();
-			txtTransferencia.setBounds(119, 48, 82, 23);
+			txtTransferencia.setBounds(122, 48, 82, 23);
 		}
 		return txtTransferencia;
 	}

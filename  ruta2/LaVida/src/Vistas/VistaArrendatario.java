@@ -97,25 +97,25 @@ public class VistaArrendatario extends javax.swing.JFrame {
 			{
 				jPanelDatosArrendatario = new JPanel();
 				getContentPane().add(jPanelDatosArrendatario);
-				jPanelDatosArrendatario.setBounds(18, 105, 504, 161);
+				jPanelDatosArrendatario.setBounds(18, 86, 504, 161);
 				jPanelDatosArrendatario.setBorder(BorderFactory.createTitledBorder("Datos del Arrendatario"));
 				jPanelDatosArrendatario.setLayout(null);
 				{
 					lblCedulaRif = new JLabel();
 					jPanelDatosArrendatario.add(lblCedulaRif);
 					lblCedulaRif.setText("Cédula:");
-					lblCedulaRif.setBounds(29, 21, 48, 16);
+					lblCedulaRif.setBounds(29, 22, 48, 16);
 				}
 				{
 					txtCedulaRif = new JTextField();
 					jPanelDatosArrendatario.add(txtCedulaRif);
-					txtCedulaRif.setBounds(89, 18, 121, 23);
+					txtCedulaRif.setBounds(89, 19, 121, 23);
 					txtCedulaRif.setActionCommand("BuscarCedTecl");
 				}
 				{
 					btnBuscar = new JButton();
 					jPanelDatosArrendatario.add(btnBuscar);
-					btnBuscar.setBounds(216, 13, 34, 28);
+					btnBuscar.setBounds(216, 16, 34, 28);
 					btnBuscar.setIcon(new ImageIcon(getClass().getClassLoader().getResource("Imagenes/search.png")));
 					btnBuscar.setActionCommand("Buscar");
 				}
@@ -128,7 +128,7 @@ public class VistaArrendatario extends javax.swing.JFrame {
 				{
 					txtNombre = new JTextField();
 					jPanelDatosArrendatario.add(txtNombre);
-					txtNombre.setBounds(89, 51, 162, 23);
+					txtNombre.setBounds(89, 52, 162, 23);
 				}
 				{
 					lblApellido = new JLabel();
@@ -139,29 +139,29 @@ public class VistaArrendatario extends javax.swing.JFrame {
 				{
 					txtApellido = new JTextField();
 					jPanelDatosArrendatario.add(txtApellido);
-					txtApellido.setBounds(319, 51, 168, 23);
+					txtApellido.setBounds(319, 52, 168, 23);
 				}
 				{
 					lblDireccion = new JLabel();
 					jPanelDatosArrendatario.add(lblDireccion);
 					lblDireccion.setText("Dirección:");
-					lblDireccion.setBounds(25, 94, 59, 16);
+					lblDireccion.setBounds(25, 96, 59, 16);
 				}
 				{
 					txtDireccion = new JTextField();
 					jPanelDatosArrendatario.add(txtDireccion);
-					txtDireccion.setBounds(88, 85, 399, 35);
+					txtDireccion.setBounds(88, 83, 399, 35);
 				}
 				{
 					lblMonto = new JLabel();
 					jPanelDatosArrendatario.add(lblMonto);
 					lblMonto.setText("Monto:");
-					lblMonto.setBounds(25, 128, 59, 16);
+					lblMonto.setBounds(25, 130, 59, 16);
 				}
 				{
 					txtMonto = new JTextField();
 					jPanelDatosArrendatario.add(txtMonto);
-					txtMonto.setBounds(88, 125, 101, 22);
+					txtMonto.setBounds(88, 127, 101, 22);
 				}
 				{
 					lblTelefono = new JLabel();
@@ -172,7 +172,7 @@ public class VistaArrendatario extends javax.swing.JFrame {
 				{
 					txtTelefono = new JTextField();
 					jPanelDatosArrendatario.add(txtTelefono);
-					txtTelefono.setBounds(320, 18, 167, 23);
+					txtTelefono.setBounds(320, 17, 167, 23);
 				}
 				{
 					lblBsF = new JLabel();
@@ -181,14 +181,14 @@ public class VistaArrendatario extends javax.swing.JFrame {
 					jPanelDatosArrendatario.add(getJRadioButtonSi());
 					jPanelDatosArrendatario.add(getJRadioButtonNo());
 					lblBsF.setText("BsF.");
-					lblBsF.setBounds(192, 128, 59, 16);
+					lblBsF.setBounds(192, 131, 59, 16);
 				}
 			}
 			{
 				btnCancelar = new JButton();
 				getContentPane().add(btnCancelar);
 				btnCancelar.setText("Cancelar");
-				btnCancelar.setBounds(47, 283, 110, 26);
+				btnCancelar.setBounds(29, 259, 110, 31);
 				btnCancelar.setIcon(new ImageIcon(getClass().getClassLoader().getResource("Imagenes/button_cancel_16x16.png")));
 				btnCancelar.setActionCommand("Cancelar");
 			}
@@ -196,7 +196,7 @@ public class VistaArrendatario extends javax.swing.JFrame {
 				btnModificar = new JButton();
 				getContentPane().add(btnModificar);
 				btnModificar.setText("Modifcar");
-				btnModificar.setBounds(160, 283, 110, 26);
+				btnModificar.setBounds(145, 259, 110, 31);
 				btnModificar.setIcon(new ImageIcon(getClass().getClassLoader().getResource("Imagenes/kwrite_22x22.png")));
 				btnModificar.setActionCommand("Modificar");
 			}
@@ -204,23 +204,22 @@ public class VistaArrendatario extends javax.swing.JFrame {
 				btnLimpiar = new JButton();
 				getContentPane().add(btnLimpiar);
 				btnLimpiar.setText("Limpiar");
-				btnLimpiar.setBounds(275, 283, 110, 26);
+				btnLimpiar.setBounds(266, 259, 110, 31);
 				btnLimpiar.setIcon(new ImageIcon(getClass().getClassLoader().getResource("Imagenes/Limpiarcodigo_1.png")));
 				btnLimpiar.setActionCommand("Limpiar");
 			}
 			{
 				lbl = new JLabel();
 				getContentPane().add(lbl);
-				getContentPane().add(getJLabel1());
 				getContentPane().add(getJpImagen());
 				getContentPane().add(getBtnSiguiente());
 				//getContentPane().add(jPanelTitulo);
 				lbl.setText("Registrar Arrendatario");
-				lbl.setBounds(228, 49, 219, 24);
+				lbl.setBounds(228, 27, 219, 24);
 				lbl.setFont(new java.awt.Font("Century Gothic",2,20));
 			}
 			pack();
-			this.setSize(558, 373);
+			this.setSize(558, 348);
 		} catch (Exception e) {
 		    //add your error handling code here
 			e.printStackTrace();
@@ -359,8 +358,9 @@ public class VistaArrendatario extends javax.swing.JFrame {
 		private JLabel getJLabel1() {
 			if(jLabel1 == null) {
 				jLabel1 = new JLabel();
-				jLabel1.setBounds(26, 23, 481, 75);
+				jLabel1.setBounds(12, -1, 480, 75);
 				jLabel1.setIcon(new ImageIcon(getClass().getClassLoader().getResource("Imagenes/LogoRuta2.jpg")));
+				jLabel1.setPreferredSize(new java.awt.Dimension(537, 60));
 			}
 			return jLabel1;
 		}
@@ -368,8 +368,9 @@ public class VistaArrendatario extends javax.swing.JFrame {
 		private JPanel getJpImagen() {
 			if(jpImagen == null) {
 				jpImagen = new JPanel();
-				jpImagen.setBounds(23, 26, 493, 68);
+				jpImagen.setBounds(0, -2, 540, 68);
 				jpImagen.setBackground(new java.awt.Color(255,255,255));
+				jpImagen.add(getJLabel1());
 			}
 			return jpImagen;
 		}
@@ -414,7 +415,7 @@ public class VistaArrendatario extends javax.swing.JFrame {
 			if(lblPregunta == null) {
 				lblPregunta = new JLabel();
 				lblPregunta.setText("¿Tiene Avance?");
-				lblPregunta.setBounds(246, 129, 120, 16);
+				lblPregunta.setBounds(246, 130, 120, 16);
 			}
 			return lblPregunta;
 		}
@@ -430,7 +431,7 @@ public class VistaArrendatario extends javax.swing.JFrame {
 			if(jRadioButtonSi == null) {
 				jRadioButtonSi = new JRadioButton();
 				jRadioButtonSi.setText("Si");
-				jRadioButtonSi.setBounds(338, 127, 37, 20);
+				jRadioButtonSi.setBounds(338, 128, 37, 20);
 				getButtonGroupTieneAvance().add(jRadioButtonSi);
 			}
 			return jRadioButtonSi;
@@ -440,7 +441,7 @@ public class VistaArrendatario extends javax.swing.JFrame {
 			if(jRadioButtonNo == null) {
 				jRadioButtonNo = new JRadioButton();
 				jRadioButtonNo.setText("No");
-				jRadioButtonNo.setBounds(382, 127, 56, 20);
+				jRadioButtonNo.setBounds(382, 129, 56, 20);
 				getButtonGroupTieneAvance().add(jRadioButtonNo);
 			}
 			return jRadioButtonNo;
@@ -451,7 +452,7 @@ public class VistaArrendatario extends javax.swing.JFrame {
 				btnSiguiente = new JButton();
 				btnSiguiente.setText("Siguiente");
 				btnSiguiente.setIcon(new ImageIcon(getClass().getClassLoader().getResource("Imagenes/sig.png")));
-				btnSiguiente.setBounds(396, 284, 126, 23);
+				btnSiguiente.setBounds(385, 260, 126, 30);
 				btnSiguiente.setActionCommand("Siguiente");
 				
 			}

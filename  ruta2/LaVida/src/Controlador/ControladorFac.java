@@ -208,6 +208,7 @@ public class ControladorFac implements ActionListener, KeyListener, FocusListene
 			vFactura.CheckTransferencia();
 		}else if(ae.getActionCommand().equalsIgnoreCase("OcultarCheckTransferencia")){
 			vFactura.OcultarCheckTransferencia();
+			System.out.println("ocultar check transf");
 		}else if(ae.getActionCommand().equalsIgnoreCase("CheckDeposito")){
 			vFactura.CheckDeposito();
 		}else if(ae.getActionCommand().equalsIgnoreCase("OcultarCheckDeposito")){
