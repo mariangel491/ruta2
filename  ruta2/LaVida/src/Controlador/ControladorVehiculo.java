@@ -466,7 +466,7 @@ public ControladorVehiculo(VistaAvanceArren vaa) {
 				vehiculo = vehiculoDao.buscarPorPlaca(this.vVehiculo.getTxtPlaca());
 
 				String codigo;
-				String nombre;
+				String nombre, apellido;
 				
 				String placa;
 				String serial;
@@ -475,10 +475,12 @@ public ControladorVehiculo(VistaAvanceArren vaa) {
 				String avance;
 				
 
-				codigo = socio.getNroSocio();
+				codigo = vehiculo.getSocio().getNroSocio();
 				vVehiculo.setTxtNroSocio(codigo);
-				nombre = socio.getNombre();
-				vVehiculo.setTxtNomSocio(nombre);
+				nombre = vehiculo.getSocio().getNombre();
+				apellido = vehiculo.getSocio().getApellido();
+				vVehiculo.setTxtNomSocio(nombre+" "+ apellido);
+			
 				
 				placa = vehiculo.getPlaca();
 				vVehiculo.setTxtPlaca(placa);

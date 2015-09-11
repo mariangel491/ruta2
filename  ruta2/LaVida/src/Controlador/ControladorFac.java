@@ -73,6 +73,8 @@ import Vistas.VistaFac;
 
 public class ControladorFac implements ActionListener, KeyListener, FocusListener{
 	
+	
+	
 	private VistaFac vFactura = new VistaFac();
 	
 	//DAOS
