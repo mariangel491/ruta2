@@ -50,7 +50,7 @@ private HibernateUtil sesionPostgres;
 	}
 
 
-	public void eliminarInquilino(int posi, Inquilino dato) throws Exception{		 
+	public void eliminarInquilino(Inquilino dato) throws Exception{		 
 		@SuppressWarnings("static-access")
 		Session sesion = sesionPostgres.openSession();  
 		Transaction tx = null;  
@@ -68,7 +68,7 @@ private HibernateUtil sesionPostgres;
 		}  
 	}
 
-	public void actualizarInquilino(int posi, Inquilino dato) throws Exception{
+	public void actualizarInquilino(Inquilino dato) throws Exception{
 		@SuppressWarnings("static-access")
 		Session em = sesionPostgres.openSession();  
 		Transaction tx = null;  
@@ -109,8 +109,14 @@ private HibernateUtil sesionPostgres;
 		return null;
 	}
 
-	public boolean encontrar(String codInquilino) throws Exception {
-		if (buscarPorCodInquilino(codInquilino) == null)
+	public boolean encontrarInquilinoRif(String rif) throws Exception {
+		if (buscarPorRif(rif) == null)
+			return false;
+		return true;
+	}
+	
+	public boolean encontrarInquilinoCedula(String cedula) throws Exception {
+		if (buscarPorCedula(cedula) == null)
 			return false;
 		return true;
 	}

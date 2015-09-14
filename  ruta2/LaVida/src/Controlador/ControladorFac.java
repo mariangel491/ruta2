@@ -1,5 +1,6 @@
 package Controlador;
 
+import java.awt.HeadlessException;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.FocusEvent;
@@ -177,7 +178,7 @@ public class ControladorFac implements ActionListener, KeyListener, FocusListene
 					this.BuscarSocioPorNro();
 					this.BuscarSubsidio(vFactura.getTxtNroSocio());
 					this.BuscarPrestamos(vFactura.getTxtNroSocio());
-					this.BuscarDeudas();
+					
 				} catch (Exception e) {
 					// TODO Auto-generated catch block
 					e.printStackTrace();
@@ -307,22 +308,28 @@ public class ControladorFac implements ActionListener, KeyListener, FocusListene
 		if(vFactura.getCmbTipoFacturado().equalsIgnoreCase(vFactura.TIPO_FACTURADO_SOCIO)){
 			try {
 				socio = socioDao.buscarPorCedula(vFactura.getTxtCed().trim());
+				this.BuscarDeudas();
 			} catch (Exception e1) {
 				// TODO Auto-generated catch block
 				e1.printStackTrace();
 			}
 			vFactura.llenarCamposSocio(socio);
 		}
-		else if(vFactura.getCmbTipoFacturado().equalsIgnoreCase(vFactura.TIPO_FACTURADO_INQUILINO)){
-			if(vFactura.getTxtCed().trim()!=null){
-				inquilino = inquilinoDao.buscarPorCedula(vFactura.getTxtCed().trim());
-			}	
-			else 
-			{
-				inquilino = inquilinoDao.buscarPorRif(vFactura.getTxtNroSocio());
-			}
-			this.BuscarDeudasAlquiler(inquilino.getCodInquilino());
-			vFactura.llenarCamposInquilino(inquilino);
+		else if(vFactura.getCmbTipoFacturado().equalsIgnoreCase(vFactura.TIPO_FACTURADO_INQUILINO))
+		{
+				if(vFactura.getTxtCed().trim()!=null)
+				{
+					if(inquilinoDao.encontrarInquilinoCedula(vFactura.getTxtCed().trim())==true)
+					{
+						inquilino = inquilinoDao.buscarPorCedula(vFactura.getTxtCed().trim());	
+						
+						this.BuscarDeudasAlquiler(inquilino.getCodInquilino());
+						vFactura.llenarCamposInquilino(inquilino);			
+					}	
+					else
+						JOptionPane.showMessageDialog(null,"No se encontró resultado","Atención",
+								JOptionPane.INFORMATION_MESSAGE);
+				}			
 			
 		}
 		else if(vFactura.getCmbTipoFacturado().equalsIgnoreCase(vFactura.TIPO_FACTURADO_ARRENDATARIO)){
@@ -340,7 +347,7 @@ public class ControladorFac implements ActionListener, KeyListener, FocusListene
 	}
 	
 	
-	public void BuscarSocioPorNro(){
+	public void BuscarSocioPorNro() {
 		
 		Socio socio =null;
 		Inquilino inquilino =null;
@@ -348,16 +355,29 @@ public class ControladorFac implements ActionListener, KeyListener, FocusListene
 			try {
 				if(vFactura.getTxtNroSocio()!=null)
 					socio = socioDao.buscarPorNroSocio(vFactura.getTxtNroSocio().trim());
-					
+					this.BuscarDeudas();
 			} catch (Exception e1) {
 				// TODO Auto-generated catch block
 				e1.printStackTrace();
 			}
 			vFactura.llenarCamposSocio(socio);
 		}
-		else if(vFactura.getCmbTipoFacturado().equalsIgnoreCase(vFactura.TIPO_FACTURADO_INQUILINO)){
-			inquilino = inquilinoDao.buscarPorRif(vFactura.getTxtNroSocio().trim());
-			vFactura.llenarCamposInquilino(inquilino);
+		else if(vFactura.getCmbTipoFacturado().equalsIgnoreCase(vFactura.TIPO_FACTURADO_INQUILINO))
+		{
+			try {
+				if(inquilinoDao.encontrarInquilinoRif(vFactura.getTxtNroSocio().trim())==true)
+				{
+					inquilino = inquilinoDao.buscarPorRif(vFactura.getTxtNroSocio());
+					this.BuscarDeudasAlquiler(inquilino.getCodInquilino());
+					vFactura.llenarCamposInquilino(inquilino);
+				}	
+				else
+					JOptionPane.showMessageDialog(null,"No se encontró resultado","Atención",
+							JOptionPane.INFORMATION_MESSAGE);
+			} catch (Exception e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
 		}
 	}
 
@@ -433,7 +453,7 @@ public void agregarElemento(){
 					d=null;
 					
 				}else
-					JOptionPane.showMessageDialog(null,"Debe llenar el campo monto","Atencion!",
+					JOptionPane.showMessageDialog(null,"Debe llenar el campo monto","Atención",
 						JOptionPane.INFORMATION_MESSAGE);
 			}
 				
@@ -1428,19 +1448,6 @@ public boolean comprobarMonto(){
 	
 	public void BuscarDeudasAlquiler(String codigo) throws Exception{
 		
-	/*	
-		List<DeudaAlquiler> deudasInq= new ArrayList<DeudaAlquiler>();
-		deudasInq=deudaAlqDao.buscarDeudasAlquileres(codigo);
-		
-		if(deudasInq.size()>0)
-		{
-			for(int i=0;i<deudasInq.size();i++){
-				DeudaAlquiler d= new DeudaAlquiler();
-				d=deudasInq.get(i);
-				listDeudasXInquilino.add(d);
-				vFactura.agregarFilaDeudas(d.getCodigo(),d.getDescripcion(),d.getFecha().toString() ,Float.toString(d.getMonto()));
-			}
-		}*/
 		DeudaAlquiler d=new DeudaAlquiler();
 		int contador=0;
 		
