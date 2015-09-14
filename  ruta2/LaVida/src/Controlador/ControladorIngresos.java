@@ -21,7 +21,6 @@ public class ControladorIngresos implements ActionListener, KeyListener {
 	private VistaIngresos VIng;
 	private IngresosDao ingDao= new IngresosDao();
 	private VistaMostrar mostrar= new VistaMostrar();
-	ControladorDeuda deuda= ControladorDeuda();
 	
 	
 	public ControladorIngresos() {
@@ -37,19 +36,6 @@ public class ControladorIngresos implements ActionListener, KeyListener {
 
 	}
 	
-		
-		
-		
-	
-	private ControladorDeuda ControladorDeuda() {
-		// TODO Auto-generated method stub
-		return null;
-	}
-
-
-
-
-
 	public void actionPerformed(ActionEvent ae) {
 		// TODO Auto-generated method stub
 		if(ae.getActionCommand().equalsIgnoreCase("Limpiar")){
