@@ -160,12 +160,10 @@ public class ControladorFac implements ActionListener, KeyListener, FocusListene
 		else if(ae.getActionCommand().equalsIgnoreCase("Limpiar"))
 		{
 			vFactura.limpiarTodo();
-	
 		}
 		else if(ae.getActionCommand().equalsIgnoreCase("Quitar"))
 		{
 			this.Quitar();
-			
 		}
 		else if(ae.getActionCommand().equalsIgnoreCase("Salir"))
 		{
@@ -197,15 +195,23 @@ public class ControladorFac implements ActionListener, KeyListener, FocusListene
 		{
 			this.CalcularTotalFormaPago();
 		}
-		else if(ae.getActionCommand().equalsIgnoreCase("CheckEfectivo")){
+		else if(ae.getActionCommand().equalsIgnoreCase("CheckEfectivo"))
+		{
 			vFactura.CheckEfectivo();
-		}else if(ae.getActionCommand().equalsIgnoreCase("OcultarCheck")){
+		}
+		else if(ae.getActionCommand().equalsIgnoreCase("OcultarCheck"))
+		{
 			vFactura.OcultarCheckEfectivo();
-		}else if(ae.getActionCommand().equalsIgnoreCase("CheckSubsidio")){
+		}
+		else if(ae.getActionCommand().equalsIgnoreCase("CheckSubsidio"))
+		{
 			vFactura.CheckSubsidio();
-		}else if(ae.getActionCommand().equalsIgnoreCase("OcultarCheckSubsidio")){
+		}
+		else if(ae.getActionCommand().equalsIgnoreCase("OcultarCheckSubsidio"))
+		{
 			vFactura.OcultarCheckSubsidio();
-		}else if(ae.getActionCommand().equalsIgnoreCase("CheckTransferencia")){
+		}
+		else if(ae.getActionCommand().equalsIgnoreCase("CheckTransferencia")){
 			vFactura.CheckTransferencia();
 		}else if(ae.getActionCommand().equalsIgnoreCase("OcultarCheckTransferencia")){
 			vFactura.OcultarCheckTransferencia();
@@ -911,7 +917,7 @@ public boolean comprobarMonto(){
 		 Float montoPrest= (float) 0;
 		 Integer cant = 0;
 		 try {
-			// Ruta objruta=rutaDao.buscarPorCodRuta("J-306-902686");
+
 			 this.GuardarFormaPagoFactura();
 			
 			 factura.setMontoTotal(Float.valueOf(montoTotal));
@@ -930,8 +936,6 @@ public boolean comprobarMonto(){
 				 factura.setArrendatario(arrendatarioDao.buscarCedula(campoId));
 			 }
 			 
-			 
-			// factura.setCodRuta(rutaDao.obtenerRuta("J-306-902686"));
 			 factura.setNroFactura(facturaDao.buscarUltimoNumeroFactura());		 
 			
 			 facturaDao.agregarFactura(factura);
@@ -1007,6 +1011,7 @@ public boolean comprobarMonto(){
 							else if(lista.getValueAt(i, a).toString().charAt(0)=='P')
 							{
 								tipo="P";
+								System.out.println("codigo prestamos  "+lista.getValueAt(i, a).toString());
 								prest=prestDao.buscarPorCodigoPrestamo(lista.getValueAt(i, a).toString());
 								prestamosFactura.add(prest);							
 							
@@ -1275,9 +1280,23 @@ public boolean comprobarMonto(){
 						if (a==0){	
 						 if(lista.getValueAt(i, a).toString().charAt(0)=='P')
 							{
-								prest=prestDao.buscarPorCodigoPrestamo(lista.getValueAt(i, a).toString());
+							 
+							 	String cod= lista.getValueAt(i, a).toString();
+							 	if (prestDao.encontrarPrestamo(cod)==true)
+							 		prest=prestDao.buscarPorCodigoPrestamo(cod);
+							 	else
+							 	{
+							 		prest.setCodPrestamo(lista.getValueAt(i, a).toString());
+							 		prest.setDescripcion(lista.getValueAt(i, 1).toString());
+							 		prest.setFechaEmision(new Date(System.currentTimeMillis()));
+							 		prest.setMonto(Float.parseFloat(lista.getValueAt(i, 2).toString()));
+							 		prest.setNroSocio(socioDao.buscarPorNroSocio(campoId));
+							 		prest.setStatus('A');
+							 		prestDao.agregarPrestamos(prest);
+							 	}
 								
-								prestamosFactura.add(prest);								
+								prestamosFactura.add(prest);
+								
 							}
 						}
 						if(a==2){
@@ -1286,20 +1305,7 @@ public boolean comprobarMonto(){
 								montoPrestamos.add(prestamosFactura.size()-1,montoPrest);
 						}
 					} 			
-				 }	
-			/* }else*/
-			/* {
-				 for(int i=0; i<vFactura.getListaPrestamos().size();i++)
-				 {
-					 Prestamos prest= new Prestamos();
-					 prestDao.agregarPrestamos(vFactura.getListaPrestamos().get(i));
-					 prest=prestDao.buscarPorCodigoPrestamo(vFactura.getListaPrestamos().get(i).getCodPrestamo());
-					 
-					 prestamosFactura.add(prest);
-					 montoPrestamos.add(prestamosFactura.size()-1,prest.getMonto());
-				 }
-			 }*/
-				 
+				 }				 
 				 
 				// Prestamos prestamo = new Prestamos();
 				 
@@ -1326,9 +1332,9 @@ public boolean comprobarMonto(){
 				 }
 				
 				 if(prestamosFactura.size()>0){
-				 	
 					for(int i=0; i<arrayPrestamos.length; i++){
 						 Prestamos pres= (Prestamos) arrayPrestamos[i];
+				
 						 cuentaPrestamos = new CuentaPrestamos();
 						 cuentaPrestamos.setPrestamo(prestamosDao.buscarPorCodigoPrestamo(pres.getCodPrestamo()));
 						 cuentaPrestamos.setDescripTransac(pres.getDescripcion());

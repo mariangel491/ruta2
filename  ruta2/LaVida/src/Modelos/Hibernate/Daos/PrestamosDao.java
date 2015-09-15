@@ -174,4 +174,10 @@ private HibernateUtil sesionPostgres;
 		return prestamos; 
 	}
 	
+	public boolean encontrarPrestamo(String codigoprestamo) throws Exception {
+		if (buscarPorCodigoPrestamo(codigoprestamo) == null)
+			return false;
+		return true;
+	}
+	
 }
