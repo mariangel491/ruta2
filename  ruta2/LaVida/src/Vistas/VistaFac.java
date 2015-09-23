@@ -1624,7 +1624,6 @@ private static VistaFac vFactura=null;
 		deudas.add(descripcion);
 		deudas.add(monto);
 		deudas.add(fecha);
-		System.out.println("otra deudaaa");
 		DefaultTableModel dtm = (DefaultTableModel) jTableDeudasPorSocio.getModel();
 		dtm.addRow(deudas);	
 	}
@@ -1635,7 +1634,6 @@ private static VistaFac vFactura=null;
 		deudas.add(descripcion);
 		deudas.add(monto);
 		deudas.add(fecha);
-		System.out.println("agregaaar deudaaaas alquiler");
 		DefaultTableModel dtm = (DefaultTableModel) jTableDeudasPorSocio.getModel();
 		dtm.addRow(deudas);	
 	}
@@ -1707,7 +1705,7 @@ private static VistaFac vFactura=null;
 		filaDeudaSelec="";
 		 int f=jTableDeudasPorSocio.getSelectionModel().getLeadSelectionIndex();
 		filaDeudaSelec= (String) this.jTableDeudasPorSocio.getValueAt(f,0);
-
+		System.out.println("agregando deuda  "+filaDeudaSelec);
 	}
 	
 	public void agregarDeudaAlquiler(){
