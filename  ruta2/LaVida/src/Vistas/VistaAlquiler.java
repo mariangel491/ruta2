@@ -68,7 +68,7 @@ public class VistaAlquiler extends javax.swing.JFrame {
 	private JButton btnBuscar;
 	private JLabel lblTitulo;
 	private JButton btnSalir;
-	private JButton btnModificar;
+	private JButton btnLimpiar;
 	private JButton btnGuardar;
 	private JTextField txtMontoCanon;
 	private JLabel lblMonto;
@@ -326,12 +326,12 @@ public class VistaAlquiler extends javax.swing.JFrame {
 				btnGuardar.setIcon(new ImageIcon(getClass().getClassLoader().getResource("Imagenes/save.png")));
 			}
 			{
-				btnModificar = new JButton();
-				getContentPane().add(btnModificar);
+				btnLimpiar = new JButton();
+				getContentPane().add(btnLimpiar);
 				getContentPane().add(getJPanelInquilino());
-				btnModificar.setText("Modificar");
-				btnModificar.setBounds(203, 400, 116, 29);
-				btnModificar.setIcon(new ImageIcon(getClass().getClassLoader().getResource("Imagenes/kwrite_22x22.png")));
+				btnLimpiar.setText("Limpiar");
+				btnLimpiar.setBounds(203, 400, 116, 29);
+				btnLimpiar.setIcon(new ImageIcon(getClass().getClassLoader().getResource("Imagenes/Limpiarcodigo_1.png")));
 			}
 			pack();
 			this.setSize(527, 479);
@@ -638,7 +638,7 @@ public class VistaAlquiler extends javax.swing.JFrame {
 
 	public void agregarListener(ActionListener accion) {
 		this.btnGuardar.addActionListener(accion);
-		this.btnModificar.addActionListener(accion);
+		this.btnLimpiar.addActionListener(accion);
 		this.btnSalir.addActionListener(accion);
 		this.btnBuscar.addActionListener(accion);
 		this.btnBuscarInq.addActionListener(accion);

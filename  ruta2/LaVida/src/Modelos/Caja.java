@@ -28,6 +28,8 @@ public class Caja {
 	private Date fecha;
 	@Column(name="status", nullable=false)
 	private String status;
+	@Column(name="tipoCuenta", nullable=false)
+	private String tipoCuenta;
 	
 	
 	
@@ -78,6 +80,14 @@ public class Caja {
 
 	public void setFactura(Factura factura) {
 		this.factura = factura;
+	}
+
+	public String getTipoCuenta() {
+		return tipoCuenta;
+	}
+
+	public void setTipoCuenta(String tipoCuenta) {
+		this.tipoCuenta = tipoCuenta;
 	}
 	
 	

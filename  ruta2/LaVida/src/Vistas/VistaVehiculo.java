@@ -52,6 +52,7 @@ public class VistaVehiculo extends javax.swing.JFrame {
 	private JPanel jpVehiculoxSocio;
 	private JLabel lblVehiculo;
 	private JPanel jpDatosVehiculo;
+	private JButton btnModificar;
 	private JLabel lblImagen;
 	private JPanel jpImagen;
 	private JTextField txtNroPuestos;
@@ -295,6 +296,7 @@ private static VistaVehiculo vVehic=null;
 					jpDatosVehiculo.add(btnBusPlaca);
 					jpDatosVehiculo.add(getLblNroPuestos());
 					jpDatosVehiculo.add(getTxtNroPuestos());
+					jpDatosVehiculo.add(getBtnModificar());
 					btnBusPlaca.setIcon(new ImageIcon(getClass().getClassLoader().getResource("Imagenes/search.png")));
 					btnBusPlaca.setBounds(240, 15, 37, 29);
 					btnBusPlaca.setActionCommand("BuscarPlaca");
@@ -459,6 +461,7 @@ private static VistaVehiculo vVehic=null;
 			//AGREGAR LISTENERS
 			public void agregarListener(ActionListener accion) {
 				this.btnAgregar.addActionListener(accion);
+				this.btnModificar.addActionListener(accion);
 				this.btnAtras.addActionListener(accion);
 				this.btnBusPlaca.addActionListener(accion);
 				this.btnBusSocio.addActionListener(accion);
@@ -486,9 +489,11 @@ private static VistaVehiculo vVehic=null;
 			cmbConductor.setSelectedIndex(0);
 			txtNroPuestos.setText("");
 			this.limpiarTablaVehiculos();
+			this.lblTexto.setVisible(false);
+			this.spListado.setVisible(true);
 		}
 				
-	public void limpiarCamposVehiculo() {
+		public void limpiarCamposVehiculo() {
 			txtAnno.setText("");
 			txtPlaca.setText("");
 			txtSerial.setText("");
@@ -497,6 +502,43 @@ private static VistaVehiculo vVehic=null;
 			txtNroPuestos.setText("");
 		}
 
+		
+		public void OcultarBotones() {
+			
+		 	this.btnModificar.setVisible(false);
+		 	this.btnAgregar.setVisible(true);
+		}
+
+
+		public void MostarBotones() {
+			
+		 	this.btnModificar.setVisible(true);
+		 	this.txtPlaca.setEditable(false);
+		 	this.txtNomSocio.setEditable(false);
+		 	this.txtNroSocio.setEditable(false);
+		 	this.cmbMarca.setEnabled(false);
+		 	this.txtSerial.setEditable(false);
+		 	this.txtAnno.setEditable(false);
+		 	this.txtNroPuestos.setEditable(false);
+		 	this.btnAgregar.setVisible(false);
+		}
+
+
+		public void regresar(){
+
+			this.btnAgregar.setVisible(true);
+			this.btnModificar.setVisible(false);
+			this.txtPlaca.setEditable(true);
+		 	this.txtSerial.setEditable(true);
+		 	this.cmbMarca.setEnabled(true);
+		 	this.txtAnno.setEditable(true);
+		 	this.txtNroPuestos.setEditable(true);
+			this.txtNomSocio.setEditable(true);
+		 	this.txtNroSocio.setEditable(true);
+			
+		}
+		
+		
 		public boolean CamposllenosSocio() {
 
 			boolean CamposLLenos = false;
@@ -694,7 +736,7 @@ private static VistaVehiculo vVehic=null;
 
 		}	
 		
-		 public List<Vehiculo> LlenarListaVehiculos()
+		public List<Vehiculo> LlenarListaVehiculos()
 		 {
 			int fila= tblListadoVehiculo.getRowCount();
 			List<Vehiculo> a = new ArrayList<Vehiculo>();
@@ -878,5 +920,15 @@ private static VistaVehiculo vVehic=null;
 				txtNroPuestos.addKeyListener(a);
 				txtAnno.addKeyListener(a);
 			}
+		 
+		 private JButton getBtnModificar() {
+			 if(btnModificar == null) {
+				 btnModificar = new JButton();
+				 btnModificar.setText("Modificar");
+				 btnModificar.setBounds(80, 209, 147, 24);
+				 btnModificar.setIcon(new ImageIcon(getClass().getClassLoader().getResource("Imagenes/Modify.png")));
+			 }
+			 return btnModificar;
+		 }
 
 }

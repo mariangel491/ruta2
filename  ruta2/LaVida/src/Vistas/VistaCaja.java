@@ -47,16 +47,16 @@ public class VistaCaja extends javax.swing.JFrame {
 	private JLabel lblLogo;
 	private JTextField txtMontoCaja;
 	private JTextField txtMontoADepositar;
+	private JTextField txtMontoP;
+	private JTextField txtMontoA;
+	private JTextField txtMontoR;
 	private JLabel lblbsfP;
 	private JLabel lblbsfA;
 	private JLabel lblbsfR;
-	private JFormattedTextField txtCtaP;
-	private JFormattedTextField txtCtaA;
 	private JLabel lblCtaP;
 	private JLabel lblCtaA;
-	private JFormattedTextField txtMontoR;
 	private JLabel lblCtaR;
-	private JButton btnCancelar;
+	private JButton btnSalir;
 	private JButton btnDepositar;
 	private JTable jTableDeposito;
 	private JScrollPane jScrollPaneDeposito;
@@ -162,14 +162,14 @@ public class VistaCaja extends javax.swing.JFrame {
 			jPanelEnCaja.setBorder(BorderFactory.createTitledBorder("En caja"));
 			jPanelEnCaja.add(getJScrollPaneCaja());
 			jPanelEnCaja.add(getLblCtaR());
-			jPanelEnCaja.add(getTxtMontoR());
 			jPanelEnCaja.add(getLblCtaA());
 			jPanelEnCaja.add(getLblCtaP());
-			jPanelEnCaja.add(getTxtCtaA());
-			jPanelEnCaja.add(getTxtCtaP());
 			jPanelEnCaja.add(getLblbsfR());
 			jPanelEnCaja.add(getLblbsfA());
 			jPanelEnCaja.add(getLblbsfP());
+			jPanelEnCaja.add(getTxtMontoR());
+			jPanelEnCaja.add(getTxtMontoA());
+			jPanelEnCaja.add(getTxtMontoP());
 		}
 		return jPanelEnCaja;
 	}
@@ -323,14 +323,14 @@ public class VistaCaja extends javax.swing.JFrame {
 	}
 	
 	private JButton getBtnCancelar() {
-		if(btnCancelar == null) {
-			btnCancelar = new JButton();
-			btnCancelar.setText("Cancelar");
-			btnCancelar.setIcon(new ImageIcon(getClass().getClassLoader().getResource("Imagenes/button_cancel_16x16.png")));
-			btnCancelar.setBounds(384, 416, 116, 29);
-			btnCancelar.setActionCommand("Cancelar");
+		if(btnSalir == null) {
+			btnSalir = new JButton();
+			btnSalir.setText("Salir");
+			btnSalir.setIcon(new ImageIcon(getClass().getClassLoader().getResource("Imagenes/button_cancel_16x16.png")));
+			btnSalir.setBounds(384, 416, 116, 29);
+			btnSalir.setActionCommand("");
 		}
-		return btnCancelar;
+		return btnSalir;
 	}
 	
 	
@@ -351,6 +351,15 @@ public class VistaCaja extends javax.swing.JFrame {
 		this.txtMontoADepositar.setText(txtMontoADepositar);
 	}
 
+	public void setTxtMontoP(String txtMontoP) {
+		this.txtMontoP.setText(txtMontoP);
+	}
+	public void setTxtMontoA(String txtMontoA) {
+		this.txtMontoA.setText(txtMontoA);
+	}
+	public void setTxtMontoR(String txtMontoR) {
+		this.txtMontoR.setText(txtMontoR);
+	}
 	public void setjTableDeposito(JTable jTableDeposito) {
 		this.jTableDeposito = jTableDeposito;
 	}
@@ -376,19 +385,19 @@ public class VistaCaja extends javax.swing.JFrame {
 	{
 		btnAgregarTodos.addActionListener(accion);
 		btnAgregarUno.addActionListener(accion);
-		btnCancelar.addActionListener(accion);
+		btnSalir.addActionListener(accion);
 		btnDepositar.addActionListener(accion);
 		btnQuitarTodos.addActionListener(accion);
 		btnQuitarUno.addActionListener(accion);
 	}
 
-	public void agregarFilaCaja(String descripcion, String monto/*, String tipo*/)
+	public void agregarFilaCaja(String descripcion, String monto, String tipo)
 	{
 		Vector<String> caja = new Vector<String>();
 
 		caja.add(descripcion);
 		caja.add(monto);
-		//caja.add(tipo);
+		caja.add(tipo);
 		
 		DefaultTableModel dtm = (DefaultTableModel) jTableCaja.getModel();
 		dtm.addRow(caja);	
@@ -461,15 +470,7 @@ public class VistaCaja extends javax.swing.JFrame {
 		}
 		return lblCtaR;
 	}
-	
-	private JFormattedTextField getTxtMontoR() {
-		if(txtMontoR == null) {
-			txtMontoR = new JFormattedTextField();
-			txtMontoR.setBounds(100, 171, 135, 23);
-		}
-		return txtMontoR;
-	}
-	
+
 	private JLabel getLblCtaA() {
 		if(lblCtaA == null) {
 			lblCtaA = new JLabel();
@@ -487,23 +488,7 @@ public class VistaCaja extends javax.swing.JFrame {
 		}
 		return lblCtaP;
 	}
-	
-	private JFormattedTextField getTxtCtaA() {
-		if(txtCtaA == null) {
-			txtCtaA = new JFormattedTextField();
-			txtCtaA.setBounds(100, 199, 135, 23);
-		}
-		return txtCtaA;
-	}
-	
-	private JFormattedTextField getTxtCtaP() {
-		if(txtCtaP == null) {
-			txtCtaP = new JFormattedTextField();
-			txtCtaP.setBounds(100, 227, 135, 23);
-		}
-		return txtCtaP;
-	}
-	
+
 	private JLabel getLblbsfR() {
 		if(lblbsfR == null) {
 			lblbsfR = new JLabel();
@@ -529,6 +514,30 @@ public class VistaCaja extends javax.swing.JFrame {
 			lblbsfP.setBounds(235, 230, 29, 16);
 		}
 		return lblbsfP;
+	}
+	
+	private JTextField getTxtMontoR() {
+		if(txtMontoR == null) {
+			txtMontoR = new JTextField();
+			txtMontoR.setBounds(80, 171, 151, 23);
+		}
+		return txtMontoR;
+	}
+	
+	private JTextField getTxtMontoA() {
+		if(txtMontoA == null) {
+			txtMontoA = new JTextField();
+			txtMontoA.setBounds(95, 199, 136, 23);
+		}
+		return txtMontoA;
+	}
+	
+	private JTextField getTxtMontoP() {
+		if(txtMontoP == null) {
+			txtMontoP = new JTextField();
+			txtMontoP.setBounds(103, 227, 128, 23);
+		}
+		return txtMontoP;
 	}
 
 }

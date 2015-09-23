@@ -72,6 +72,7 @@ public class ControladorVehiculo implements ActionListener,KeyListener {
 		vVehiculo.setLocationRelativeTo(null);
 		vVehiculo.setVisible(true);
 		vVehiculo.agregarKeyTel(this);
+		vVehiculo.OcultarBotones();
 		try {
 			vVehiculo.LlenarComboMarca();
 			
@@ -96,6 +97,7 @@ public class ControladorVehiculo implements ActionListener,KeyListener {
 		vVehiculo.setVisible(true);
 		vVehiculo.limpiarCampos();
 		vVehiculo.agregarListener(this);
+		vVehiculo.OcultarBotones();
 		System.out.println("entro por");
 		
 		////si viene de socio
@@ -165,6 +167,7 @@ public ControladorVehiculo(VistaAvanceArren vaa) {
 	vVehiculo.limpiarCampos();
 	vVehiculo.agregarListener(this);
 	vVehiculo.CambiarNombrePanel();
+	vVehiculo.OcultarBotones();
 	System.out.println("entro por vistaArren");
 
 
@@ -201,6 +204,7 @@ public ControladorVehiculo(VistaAvanceArren vaa) {
 		vVehiculo.agregarListener(this);
 		vVehiculo.limpiarCampos();
 		vVehiculo.CambiarNombrePanel();
+		vVehiculo.OcultarBotones();
 		try {
 			vVehiculo.LlenarComboMarca();
 		} catch (Exception e1) {
@@ -234,6 +238,7 @@ public ControladorVehiculo(VistaAvanceArren vaa) {
 		vVehiculo.agregarListener(this);
 		vVehiculo.limpiarCampos();
 		vVehiculo.CambiarNombrePanel();
+		vVehiculo.OcultarBotones();
 		try {
 			vVehiculo.LlenarComboMarca();
 		} catch (Exception e1) {
@@ -278,6 +283,23 @@ public ControladorVehiculo(VistaAvanceArren vaa) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
+	}else if (a.getActionCommand().equalsIgnoreCase("Modificar")) {
+		try {
+			this.modificarVehiculo();
+			this.obtenerVehiculos();
+			vVehiculo.OcultarBotones();
+			vVehiculo.regresar();
+		} catch (Exception e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+	}else if (a.getActionCommand().equalsIgnoreCase("ModificarArrendatario")) {
+		try {
+			this.modificarVehiculoArren();
+		} catch (Exception e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
 	}
 	else if (a.getActionCommand().equalsIgnoreCase("GuardarArrendatario")) {
 		try {
@@ -298,6 +320,7 @@ public ControladorVehiculo(VistaAvanceArren vaa) {
 	}
 		else if (a.getActionCommand().equalsIgnoreCase("Limpiar")) {
 			vVehiculo.limpiarCampos();
+			vVehiculo.regresar();
 		}
 		else if (a.getActionCommand().equalsIgnoreCase("Atras")) {
 			//	this.vVehiculo.setVisible(false);
@@ -312,6 +335,7 @@ public ControladorVehiculo(VistaAvanceArren vaa) {
 		else if (a.getActionCommand().equalsIgnoreCase("BuscarPlaca")) {
 		try {
 			this.BuscarVehiculo();
+			
 		} catch (Exception e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
@@ -442,10 +466,10 @@ public ControladorVehiculo(VistaAvanceArren vaa) {
 	public void BuscarAvances(String ava) throws Exception {
 		
 		Avance avance = new Avance();
-		String avan= ava;
+		//String avan= ava;
 		
-		if (avanceDao.encontrar(avan)) {
-			avance = avanceDao.buscarPorCodAvance(avan);
+		if (avanceDao.encontrar(ava)) {
+			avance = avanceDao.buscarPorCodAvance(ava);
 			vVehiculo.setCmbConductorP(avance.getNombre() +" "+ avance.getApellido());
 		}
 	}
@@ -500,6 +524,8 @@ public ControladorVehiculo(VistaAvanceArren vaa) {
 			//	vVehiculo.eliminarConductores();
 				
 				//vVehiculo.setCmbConductor(Integer.parseInt(avance.getNombre()+avance.getApellido()));
+				
+				vVehiculo.MostarBotones();
 
 			} else
 				JOptionPane.showMessageDialog(null, "El vehiculo no existe", "Atención!", JOptionPane.ERROR_MESSAGE);
@@ -558,6 +584,31 @@ public ControladorVehiculo(VistaAvanceArren vaa) {
 	}
 	
 	
+	private void modificarVehiculo() throws Exception {
+		
+		
+		 String placa=vVehiculo.getTxtPlaca(), codSocio=vVehiculo.getTxtNroSocio();
+		// int posi= this.buscarAvance(ced,codSocio);		
+		 
+		 if (vVehiculo.CamposllenosVehiculo() == true) {
+			 
+			 for(int l=0; l<this.AvancesporSocio(codSocio).size();l++){	
+					if(vVehiculo.getCmbConductor().equals(this.AvancesporSocio(codSocio).get(l).getNombre()+" "+
+							this.AvancesporSocio(codSocio).get(l).getApellido()))
+							vehiculo.setAvance(this.AvancesporSocio(codSocio).get(l).getCodAvance());
+			 }
+			 			 
+			 vVehiculo.limpiarTablaVehiculos();
+			 vehiculoDao.actualizarVehiculo(vehiculo);
+			 
+			 JOptionPane.showMessageDialog(null, "Se ha modificado el Vehículo exitosamente", "Atención!", JOptionPane.INFORMATION_MESSAGE);
+			 
+		 }
+			
+					vVehiculo.limpiarCamposVehiculo();
+	}
+	
+	
 /*	public String traerNombreyApe(List<Vehiculo> vehi, int posi) throws Exception {
 		
 		String avan="";
@@ -612,6 +663,8 @@ public ControladorVehiculo(VistaAvanceArren vaa) {
 				Integer año = vehiculos.get(i).getAnno();
 				Integer nropstos= vehiculos.get(i).getNropuestos();	
 				String avanceN= this.traerNombreyApe(vehiculos, i);
+				
+				System.out.println(avanceN+"esta es la nueva prueba");
 				
 				vVehiculo.agregarFila(placa, serial, marca, año.toString(),nropstos.toString(), avanceN);	
 			}
@@ -1100,7 +1153,43 @@ public ControladorVehiculo(VistaAvanceArren vaa) {
 				JOptionPane.showMessageDialog(null, "Debe llenar todos los campos", "Atención!", JOptionPane.ERROR_MESSAGE);
 		} */
 		
+		
 		private void modificarVehiculoArren() throws Exception {
+			
+			
+			 String placa=vVehiculo.getTxtPlaca(), codSocio=vVehiculo.getTxtNroSocio();
+			// int posi= this.buscarVehiculoArren(placa, codSocio);		
+			 
+			 if (vVehiculo.CamposllenosVehiculo() == true) {
+				 
+				 vehiArren.setAvance(vVehiculo.getCmbConductor());
+				
+				 vVehiculo.limpiarTablaVehiculos();
+				 vehArrenDao.actualizarVehiculo(vehiArren);
+				 
+				 JOptionPane.showMessageDialog(null, "Se ha modificado el Avance exitosamente", "Atención!", JOptionPane.INFORMATION_MESSAGE);
+				 
+			 }
+				
+						vVehiculo.limpiarCamposVehiculo();
+		}
+		
+		
+		public int buscarVehiculoArren (String placa, String codSocio) throws Exception
+		{	
+			
+			
+			//System.out.println(avanceDao.ObtenerPorSocios(codSocio).size());
+			for (int i=0; i<vehArrenDao.obtenerTodosxArrendatario(codSocio).size(); i++){
+		      
+		        if (vehArrenDao.obtenerTodosxArrendatario(codSocio).get(i).equals(vVehiculo.getTxtPlaca()))
+		        	  return i;
+		        System.out.println(i+"buscar Vehiculo ");
+			}
+			return -1;
+		 }
+		
+	/*	private void modificarVehiculoArren() throws Exception {
 			if (vVehiculo.CamposllenosSocio() == true) {
 				arrendatario.setNombre(vVehiculo.getTxtNomSocio());
 				String nro = vVehiculo.getTxtNroSocio();
@@ -1118,7 +1207,7 @@ public ControladorVehiculo(VistaAvanceArren vaa) {
 				//vgrupocola.enabledCampos(false);
 			} else
 				JOptionPane.showMessageDialog(null, "Debe llenar todos los campos");
-		}
+		}*/
 		
 		
 		private void limpiarTodo() {

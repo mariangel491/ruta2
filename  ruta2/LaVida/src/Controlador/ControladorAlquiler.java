@@ -128,6 +128,8 @@ public class ControladorAlquiler implements ActionListener, KeyListener, MouseLi
 				// TODO Auto-generated catch block
 				e.printStackTrace();
 			}
+		}else if (ae.getActionCommand().equalsIgnoreCase("Limpiar")) {
+				vAlquiler.limpiarCampos();
 
 		}else if (ae.getActionCommand().equalsIgnoreCase("Salir")) {
 			vAlquiler.cerrarVentana();

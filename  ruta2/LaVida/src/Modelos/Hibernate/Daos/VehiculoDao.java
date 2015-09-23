@@ -68,7 +68,7 @@ private HibernateUtil sesionPostgres;
 		}  
 	}
 
-	public void actualizarVehiculo(int posi, Vehiculo dato) throws Exception{
+	public void actualizarVehiculo(Vehiculo dato) throws Exception{
 		@SuppressWarnings("static-access")
 		Session em = sesionPostgres.openSession();  
 		Transaction tx = null;  
@@ -101,7 +101,7 @@ private HibernateUtil sesionPostgres;
 		return datos; 
 	}
 	
-	public List<Vehiculo> obtenerTodosxSocio(boolean prueba) throws Exception {            
+	public List<Vehiculo> obtenerTodosxSocio(String nroSocio) throws Exception {            
 		  
 		List<Vehiculo> datos = new ArrayList<Vehiculo>();  
 		Session em = sesionPostgres.openSession();  	

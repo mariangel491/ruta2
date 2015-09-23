@@ -51,7 +51,7 @@ private HibernateUtil sesionPostgres;
 	}
 
 
-	public void eliminarAvance(int posi, Avance dato) throws Exception{		 
+	public void eliminarAvance( Avance dato) throws Exception{		 
 		@SuppressWarnings("static-access")
 		Session sesion = sesionPostgres.openSession();  
 		Transaction tx = null;  
@@ -69,7 +69,7 @@ private HibernateUtil sesionPostgres;
 		}  
 	}
 
-	public void actualizarAvance(int posi, Avance dato) throws Exception{
+	public void actualizarAvance(Avance dato) throws Exception{
 		@SuppressWarnings("static-access")
 		Session em = sesionPostgres.openSession();  
 		Transaction tx = null;  

@@ -62,6 +62,7 @@ public class VistaAvance extends javax.swing.JFrame {
 	private JButton btnSiguiente;
 	private JButton btnGuardar;
 	private JButton btnBuscarSocio;
+	private JButton btnModificar;
 	private JButton btnLimpiar;
 	private JTable tblListadoAvance;
 	private JScrollPane spListadoAvance;
@@ -206,6 +207,13 @@ private static VistaAvance vAvance=null;
 					btnBuscarAvance.setBounds(230, 21, 31, 30);
 					btnBuscarAvance.setIcon(new ImageIcon(getClass().getClassLoader().getResource("Imagenes/search.png")));
 					btnBuscarAvance.setActionCommand("BuscarAvance");
+				}
+				{
+					btnModificar = new JButton();
+					jpAvance.add(btnModificar);
+					btnModificar.setText("Modificar");
+					btnModificar.setBounds(85, 212, 137, 23);
+					btnModificar.setIcon(new ImageIcon(getClass().getClassLoader().getResource("Imagenes/kwrite_22x22.png")));
 				}
 			}
 			{
@@ -569,6 +577,7 @@ public void agregarListener(ActionListener accion) {
 	this.btnSiguiente.addActionListener(accion);
 	this.btnBuscarSocio.addActionListener(accion);
 	this.btnAgregar.addActionListener(accion);
+	this.btnModificar.addActionListener(accion);
 	this.btnBuscarAvance.addActionListener(accion);
 	this.btnEliminarAvance.addActionListener(accion);
 	this.btnRA.addActionListener(accion);
@@ -588,12 +597,17 @@ public void agregarKeyTel(KeyListener a) {
 }
 
 //LimpiarCampos
-public void limpiarCampos() {
+public void limpiarCamposAvance() {
 	txtApellido.setText("");
 	txtCedula.setText("");
 	txtDireccion.setText("");
 	txtNombre.setText("");
 	txtTelefono.setText("");	
+}
+
+public void limpiarCamposSocio(){
+	this.txtNroSocio.setText("");
+	this.setTxtNomSocio("");
 }
 
 //validar que todos los campos esten llenos
@@ -753,6 +767,34 @@ public Socio GuardarSocio(Socio soc){
 public Socio RetornaSocio(){
 	System.out.println("de la vista "+ socioprueba.getNombre()+ "   "+ socioprueba.getApellido());
 	return socioprueba;
+}
+
+
+public void OcultarBotones() {
+	
+ 	this.btnModificar.setVisible(false);
+ 	this.btnAgregar.setVisible(true);
+}
+
+
+public void MostarBotones() {
+	
+ 	this.btnModificar.setVisible(true);
+ 	this.txtCedula.setEditable(false);
+ 	this.txtNomSocio.setEditable(false);
+ 	this.txtNroSocio.setEditable(false);
+ 	this.btnAgregar.setVisible(false);
+}
+
+
+public void regresar(){
+	
+	this.btnModificar.setVisible(false);
+	this.btnAgregar.setVisible(true);
+	this.txtCedula.setEditable(true);
+	this.txtNomSocio.setEditable(true);
+ 	this.txtNroSocio.setEditable(true);
+	
 }
 
 /*public Arrendatario GuardarArrendatario(Arrendatario a) {

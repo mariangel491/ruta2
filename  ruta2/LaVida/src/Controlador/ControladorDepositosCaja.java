@@ -108,7 +108,7 @@ public class ControladorDepositosCaja implements KeyListener, ActionListener {
 	
 	//Cargar el listado de la caja
 	protected void cargarListadoCaja() throws Exception {		
-		String descripcion, monto, tipo;
+		String descripcion="", monto="", tipo="";
 		
 		if(listMovCaja.size()>0)
 		{
@@ -117,9 +117,9 @@ public class ControladorDepositosCaja implements KeyListener, ActionListener {
 			{
 				descripcion=listMovCaja.get(i).getFactura().getNroFactura();
 				monto= String.valueOf(listMovCaja.get(i).getMontoTransaccion());
-				//tipo= listMovCaja.get(i).getFactura().
+				tipo= listMovCaja.get(i).getTipoCuenta();
 				
-				vcaja.agregarFilaCaja(descripcion, monto /*tipo*/);
+				vcaja.agregarFilaCaja(descripcion, monto, tipo);
 				SumarCaja();
 			}	
 		}
@@ -260,6 +260,30 @@ public class ControladorDepositosCaja implements KeyListener, ActionListener {
 					
 				}
 			}
+		}
+		
+		
+		public void FiltrarMontos(){
+			
+			if(vcaja.getjTableCaja().getRowCount()>0)
+			{
+				float sumaRuta = 0,sumaAlquiler=0, sumaPrestamo=0;
+				for(int i=0; i<vcaja.getjTableCaja().getRowCount();i++)
+				{
+					if(vcaja.getjTableCaja().getValueAt(i, 2).equals("Ruta"))
+					sumaRuta=sumaRuta + Float.parseFloat((String)vcaja.getjTableCaja().getValueAt(i, 1));
+					else
+						if(vcaja.getjTableCaja().getValueAt(i, 2).equals("Alquiler"))
+							sumaAlquiler=sumaAlquiler+ Float.parseFloat((String) vcaja.getjTableCaja().getValueAt(i, 1));
+						else
+							sumaPrestamo=sumaPrestamo+ Float.parseFloat((String) vcaja.getjTableCaja().getValueAt(i, 1));
+							
+				}
+				vcaja.setTxtMontoR(String.valueOf(sumaRuta));
+				vcaja.setTxtMontoA(String.valueOf(sumaAlquiler));
+				vcaja.setTxtMontoP(String.valueOf(sumaPrestamo));
+			}else
+				vcaja.setTxtMontoCaja("");
 		}
 			
 }

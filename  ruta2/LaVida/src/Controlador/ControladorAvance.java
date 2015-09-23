@@ -56,6 +56,7 @@ public class ControladorAvance implements ActionListener, KeyListener {
 		vAvance.agregarListener(this);
 		vAvance.limpiarTablaAvances();
 		vAvance.agregarKeyTel(this);
+		vAvance.OcultarBotones();
 		
 		/*vAvanceArren = new VistaAvanceArren();
 		vAvanceArren = vAvanceArren.obtenerInstancia();
@@ -109,6 +110,7 @@ public class ControladorAvance implements ActionListener, KeyListener {
 		vAvance.setLocationRelativeTo(null);
 		vAvance.setVisible(true);
 		vAvance.agregarListener(this);
+		vAvance.OcultarBotones();
 		//if(vs.Selec()==1){
 		vAvance.setTxtNroSocio(vs.llenarCodigo());
 		vAvance.setTxtNomSocio(vs.llenarNombre());
@@ -154,7 +156,7 @@ public class ControladorAvance implements ActionListener, KeyListener {
 				}
 		}else if (a.getActionCommand().equalsIgnoreCase("BuscarArrendatario")) {
 			try {
-				this.BuscarArrendatario();
+			//	this.BuscarArrendatario();
 			} catch (Exception e) {
 				// TODO Auto-generated catch block
 				e.printStackTrace();
@@ -171,6 +173,19 @@ public class ControladorAvance implements ActionListener, KeyListener {
 		}
 		else if (a.getActionCommand().equalsIgnoreCase("Limpiar")) {
 			this.limpiarTodo();
+			vAvance.regresar();
+		}else if (a.getActionCommand().equalsIgnoreCase("Modificar")) {
+			
+			try {
+				
+				this.modificarAvance();
+				this.obtenerAvance();
+				vAvance.OcultarBotones();
+				vAvance.regresar();
+			} catch (Exception e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
 		}
 		else if (a.getActionCommand().equalsIgnoreCase("Cancelar")) {
 			vAvance.cerrarVentana();
@@ -184,7 +199,7 @@ public class ControladorAvance implements ActionListener, KeyListener {
 		}
 		else if (a.getActionCommand().equalsIgnoreCase("BuscarAvanceArrendatario")) {
 			try {
-				this.BuscarAvanceArren();
+			//	this.BuscarAvanceArren();
 			} catch (Exception e) {
 				// TODO Auto-generated catch block
 				e.printStackTrace();
@@ -216,7 +231,7 @@ public class ControladorAvance implements ActionListener, KeyListener {
 			
 		}else if (a.getActionCommand().equalsIgnoreCase("AgregarAvanceArrend")) {
 			if (this.vAvanceArren.CamposllenosAvance()) {
-				this.agregarAvanceArren();
+		//		this.agregarAvanceArren();
 			//	this.asignarCodArrend();
 				
 			} else
@@ -238,14 +253,14 @@ public class ControladorAvance implements ActionListener, KeyListener {
 			}
 		}else if(a.getActionCommand().equalsIgnoreCase("BArrendatTecla")){
 			try {
-				this.BuscarArrendatario();
+			//	this.BuscarArrendatario();
 			} catch (Exception e) {
 				// TODO Auto-generated catch block
 				e.printStackTrace();
 			}
 		}else if(a.getActionCommand().equalsIgnoreCase("BCedAvanArrendTecla")){
 			try {
-				this.BuscarAvanceArren();
+		//		this.BuscarAvanceArren();
 			} catch (Exception e) {
 				// TODO Auto-generated catch block
 				e.printStackTrace();
@@ -378,6 +393,8 @@ public class ControladorAvance implements ActionListener, KeyListener {
 				telef = avance.getTelefono();
 				vAvance.setTxtTelefono(telef.toString());
 				
+				vAvance.MostarBotones();
+				
 			} else
 				JOptionPane.showMessageDialog(null, "El avance no existe", "Atención!", JOptionPane.ERROR_MESSAGE);
 		}
@@ -407,7 +424,7 @@ public class ControladorAvance implements ActionListener, KeyListener {
 			socio.getAvances().add(avance);
 			this.cargarListadoDeAvances();
 			
-			vAvance.limpiarCampos();
+			vAvance.limpiarCamposAvance();
 		
 		} catch (Exception e) {
 			// Mensaje de Dialogo en caso de que ocurra cualquier otra excepcion
@@ -416,11 +433,15 @@ public class ControladorAvance implements ActionListener, KeyListener {
 
 	}
 	
-	private void modificar() throws Exception {
+	/*private void modificar() throws Exception {
+		
 		if (vAvance.CamposllenosSocio() == true) {
 			socio.setNombre(vAvance.getTxtNomSocio());
 			String nro = vAvance.getTxtNroSocio();
 			socioDao.encontrar(nro);
+			
+			System.out.println("que imprime la busqueda" + " " + socioDao.encontrar(nro));
+			
 			//socioDao.actualizarSocio(Integer.parseInt(nro), socio);
 			socioDao.actualizarSocio(socio);
 			for (Avance a : socio.getAvances()) {
@@ -435,13 +456,52 @@ public class ControladorAvance implements ActionListener, KeyListener {
 			//vgrupocola.enabledCampos(false);
 		} else
 			JOptionPane.showMessageDialog(null, "Debe llenar todos los campos");
+	}*/
+	
+	private void modificarAvance() throws Exception {
+		
+		
+		 String ced="", codSocio=vAvance.getTxtNroSocio();
+		 int posi= this.buscarAvance(ced,codSocio);		
+		 
+		 if (vAvance.CamposllenosAvance() == true) {
+			 
+			 avance.setNombre(vAvance.getTxtNombre());
+			 avance.setApellido(vAvance.getTxtApellido());
+			 avance.setDireccion(vAvance.getTxtDireccion().toUpperCase());
+			 avance.setTelefono(Integer.parseInt(vAvance.getTxtTelefono()));
+			
+			 vAvance.limpiarTablaAvances();
+			 avanceDao.actualizarAvance(avance);
+			 
+			 JOptionPane.showMessageDialog(null, "Se ha modificado el Avance exitosamente", "Atención!", JOptionPane.INFORMATION_MESSAGE);
+			 
+		 }
+			
+					vAvance.limpiarCamposAvance();
 	}
+	
+	
+	public int buscarAvance (String ced, String codSocio) throws Exception
+	{	
+		
+		
+		System.out.println(avanceDao.ObtenerPorSocios(codSocio).size());
+		for (int i=0; i<avanceDao.ObtenerPorSocios(codSocio).size(); i++){
+	      
+	        if (avanceDao.ObtenerPorSocios(codSocio).get(i).equals(vAvance.getTxtCedula()))
+	        	  return i;
+	        System.out.println(i+"buscar Avance ");
+		}
+		return -1;
+	 }
 
 	
 	private void limpiarTodo() {
 		vAvance.limpiarTablaAvances();
 		avance = new Avance();
-		vAvance.limpiarCampos();
+		vAvance.limpiarCamposAvance();
+		vAvance.limpiarCamposSocio();
 	}
 	
 	public void removerElementoSocio(){
@@ -531,7 +591,7 @@ public class ControladorAvance implements ActionListener, KeyListener {
 		}	
 	}
 	
-	private void agregarAvanceArren() {
+	/*private void agregarAvanceArren() {
 		try {
 			
 			String cedula = vAvance.getTxtCedula();
@@ -638,7 +698,7 @@ public class ControladorAvance implements ActionListener, KeyListener {
 			} else
 				JOptionPane.showMessageDialog(null, "El avance no existe", "Atención!", JOptionPane.ERROR_MESSAGE);
 		}
-	}
+	}*/
 	
 	
 /*	private void registrarAvanceArren() throws Exception {
@@ -667,7 +727,7 @@ public class ControladorAvance implements ActionListener, KeyListener {
 			JOptionPane.showMessageDialog(null, "Debe llenar todos los campos", "Atención!", JOptionPane.ERROR_MESSAGE);
 	} 
 */	
-	private void modificarAvanceArren() throws Exception {
+	/*private void modificarAvanceArren() throws Exception {
 		if (vAvance.CamposllenosSocio() == true) {
 			socio.setNombre(vAvance.getTxtNomSocio());
 			String nro = vAvance.getTxtNroSocio();
@@ -694,7 +754,7 @@ public void removerElementoArren(){
 		if(vAvance.filaSeleccionada()>=0)
 			arrendatario.getAvances().remove(vAvance.filaSeleccionada());
 	}
-
+*/
 
 @Override
 public void keyPressed(KeyEvent arg0) {
