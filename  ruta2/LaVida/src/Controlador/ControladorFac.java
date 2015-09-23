@@ -105,6 +105,7 @@ public class ControladorFac implements ActionListener, KeyListener, FocusListene
 	//MODELOS
 	private CuentaPrestamos cuentaPrestamos = new CuentaPrestamos();
 	private CuentaIngresos cuentaIngresos= new CuentaIngresos();
+	private CuentaAlquiler cuentaAlquiler= new CuentaAlquiler();
 	private FacturaxFormaPago factFP= new FacturaxFormaPago();
 	private IEDetalleFactura ieDetFac= new IEDetalleFactura();
 	private Caja caja= new Caja();
@@ -118,6 +119,7 @@ public class ControladorFac implements ActionListener, KeyListener, FocusListene
 	private Set<Prestamos> prestamosFactura= new LinkedHashSet<Prestamos>();
 	private Set<Egresos> egresosFactura= new LinkedHashSet<Egresos>();
 	private Set<Deuda> deudasFactura=new LinkedHashSet<Deuda>();
+	private Set<DeudaAlquiler> deudasAlquilerFactura=new LinkedHashSet<DeudaAlquiler>();
 	private List<Prestamos> listPrestamosXSocio= new ArrayList<Prestamos>();
 	private List<Deuda> listDeudasXSocio= new ArrayList<Deuda>();
 	private List<DeudaAlquiler> listDeudasXInquilino= new ArrayList<DeudaAlquiler>();
@@ -669,37 +671,7 @@ public boolean comprobarMonto(){
 			//Para guardar la forma de pago.
 			 String nom="";
 			 Object[] array = formasPagoSeleccionadas.toArray();
-						
-			 for (int i=0; i< array.length;i++){
-				 	factFP= new FacturaxFormaPago();
-					FormaPago fp=(FormaPago) array[i];
-					factFP.setFormaPago(fp);
-					factFP.setFactura(facturaDao.obtenerFactura(factura.getNroFactura()));
-					factFP.setFecha(new Date());
-					factFP.setId(this.GenerarCodigoFacxFP());
-					
-					nom= formaPagoDao.buscarPorCodForma(fp.getCodForma()).getNombre();
-									
-				   if(nom.equals("Cheque")){
-					   factFP.setMonto(montoCheque);
-					   factFP.setNroFP(nroCheque);
-				   } 
-					 if(nom.equals("Deposito")){
-						 factFP.setMonto(montDep);
-						 	factFP.setNroFP(nroDeposito);
-					 }
-					 if(nom.equals("Efectivo"))
-						 factFP.setMonto(montoEf);
-					 
-					 if(nom.equals("Subsidio"))	
-						factFP.setMonto(montoSub);
-					
-					 if(nom.equals("Transferencia")){
-						 factFP.setMonto(montoTrasnf);
-						 factFP.setNroFP(nroTrasnf);
-					 }
-					 factFPDao.agregarFormaPago(factFP);
-			 }
+				
 						
 			List<Float> monto= new ArrayList<>();
 			 Egresos egreso = new Egresos();
@@ -723,6 +695,38 @@ public boolean comprobarMonto(){
 					}
 					else if(a==3){
 						clasificacion = lista.getValueAt(i ,a).toString();
+						
+						
+						 for (int j=0; j< array.length;j++){
+							 	factFP= new FacturaxFormaPago();
+								FormaPago fp=(FormaPago) array[i];
+								factFP.setFormaPago(fp);
+								factFP.setFactura(facturaDao.obtenerFactura(factura.getNroFactura()));
+								factFP.setFecha(new Date());
+								factFP.setId(this.GenerarCodigoFacxFP());
+								
+								nom= formaPagoDao.buscarPorCodForma(fp.getCodForma()).getNombre();
+												
+							   if(nom.equals("Cheque")){
+								   factFP.setMonto(montoCheque);
+								   factFP.setNroFP(nroCheque);
+							   } 
+								 if(nom.equals("Deposito")){
+									 factFP.setMonto(montDep);
+									 	factFP.setNroFP(nroDeposito);
+								 }
+								 if(nom.equals("Efectivo"))
+									 factFP.setMonto(montoEf);
+								 
+								 if(nom.equals("Subsidio"))	
+									factFP.setMonto(montoSub);
+								
+								 if(nom.equals("Transferencia")){
+									 factFP.setMonto(montoTrasnf);
+									 factFP.setNroFP(nroTrasnf);
+								 }
+								 factFPDao.agregarFormaPago(factFP);
+						 }
 					}
 					egresosFactura.add(eg);
 					monto.add(i, montoDouble);			
@@ -853,9 +857,9 @@ public boolean comprobarMonto(){
 		
 		// String montoString ="";
 		 String clasificacion="";
-		 String codigoPrestamo="";
+		 //String codigoPrestamo="";
 		 Float montoIng = (float) 0;
-		 Float montoPrest= (float) 0;
+		 //Float montoPrest= (float) 0;
 		 Integer cant = 0;
 		 try {
 
@@ -886,7 +890,7 @@ public boolean comprobarMonto(){
 			 Object[] array = formasPagoSeleccionadas.toArray();
 			
 				
-			 for (int i=0; i< array.length;i++){
+			/* for (int i=0; i< array.length;i++){
 				 	factFP= new FacturaxFormaPago();
 					FormaPago fp=(FormaPago) array[i];
 					factFP.setFormaPago(fp);
@@ -925,7 +929,7 @@ public boolean comprobarMonto(){
 						 
 				
 					 factFPDao.agregarFormaPago(factFP);
-			 }
+			 }*/
 
 		 
 				List<Float> monto= new ArrayList<>();
@@ -939,7 +943,7 @@ public boolean comprobarMonto(){
 				 for(int i=0; i<lista.getRowCount(); i++) //recorro las filas
 				 {
 					 Ingresos in = new Ingresos();
-					 Prestamos prest= new Prestamos();
+					// Prestamos prest= new Prestamos();
 					// String tipo="";
 					 for(int a=0; a<lista.getColumnCount(); a++) //recorro las columnas
 					 {
@@ -949,17 +953,13 @@ public boolean comprobarMonto(){
 								tipo="I";
 								in.setCodIngreso((lista.getValueAt(i ,a).toString()));	
 							}
-							else if(lista.getValueAt(i, a).toString().charAt(0)=='P')
-							{
-								tipo="P";
-								System.out.println("codigo prestamos  "+lista.getValueAt(i, a).toString());
-								prest=prestDao.buscarPorCodigoPrestamo(lista.getValueAt(i, a).toString());
-								prestamosFactura.add(prest);							
-							
-								
-							}else if(lista.getValueAt(i, a).toString().charAt(0)=='D'){
+							else if(lista.getValueAt(i, a).toString().charAt(0)=='D'){
 								tipo="D";
 								deudasFactura.add(deudaDao.buscarPorCodDeuda(lista.getValueAt(i, a).toString()));
+							}else {
+								tipo="DA";
+								deudasAlquilerFactura.add(deudaAlqDao.buscarPorCodigoDeuda(lista.getValueAt(i, a).toString()));
+								System.out.println(deudasAlquilerFactura.size()+ "   alquiler");
 							}
 						}
 						else if(a==1){
@@ -970,16 +970,58 @@ public boolean comprobarMonto(){
 							if(tipo=="I"){
 								montoIng = (float) 0;
 								montoIng = Float.valueOf(lista.getValueAt(i ,a).toString());	
-							}
-							if(tipo=="P"){
-								montoPrest= (float) 0;
-								montoPrest= Float.valueOf(lista.getValueAt(i ,a).toString());
-							}
-							
+							}						
 						}
 						else if(a==3){
 							if(tipo=="I")
-								clasificacion = lista.getValueAt(i ,a).toString();
+							{	clasificacion = lista.getValueAt(i ,a).toString();
+							 for (int j=0; j< array.length;j++){
+								 	factFP= new FacturaxFormaPago();
+									FormaPago fp=(FormaPago) array[i];
+									factFP.setFormaPago(fp);
+									factFP.setFactura(facturaDao.obtenerFactura(factura.getNroFactura()));
+									factFP.setFecha(new Date());
+									factFP.setId(this.GenerarCodigoFacxFP());
+									
+									nom= formaPagoDao.buscarPorCodForma(fp.getCodForma()).getNombre();
+									
+								   if(nom.equals("Cheque")){
+									   factFP.setMonto(montoCheque);
+									   factFP.setNroFP(nroCheque);
+								   }
+										 
+									 if(nom.equals("Deposito")){
+										 factFP.setMonto(montDep);
+										 factFP.setNroFP(nroDeposito);
+									 }
+										
+									 if(nom.equals("Efectivo")){
+										 factFP.setMonto(montoEf);
+										 caja.setFactura(facturaDao.obtenerFactura(factura.getNroFactura()));
+										 caja.setFecha(new Date(System.currentTimeMillis()));
+										 caja.setMontoTransaccion(montoEf);
+										 caja.setNro_cuenta(cajaDao.buscarUltimoNumeroTramsaccionCaja());
+										 caja.setStatus("ND");
+										 caja.setTipoCuenta(clasificacion);
+										 cajaDao.agregarTransaccion(caja);
+									 }
+										
+									 if(nom.equals("Subsidio"))	
+										factFP.setMonto(montoSub);
+									 if(nom.equals("Transferencia")){
+										 factFP.setMonto(montoTrasnf);
+										 factFP.setNroFP(nroTrasnf);
+									 }
+										 
+								
+									 factFPDao.agregarFormaPago(factFP);
+							 }
+							}
+							
+							
+							
+							
+							
 						}else if(a==4){
 							if(tipo=="I")
 								cant= Integer.valueOf(lista.getValueAt(i ,a).toString());
@@ -992,14 +1034,9 @@ public boolean comprobarMonto(){
 							ingresosFactura.add(in);
 							monto.add(ingresosFactura.size()-1, montoIng);	
 							cantidad.add(ingresosFactura.size()-1, cant);
-					}else if(tipo=="P")
-							{
-								montoPrestamos.add(prestamosFactura.size()-1,montoPrest);
-							}
+					}
 				 }	 
-				 
-				// Prestamos prestamo = new Prestamos();
-				 
+			
 				 //PARA AGREGAR EL DETALLE
 				 DetalleFactura detalleFactura = new DetalleFactura();
 				 detalleFactura.setCoddetalle(detalleFacturaDao.buscarUltimoNumeroDetalleFactura());
@@ -1042,7 +1079,7 @@ public boolean comprobarMonto(){
 				 }
 				 }
 				 
-				 Object[] arrayPrestamos= prestamosFactura.toArray();
+				/* Object[] arrayPrestamos= prestamosFactura.toArray();
 				 if(arrayPrestamos.length>0){
 				 for (int i=0; i< arrayPrestamos.length;i++)
 				 {
@@ -1060,7 +1097,6 @@ public boolean comprobarMonto(){
 				 }
 			
 				 if(prestamosFactura.size()>0){
-				 	
 					for(int i=0; i<arrayPrestamos.length; i++){
 						 Prestamos pres= (Prestamos) arrayPrestamos[i];
 						 cuentaPrestamos = new CuentaPrestamos();
@@ -1071,11 +1107,9 @@ public boolean comprobarMonto(){
 						 cuentaPrestamos.setStatus("A");
 						 cuentaPrestamos.setMontoTransaccion(montoPrestamos.get(i));
 						 cuentaPrestamos.setNro_transaccion(cuentaPrestamosDao.buscarUltimoNumeroTramsaccionCuentaFondoChoque());
-						 cuentaPrestamosDao.agregarTransaccion(cuentaPrestamos);
-						
+						 cuentaPrestamosDao.agregarTransaccion(cuentaPrestamos);	
 					}
-				}
-				 
+				} */
 				 
 				 if(deudasFactura.size()>0){
 					 Object[] arrayDeudas= deudasFactura.toArray();
@@ -1095,9 +1129,30 @@ public boolean comprobarMonto(){
 						 deudaDao.actualizarDeuda(deuda);
 					 }
 				 }
+				 
+				 if(deudasAlquilerFactura.size()>0){
+					 Object[] arrayDeudas= deudasAlquilerFactura.toArray();
+					 for(int i=0;i<arrayDeudas.length; i++){
+						 DeudaAlquiler deudaAlq= (DeudaAlquiler) arrayDeudas[i];
+						 cuentaAlquiler = new CuentaAlquiler();
+						 cuentaAlquiler.setDescripTransac(deudaAlq.getDescripcion());
+						 cuentaAlquiler.setFactura(facturaDao.obtenerFactura(factura.getNroFactura()));
+						 cuentaAlquiler.setFecha(new Date(System.currentTimeMillis()));
+						 cuentaAlquiler.setMontoTransaccion(deudaAlq.getMonto());
+						 cuentaAlquiler.setNro_cuenta(cuentaAlquilerDao.buscarUltimoNumeroTramsaccionCuentaAlquiler());
+						 cuentaAlquiler.setStatus("A");
+						// cuentaAlquiler.setTipo("Ingresos");
+						 
+						 cuentaAlquilerDao.agregarTransaccion(cuentaAlquiler);
+						 deudaAlq.setStatus("C");
+						 deudaAlqDao.actualizarDeuda(deudaAlq);
+					 }
+				 }
+				 
 				 		 
 				 if(clasificacion.equalsIgnoreCase(Ingresos.TIPO_INGRESO_ALQUILER))
 				 {
+					 System.out.println("Entrando por alquiler");
 					 CuentaAlquiler cuentaAlquiler = new CuentaAlquiler();
 					 cuentaAlquiler.setFactura(facturaDao.obtenerFactura(factura.getNroFactura()));
 					 cuentaAlquiler.setDescripTransac(ingreso.getDescripcion());

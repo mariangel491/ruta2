@@ -9,6 +9,7 @@ import org.hibernate.Transaction;
 import Modelos.Arrendatario;
 import Modelos.DeudaAlquiler;
 import Modelos.Inquilino;
+import Modelos.Prestamos;
 import Modelos.Hibernate.Config.HibernateUtil;
 import Utilidades.Utilidades;
 
@@ -140,6 +141,21 @@ public class DeudaAlquilerDao {
 			} 
 	   
 			return lista; 
+		}
+		
+		public DeudaAlquiler buscarPorCodigoDeuda(String coddeuda) {
+			DeudaAlquiler deudaalq = null;  
+			Session em = sesionPostgres.openSession();  	
+			try {  	
+				deudaalq =  (DeudaAlquiler)em.createQuery("from DeudaAlquiler where coddeuda='"+coddeuda+"'").uniqueResult();
+			} catch (Exception e) {             
+				em.cancelQuery();
+
+			} finally {  
+				em.close();  
+			} 
+	   
+			return deudaalq; 
 		}
 		
 }
