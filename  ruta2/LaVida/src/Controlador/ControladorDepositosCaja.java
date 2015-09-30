@@ -43,7 +43,10 @@ public class ControladorDepositosCaja implements KeyListener, ActionListener {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
+		this.FiltrarMontos();
 	}
+	
+	
 	@Override
 	public void actionPerformed(ActionEvent ae) {
 		if (ae.getActionCommand().equalsIgnoreCase("AgregarUno")) {
@@ -121,6 +124,7 @@ public class ControladorDepositosCaja implements KeyListener, ActionListener {
 				
 				vcaja.agregarFilaCaja(descripcion, monto, tipo);
 				SumarCaja();
+				this.FiltrarMontos();
 			}	
 		}
 		if(listMovCaja.size()==0)
