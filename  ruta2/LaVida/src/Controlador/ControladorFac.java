@@ -418,7 +418,8 @@ public void agregarElemento()
 					if(vFactura.getCmbTipoFacturado().equalsIgnoreCase(vFactura.TIPO_FACTURADO_SOCIO))
 					{	
 						d=this.AnnadirDeudas();
-						vFactura.agregarFilaIngresos(d.getCodigo(), d.getDescripcion(), String.valueOf(d.getMonto()), "Ingresos", "0");	
+						//ES .GETINGRESO PORQUE NO NOS INTERESA EL CODIGO DE LA DEUDA
+						vFactura.agregarFilaIngresos(d.getCodigo(), d.getDescripcion(), String.valueOf(d.getMonto()), "Ruta", "0");	
 						d=null;
 						vFactura.getJTableDeudasPorSocio().getSelectionModel().setLeadSelectionIndex(-1);	
 					}
@@ -464,7 +465,7 @@ public void agregarElemento()
 				
 		}else if(vFactura.getCmbTipoFactu().equals(vFactura.TIPO_DE_FACTURA_PRESTAMOS)){
 			 Prestamos p= new Prestamos();
-			 if(vFactura.getjTablePrestamosXFactura().getSelectionModel().getLeadSelectionIndex()>=0){
+			// if(vFactura.getjTablePrestamosXFactura().getSelectionModel().getLeadSelectionIndex()>=0){
 				 p= this.AnnadirPrestamos();
 				 if(Float.parseFloat(vFactura.getTxtMontoIngresoEgreso())>0)
 				 {
@@ -472,7 +473,7 @@ public void agregarElemento()
 					 vFactura.setTxtMontoAdeudado("");
 				 }else 
 					 JOptionPane.showMessageDialog(null, "El monto debe ser mayor que cero", "Atención!", JOptionPane.ERROR_MESSAGE);
-			 }		 
+			 //}		 
 		}
 		
 	//LIMPIAR LOS CAMPOS UNA VEZ GUARDADA LA FACTURA
@@ -947,7 +948,7 @@ public boolean comprobarMonto(){
 				 for(int i=0; i<lista.getRowCount(); i++) //recorro las filas
 				 {
 					 Ingresos in = new Ingresos();
-					// Prestamos prest= new Prestamos();
+					 Deuda d = new Deuda();
 					// String tipo="";
 					 for(int a=0; a<lista.getColumnCount(); a++) //recorro las columnas
 					 {
@@ -958,8 +959,10 @@ public boolean comprobarMonto(){
 								in.setCodIngreso((lista.getValueAt(i ,a).toString()));	
 							}
 							else if(lista.getValueAt(i, a).toString().charAt(0)=='D'){
-								tipo="D";
-								deudasFactura.add(deudaDao.buscarPorCodDeuda(lista.getValueAt(i, a).toString()));
+								tipo="I";
+								d=deudaDao.buscarPorCodDeuda(lista.getValueAt(i, a).toString());
+								deudasFactura.add(d);
+								in.setCodIngreso(d.getIngreso());
 							}else {
 								tipo="DA";
 								deudasAlquilerFactura.add(deudaAlqDao.buscarPorCodigoDeuda(lista.getValueAt(i, a).toString()));
@@ -1002,6 +1005,7 @@ public boolean comprobarMonto(){
 				 Object[] arrayIngresos= ingresosFactura.toArray();
 				 Float alquiler=(float) 0, fc=(float) 0,ruta=(float) 0;
 				String tipoIng="";
+				System.out.println(arrayIngresos.length+ "arrayIngresos");
 				 if(arrayIngresos.length>0){
 				 for (int i=0; i< arrayIngresos.length;i++)
 				 {
@@ -1077,7 +1081,7 @@ public boolean comprobarMonto(){
 						 cuentaIngresos.setMontoTransaccion(deuda.getMonto());
 						 cuentaIngresos.setNro_transaccion(cuentaIngresosDao.buscarUltimoNumeroTramsaccionCuentaIngresos());
 						 cuentaIngresos.setStatus("C");
-						 cuentaIngresos.setTipo("Ingresos");
+						 cuentaIngresos.setTipo("INGRESOS");
 						 
 						 cuentaIngresosDao.agregarTransaccion(cuentaIngresos);
 						 deuda.setStatus("C");
@@ -1242,7 +1246,7 @@ public boolean comprobarMonto(){
 							 		prest.setFechaEmision(new Date(System.currentTimeMillis()));
 							 		prest.setMonto(Float.parseFloat(lista.getValueAt(i, 2).toString()));
 							 		prest.setNroSocio(socioDao.buscarPorNroSocio(campoId));
-							 		prest.setStatus('A');
+							 		prest.setStatus('A'); 
 							 		prestDao.agregarPrestamos(prest);
 							 	}
 								
@@ -1368,7 +1372,9 @@ public boolean comprobarMonto(){
 		for(int i=0;i<prestamos.size();i++)
 		{
 			Prestamos otroPrest= prestamos.get(i);
+			//if(otroPrest.getNroSocio().getNroSocio().equals(nroSocio)){
 			listPrest=cuentaPrestamosDao.MovimientosPrestamos(otroPrest.getCodPrestamo());
+			
 			monto=(float) 0;
 			if(listPrest.size()>0)
 			{	
@@ -1378,14 +1384,15 @@ public boolean comprobarMonto(){
 				}
 			}
 			if(otroPrest.getNroSocio().getNroSocio().equals(nroSocio) && otroPrest.getStatus()=='A'){
-				if(otroPrest.getMonto()-monto!=0)
-				{
+				//if(otroPrest.getMonto()-monto!=0)
+				//{
 				listPrestamosXSocio.add(otroPrest);
 				vFactura.agregarFilaPrestamos(otroPrest.getDescripcion(), Float.toString(otroPrest.getMonto()),
 						Float.toString(otroPrest.getMonto()-monto));
-				}
+				//}
 			}
 		}
+			
 	}
 	
 	public void BuscarDeudas() throws Exception{

@@ -28,6 +28,8 @@ public class Deuda implements Serializable
 	private String status;
 	@Column(name="fecha", nullable=false)
 	private Date fecha;
+	@Column(name="codingreso", nullable=false)
+	private String ingreso;
 	@OneToOne(cascade= CascadeType.ALL)
 	@JoinColumn(name="codsocio")
 	private Socio socio;
@@ -69,6 +71,12 @@ public class Deuda implements Serializable
 	}
 	public void setFecha(Date fecha) {
 		this.fecha = fecha;
+	}
+	public String getIngreso() {
+		return ingreso;
+	}
+	public void setIngreso(String ingreso) {
+		this.ingreso = ingreso;
 	}
 	
 	
