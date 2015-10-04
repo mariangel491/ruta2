@@ -244,7 +244,6 @@ public class ControladorMenu implements ActionListener{
 		
 		mayorAnno=historialD.obtenerTodos().get(0).getFechaSocio().getYear();
 		mayorMes=historialD.obtenerTodos().get(0).getFechaSocio().getMonth();
-		System.out.println("mayor anno  "+ mayorAnno+ "  mayorMes " + mayorMes  + "  fecha hoy " + fechaHoy);
 		ing=ingDao.buscarPorCodIngreso("I0001");
 		
 		if(fechaHoy.getMonth()>this.mayorMes)

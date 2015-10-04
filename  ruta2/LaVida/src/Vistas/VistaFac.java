@@ -1410,6 +1410,9 @@ private static VistaFac vFactura=null;
 		this.jTextField1.setVisible(false);
 		this.lblNroCheque.setVisible(false);
 		this.lblNroDeposito.setVisible(false);
+		
+		//Prueba
+		this.OcultarCheckEfectivo();
 	}
 	public void Check(){
 		//lblMonto.setVisible(true);
@@ -1423,6 +1426,7 @@ private static VistaFac vFactura=null;
 		this.lblTotal.setVisible(false);
 	}
 	public void CheckEfectivo(){
+		System.out.println("algo pasa con el check efectivo y no se que es");
 		txtEfectivo.setEditable(true);
 		txtEfectivo.setVisible(true);
 		this.Check();
@@ -1430,7 +1434,7 @@ private static VistaFac vFactura=null;
 	}
 	
 	public void OcultarCheckEfectivo(){
-	
+	  System.out.println("ocultando check efectivo");
 		txtEfectivo.setEditable(false);
 		txtEfectivo.setText("");
 		//this.OcultarCheck();

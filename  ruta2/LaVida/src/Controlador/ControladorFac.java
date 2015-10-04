@@ -1005,7 +1005,7 @@ public boolean comprobarMonto(){
 				 Object[] arrayIngresos= ingresosFactura.toArray();
 				 Float alquiler=(float) 0, fc=(float) 0,ruta=(float) 0;
 				String tipoIng="";
-				System.out.println(arrayIngresos.length+ "arrayIngresos");
+				
 				 if(arrayIngresos.length>0){
 				 for (int i=0; i< arrayIngresos.length;i++)
 				 {
@@ -1111,7 +1111,7 @@ public boolean comprobarMonto(){
 				 		 
 				 if(clasificacion.equalsIgnoreCase(Ingresos.TIPO_INGRESO_ALQUILER))
 				 {
-					 System.out.println("Entrando por alquiler");
+					
 					 CuentaAlquiler cuentaAlquiler = new CuentaAlquiler();
 					 cuentaAlquiler.setFactura(facturaDao.obtenerFactura(factura.getNroFactura()));
 					 cuentaAlquiler.setDescripTransac(ingreso.getDescripcion());
@@ -1237,17 +1237,21 @@ public boolean comprobarMonto(){
 							{
 							 
 							 	String cod= lista.getValueAt(i, a).toString();
-							 	if (prestDao.encontrarPrestamo(cod)==true)
+							 	if (prestDao.encontrarPrestamo(cod)==true){
 							 		prest=prestDao.buscarPorCodigoPrestamo(cod);
+							 		this.MovCuentaPrestamos(cod, facturaDao.obtenerFactura(factura.getNroFactura()), Float.valueOf(lista.getValueAt(i ,2).toString()));
+							 	}
+							 		
 							 	else
 							 	{
-							 		prest.setCodPrestamo(lista.getValueAt(i, a).toString());
+							 		prest.setCodPrestamo(cod);
 							 		prest.setDescripcion(lista.getValueAt(i, 1).toString());
 							 		prest.setFechaEmision(new Date(System.currentTimeMillis()));
 							 		prest.setMonto(Float.parseFloat(lista.getValueAt(i, 2).toString()));
 							 		prest.setNroSocio(socioDao.buscarPorNroSocio(campoId));
 							 		prest.setStatus('A'); 
 							 		prestDao.agregarPrestamos(prest);
+							 		this.MovCuentaPrestamos(cod, facturaDao.obtenerFactura(factura.getNroFactura()), Float.valueOf(lista.getValueAt(i ,2).toString())*-1);
 							 	}
 								
 								prestamosFactura.add(prest);
@@ -1286,7 +1290,7 @@ public boolean comprobarMonto(){
 				 	}
 				 }
 				
-				 if(prestamosFactura.size()>0){
+			/*	 if(prestamosFactura.size()>0){
 					for(int i=0; i<arrayPrestamos.length; i++){
 						 Prestamos pres= (Prestamos) arrayPrestamos[i];
 				
@@ -1301,7 +1305,7 @@ public boolean comprobarMonto(){
 						 cuentaPrestamosDao.agregarTransaccion(cuentaPrestamos);
 						
 					}
-				}	
+				}	*/
 
 		 } catch (Exception e) {
 			 // TODO Auto-generated catch block
@@ -1372,27 +1376,28 @@ public boolean comprobarMonto(){
 		for(int i=0;i<prestamos.size();i++)
 		{
 			Prestamos otroPrest= prestamos.get(i);
-			//if(otroPrest.getNroSocio().getNroSocio().equals(nroSocio)){
-			listPrest=cuentaPrestamosDao.MovimientosPrestamos(otroPrest.getCodPrestamo());
-			
-			monto=(float) 0;
-			if(listPrest.size()>0)
-			{	
-				for(int j=0;j<listPrest.size();j++)
-				{
-					monto= monto+listPrest.get(j).getMontoTransaccion();	
+						
+			if(otroPrest.getNroSocio().getNroSocio().equals(nroSocio) && otroPrest.getStatus()=='A')
+			{
+				listPrest=cuentaPrestamosDao.MovimientosPrestamos(otroPrest.getCodPrestamo());
+				monto=(float) 0;
+				if(listPrest.size()>1)
+				{			
+					for(int j=0;j<listPrest.size();j++)
+					{
+						if(listPrest.get(j).getMontoTransaccion()>0)
+							monto= monto+listPrest.get(j).getMontoTransaccion();	
+					}
 				}
-			}
-			if(otroPrest.getNroSocio().getNroSocio().equals(nroSocio) && otroPrest.getStatus()=='A'){
-				//if(otroPrest.getMonto()-monto!=0)
-				//{
-				listPrestamosXSocio.add(otroPrest);
-				vFactura.agregarFilaPrestamos(otroPrest.getDescripcion(), Float.toString(otroPrest.getMonto()),
-						Float.toString(otroPrest.getMonto()-monto));
-				//}
+				if(otroPrest.getMonto()-monto!=0)
+					{
+					listPrestamosXSocio.add(otroPrest);
+					vFactura.agregarFilaPrestamos(otroPrest.getDescripcion(), Float.toString(otroPrest.getMonto()),
+							Float.toString(otroPrest.getMonto()-monto));
+					}
 			}
 		}
-			
+				
 	}
 	
 	public void BuscarDeudas() throws Exception{
@@ -1478,6 +1483,29 @@ public boolean comprobarMonto(){
 		}
 	}
 	
-
+	public void MovCuentaPrestamos(String prest, Factura factura, Float monto){
+		 try {
+			 
+			 Prestamos pres =prestamosDao.buscarPorCodigoPrestamo(prest);
+			 if (prestDao.encontrarPrestamo(prest)==true){
+				 
+			 cuentaPrestamos = new CuentaPrestamos();
+			 cuentaPrestamos.setPrestamo(pres);
+			 cuentaPrestamos.setDescripTransac(pres.getDescripcion());
+			 cuentaPrestamos.setFecha(new Date(System.currentTimeMillis()));
+			 cuentaPrestamos.setFactura(facturaDao.obtenerFactura(factura.getNroFactura()));
+			 cuentaPrestamos.setStatus("A");
+			 cuentaPrestamos.setMontoTransaccion(monto);
+			 cuentaPrestamos.setNro_transaccion(cuentaPrestamosDao.buscarUltimoNumeroTramsaccionCuentaFondoChoque());
+			 cuentaPrestamosDao.agregarTransaccion(cuentaPrestamos);
+			 }
+		} catch (Exception e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+	
+	}
+	
+	
 	
 }
