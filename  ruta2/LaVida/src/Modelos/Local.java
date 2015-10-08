@@ -28,6 +28,8 @@ public class Local implements Serializable{
 	private String tipo;
 	@Column(name="canon")
 	private float canon;
+	@Column(name="nrolocal")
+	private String nrolocal;
 	
 	@OneToOne(cascade= CascadeType.ALL)
 	@JoinColumn(name="codruta")
@@ -97,6 +99,14 @@ public class Local implements Serializable{
 
 	public void setCanon(float canon) {
 		this.canon = canon;
+	}
+
+	public String getNrolocal() {
+		return nrolocal;
+	}
+
+	public void setNrolocal(String nrolocal) {
+		this.nrolocal = nrolocal;
 	}
 
 	

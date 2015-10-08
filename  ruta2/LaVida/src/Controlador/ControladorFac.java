@@ -559,12 +559,11 @@ public void CalcularTotalFormaPago(){
 public boolean comprobarMonto(){
 	float montoFP= Float.parseFloat(vFactura.getTxtTotal2().getText());
 	float montoLista=Float.parseFloat(vFactura.getTxtMontoTotal());
-	if(montoFP<montoLista){
-		JOptionPane.showMessageDialog(null,"Monto a pagar Insuficiente","Atencion!",
-				JOptionPane.INFORMATION_MESSAGE);
-		return true;}
-	else 
+	System.out.println("FP " +montoFP + "otro monto "+ montoLista);
+	if(montoFP<montoLista)
 		return false;
+	 
+		return true;
 }
 
 
@@ -666,7 +665,8 @@ public boolean comprobarMonto(){
 			 if(formasPagoSeleccionadas.size()==0)
 				 JOptionPane.showMessageDialog(null,"Debe seleccionar al menos una formaPago","Atencion!",
 							JOptionPane.INFORMATION_MESSAGE);
-				 
+			 if(this.comprobarMonto()==true){
+			 
 			 facturaDao.agregarFactura(factura);
 			 
 			//Para guardar la forma de pago.
@@ -834,6 +834,9 @@ public boolean comprobarMonto(){
 
 				 
 			 }*/
+			  }else 
+				 JOptionPane.showMessageDialog(null,"Monto a pagar Insuficiente","Atención",
+							JOptionPane.INFORMATION_MESSAGE);
 
 		 
 		 } catch (Exception e) {
@@ -842,6 +845,13 @@ public boolean comprobarMonto(){
 			 valorMensaje="Se ha producido un Error al Guardar Detalle de la Factura";
 		 }	
 
+		 if(this.comprobarMonto()==true){
+			 vFactura.limpiarTodo();
+			 prestamosFactura.removeAll(deudasFactura);
+			 deudasFactura.removeAll(deudasFactura);
+			 ingresosFactura.removeAll(ingresosFactura); 
+		 }
+		 
 		return factura.getNroFactura();
 		
 		
@@ -882,7 +892,10 @@ public boolean comprobarMonto(){
 			 
 			 factura.setNroFactura(facturaDao.buscarUltimoNumeroFactura());		 
 			
-			 facturaDao.agregarFactura(factura);
+			 System.out.println(this.comprobarMonto()+ " comprobar Monto");
+			 if(this.comprobarMonto()==true){
+				 facturaDao.agregarFactura(factura);
+			 
 			 
 			 ////////////////////////////////////////MetodoFormaPago///////////////////////////
 			 String nom="";
@@ -1146,21 +1159,24 @@ public boolean comprobarMonto(){
 					 cuentaIngresos.setTipo("GASTO");
 					 cuentaIngresosDao.agregarTransaccion(cuentaIngresos);
 					 
-				}
+				 }
+		 }else 
+			 JOptionPane.showMessageDialog(null,"Monto a pagar Insuficiente","Atencion",
+						JOptionPane.INFORMATION_MESSAGE);
 
 		 } catch (Exception e) {
 			 // TODO Auto-generated catch block
 			 e.printStackTrace();
 			 valorMensaje="Se ha producido un Error al Guardar Detalle de la Factura";
 		 }	
-
-		 vFactura.limpiarTodo();
-		 prestamosFactura.removeAll(deudasFactura);
-		 deudasFactura.removeAll(deudasFactura);
-		 ingresosFactura.removeAll(ingresosFactura);
-		 
-		return factura.getNroFactura();
+		 if(this.comprobarMonto()==true){
+			 vFactura.limpiarTodo();
+			 prestamosFactura.removeAll(deudasFactura);
+			 deudasFactura.removeAll(deudasFactura);
+			 ingresosFactura.removeAll(ingresosFactura); 
+		 }
 		
+		 return factura.getNroFactura();
 	}
 	
 	public String guardarFacturaPrestamo(String tipoFacturado, String campoId, String cedula, JTable lista, String montoTotal){
@@ -1183,7 +1199,7 @@ public boolean comprobarMonto(){
 			 }
 			// factura.setCodRuta(rutaDao.buscarPorCodRuta("J-306-902686"));
 			 factura.setNroFactura(facturaDao.buscarUltimoNumeroFactura());		 
-			
+			if(this.comprobarMonto()==true){
 			 facturaDao.agregarFactura(factura);
 			 
 			 ////////////////////////////////////////MetodoFormaPago///////////////////////////
@@ -1306,18 +1322,23 @@ public boolean comprobarMonto(){
 						
 					}
 				}	*/
+		 }else 
+			 JOptionPane.showMessageDialog(null,"Monto a pagar Insuficiente","Atención",
+						JOptionPane.INFORMATION_MESSAGE);
 
 		 } catch (Exception e) {
 			 // TODO Auto-generated catch block
 			 e.printStackTrace();
 			 String valorMensaje = "Se ha producido un Error al Guardar Detalle de la Factura";
 		 }	
-
-		 //vFactura.limpiarTodo();
+		 
+		 if(comprobarMonto()==true){
+			 System.out.println("entrando a monto");
+		 vFactura.limpiarTodo();
 		 prestamosFactura.removeAll(deudasFactura);
 		 deudasFactura.removeAll(deudasFactura);
 		 ingresosFactura.removeAll(ingresosFactura);
-		 
+		 }
 		return factura.getNroFactura();
 		
 	}
@@ -1347,7 +1368,7 @@ public boolean comprobarMonto(){
 				vFactura.getTxtCed(), vFactura.getjTableIngresosXFactura(), vFactura.getTxtMontoTotal());
 		}
 			
-		vFactura.limpiarTodo();
+		//vFactura.limpiarTodo();
 	}
 	
 	

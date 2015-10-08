@@ -28,6 +28,7 @@ public class ControladorSubsidio implements ActionListener {
 		vcSub.setLocationRelativeTo(null);
 		vcSub.setVisible(true);
 		vcSub.agregarListener(this);
+		vcSub.BloquearNombreSoc();
 	}
 
 	@Override
@@ -37,12 +38,12 @@ public class ControladorSubsidio implements ActionListener {
 			this.BuscarSocio();
 		}else if(ae.getActionCommand().equalsIgnoreCase("Guardar")){
 			this.GuardarSubsidioSocio();
-			vcSub.LimpiarCampos();
+			
 		}else if(ae.getActionCommand().equalsIgnoreCase("Limpiar")){
 			vcSub.LimpiarCampos();
 		}else if(ae.getActionCommand().equalsIgnoreCase("BSocioTecla")){
 			this.BuscarSocio();
-		}else if(ae.getActionCommand().equalsIgnoreCase("Cancelar")){
+		}else if(ae.getActionCommand().equalsIgnoreCase("Salir")){
 			vcSub.cerrarVentana();
 		}
 	}
@@ -72,17 +73,20 @@ public class ControladorSubsidio implements ActionListener {
 	
 	public void GuardarSubsidioSocio(){
 		try {
-		subsidio.setCodigo(this.GenerarCodigo());
-		subsidio.setFecha(fecha);
-		subsidio.setMonto(Float.parseFloat(vcSub.getTxtMontoSubsidio()));
-		subsidio.setSocio(socioDao.buscarPorNroSocio(vcSub.getTxtCodSocio()));
-		subsidio.setStatus('A');
-		subDao.agregarSubsidio(subsidio);
+			if(vcSub.Camposllenos()==true){
+				subsidio.setCodigo(this.GenerarCodigo());
+				subsidio.setFecha(fecha);
+				subsidio.setMonto(Float.parseFloat(vcSub.getTxtMontoSubsidio()));
+				subsidio.setSocio(socioDao.buscarPorNroSocio(vcSub.getTxtCodSocio()));
+				subsidio.setStatus('A');
+				subDao.agregarSubsidio(subsidio);
+				vcSub.LimpiarCampos();
+			}
+		
 		} catch (Exception e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
-		
 	}
 	
 	public String GenerarCodigo(){
@@ -103,9 +107,7 @@ public class ControladorSubsidio implements ActionListener {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
-		return null;
-		
-		
+		return null;	
 	}
 	
 }

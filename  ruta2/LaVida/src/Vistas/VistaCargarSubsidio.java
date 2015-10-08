@@ -163,10 +163,10 @@ public class VistaCargarSubsidio extends javax.swing.JFrame {
 				btnCancelar = new JButton();
 				getContentPane().add(btnCancelar);
 				getContentPane().add(getBtnLimpiar());
-				btnCancelar.setText("Cancelar");
+				btnCancelar.setText("Salir");
 				btnCancelar.setIcon(new ImageIcon(getClass().getClassLoader().getResource("Imagenes/button_cancel_16x16.png")));
 				btnCancelar.setBounds(195, 261, 131, 28);
-				btnCancelar.setActionCommand("Cancelar");
+				btnCancelar.setActionCommand("Salir");
 			}
 			pack();
 			this.setSize(536, 339);
@@ -269,6 +269,10 @@ public class VistaCargarSubsidio extends javax.swing.JFrame {
 		return btnLimpiar;
 	}
 
+	public void BloquearNombreSoc() {
+		txtNomApe.setEditable(false);
+			}
+
 	public void cerrarVentana() {
 		// TODO Auto-generated method stub
 		int ValorDevuelto = JOptionPane.showConfirmDialog(null,
@@ -276,5 +280,32 @@ public class VistaCargarSubsidio extends javax.swing.JFrame {
 		if (ValorDevuelto == 0) {
 			this.dispose();
 		}
+	}
+	
+	public boolean Camposllenos() {
+
+		// variable local
+		boolean CamposLLenos = false;
+
+		if (this.txtCodSocio.getText().equals("")) {
+			// si falta el codigo
+			JOptionPane.showMessageDialog(null, "Debe ingresar el número de socio",
+					"Error", 0);
+			this.txtCodSocio.requestFocus();
+			CamposLLenos = false;
+			
+		} else if (this.txtMontoSubsidio.getText().equals("")) {
+			// si falta la cedula
+			JOptionPane.showMessageDialog(null,
+					"Debe ingresar un monto válido", "Error", 0);
+			this.txtMontoSubsidio.requestFocus();
+			CamposLLenos = false;
+			
+		} else {
+			// sino falta nada
+			CamposLLenos = true;
+		}
+		// retornamos el valor de la validacion
+		return CamposLLenos;
 	}
 }
