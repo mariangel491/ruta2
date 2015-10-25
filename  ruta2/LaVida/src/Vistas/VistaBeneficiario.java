@@ -736,8 +736,7 @@ public void regresar(){
 		 	this.btnAgregar.setVisible(false);
 		}
 	 
-	 public void MostarListado() {
-				
+	 public void MostarListado() { 
 		 	this.spListadoBeneficiario.setVisible(true);
 		 	this.tblListadoBenef.setVisible(true);
 			this.btnEliminarB.setVisible(true);
@@ -831,6 +830,12 @@ public void regresar(){
 		        //Regresa la edad en base a la fecha de nacimiento
 		        return año;
 	 }
+	
+	public void validarEdad (int anno){
+		
+		if (anno<0)
+		JOptionPane.showMessageDialog(null, "Fecha inválida", "Atención!", JOptionPane.ERROR_MESSAGE);
+	}
  
 	 public void edad(){
 		 

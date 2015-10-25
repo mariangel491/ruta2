@@ -75,7 +75,7 @@ public class ControladorDepositosCaja implements KeyListener, ActionListener {
 				// TODO Auto-generated catch block
 				e.printStackTrace();
 			}
-		}else if (ae.getActionCommand().equalsIgnoreCase("Cancelar")) {
+		}else if (ae.getActionCommand().equalsIgnoreCase("Salir")) {
 			vcaja.cerrarVentana();
 		}
 		
@@ -173,10 +173,13 @@ public class ControladorDepositosCaja implements KeyListener, ActionListener {
 				descripcion=listMovADepositar.get(i).getFactura().getNroFactura();
 				monto= String.valueOf(listMovADepositar.get(i).getMontoTransaccion());
 				vcaja.agregarFilaDeposito(descripcion, monto);
+				this.SumarDeposito();
 			}	
 		}
-		if(listMovADepositar.size()==0)
+		if(listMovADepositar.size()==0){
 			vcaja.limpiarTablaDeposito();
+			vcaja.setTxtMontoADepositar("");
+			}
 	}
 	//Pasar tooodo lo que esta en caja, a la tabla de deposito
 		public void cargarAgregarTodosListadoDeposito(){

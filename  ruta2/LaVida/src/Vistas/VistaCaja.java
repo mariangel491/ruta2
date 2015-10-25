@@ -328,7 +328,7 @@ public class VistaCaja extends javax.swing.JFrame {
 			btnSalir.setText("Salir");
 			btnSalir.setIcon(new ImageIcon(getClass().getClassLoader().getResource("Imagenes/button_cancel_16x16.png")));
 			btnSalir.setBounds(384, 416, 116, 29);
-			btnSalir.setActionCommand("");
+			btnSalir.setActionCommand("Salir");
 		}
 		return btnSalir;
 	}
@@ -458,9 +458,11 @@ public class VistaCaja extends javax.swing.JFrame {
 		int ValorDevuelto = JOptionPane.showConfirmDialog(null,
 				"¿Seguro que desea salir?", "Salir", JOptionPane.YES_NO_OPTION);
 		if (ValorDevuelto == 0) {
+			this.limpiarCampos();
 			this.dispose();
 		}
 	}
+	
 	
 	private JLabel getLblCtaR() {
 		if(lblCtaR == null) {

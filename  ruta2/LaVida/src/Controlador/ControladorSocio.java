@@ -82,8 +82,8 @@ public class ControladorSocio implements ActionListener, KeyListener {
 					e.printStackTrace();
 				}
 			} else
-			if (a.getActionCommand().equalsIgnoreCase("Cancelar")) {
-			vSocio.cerrarVentana();
+			if (a.getActionCommand().equalsIgnoreCase("Salir")) {
+					vSocio.cerrarVentana();
 		} else 
 			if (a.getActionCommand().equalsIgnoreCase("Limpiar")) {
 			vSocio.limpiarCampos();
@@ -300,6 +300,7 @@ public class ControladorSocio implements ActionListener, KeyListener {
 			key.consume();
 	}
 
+	
 	
 
 }

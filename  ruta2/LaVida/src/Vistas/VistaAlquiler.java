@@ -810,6 +810,15 @@ public class VistaAlquiler extends javax.swing.JFrame {
 			}
 		}
 		
+		
+		
+	/*	for ( Enumeration e=buttonGroup1.getElements();  e.hasMoreElements(); ) { 
+		    JRadioButton b = (JRadioButton)e.nextElement(); 
+		    ButtonModel modelo = b.getModel(); 
+		    buttonGroup1.setSelected(modelo, false)  
+		};*/
+		 
+		
 		//El actionlistener del combo esta en la declaracion arriba :S
 		//Esto es para que cuando seleccione una opcion del combo llene 
 		//los campos de la vista :D

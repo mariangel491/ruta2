@@ -102,7 +102,7 @@ private JLabel lblTipo;
 	public VistaInquilino() {
 		super();
 		initGUI();
-		this.txtCodigo.setEnabled(false);
+		//this.txtCodigo.setEnabled(false);
 	}
 	
 	private void initGUI() {
@@ -479,10 +479,12 @@ private JLabel lblTipo;
 					this.dispose();
 				}
 			}
+			
 				public void GenerarCodigo(){
 				int cantInq=0;
 				try {
 					cantInq = daoInquilino.obtenerTodos().size()+1;
+					System.out.println(cantInq+" "+"esta es  la cantidad de inquilinos");
 					if(cantInq<10)
 					{
 						this.txtCodigo.setText("IN"+"000"+cantInq);
@@ -491,7 +493,9 @@ private JLabel lblTipo;
 						this.txtCodigo.setText("IN"+"00"+cantInq);
 						
 					}else if(cantInq<1000)
+					
 						this.txtCodigo.setText("IN"+"0"+cantInq);
+					
 				} catch (Exception e1) {
 					// TODO Auto-generated catch block
 					e1.printStackTrace();

@@ -76,7 +76,7 @@ public class VistaLocal extends javax.swing.JFrame {
 	private JLabel lblBs;
 	private JTextField txtCanon;
 	private JLabel lblCanon;
-	private JButton btnCancelar;
+	private JButton btnSalir;
 	private JButton btnGuardar;
 	private JButton btnBuscar;
 	private JComboBox cmbTipo;
@@ -187,13 +187,13 @@ private static VistaLocal vLocal=null;
 				btnGuardar.setFont(new java.awt.Font("Segoe UI",0,11));
 			}
 			{
-				btnCancelar = new JButton();
-				getContentPane().add(btnCancelar);
-				btnCancelar.setText("Cancelar");
-				btnCancelar.setActionCommand("Cancelar");
-				btnCancelar.setBounds(28, 255, 123, 28);
-				btnCancelar.setIcon(new ImageIcon(getClass().getClassLoader().getResource("Imagenes/button_cancel_16x16.png")));
-				btnCancelar.setFont(new java.awt.Font("Segoe UI",0,11));
+				btnSalir = new JButton();
+				getContentPane().add(btnSalir);
+				btnSalir.setText("Salir");
+				btnSalir.setActionCommand("Salir");
+				btnSalir.setBounds(28, 255, 123, 28);
+				btnSalir.setIcon(new ImageIcon(getClass().getClassLoader().getResource("Imagenes/exit.png")));
+				btnSalir.setFont(new java.awt.Font("Segoe UI",0,11));
 			}
 			{
 				btnLimpiar = new JButton();
@@ -282,7 +282,7 @@ private static VistaLocal vLocal=null;
 	public void agregarListener(ActionListener accion) {
 		this.btnBuscar.addActionListener(accion);
 		this.btnLimpiar.addActionListener(accion);
-		this.btnCancelar.addActionListener(accion);
+		this.btnSalir.addActionListener(accion);
 		this.btnGuardar.addActionListener(accion);
 	}
 	
@@ -301,11 +301,14 @@ private static VistaLocal vLocal=null;
 	
 	public void cerrarVentana() {
 		// TODO Auto-generated method stub
+		
 		int ValorDevuelto = JOptionPane.showConfirmDialog(null,
 				"¿Seguro que desea salir?", "Salir", JOptionPane.YES_NO_OPTION);
 		if (ValorDevuelto == 0) {
+		
 			this.dispose();
 		}
+
 	}
 	
 	public void asignarCod(){

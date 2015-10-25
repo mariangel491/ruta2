@@ -62,7 +62,7 @@ public class VistaSocio extends javax.swing.JFrame {
 	private JLabel lblPregunta;
 	private JLabel lblImagen;
 	private JButton btnModificar;
-	private JButton btnCancelar;
+	private JButton btnSalir;
 	private JButton btnSiguiente;
 	private JLabel lblDirecSocio;
 
@@ -307,15 +307,15 @@ private static VistaSocio vSocio=null;
 	}
 	
 	private JButton getJbtnCancelar() {
-		if(btnCancelar == null) {
-			btnCancelar = new JButton();
-			btnCancelar.setText("Cancelar");
-			btnCancelar.setBounds(33, 342, 126, 28);
-			btnCancelar.setFont(new java.awt.Font("Century Gothic",0,12));
-			btnCancelar.setIcon(new ImageIcon(getClass().getClassLoader().getResource("Imagenes/button_cancel_16x16.png")));
-			btnCancelar.setActionCommand("Cancelar");
+		if(btnSalir == null) {
+			btnSalir = new JButton();
+			btnSalir.setText("Salir");
+			btnSalir.setBounds(33, 342, 126, 28);
+			btnSalir.setFont(new java.awt.Font("Century Gothic",0,12));
+			btnSalir.setIcon(new ImageIcon(getClass().getClassLoader().getResource("Imagenes/exit.png")));
+			btnSalir.setActionCommand("Salir");
 		}
-		return btnCancelar;
+		return btnSalir;
 	}
 	
 	private JButton getJbtnModificar() {
@@ -421,7 +421,7 @@ private static VistaSocio vSocio=null;
 		public void agregarListener(ActionListener accion) {
 			this.btnBuscarCed.addActionListener(accion);
 			this.btnModificar.addActionListener(accion);
-			this.btnCancelar.addActionListener(accion);
+			this.btnSalir.addActionListener(accion);
 			this.btnBuscarSocio.addActionListener(accion);
 			this.btnSiguiente.addActionListener(accion);
 			this.btnRA.addActionListener(accion);
@@ -532,8 +532,10 @@ private static VistaSocio vSocio=null;
 		
 		txtNroSocio.setEditable(true);
 		txtCedSocio.setEditable(true);
-		rbtnNo.setSelected(false);
-		rbtnSI.setSelected(false);
+		//rbtnNo.setSelected(false);
+		//rbtnSI.setSelected(false);
+		getButtonGroupTieneAvance().clearSelection();
+		
 	}
 
 	public void agregarKeyTel(KeyListener a) {
@@ -546,6 +548,7 @@ private static VistaSocio vSocio=null;
 		int ValorDevuelto = JOptionPane.showConfirmDialog(null,
 				"¿Seguro que desea salir?", "Salir", JOptionPane.YES_NO_OPTION);
 		if (ValorDevuelto == 0) {
+			this.limpiarCampos();
 			this.dispose();
 		}
 
@@ -689,4 +692,7 @@ private static VistaSocio vSocio=null;
 		txtNroSocio.setEditable(false);
 		txtCedSocio.setEditable(false);
 	}
+	
+	
+	
 }

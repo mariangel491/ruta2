@@ -60,6 +60,7 @@ public class ControladorBeneficiario implements ActionListener, KeyListener {
 		}else if(ae.getActionCommand().equalsIgnoreCase("Buscar")){
 			try {
 				this.BuscarBenef();
+				
 			} catch (Exception e) {
 				// TODO Auto-generated catch block
 				e.printStackTrace();
@@ -92,10 +93,9 @@ public class ControladorBeneficiario implements ActionListener, KeyListener {
 			*/
 
 		}else if(ae.getActionCommand().equalsIgnoreCase("Limpiar")){
-			Vbenef.limpiarCamposBenef();
-			Vbenef.limpiarCamposSocio();
-			Vbenef.regresar();
-			Vbenef.limpiarTablaBeneficiarios();
+			
+			this.Limpiar();
+			
 		}else if(ae.getActionCommand().equalsIgnoreCase("Cancelar")){
 			Vbenef.cerrarVentana();
 		}else if(ae.getActionCommand().equalsIgnoreCase("Modificar")){
@@ -151,7 +151,7 @@ public class ControladorBeneficiario implements ActionListener, KeyListener {
 					for (Beneficiario bene : this.socio.getBeneficiarios()) {
 						bene.setSocio(socio);
 						bene.setStatus("Activo");
-						System.out.println(bene.getApellido());
+						
 						try {
 							if (!benefDao.encontrar(bene.getCedBeneficiario()))
 								benefDao.agregarBeneficiario(bene);
@@ -202,6 +202,15 @@ public class ControladorBeneficiario implements ActionListener, KeyListener {
 				}
 			}*/
 				
+	}
+	
+	
+	public void Limpiar(){
+		Vbenef.limpiarCamposBenef();
+		Vbenef.limpiarCamposSocio();
+		Vbenef.regresar();
+		Vbenef.MostarListado();
+		Vbenef.limpiarTablaBeneficiarios();
 	}
 
 	
@@ -326,8 +335,10 @@ protected void cargarListadoDeBeneficiarios() throws Exception {
 	
 	
 	if(socio.getBeneficiarios().size()>0)
+		
 	{
 		List<Beneficiario> benefi = socio.getBeneficiarios();
+		Vbenef.MostarListado();
 		Vbenef.limpiarTablaBeneficiarios();
 		for(int i=0; i<benefi.size(); i++)
 		{	
@@ -442,8 +453,7 @@ public void removerElementoBeneficiario(String ced) throws Exception{
 			bene.setTelefono(telefono);
 			
 			socio.getBeneficiarios().add(bene);
-			this.cargarListadoDeBeneficiarios();
-		
+			this.cargarListadoDeBeneficiarios();  
 			Vbenef.limpiarCamposBenef();
 		
 		} catch (Exception e) {

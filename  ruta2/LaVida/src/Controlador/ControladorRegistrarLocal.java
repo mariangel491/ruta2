@@ -60,7 +60,7 @@ public class ControladorRegistrarLocal implements ActionListener, KeyListener{
 		if (ae.getActionCommand().equalsIgnoreCase("Limpiar")) {
 				VLocal.LimpiarCampos();
 			}
-		else if(ae.getActionCommand().equalsIgnoreCase("Cancelar")){
+		else if(ae.getActionCommand().equalsIgnoreCase("Salir")){
 			VLocal.cerrarVentana();
 			//VLocal.ActivarComponentes();
 			//VLocal.LimpiarCampos();
