@@ -32,6 +32,8 @@ import javax.swing.table.DefaultTableModel;
 import javax.swing.table.TableModel;
 import javax.swing.SwingUtilities;
 
+import org.joda.time.DateTime;
+
 import Modelos.Beneficiario;
 import Modelos.Prestamos;
 import Modelos.Socio;
@@ -821,20 +823,25 @@ public void regresar(){
 
 	public Integer calcularEdad(Date fecha){
 		   Date fechaA=new Date();
-		    		int año=fechaA.getYear()-FechaNaci.getDate().getYear();
+		   if (fechaA.after(getFechaNaci()) == true){
+		    		int anno=fechaA.getYear()-FechaNaci.getDate().getYear();
 		        	int mes= fechaA.getMonth()- this.FechaNaci.getDate().getMonth();
 		        	int dia= fechaA.getDay()- this.FechaNaci.getDate().getDay();
 		        if(mes<0 || (mes==0 && dia<0)){
-		            año--;
-		    }
+		            anno--;
+		        }
+		    
 		        //Regresa la edad en base a la fecha de nacimiento
-		        return año;
+		        return anno;
+		   }else 
+			   this.validarEdad();
+		return 0;
 	 }
 	
-	public void validarEdad (int anno){
+	public void validarEdad (/*int anno*/){
 		
-		if (anno<0)
-		JOptionPane.showMessageDialog(null, "Fecha inválida", "Atención!", JOptionPane.ERROR_MESSAGE);
+		//if (anno<0 )
+		JOptionPane.showMessageDialog(null, "La fecha seleccionada no puede ser mayor a la actual ", "Atención!", JOptionPane.ERROR_MESSAGE);
 	}
  
 	 public void edad(){

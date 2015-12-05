@@ -6,10 +6,12 @@ import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
 
 import javax.swing.BorderFactory;
+import javax.swing.ComboBoxModel;
 import javax.swing.DefaultComboBoxModel;
 import javax.swing.DefaultListModel;
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
+import javax.swing.JComboBox;
 import javax.swing.JLabel;
 import javax.swing.JList;
 import javax.swing.JOptionPane;
@@ -58,6 +60,8 @@ public class VistaCargarIngresos extends javax.swing.JFrame {
 	//Mis datos
 	DefaultListModel mod= new DefaultListModel ();
 	LinkedListModel<String> ingresos=new LinkedListModel<>();
+	private JComboBox cmbClasificacion;
+	private JLabel lblClasificacion;
 	private JLabel jLabel1;
 	private IngresosDao ingDao= new IngresosDao();
 	
@@ -121,20 +125,20 @@ private static VistaCargarIngresos vCIng=null;
 					{
 						lblNombIngresos = new JLabel();
 						jPanelCargarMontos.add(lblNombIngresos);
-						lblNombIngresos.setText("Nombre");
-						lblNombIngresos.setBounds(37, 70, 57, 16);
+						lblNombIngresos.setText("Nombre :");
+						lblNombIngresos.setBounds(37, 78, 57, 16);
 					}
 					{
 						jScrollPaneIngresos = new JScrollPane();
 						jPanelCargarMontos.add(jScrollPaneIngresos);
-						jScrollPaneIngresos.setBounds(96, 68, 212, 111);
+						jScrollPaneIngresos.setBounds(121, 68, 212, 111);
 						{
 							ListModel jListIngresosModel = 
 									new DefaultComboBoxModel(
 											new String[] {  });
 							jListIngresos = new JList();
 							jScrollPaneIngresos.setViewportView(jListIngresos);
-							jListIngresos.setPreferredSize(new java.awt.Dimension(209, 92));
+							jListIngresos.setPreferredSize(new java.awt.Dimension(209, 108));
 							jListIngresos.setModel(jListIngresosModel);
 							jListIngresos.addMouseListener(mouseListener);
 						}
@@ -142,19 +146,21 @@ private static VistaCargarIngresos vCIng=null;
 					{
 						lblMontoIngreso = new JLabel();
 						jPanelCargarMontos.add(lblMontoIngreso);
-						lblMontoIngreso.setText("Monto ");
+						lblMontoIngreso.setText("Monto :");
 						lblMontoIngreso.setBounds(41, 191, 39, 16);
 					}
 					{
 						txtMontoIng = new JTextField();
 						jPanelCargarMontos.add(txtMontoIng);
-						txtMontoIng.setBounds(97, 188, 101, 23);
+						txtMontoIng.setBounds(122, 188, 101, 23);
 					}
 					{
 						lblEtiqBsF = new JLabel();
 						jPanelCargarMontos.add(lblEtiqBsF);
+						jPanelCargarMontos.add(getLblClasificacion());
+						jPanelCargarMontos.add(getCmbClasificacion());
 						lblEtiqBsF.setText("BsF.");
-						lblEtiqBsF.setBounds(204, 191, 37, 16);
+						lblEtiqBsF.setBounds(229, 191, 37, 16);
 					}
 				}
 			}
@@ -162,7 +168,7 @@ private static VistaCargarIngresos vCIng=null;
 				btnSalir = new JButton();
 				getContentPane().add(btnSalir);
 				btnSalir.setText("Salir");
-				btnSalir.setBounds(292, 326, 98, 23);
+				btnSalir.setBounds(292, 323, 105, 29);
 				btnSalir.setFont(new java.awt.Font("Verdana",0,11));
 				btnSalir.setIcon(new ImageIcon(getClass().getClassLoader().getResource("Imagenes/exit.png")));
 				btnSalir.setActionCommand("Salir");
@@ -171,7 +177,7 @@ private static VistaCargarIngresos vCIng=null;
 				btnLimpiar = new JButton();
 				getContentPane().add(btnLimpiar);
 				btnLimpiar.setText("Limpiar");
-				btnLimpiar.setBounds(171, 326, 105, 23);
+				btnLimpiar.setBounds(171, 322, 105, 29);
 				btnLimpiar.setFont(new java.awt.Font("Verdana",0,11));
 				btnLimpiar.setIcon(new ImageIcon(getClass().getClassLoader().getResource("Imagenes/Limpiarcodigo_1.png")));
 				btnLimpiar.setActionCommand("Limpiar");
@@ -180,7 +186,7 @@ private static VistaCargarIngresos vCIng=null;
 				btnGuardar = new JButton();
 				getContentPane().add(btnGuardar);
 				btnGuardar.setText("Guardar");
-				btnGuardar.setBounds(46, 326, 110, 23);
+				btnGuardar.setBounds(46, 320, 105, 29);
 				btnGuardar.setFont(new java.awt.Font("Verdana",0,11));
 				btnGuardar.setIcon(new ImageIcon(getClass().getClassLoader().getResource("Imagenes/save.png")));
 				btnGuardar.setActionCommand("Guardar");
@@ -304,5 +310,26 @@ private static VistaCargarIngresos vCIng=null;
 		    		jLabel1.setIcon(new ImageIcon(getClass().getClassLoader().getResource("Imagenes/LogoRuta2.jpg")));
 		    	}
 		    	return jLabel1;
+		    }
+		    
+		    private JLabel getLblClasificacion() {
+		    	if(lblClasificacion == null) {
+		    		lblClasificacion = new JLabel();
+		    		lblClasificacion.setText("Clasificación : ");
+		    		lblClasificacion.setBounds(37, 37, 77, 16);
+		    	}
+		    	return lblClasificacion;
+		    }
+		    
+		    private JComboBox getCmbClasificacion() {
+		    	if(cmbClasificacion == null) {
+		    		ComboBoxModel cmbClasificacionModel = 
+		    				new DefaultComboBoxModel(
+		    						new String[] { "Seleccione una opción", "Ruta", "Fondo de Choque", "Alquiler" });
+		    		cmbClasificacion = new JComboBox();
+		    		cmbClasificacion.setModel(cmbClasificacionModel);
+		    		cmbClasificacion.setBounds(121, 34, 212, 23);
+		    	}
+		    	return cmbClasificacion;
 		    }
 }
